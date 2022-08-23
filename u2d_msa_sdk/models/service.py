@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional
 from pydantic import BaseModel
 
-from u2d_msa_sdk.schemas.health import MSAHealthDefinition
+from u2d_msa_sdk.models.health import MSAHealthDefinition
 
 
 class MSAServiceDefinition(BaseModel):

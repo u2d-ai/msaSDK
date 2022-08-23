@@ -1,7 +1,7 @@
 from threading import Thread
 import httpx
 import time
-from u2d_msa_sdk.schemas.service import MSAHealthDefinition
+from u2d_msa_sdk.models.service import MSAHealthDefinition
 
 
 class MSAHealthCheck(Thread):

@@ -1,14 +1,32 @@
 import os
+from typing import Optional, Union
 
 import httpx
+from fastapi_users import BaseUserManager, UUIDIDMixin, FastAPIUsers, InvalidPasswordException, models
+from fastapi_users.password import PasswordHelper
 from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import Json
+from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 import healthcheck as health
 from u2d_msa_sdk.msaapi import MSAFastAPI
-from u2d_msa_sdk.schemas.service import MSAServiceDefinition, MSAHealthDefinition
+from u2d_msa_sdk.models.service import MSAServiceDefinition, MSAHealthDefinition
+from passlib.context import CryptContext
 import uvloop
+
+from u2d_msa_sdk.security import getMSASecurity
+
+context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+password_helper = PasswordHelper(context)
+security = getMSASecurity()
+
+def getSecretKey():
+    ret_key: str = os.getenv("SECRET_KEY_TOKEN", "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
+    return ret_key
+
+
+fastapi_users: FastAPIUsers = FastAPIUsers[User, uuid.UUID](get_user_manager, security.auth_backends)
 
 
 class NoMasterService(Exception):
@@ -40,7 +58,14 @@ class MSAApp(MSAFastAPI):
         self.is_master = is_master
         self.services = []
         self.healthchecks = {}
+
         self.add_api_route(healthdefinition.path, healthcheck)
+        self.include_router(
+            fastapi_users.get_auth_router(security.auth_backend_jwt), prefix="/auth/jwt", tags=["auth"]
+        )
+        self.include_router(
+            fastapi_users.get_auth_router(security.auth_backend_cookie), prefix="/auth/jwt", tags=["auth"]
+        )
 
         if self.is_master:
             Instrumentator().instrument(self).expose(self)

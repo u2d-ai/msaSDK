@@ -9,7 +9,7 @@ class MSABaseExceptionHandler:
         super().__init__()
         self.stack_trace = list()
 
-    def handleBaseException(self, ex: Exception, *args):
+    def handle(self, ex: Exception, *args):
         # Get current system exception
         ex_type, ex_value, ex_traceback = sys.exc_info()
 

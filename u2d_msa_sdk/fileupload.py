@@ -11,7 +11,7 @@ from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 from app.api.v1.filehandling.models import API_File
 
-from u2d_msa_sdk.schemas.files import MSAFile
+from u2d_msa_sdk.models.files import MSAFile
 
 archive_unpack_formats = shutil.get_unpack_formats()
 archive_pack_formats = shutil.get_archive_formats()

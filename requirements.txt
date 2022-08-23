@@ -15,6 +15,7 @@ fastapi-users[sqlalchemy]==10.1.5 # Ready-to-use and customizable users manageme
 gunicorn # WSGI HTTP Server for UNIX
 JPype1==1.4.0 # A Python to Java bridge.
 loguru==0.6.0 # Python logging made (stupidly) simple
+lxml==4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
 multidict==6.0.2 # Multidict is dict-like collection of key-value pairs where key might be occurred more than once in the container.
 parsedatetime==2.6 # Parse human-readable date/time text.
 passlib==1.7.4 # comprehensive password hashing framework supporting over 30 schemes
