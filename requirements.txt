@@ -1,0 +1,41 @@
+aiomultiprocess==0.9.0 # running a full AsyncIO event loop on each child process
+tinydb==4.7.0 # TinyDB is a tiny, document oriented database
+aiofiles==0.8.0 # handling local disk files in asyncio applications
+Babel==2.10.3 # collection of tools for internationalizing Python applications
+charset_normalizer==2.1.1 #  read text from an unknown charset encoding
+country_list==1.0.0 # List of all countries with names and ISO 3166-1 codes in all languages and all data formats
+dateparser==1.1.1 # Generic parsing of dates in over 200 language locales plus numerous formats in a language agnostic fashion
+date-parser-sari==0.8.11 # A parser for recognising free-text dates
+dapr-ext-fastapi==1.7.0 # Dapr is a portable, serverless, event-driven runtime
+fastapi[all]==0.79.1 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
+fastapi_utils==0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
+fastapi_sessions==0.3.2 # add session authentication to your FastAPI project
+fastapi_profiler==1.0.0 # A FastAPI Middleware of pyinstrument to check your service performance.
+fastapi-users[sqlalchemy]==10.1.5 # Ready-to-use and customizable users management for FastAPI
+gunicorn # WSGI HTTP Server for UNIX
+JPype1==1.4.0 # A Python to Java bridge.
+loguru==0.6.0 # Python logging made (stupidly) simple
+multidict==6.0.2 # Multidict is dict-like collection of key-value pairs where key might be occurred more than once in the container.
+parsedatetime==2.6 # Parse human-readable date/time text.
+passlib==1.7.4 # comprehensive password hashing framework supporting over 30 schemes
+PGPy==0.5.4 # Pretty Good Privacy for Python
+prometheus_fastapi_instrumentator==5.9.0 # Instrument your FastAPI with Prometheus metrics
+psutil==5.9.1 # Cross-platform lib for process and system monitoring in Python.
+python_magic==0.4.27 # filetype and metadata detection
+pydantic==1.9.2 # Data validation and settings management using python type hints
+python_dateutil==2.8.2 # Extensions to the standard Python datetime module
+python-dotenv==0.20.0 # reads key-value pairs from a .env file and can set them as environment variables.
+regex==2022.3.2 # Alternative regular expression module, to replace re.
+httpx==0.23.0 # The next generation HTTP client.
+sqlmodel==0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
+setuptools==65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
+sse_starlette==1.1.6 # Server Sent Events for Starlette and FastAPI
+uvicorn # The lightning-fast ASGI server.
+uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
+
+# dependencies
+fonttools>=4.22.0 # Tools to manipulate font files
+numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
+pillow>=6.2.0 # Python Imaging Library (Fork)
+pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
+pandas-profiling==3.2.0 # Generate profile report for pandas DataFrame

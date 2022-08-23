@@ -1,0 +1,136 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="hx-get" />
+            <item index="1" class="java.lang.String" itemvalue="hx-target" />
+            <item index="2" class="java.lang.String" itemvalue="hx-indicator" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="102">
+            <item index="0" class="java.lang.String" itemvalue="pysqlite3" />
+            <item index="1" class="java.lang.String" itemvalue="fastapi_utils" />
+            <item index="2" class="java.lang.String" itemvalue="fastapi" />
+            <item index="3" class="java.lang.String" itemvalue="tortoise" />
+            <item index="4" class="java.lang.String" itemvalue="pydantic" />
+            <item index="5" class="java.lang.String" itemvalue="whoosh" />
+            <item index="6" class="java.lang.String" itemvalue="aiofiles" />
+            <item index="7" class="java.lang.String" itemvalue="uvicorn" />
+            <item index="8" class="java.lang.String" itemvalue="gunicorn" />
+            <item index="9" class="java.lang.String" itemvalue="pdfminer" />
+            <item index="10" class="java.lang.String" itemvalue="fastapi-users" />
+            <item index="11" class="java.lang.String" itemvalue="databases" />
+            <item index="12" class="java.lang.String" itemvalue="natural" />
+            <item index="13" class="java.lang.String" itemvalue="kglab" />
+            <item index="14" class="java.lang.String" itemvalue="phonenumbers" />
+            <item index="15" class="java.lang.String" itemvalue="Babel" />
+            <item index="16" class="java.lang.String" itemvalue="fastapi-sessions" />
+            <item index="17" class="java.lang.String" itemvalue="layoutparser" />
+            <item index="18" class="java.lang.String" itemvalue="loguru" />
+            <item index="19" class="java.lang.String" itemvalue="country_list" />
+            <item index="20" class="java.lang.String" itemvalue="JPype1" />
+            <item index="21" class="java.lang.String" itemvalue="aioprocessing" />
+            <item index="22" class="java.lang.String" itemvalue="mammoth" />
+            <item index="23" class="java.lang.String" itemvalue="pgpy" />
+            <item index="24" class="java.lang.String" itemvalue="html-to-json" />
+            <item index="25" class="java.lang.String" itemvalue="aiosqlite" />
+            <item index="26" class="java.lang.String" itemvalue="easynmt" />
+            <item index="27" class="java.lang.String" itemvalue="postal" />
+            <item index="28" class="java.lang.String" itemvalue="fastapi-pagination" />
+            <item index="29" class="java.lang.String" itemvalue="arangodantic" />
+            <item index="30" class="java.lang.String" itemvalue="simpletransformers" />
+            <item index="31" class="java.lang.String" itemvalue="gensim" />
+            <item index="32" class="java.lang.String" itemvalue="lexrank" />
+            <item index="33" class="java.lang.String" itemvalue="pytextclassifier" />
+            <item index="34" class="java.lang.String" itemvalue="ocrmypdf" />
+            <item index="35" class="java.lang.String" itemvalue="compoundfiles" />
+            <item index="36" class="java.lang.String" itemvalue="nltk" />
+            <item index="37" class="java.lang.String" itemvalue="setuptools" />
+            <item index="38" class="java.lang.String" itemvalue="spacy" />
+            <item index="39" class="java.lang.String" itemvalue="summa" />
+            <item index="40" class="java.lang.String" itemvalue="recognizers_text_suite" />
+            <item index="41" class="java.lang.String" itemvalue="starlette" />
+            <item index="42" class="java.lang.String" itemvalue="deeppavlov" />
+            <item index="43" class="java.lang.String" itemvalue="deepparse" />
+            <item index="44" class="java.lang.String" itemvalue="lxml" />
+            <item index="45" class="java.lang.String" itemvalue="fastapi_sessions" />
+            <item index="46" class="java.lang.String" itemvalue="uvloop" />
+            <item index="47" class="java.lang.String" itemvalue="passlib" />
+            <item index="48" class="java.lang.String" itemvalue="beautifulsoup4" />
+            <item index="49" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="50" class="java.lang.String" itemvalue="fitz" />
+            <item index="51" class="java.lang.String" itemvalue="aiomultiprocess" />
+            <item index="52" class="java.lang.String" itemvalue="bertopic" />
+            <item index="53" class="java.lang.String" itemvalue="wordcloud" />
+            <item index="54" class="java.lang.String" itemvalue="Pyphen" />
+            <item index="55" class="java.lang.String" itemvalue="pysbd" />
+            <item index="56" class="java.lang.String" itemvalue="flashtext" />
+            <item index="57" class="java.lang.String" itemvalue="regex" />
+            <item index="58" class="java.lang.String" itemvalue="sentence_transformers" />
+            <item index="59" class="java.lang.String" itemvalue="compressed_rtf" />
+            <item index="60" class="java.lang.String" itemvalue="EasyNMT" />
+            <item index="61" class="java.lang.String" itemvalue="textsearch" />
+            <item index="62" class="java.lang.String" itemvalue="pdf2image" />
+            <item index="63" class="java.lang.String" itemvalue="python_magic" />
+            <item index="64" class="java.lang.String" itemvalue="matplotlib" />
+            <item index="65" class="java.lang.String" itemvalue="sumy" />
+            <item index="66" class="java.lang.String" itemvalue="pypandoc" />
+            <item index="67" class="java.lang.String" itemvalue="beanie" />
+            <item index="68" class="java.lang.String" itemvalue="wordfreq" />
+            <item index="69" class="java.lang.String" itemvalue="tika" />
+            <item index="70" class="java.lang.String" itemvalue="motor" />
+            <item index="71" class="java.lang.String" itemvalue="prometheus_fastapi_instrumentator" />
+            <item index="72" class="java.lang.String" itemvalue="PGPy" />
+            <item index="73" class="java.lang.String" itemvalue="scikit_learn" />
+            <item index="74" class="java.lang.String" itemvalue="numpy" />
+            <item index="75" class="java.lang.String" itemvalue="requests" />
+            <item index="76" class="java.lang.String" itemvalue="keybert" />
+            <item index="77" class="java.lang.String" itemvalue="parsedatetime" />
+            <item index="78" class="java.lang.String" itemvalue="pycaret" />
+            <item index="79" class="java.lang.String" itemvalue="sse_starlette" />
+            <item index="80" class="java.lang.String" itemvalue="python_dateutil" />
+            <item index="81" class="java.lang.String" itemvalue="wn" />
+            <item index="82" class="java.lang.String" itemvalue="fuzzysearch" />
+            <item index="83" class="java.lang.String" itemvalue="vaderSentiment" />
+            <item index="84" class="java.lang.String" itemvalue="inscriptis" />
+            <item index="85" class="java.lang.String" itemvalue="PyMuPDF" />
+            <item index="86" class="java.lang.String" itemvalue="pymongo" />
+            <item index="87" class="java.lang.String" itemvalue="unoserver" />
+            <item index="88" class="java.lang.String" itemvalue="Starlette_WTF" />
+            <item index="89" class="java.lang.String" itemvalue="weasyprint" />
+            <item index="90" class="java.lang.String" itemvalue="dateparser" />
+            <item index="91" class="java.lang.String" itemvalue="plotly" />
+            <item index="92" class="java.lang.String" itemvalue="fastapi_users" />
+            <item index="93" class="java.lang.String" itemvalue="pandas" />
+            <item index="94" class="java.lang.String" itemvalue="WTForms" />
+            <item index="95" class="java.lang.String" itemvalue="multi_rake" />
+            <item index="96" class="java.lang.String" itemvalue="pycld2" />
+            <item index="97" class="java.lang.String" itemvalue="mail_parser" />
+            <item index="98" class="java.lang.String" itemvalue="multidict" />
+            <item index="99" class="java.lang.String" itemvalue="charset_normalizer" />
+            <item index="100" class="java.lang.String" itemvalue="pdfplumber" />
+            <item index="101" class="java.lang.String" itemvalue="opencv-contrib-python-headless" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N803" />
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
