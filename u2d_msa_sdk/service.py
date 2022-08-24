@@ -19,6 +19,8 @@ from passlib.context import CryptContext
 import uvloop
 from starlette_wtf import CSRFProtectMiddleware
 from starception import StarceptionMiddleware
+
+from u2d_msa_sdk.router.system import sys_router
 from u2d_msa_sdk.security import getMSASecurity
 
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -63,7 +65,7 @@ def getAllowedCredentials() -> bool:
     cred: bool = os.getenv("ALLOWED_CREDENTIALS", True)
     return cred
 
-fastapi_users: FastAPIUsers = FastAPIUsers(BaseUserManager[UP, ID], security.auth_backends)
+#fastapi_users: FastAPIUsers = FastAPIUsers(BaseUserManager[UP, ID], security.auth_backends)
 
 
 class NoMasterService(Exception):
@@ -97,12 +99,13 @@ class MSAApp(MSAFastAPI):
         self.healthchecks = {}
 
         self.add_api_route(healthdefinition.path, healthcheck)
-        self.include_router(
-            fastapi_users.get_auth_router(security.auth_backend_jwt), prefix="/auth/jwt", tags=["auth"]
-        )
-        self.include_router(
-            fastapi_users.get_auth_router(security.auth_backend_cookie), prefix="/auth/jwt", tags=["auth"]
-        )
+        self.include_router(sys_router)
+        #self.include_router(
+        #    fastapi_users.get_auth_router(security.auth_backend_jwt), prefix="/auth/jwt", tags=["auth"]
+        #)
+        #self.include_router(
+        #    fastapi_users.get_auth_router(security.auth_backend_cookie), prefix="/auth/jwt", tags=["auth"]
+        #)
         self.add_middleware(StarceptionMiddleware)
         self.add_middleware(CORSMiddleware, allow_origins=getAllowedOrigins(),
                            allow_credentials=getAllowedCredentials(),
