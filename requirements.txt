@@ -34,6 +34,8 @@ sse_starlette==1.1.6 # Server Sent Events for Starlette and FastAPI
 starlette
 Starlette-WTF==0.4.3
 starception==0.4.0 # Beautiful debugging page for Starlette apps.
+strawberry-graphql==0.126.2 #A library for creating GraphQL APIs
+strawberry-graphql[fastapi]==0.126.2 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
 uvicorn # The lightning-fast ASGI server.
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 

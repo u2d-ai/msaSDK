@@ -1,3 +1,4 @@
+import asyncio
 from threading import Thread
 import httpx
 import time
@@ -5,28 +6,39 @@ from u2d_msa_sdk.models.service import MSAHealthDefinition
 
 
 class MSAHealthCheck(Thread):
-    def __init__(self, healthdefinition: MSAHealthDefinition):
+    def __init__(self, healthdefinition: MSAHealthDefinition, host: str, port: int):
         super().__init__()
-        self.url = healthdefinition.path
+        self.url = "http://{}:{}/".format(host, port)
         self.interval = healthdefinition.interval
         self._is_running = True
-        self.healthy = True
+        self.healthy: str = "No Healthcheck executed yet:400"
+        self.is_healthy: bool = False
+        self.error: str = ""
 
-    def get_health(self):
+    async def get_health(self) -> str:
         return self.healthy
 
     def run(self):
         while self._is_running:
             try:
-                resp = httpx.get(self.url, timeout=3)
+                self.error = ""
+                resp = httpx.get(url=self.url, timeout=3.0)
                 status_code = resp.status_code
+                if 200 <= status_code < 300:
+                    self.is_healthy = True
+                else:
+                    self.is_healthy = False
             except Exception as e:
                 status_code = 400
+                self.is_healthy = False
+                self.error = e.__str__()
+
             self.healthy = (
                 "positiv:" + str(status_code) if (200 <= status_code < 300) else "negativ:" + str(
                     status_code)
             )
+
             time.sleep(self.interval)
 
-    def stop(self):
+    async def stop(self):
         self._is_running = False
