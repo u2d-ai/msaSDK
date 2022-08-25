@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: #4154f1;
+  color: #058de7;
   text-decoration: none;
 }
 
@@ -51,7 +51,7 @@ section {
   letter-spacing: 1px;
   font-weight: 700;
   margin: 0;
-  color: #4154f1;
+  color: #058de7;
   text-transform: uppercase;
 }
 
@@ -132,7 +132,7 @@ section {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background: #4154f1;
+  background: #058de7;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -244,12 +244,12 @@ section {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .navbar .getstarted,
 .navbar .getstarted:focus {
-  background: #4154f1;
+  background: #058de7;
   padding: 8px 20px;
   margin-left: 30px;
   border-radius: 4px;
@@ -296,7 +296,7 @@ section {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .navbar .dropdown:hover>ul {
@@ -395,7 +395,7 @@ section {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .navbar-mobile .getstarted,
@@ -430,7 +430,7 @@ section {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
@@ -443,7 +443,8 @@ section {
 .hero {
   width: 100%;
   height: 100vh;
-  background: url(../img/hero-bg.png) top center no-repeat;
+
+  background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI1NTkiIHZpZXdCb3g9IjAgMCAxNDQwIDU1OSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTS0wLjAwNzgxMjUgMEgxNDM5Ljk5VjI1Mi41TC0wLjAwNzgxMjUgNTU5VjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIi8+CjxwYXRoIGQ9Ik0xNDU1LjkgMjcxLjUyNUwxNDU1LjkgNDUuNjQzNEw2MzguNjcxIDIxOC42NDNMODEyLjgxNyA0MDcuNjQxTDE0NTUuOSAyNzEuNTI1WiIgZmlsbD0idXJsKCNwYWludDFfbGluZWFyKSIvPgo8cGF0aCBkPSJNMTQzOS4wMSAzOTYuNDQ4TDE0MzkuMDIgMjUzLjU2Nkw2MjEuNzkxIDQyNi41NjhMNzk1LjkzNSA1MzIuNTY1TDE0MzkuMDEgMzk2LjQ0OFoiIGZpbGw9InVybCgjcGFpbnQyX2xpbmVhcikiLz4KPHBhdGggb3BhY2l0eT0iMC43MSIgZD0iTTAuMzI5OTUgNTMzLjI0MkwwLjMzMDA3IDQxOC4xNjdMOTAxLjY5MSAyMjYuMzE2TDY4NC4zMyAzODEuMjQyTDAuMzI5OTUgNTMzLjI0MloiIGZpbGw9InVybCgjcGFpbnQzX2xpbmVhcikiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjkuOTkyMSIgeTE9IjEyMCIgeDI9IjEzNzEuOTkiIHkyPSI1NTguMDAyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMC4wNTcyOTE3IiBzdG9wLWNvbG9yPSIjNTVCQkZGIiBzdG9wLW9wYWNpdHk9IjAuMjUiLz4KPHN0b3Agb2Zmc2V0PSIwLjM4NTQxNyIgc3RvcC1jb2xvcj0iIzJFOERGRiIgc3RvcC1vcGFjaXR5PSIwLjA4Ii8+CjxzdG9wIG9mZnNldD0iMC45MzIyOTIiIHN0b3AtY29sb3I9IiMyRThERkYiIHN0b3Atb3BhY2l0eT0iMC4wNSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MV9saW5lYXIiIHgxPSIxMTEzLjY3IiB5MT0iOTIuNjQwOSIgeDI9Ijg0Ny44ODkiIHkyPSIzOTYuNTIxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuMzMiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQyX2xpbmVhciIgeDE9IjExMTAuNjEiIHkxPSIyOTcuNjQzIiB4Mj0iOTM2LjUyNyIgeTI9IjY4Mi40NjMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzc0NjREOSIgc3RvcC1vcGFjaXR5PSIwLjA4Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0id2hpdGUiIHN0b3Atb3BhY2l0eT0iMCIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50M19saW5lYXIiIHgxPSIxODIuMzMiIHkxPSIzNDkuMjQxIiB4Mj0iNDU1LjA5MyIgeTI9IjU2Mi4xOTUiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0id2hpdGUiIHN0b3Atb3BhY2l0eT0iMC4zNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K) 100% no-repeat scroll padding-box border-box;
   background-size: cover;
 }
 
@@ -467,7 +468,7 @@ section {
   border-radius: 4px;
   transition: 0.5s;
   color: #fff;
-  background: #4154f1;
+  background: #058de7;
   box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
 }
 
@@ -546,7 +547,7 @@ section {
 .about h3 {
   font-size: 14px;
   font-weight: 700;
-  color: #4154f1;
+  color: #058de7;
   text-transform: uppercase;
 }
 
@@ -567,7 +568,7 @@ section {
   border-radius: 4px;
   transition: 0.5s;
   color: #fff;
-  background: #4154f1;
+  background: #058de7;
   box-shadow: 0px 5px 25px rgba(65, 84, 241, 0.3);
 }
 
@@ -640,7 +641,7 @@ section {
   font-size: 42px;
   line-height: 0;
   margin-right: 20px;
-  color: #4154f1;
+  color: #058de7;
 }
 
 .counts .count-box span {
@@ -685,7 +686,7 @@ section {
 }
 
 .features .feature-box:hover i {
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
 }
 
@@ -723,8 +724,8 @@ section {
 }
 
 .features .feture-tabs .nav-link.active {
-  color: #4154f1;
-  border-bottom: 3px solid #4154f1;
+  color: #058de7;
+  border-bottom: 3px solid #058de7;
 }
 
 .features .feture-tabs .tab-content h4 {
@@ -738,7 +739,7 @@ section {
   font-size: 24px;
   line-height: 0;
   margin-right: 8px;
-  color: #4154f1;
+  color: #058de7;
 }
 
 .features .feature-icons {
@@ -1008,18 +1009,18 @@ section {
   display: inline-block;
   padding: 8px 40px 10px 40px;
   border-radius: 50px;
-  color: #4154f1;
+  color: #058de7;
   transition: none;
   font-size: 16px;
   font-weight: 400;
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   transition: 0.3s;
-  border: 1px solid #4154f1;
+  border: 1px solid #058de7;
 }
 
 .pricing .btn-buy:hover {
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
 }
 
@@ -1032,7 +1033,7 @@ section {
   z-index: 1;
   font-size: 14px;
   padding: 1px 0 3px 0;
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
 }
 
@@ -1058,7 +1059,7 @@ section {
 
 .faq .accordion-button:not(.collapsed) {
   background: none;
-  color: #4154f1;
+  color: #058de7;
   border-bottom: 0;
 }
 
@@ -1096,8 +1097,8 @@ section {
 
 .portfolio #portfolio-flters li:hover,
 .portfolio #portfolio-flters li.filter-active {
-  color: #4154f1;
-  border-color: #4154f1;
+  color: #058de7;
+  border-color: #058de7;
 }
 
 .portfolio #portfolio-flters li:last-child {
@@ -1195,7 +1196,7 @@ section {
 
 .portfolio .portfolio-wrap .portfolio-links a {
   color: #fff;
-  background: #4154f1;
+  background: #058de7;
   margin: 10px 2px;
   width: 36px;
   height: 36px;
@@ -1262,11 +1263,11 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #4154f1;
+  border: 1px solid #058de7;
 }
 
 .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #4154f1;
+  background-color: #058de7;
 }
 
 .portfolio-details .portfolio-info {
@@ -1366,11 +1367,11 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #4154f1;
+  border: 1px solid #058de7;
 }
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #4154f1;
+  background-color: #058de7;
 }
 
 .testimonials .swiper-slide {
@@ -1514,11 +1515,11 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #4154f1;
+  border: 1px solid #058de7;
 }
 
 .clients .clients-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #4154f1;
+  background-color: #058de7;
 }
 
 /*--------------------------------------------------------------
@@ -1578,7 +1579,7 @@ section {
 }
 
 .recent-blog-posts .post-box:hover .post-title {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .recent-blog-posts .post-box:hover .post-img img {
@@ -1597,7 +1598,7 @@ section {
 .contact .info-box i {
   font-size: 38px;
   line-height: 0;
-  color: #4154f1;
+  color: #058de7;
 }
 
 .contact .info-box h3 {
@@ -1671,7 +1672,7 @@ section {
 
 .contact .php-email-form input:focus,
 .contact .php-email-form textarea:focus {
-  border-color: #4154f1;
+  border-color: #058de7;
 }
 
 .contact .php-email-form input {
@@ -1683,7 +1684,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background: #4154f1;
+  background: #058de7;
   border: 0;
   padding: 10px 30px;
   color: #fff;
@@ -1747,7 +1748,7 @@ section {
 }
 
 .blog .entry .entry-title a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .blog .entry .entry-meta {
@@ -1792,7 +1793,7 @@ section {
 
 .blog .entry .entry-content .read-more a {
   display: inline-block;
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
   padding: 6px 20px;
   transition: 0.3s;
@@ -1856,7 +1857,7 @@ section {
 }
 
 .blog .entry .entry-footer a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .blog .entry .entry-footer .cats {
@@ -1965,7 +1966,7 @@ section {
 }
 
 .blog .blog-comments .comment h5 a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .blog .blog-comments .comment h5 .reply {
@@ -2066,7 +2067,7 @@ section {
 
 .blog .blog-pagination li.active,
 .blog .blog-pagination li:hover {
-  background: #4154f1;
+  background: #058de7;
 }
 
 .blog .blog-pagination li.active a,
@@ -2117,7 +2118,7 @@ section {
   font-size: 16px;
   padding: 0 15px;
   margin: -1px;
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
   transition: 0.3s;
   border-radius: 0 4px 4px 0;
@@ -2147,7 +2148,7 @@ section {
 }
 
 .blog .sidebar .categories ul a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .blog .sidebar .categories ul a span {
@@ -2177,7 +2178,7 @@ section {
 }
 
 .blog .sidebar .recent-posts h4 a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .blog .sidebar .recent-posts time {
@@ -2213,8 +2214,8 @@ section {
 
 .blog .sidebar .tags ul a:hover {
   color: #fff;
-  border: 1px solid #4154f1;
-  background: #4154f1;
+  border: 1px solid #058de7;
+  background: #058de7;
 }
 
 .blog .sidebar .tags ul a span {
@@ -2272,7 +2273,7 @@ section {
   font-size: 16px;
   padding: 0 30px;
   margin: 3px;
-  background: #4154f1;
+  background: #058de7;
   color: #fff;
   transition: 0.3s;
   border-radius: 4px;
@@ -2383,7 +2384,7 @@ section {
 }
 
 .footer .footer-top .footer-links ul a:hover {
-  color: #4154f1;
+  color: #058de7;
 }
 
 .footer .footer-top .footer-contact p {

@@ -25,7 +25,7 @@ app = MSAApp(**settings.fastapi_kwargs, is_master=True,
              contact={"name": "MSA SDK Prototype", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/msastatic", StaticFiles(directory="msastatic"), name="msastatic")
 templates = Jinja2Templates(directory="templates")
 
 
