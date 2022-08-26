@@ -13,6 +13,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.wsgi import WSGIMiddleware
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -25,7 +26,7 @@ from u2d_msa_sdk.msaapi import MSAFastAPI
 from u2d_msa_sdk.router.system import sys_router
 from u2d_msa_sdk.security import getMSASecurity
 from strawberry import fastapi as fgraph , schema
-
+from msgpack_asgi import MessagePackMiddleware
 
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(context)
@@ -123,7 +124,8 @@ class MSAApp(MSAFastAPI):
             self.add_middleware(SessionMiddleware, secret_key=getSecretKeySessions())
         if self.service_definition.csrf:
             self.add_middleware(CSRFProtectMiddleware, csrf_secret=getSecretKeyCSRF())
-
+        if self.service_definition.msgpack:
+            self.add_middleware(MessagePackMiddleware)
         if self.service_definition.instrument:
             Instrumentator().instrument(app=self).expose(app=self, tags=["service"])
 

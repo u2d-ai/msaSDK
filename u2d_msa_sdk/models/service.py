@@ -21,6 +21,7 @@ class MSAServiceDefinition(BaseModel):
     gzip: bool = False
     session: bool = True
     csrf: bool = True
+    msgpack: bool = False
     instrument: bool = True
     static: bool = True
     templates: bool = True

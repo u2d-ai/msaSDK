@@ -20,6 +20,7 @@ JPype1==1.4.0 # A Python to Java bridge.
 loguru==0.6.0 # Python logging made (stupidly) simple
 lxml==4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
 multidict==6.0.2 # Multidict is dict-like collection of key-value pairs where key might be occurred more than once in the container.
+msgpack-asgi==1.1.0 # Drop-in MessagePack support for ASGI applications and frameworks
 parsedatetime==2.6 # Parse human-readable date/time text.
 passlib==1.7.4 # comprehensive password hashing framework supporting over 30 schemes
 PGPy==0.5.4 # Pretty Good Privacy for Python
@@ -29,6 +30,7 @@ python_magic==0.4.27 # filetype and metadata detection
 pydantic==1.9.2 # Data validation and settings management using python type hints
 python_dateutil==2.8.2 # Extensions to the standard Python datetime module
 python-dotenv==0.20.0 # reads key-value pairs from a .env file and can set them as environment variables.
+python-jose[cryptography]==3.3.0 # SON Web Signature (JWS), JSON Web Encryption (JWE), JSON Web Key (JWK), and JSON Web Algorithms (JWA)
 regex==2022.3.2 # Alternative regular expression module, to replace re.
 httpx==0.23.0 # The next generation HTTP client.
 sqlmodel==0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
@@ -43,6 +45,7 @@ uvicorn # The lightning-fast ASGI server.
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # dependencies
+orjson
 python-multipart
 fonttools>=4.22.0 # Tools to manipulate font files
 numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
