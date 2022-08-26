@@ -14,7 +14,7 @@ class MSATokenData(BaseModel):
 
 
 class MSAToken:
-    def __init__(self, secret_key: str, algorithm: str):
+    def __init__(self, secret_key: str, algorithm: str = "HS256"):
         super().__init__()
         self.secret_key: str = secret_key
         self.algorithm: str = algorithm
