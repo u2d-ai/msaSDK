@@ -5,15 +5,15 @@ import psutil
 import typing
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
+from fastapi.responses import ORJSONResponse
 from starlette.requests import Request
-from starlette.responses import JSONResponse
 
 from u2d_msa_sdk.errorhandling import getMSABaseExceptionHandler
 
 sys_router = APIRouter(prefix="", tags=["system"], include_in_schema=True)
 
 
-@sys_router.get('/sysinfo')
+@sys_router.get('/sysinfo', response_class=ORJSONResponse)
 async def sysinfo(request: Request):
     """
     Get SystemInfo
@@ -43,7 +43,7 @@ async def sysinfo(request: Request):
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
 
     json_compatible_item_data = jsonable_encoder(sysinfo)
-    return JSONResponse(content=json_compatible_item_data)
+    return ORJSONResponse(content=json_compatible_item_data)
 
 
 @sys_router.get('/syserror')

@@ -16,11 +16,12 @@ from fastapi import routing
 from fastapi.datastructures import Default, DefaultPlaceholder
 from fastapi.encoders import DictIntStrAny, SetIntStr
 from fastapi.params import Depends
+from fastapi.responses import ORJSONResponse
 from fastapi.types import DecoratedCallable
 from fastapi.utils import generate_unique_id
 from starlette.middleware import Middleware
 from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
+from starlette.responses import Response
 from starlette.routing import BaseRoute
 from starlette.types import ASGIApp, Receive, Scope, Send
 
@@ -32,7 +33,7 @@ class MSAFastAPI(FastAPI):
                  openapi_tags: Optional[List[Dict[str, Any]]] = None,
                  servers: Optional[List[Dict[str, Union[str, Any]]]] = None,
                  dependencies: Optional[Sequence[Depends]] = None,
-                 default_response_class: Type[Response] = Default(JSONResponse), docs_url: Optional[str] = "/docs",
+                 default_response_class: Type[Response] = Default(ORJSONResponse), docs_url: Optional[str] = "/docs",
                  redoc_url: Optional[str] = "/redoc",
                  swagger_ui_oauth2_redirect_url: Optional[str] = "/docs/oauth2-redirect",
                  swagger_ui_init_oauth: Optional[Dict[str, Any]] = None,
@@ -90,7 +91,7 @@ class MSAFastAPI(FastAPI):
                       response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
                       include_in_schema: bool = True,
                       response_class: Union[Type[Response], DefaultPlaceholder] = Default(
-                          JSONResponse
+                          ORJSONResponse
                       ), name: Optional[str] = None, openapi_extra: Optional[Dict[str, Any]] = None,
                       generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
                           generate_unique_id
@@ -117,7 +118,7 @@ class MSAFastAPI(FastAPI):
                   response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
                   response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
                   response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-                  include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+                  include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
                   name: Optional[str] = None, openapi_extra: Optional[Dict[str, Any]] = None,
                   generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
                       generate_unique_id
@@ -145,7 +146,7 @@ class MSAFastAPI(FastAPI):
                        tags: Optional[List[Union[str, Enum]]] = None, dependencies: Optional[Sequence[Depends]] = None,
                        responses: Optional[Dict[Union[int, str], Dict[str, Any]]] = None,
                        deprecated: Optional[bool] = None, include_in_schema: bool = True,
-                       default_response_class: Type[Response] = Default(JSONResponse),
+                       default_response_class: Type[Response] = Default(ORJSONResponse),
                        callbacks: Optional[List[BaseRoute]] = None,
                        generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
                            generate_unique_id
@@ -165,7 +166,7 @@ class MSAFastAPI(FastAPI):
             response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
             response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
             response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-            include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+            include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
             name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
             openapi_extra: Optional[Dict[str, Any]] = None,
             generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -193,7 +194,7 @@ class MSAFastAPI(FastAPI):
             response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
             response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
             response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-            include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+            include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
             name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
             openapi_extra: Optional[Dict[str, Any]] = None,
             generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -221,7 +222,7 @@ class MSAFastAPI(FastAPI):
              response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
              response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
              response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-             include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+             include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
              name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
              openapi_extra: Optional[Dict[str, Any]] = None,
              generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -250,7 +251,7 @@ class MSAFastAPI(FastAPI):
                response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
                response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
                response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-               include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+               include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
                name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
                openapi_extra: Optional[Dict[str, Any]] = None,
                generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -279,7 +280,7 @@ class MSAFastAPI(FastAPI):
                 response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
                 response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
                 response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-                include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+                include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
                 name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
                 openapi_extra: Optional[Dict[str, Any]] = None,
                 generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -308,7 +309,7 @@ class MSAFastAPI(FastAPI):
              response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
              response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
              response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-             include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+             include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
              name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
              openapi_extra: Optional[Dict[str, Any]] = None,
              generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -337,7 +338,7 @@ class MSAFastAPI(FastAPI):
               response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
               response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
               response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-              include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+              include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
               name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
               openapi_extra: Optional[Dict[str, Any]] = None,
               generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
@@ -366,7 +367,7 @@ class MSAFastAPI(FastAPI):
               response_model_exclude: Optional[Union[SetIntStr, DictIntStrAny]] = None,
               response_model_by_alias: bool = True, response_model_exclude_unset: bool = False,
               response_model_exclude_defaults: bool = False, response_model_exclude_none: bool = False,
-              include_in_schema: bool = True, response_class: Type[Response] = Default(JSONResponse),
+              include_in_schema: bool = True, response_class: Type[Response] = Default(ORJSONResponse),
               name: Optional[str] = None, callbacks: Optional[List[BaseRoute]] = None,
               openapi_extra: Optional[Dict[str, Any]] = None,
               generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(

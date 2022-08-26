@@ -6,7 +6,10 @@ charset_normalizer==2.1.1 #  read text from an unknown charset encoding
 country_list==1.0.0 # List of all countries with names and ISO 3166-1 codes in all languages and all data formats
 dateparser==1.1.1 # Generic parsing of dates in over 200 language locales plus numerous formats in a language agnostic fashion
 date-parser-sari==0.8.11 # A parser for recognising free-text dates
+dapr==1.7.0 # Dapr is a portable, serverless, event-driven runtime that makes it easy for developers to build resilient, stateless and stateful microservices that run on the cloud and edge
+dapr-ext-grpc==1.7.0 # gRPC extension for Dapr.
 dapr-ext-fastapi==1.7.0 # Dapr is a portable, serverless, event-driven runtime
+dynaconf==3.1.9 # The dynamic configurator for your Python Project
 fastapi[all]==0.79.1 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
 fastapi_utils==0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
 fastapi_sessions==0.3.2 # add session authentication to your FastAPI project
@@ -40,6 +43,7 @@ uvicorn # The lightning-fast ASGI server.
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # dependencies
+python-multipart
 fonttools>=4.22.0 # Tools to manipulate font files
 numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
 pillow>=6.2.0 # Python Imaging Library (Fork)

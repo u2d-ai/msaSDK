@@ -3,6 +3,7 @@ from typing import List
 
 import uvloop
 from fastapi.encoders import jsonable_encoder
+from fastapi.responses import ORJSONResponse
 from fastapi_users.password import PasswordHelper
 from fastapi_utils.api_settings import get_api_settings
 from passlib.context import CryptContext
@@ -13,7 +14,6 @@ from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import JSONResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette_wtf import CSRFProtectMiddleware
@@ -148,7 +148,7 @@ class MSAApp(MSAFastAPI):
             self.graphql_app = GraphQLRouter(self.graphql_schema, graphiql=True)
             self.include_router(self.graphql_app, prefix="/graphql", tags=["graphql"])
 
-    async def get_healthcheck(self) -> JSONResponse:
+    async def get_healthcheck(self) -> ORJSONResponse:
         msg: MSAHealthMessage = MSAHealthMessage()
         if not self.healthcheck:
             msg.message = "Healthcheck is disabled!"
@@ -158,11 +158,11 @@ class MSAApp(MSAFastAPI):
             if len(self.healthcheck.error)>0:
                 msg.error = self.healthcheck.error
 
-        return JSONResponse(content=jsonable_encoder(msg))
+        return ORJSONResponse(content=jsonable_encoder(msg))
 
-    async def get_services_status(self) -> JSONResponse:
+    async def get_services_status(self) -> ORJSONResponse:
         if not self.healthcheck:
-            return JSONResponse(
+            return ORJSONResponse(
                 {
                     "name": self.service_definition.name,
                     "healthy": "disabled:400",
@@ -170,7 +170,7 @@ class MSAApp(MSAFastAPI):
                 }
             )
         else:
-            return JSONResponse(
+            return ORJSONResponse(
                 {
                     "name": self.service_definition.name,
                     "healthy": await self.healthcheck.get_health(),
@@ -178,23 +178,23 @@ class MSAApp(MSAFastAPI):
                 }
             )
 
-    async def get_services_definition(self) -> JSONResponse:
+    async def get_services_definition(self) -> ORJSONResponse:
         if not self.healthcheck:
-            return JSONResponse(
+            return ORJSONResponse(
                 {
                     "name": self.service_definition.name,
                     "definition": jsonable_encoder(self.service_definition)
                 }
             )
         else:
-            return JSONResponse(
+            return ORJSONResponse(
                 {
                     "name": self.service_definition.name,
                     "definition": jsonable_encoder(self.service_definition)
                 }
             )
 
-    async def get_services_openapi_schema(self) -> JSONResponse:
+    async def get_services_openapi_schema(self) -> ORJSONResponse:
         def try_get_json():
             try:
 
@@ -203,14 +203,14 @@ class MSAApp(MSAFastAPI):
             except Exception as e:
                 return {"status": "error:400", "error": e.__str__()}
 
-        return JSONResponse(
+        return ORJSONResponse(
             {
                 self.service_definition.name: try_get_json(),
             }
 
         )
 
-    async def get_services_openapi_info(self) -> JSONResponse:
+    async def get_services_openapi_info(self) -> ORJSONResponse:
         def try_get_json():
             try:
 
@@ -219,7 +219,7 @@ class MSAApp(MSAFastAPI):
             except Exception as e:
                 return {"status": "error:400", "error": e.__str__()}
 
-        return JSONResponse(
+        return ORJSONResponse(
             {
                 self.service_definition.name: try_get_json(),
             }
