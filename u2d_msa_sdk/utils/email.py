@@ -7,12 +7,13 @@ from jinja2 import Template
 
 
 class MSASendEmail:
-    def __init__(self, smtp_host: str, smtp_port: int, smtp_username: str, smtp_password: str, testmode: bool = False):
+    def __init__(self, smtp_host: str, smtp_port: int, smtp_username: str, smtp_password: str, timeout: int = 60, testmode: bool = False):
         super().__init__()
         self.host: str = smtp_host
         self.port: int = smtp_port
         self.username: str = smtp_username
         self.password: str = smtp_password
+        self.timeout: int = timeout
         self.testmode: bool = testmode
 
     async def send_email(self, from_email: str, to_email: str, subject: str, body: str, jinja_template_path_html: str = ""):
@@ -43,5 +44,10 @@ class MSASendEmail:
             # Do not send an actual email if testmode is True.
             return
 
-        smtpObj = smtplib.SMTP(SMTP_HOST)
+        smtpObj = smtplib.SMTP(host=self.host, port=self.port, timeout=self.timeout)
+        if len(self.username)>0:
+            try:
+                smtpObj.login(user=self.username, password=self.password)
+            except Exception as e:
+                raise TypeError("Error: MSASendEmail: SMTP Server Login failed for User " + self.username + " ErrorMessage: " + e.__str__())
         smtpObj.send_message(msg)
