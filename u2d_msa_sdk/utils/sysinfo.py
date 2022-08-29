@@ -48,7 +48,7 @@ async def get_map_disk_usage():
     rdict = {}
     y = 0
     disk, total, used, free, percent = MapUsage["partition"], MapUsage["total"], MapUsage["used"], MapUsage["free"], \
-                                                                MapUsage["percent"]
+                                       MapUsage["percent"]
     rdict = dict(zip(disk, zip(total, used, free, percent)))
     return rdict
 
@@ -68,6 +68,43 @@ async def get_memory_usage() -> Dict:
     return meminfo
 
 
+async def get_disk_io() -> Dict:
+    print(psutil.disk_io_counters())
+    read_count, write_count, read_bytes, write_bytes, read_time, write_time, read_merged_count, write_merged_count, busy_time = psutil.disk_io_counters()
+    rdict: Dict = {"read_count": read_count, "write_count": write_count, "read_bytes": read_bytes,
+                   "write_bytes": write_bytes, "read_time": read_time, "write_time": write_time,
+                   "read_merged_count": read_merged_count, "write_merged_count": write_merged_count,
+                   "busy_time": busy_time}
+    return rdict
+
+
+async def get_network_io() -> Dict:
+    bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout = psutil.net_io_counters()
+    rdict: Dict = {"bytes_sent": bytes_sent, "bytes_recv": bytes_recv, "packets_sent": packets_sent,
+                   "packets_recv": packets_recv, "errin": errin, "errout": errout,
+                   "dropin": dropin, "dropout": dropout}
+    return rdict
+
+
+async def get_network_connections() -> List:
+    rlist: List = []
+    inlist = psutil.net_connections()
+    for xi, entry in enumerate(inlist):
+
+        fd = entry[0]
+        family = entry[1]
+        type = entry[2]
+        laddr = entry[3]
+        raddr = entry[4]
+        status = entry[5]
+        pid = entry[6]
+
+        rdict: Dict = {"number": xi, "file_descriptor": fd, "family": family, "type": type, "local_addr": laddr, "remote_addr": raddr,
+                       "status": status, "pid": pid}
+        rlist.append(rdict)
+    return rlist
+
+
 async def get_swap() -> Dict:
     swap = psutil.swap_memory()
     swapinfo = {}
@@ -79,7 +116,6 @@ async def get_swap() -> Dict:
 
 
 async def get_load_avarage():
-
     return [x / psutil.cpu_count() * 100 for x in psutil.getloadavg()]
 
 
@@ -131,11 +167,14 @@ async def get_sysinfo() -> Dict:
             "%Y-%m-%d %H:%M:%S")
         sysinfo["Runtime_Exe"] = psutil.Process().exe()
         sysinfo["Runtime_Cmd"] = psutil.Process().cmdline()
-        sysinfo["Disk_IO"] = psutil.disk_io_counters()
-        sysinfo["Network_IO"] = psutil.net_io_counters()
-        sysinfo["Network_Connections"] = psutil.net_connections()
+        sysinfo["Disk_IO"] = await get_disk_io()
+        sysinfo["Network_IO"] = await get_network_io()
+        sysinfo["Network_Connections"] = await get_network_connections()
+        sysinfo["Network_Adapters_Definition"] = {"name": [["family", "address", "netmask", "broadcast", "ptp"]]}
         sysinfo["Network_Adapters"] = psutil.net_if_addrs()
+        sysinfo["Network_Stats_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
         sysinfo["Network_Stats"] = psutil.net_if_stats()
+        sysinfo["Temperatures_Definition"] = psutil.sensors_temperatures()
         sysinfo["Temperatures"] = psutil.sensors_temperatures()
         sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
         sysinfo["CPU_Frequency"] = psutil.cpu_freq()
@@ -144,10 +183,10 @@ async def get_sysinfo() -> Dict:
         sysinfo["PID"] = psutil.Process().pid
         sysinfo["CPU_Current"] = psutil.Process().cpu_num()
         sysinfo["CPU_Usage_Total"], sysinfo["CPU_Usage_Process"], sysinfo["CPU_Usage_Name"] = await get_cpu_usage()
-        sysinfo["CPU_LoadAvg1"], sysinfo["CPU_LoadAvg5"] , sysinfo["CPU_LoadAvg15"]  = await get_load_avarage()
+        sysinfo["CPU_LoadAvg"] = await get_load_avarage()
         sysinfo["Memory_Usage"] = await get_memory_usage()
         sysinfo["Swap"] = await get_swap()
-        sysinfo["Runtime_Status"] = psutil.Process().status() + " / " + str(int(sysinfo["CPU_LoadAvg1"])) + "%"
+        sysinfo["Runtime_Status"] = psutil.Process().status() + " / " + str(int(sysinfo["CPU_LoadAvg"][0])) + "%"
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")

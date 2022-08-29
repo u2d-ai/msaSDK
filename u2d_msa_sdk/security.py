@@ -38,7 +38,7 @@ class MSASecurity:
 
 @lru_cache()
 def getMSASecurity() -> MSASecurity:
-    yield MSASecurity()
+    return MSASecurity()
 
 
 

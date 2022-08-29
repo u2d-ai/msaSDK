@@ -32,4 +32,4 @@ class MSABaseExceptionHandler:
 
 @lru_cache()
 def getMSABaseExceptionHandler() -> MSABaseExceptionHandler:
-    yield MSABaseExceptionHandler()
+    return MSABaseExceptionHandler()

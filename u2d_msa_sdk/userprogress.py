@@ -51,4 +51,4 @@ class MSAUserProgress():
 
 @lru_cache()
 def getMSAUserProgress() -> MSAUserProgress:
-    yield MSAUserProgress()
+    return MSAUserProgress()
