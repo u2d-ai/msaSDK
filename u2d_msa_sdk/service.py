@@ -27,6 +27,9 @@ from u2d_msa_sdk.router.system import sys_router
 from u2d_msa_sdk.security import getMSASecurity
 from strawberry import fastapi as fgraph , schema
 from msgpack_asgi import MessagePackMiddleware
+from loguru import logger
+
+from u2d_msa_sdk.utils.logger import init_logging
 
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(context)
@@ -80,6 +83,8 @@ class MSAApp(MSAFastAPI):
     ) -> None:
         # call super class __init__
         super().__init__(*args, **kwargs)
+        self.logger = logger
+        init_logging()
         self.msa_settings = get_api_settings()
         self.service_definition: MSAServiceDefinition = service_definition
         self.healthdefinition: MSAHealthDefinition = self.service_definition.healthdefinition
@@ -90,56 +95,72 @@ class MSAApp(MSAFastAPI):
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
         if self.service_definition.graphql:
+            self.logger.info("Init Graphql")
             from strawberry.fastapi import GraphQLRouter
             self.graphql_app: GraphQLRouter = None
             self.graphql_schema: schema = None
 
         if self.healthdefinition.enabled:
+            self.logger.info("Init Healthcheck")
             self.healthcheck = health.MSAHealthCheck(
                 healthdefinition=self.healthdefinition,
                 host=self.service_definition.host,
                 port=self.service_definition.port
             )
+            self.logger.info("Start Healthcheck Thread")
             self.healthcheck.start()
             self.add_api_route(self.healthdefinition.path, self.get_healthcheck,
                                response_model=MSAHealthMessage,
                                tags=["service"])
 
         if self.service_definition.sysrouter:
+            self.logger.info("Include Sysrouter")
             self.include_router(sys_router)
 
         if self.service_definition.starception:
+            self.logger.info("Add Middleware Starception")
             self.add_middleware(StarceptionMiddleware)
 
         if self.service_definition.cors:
+            self.logger.info("Add Middleware CORS")
             self.add_middleware(CORSMiddleware, allow_origins=getAllowedOrigins(),
                                 allow_credentials=getAllowedCredentials(),
                                 allow_methods=getAllowedMethods(),
                                 allow_headers=getAllowedHeaders(), )
         if self.service_definition.redirect:
+            self.logger.info("Add Middleware Redirect")
             self.add_middleware(HTTPSRedirectMiddleware)
         if self.service_definition.gzip:
+            self.logger.info("Add Middleware GZip")
             self.add_middleware(GZipMiddleware)
         if self.service_definition.session:
+            self.logger.info("Add Middleware Session")
             self.add_middleware(SessionMiddleware, secret_key=getSecretKeySessions())
         if self.service_definition.csrf:
+            self.logger.info("Add Middleware CSRF")
             self.add_middleware(CSRFProtectMiddleware, csrf_secret=getSecretKeyCSRF())
         if self.service_definition.msgpack:
+            self.logger.info("Add Middleware MSGPack")
             self.add_middleware(MessagePackMiddleware)
         if self.service_definition.instrument:
+            self.logger.info("Prometheus Instrument and Expose App")
             Instrumentator().instrument(app=self).expose(app=self, tags=["service"])
 
         if self.service_definition.servicerouter:
+            self.logger.info("Include Servicerouter")
             self.add_api_route("/status", self.get_services_status, tags=["service"])
             self.add_api_route("/definition", self.get_services_definition, tags=["service"])
             self.add_api_route("/schema", self.get_services_openapi_schema, tags=["openapi"])
             self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"])
 
         if self.service_definition.static or self.service_definition.pages:
+            self.logger.info("Mount MSAStatic")
             self.mount("/msastatic", StaticFiles(directory="msastatic"), name="msastatic")
         if self.service_definition.templates or self.service_definition.pages:
+            self.logger.info("Init Jinja Template Engine")
             self.templates = Jinja2Templates(directory="msatemplates")
         if self.service_definition.pages:
+            self.logger.info("Add Pages Router")
             self.add_api_route("/", self.index_page, tags=["pages"])
             self.add_api_route("/testpage", self.testpage, tags=["pages"])
 

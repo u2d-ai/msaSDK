@@ -2,9 +2,10 @@
 """
 Copyright (c) 2021 SWelcker
 """
+from loguru import logger
 
 if __name__ == '__main__':
     import main
 
-    print("Starting MSA SDK Services...")
+    logger.info("Starting MSA SDK Services...")
     main.run()

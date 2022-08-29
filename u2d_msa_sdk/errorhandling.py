@@ -1,6 +1,7 @@
 import sys
 import traceback
 from functools import lru_cache
+from loguru import logger
 
 
 class MSABaseExceptionHandler:
@@ -21,11 +22,11 @@ class MSABaseExceptionHandler:
             self.stack_trace.append(
                 "File : %s , Line : %d, Func.Name : %s, Message : %s" % (trace[0], trace[1], trace[2], trace[3]))
 
-        print("Exception: %s " % ex.__str__(), args)
-        print("Exception type : %s " % ex_type.__name__)
-        print("Exception message : %s" % ex_value)
-        print("Stack trace : %s" % self.stack_trace)
-        print("Stack trace : %s" % self.stack_trace)
+        logger.error("Exception: %s " % ex.__str__(), args)
+        logger.error("Exception type : %s " % ex_type.__name__)
+        logger.error("Exception message : %s" % ex_value)
+        logger.error("Stack trace : %s" % self.stack_trace)
+        logger.error("Stack trace : %s" % self.stack_trace)
         raise TypeError("Exception: %s " % ex.__str__() + " Arguments:" + str(args) + " Message:" + str(ex_value))
 
 

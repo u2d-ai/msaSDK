@@ -15,8 +15,8 @@ class MSAServerUvicorn:
         self.workers: int = workers
 
         self.log_config = uvicorn.config.LOGGING_CONFIG
-        self.log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
-        self.log_config["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
+        self.log_config["formatters"]["access"]["fmt"] = "%(asctime)s | %(levelname)s | %(message)s"
+        self.log_config["formatters"]["default"]["fmt"] = "%(asctime)s | %(levelname)s | %(message)s"
 
     def run(self):
         uvicorn.run(app=self.app, app_dir=self.app_dir, host=self.host, port=self.port, reload=self.reload,
