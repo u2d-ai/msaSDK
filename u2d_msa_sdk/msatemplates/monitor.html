@@ -42,12 +42,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" href="/">Home</a></li>
           <li><a class="nav-link scrollto" href="/redoc">API Doc</a></li>
           <li><a class="nav-link scrollto" href="/docs">OpenAPI</a></li>
-          <li><a class="nav-link scrollto" href="/monitor">Monitor</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -55,58 +52,14 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="hero d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">Micro Service Architecture SDK</h1>
-          <h2 data-aos="fade-up" data-aos-delay="400">Shared SDK for Multi Service Systems/Platform</h2>
-          <div data-aos="fade-up" data-aos-delay="600">
-            <div class="text-center text-lg-start">
-              <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                <span>Get Started</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-          <img src="/msastatic/img/hero-img.png" class="img-fluid" alt="">
-        </div>
-      </div>
-    </div>
-
-  </section><!-- End Hero -->
-
   <main id="main">
-
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="monitor" class="monitor">
 
       <div class="container" data-aos="fade-up">
         <div class="row gx-0">
 
-          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="content">
-              <h3>Features</h3>
-              <h2>FastAPI based Service with default Middleware, Prometheus Metrics, Healthcheck & Service Discovery.</h2>
-              <p>
-                Includes all Libraries and Document Models for the SPK.ai SOA/MSA Architecture.
-              </p>
-              <div class="text-center text-lg-start">
-                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                  <span>Read More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-            <img src="/msastatic/img/about.jpg" class="img-fluid" alt="">
-          </div>
+{% include 'monitor_inline.html' %}
 
         </div>
       </div>
@@ -133,9 +86,11 @@
   <script src="/msastatic/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
 
+
   <!-- Template Main JS File -->
   <script src="/msastatic/js/main.js"></script>
 
 </body>
 
 </html>
+

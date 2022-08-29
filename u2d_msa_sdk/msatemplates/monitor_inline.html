@@ -1,0 +1,105 @@
+
+<div class="row">
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        
+        <div class="iconbox style1">
+          <div><i class="bi-pc-horizontal" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">CPU's Physical</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.CPU_Physical }}</h5>
+            <div class="iconbox-sub-heading">CPU's Logical</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.CPU_Logical }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- .col -->
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        
+        <div class="iconbox style1">
+          <div><i class="bi-memory" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">Mem Physical</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.Memory_Physical }}</h5>
+            <div class="iconbox-sub-heading">Mem Available</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.Memory_Available }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- .col -->
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        
+        <div class="iconbox style1">
+          <div><i class="bi-flag" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">Booted</div>
+            <div class="iconbox-sub-heading" style="font-size: 1.rem;">{{ outputSystemInfo.System_Boot }}</div>
+            <h5 class="iconbox-sub-heading"> </h5>
+            <div class="iconbox-sub-heading">Started</div>
+            <div class="iconbox-sub-heading" style="font-size: 1.rem;">{{ outputSystemInfo.Service_Start }}</div>
+            <h5 class="iconbox-sub-heading"> </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .col -->
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        
+        <div class="iconbox style1">
+          <div><i class="bi-cpu-fill" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">PID</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.PID }}</h5>
+            <div class="iconbox-sub-heading">CPU Affinity</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.CPU_Affinity }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .col -->
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        <div class="mt-30"></div>
+        <div class="iconbox style1">
+          <div><i class="bi-x-diamond" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">OS Name</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.OS_Name }}</h5>
+            <div class="iconbox-sub-heading">HW Identifier</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.HW_Identifier }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .col -->
+  <div class="col-2">
+    <div class="card style1 text-center">
+      <div class="card-body">
+        
+        <div class="iconbox style1">
+          <div><i class="bi-cloud" style="margin: .25rem;font-size: 2.5rem;"></i></div>
+          <div class="iconbox-text">
+            <div class="iconbox-sub-heading">CPU's in use</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.CPU_Current }}</h5>
+            <div class="iconbox-sub-heading">Status</div>
+            <h5 class="iconbox-heading">{{ outputSystemInfo.Runtime_Status }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .col -->
+</div>

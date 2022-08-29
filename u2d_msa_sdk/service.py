@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Dict
 
 import uvloop
 from fastapi.encoders import jsonable_encoder
@@ -30,6 +30,7 @@ from msgpack_asgi import MessagePackMiddleware
 from loguru import logger
 
 from u2d_msa_sdk.utils.logger import init_logging
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo
 
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(context)
@@ -163,6 +164,8 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Add Pages Router")
             self.add_api_route("/", self.index_page, tags=["pages"])
             self.add_api_route("/testpage", self.testpage, tags=["pages"])
+            self.add_api_route("/monitor", self.monitor, tags=["pages"])
+            self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"])
 
     async def init_graphql(self, strawberry_schema: schema):
         if self.service_definition.graphql:
@@ -264,3 +267,27 @@ class MSAApp(MSAFastAPI):
         return self.templates.TemplateResponse("test.html",
                                                {"request": request,
                                                 "settings": jsonable_encoder(self.msa_settings)})
+
+    async def monitor(self, request: Request):
+        """
+        Simple Testpage to see if the Micro Service is up and running.
+        Only works if pages is enabled in MSAServiceDefinition
+        :param request:
+        :return:
+        """
+        sysinfo: Dict = await get_sysinfo()
+        return self.templates.TemplateResponse("monitor.html",
+                                               {"request": request,
+                                                "outputSystemInfo": sysinfo})
+
+    async def monitor_inline(self, request: Request):
+        """
+        Simple Testpage to see if the Micro Service is up and running.
+        Only works if pages is enabled in MSAServiceDefinition
+        :param request:
+        :return:
+        """
+        sysinfo: Dict = await get_sysinfo()
+        return self.templates.TemplateResponse("monitor_inline.html",
+                                               {"request": request,
+                                                "outputSystemInfo": sysinfo})
