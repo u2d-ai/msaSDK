@@ -68,8 +68,29 @@ async def get_memory_usage() -> Dict:
     return meminfo
 
 
+async def get_cpu_freq() -> Dict:
+    current, cmin, cmax = psutil.cpu_freq()
+    rdict: Dict = {"current": current, "min": cmin, "max": cmax}
+    return rdict
+
+
+async def get_cpu_times() -> Dict:
+    print(psutil.cpu_times())
+    user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice = psutil.cpu_times()
+    rdict: Dict = {"user": user, "nice": nice, "system": system,
+                   "idle": idle, "iowait": iowait, "irq": irq, "softirq": softirq, "steal": steal, "guest": guest,
+                   "guest_nice": guest_nice}
+    return rdict
+
+
+async def get_cpu_stats() -> Dict:
+    ctx_switches, interrupts, soft_interrupts, syscalls = psutil.cpu_stats()
+    rdict: Dict = {"ctx_switches": ctx_switches, "interrupts": interrupts, "soft_interrupts": soft_interrupts,
+                   "syscalls": syscalls}
+    return rdict
+
+
 async def get_disk_io() -> Dict:
-    print(psutil.disk_io_counters())
     read_count, write_count, read_bytes, write_bytes, read_time, write_time, read_merged_count, write_merged_count, busy_time = psutil.disk_io_counters()
     rdict: Dict = {"read_count": read_count, "write_count": write_count, "read_bytes": read_bytes,
                    "write_bytes": write_bytes, "read_time": read_time, "write_time": write_time,
@@ -177,9 +198,9 @@ async def get_sysinfo() -> Dict:
         sysinfo["Temperatures_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
         sysinfo["Temperatures"] = psutil.sensors_temperatures()
         sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
-        sysinfo["CPU_Frequency"] = psutil.cpu_freq()
-        sysinfo["CPU_Times"] = psutil.cpu_times()
-        sysinfo["CPU_Stats"] = psutil.cpu_stats()
+        sysinfo["CPU_Frequency"] = await get_cpu_freq()
+        sysinfo["CPU_Times"] = await get_cpu_times()
+        sysinfo["CPU_Stats"] = await get_cpu_stats()
         sysinfo["PID"] = psutil.Process().pid
         sysinfo["CPU_Current"] = psutil.Process().cpu_num()
         sysinfo["CPU_Usage_Total"], sysinfo["CPU_Usage_Process"], sysinfo["CPU_Usage_Name"] = await get_cpu_usage()

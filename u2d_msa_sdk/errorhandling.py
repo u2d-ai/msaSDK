@@ -26,8 +26,8 @@ class MSABaseExceptionHandler:
         logger.error("Exception type : %s " % ex_type.__name__)
         logger.error("Exception message : %s" % ex_value)
         logger.error("Stack trace : %s" % self.stack_trace)
-        logger.error("Stack trace : %s" % self.stack_trace)
-        raise TypeError("Exception: %s " % ex.__str__() + " Arguments:" + str(args) + " Message:" + str(ex_value))
+        raise TypeError("Exception: %s " % ex.__str__() + " Arguments:" + str(args) + " Message:" + str(ex_value)
+                        + " Stack trace : " + str(self.stack_trace))
 
 
 @lru_cache()
