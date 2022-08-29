@@ -19,6 +19,7 @@ settings.debug = True
 app = MSAApp(**settings.fastapi_kwargs,
              contact={"name": "MSA SDK Prototype", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
+app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 
 @app.on_event("startup")
