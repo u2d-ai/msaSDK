@@ -172,9 +172,9 @@ async def get_sysinfo() -> Dict:
         sysinfo["Network_Connections"] = await get_network_connections()
         sysinfo["Network_Adapters_Definition"] = {"name": [["family", "address", "netmask", "broadcast", "ptp"]]}
         sysinfo["Network_Adapters"] = psutil.net_if_addrs()
-        sysinfo["Network_Stats_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
+        sysinfo["Network_Stats_Definition"] = {"name": ["isup", "duplex", "speed", "mtu"]}
         sysinfo["Network_Stats"] = psutil.net_if_stats()
-        sysinfo["Temperatures_Definition"] = psutil.sensors_temperatures()
+        sysinfo["Temperatures_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
         sysinfo["Temperatures"] = psutil.sensors_temperatures()
         sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
         sysinfo["CPU_Frequency"] = psutil.cpu_freq()
