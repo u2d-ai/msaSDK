@@ -100,6 +100,8 @@ class MSAApp(MSAFastAPI):
             from strawberry.fastapi import GraphQLRouter
             self.graphql_app: GraphQLRouter = None
             self.graphql_schema: schema = None
+        else:
+            self.logger.info("Excluded Graphql")
 
         if self.healthdefinition.enabled:
             self.logger.info("Init Healthcheck")
@@ -113,14 +115,20 @@ class MSAApp(MSAFastAPI):
             self.add_api_route(self.healthdefinition.path, self.get_healthcheck,
                                response_model=MSAHealthMessage,
                                tags=["service"])
+        else:
+            self.logger.info("Excluded Healthcheck")
 
         if self.service_definition.sysrouter:
             self.logger.info("Include Sysrouter")
             self.include_router(sys_router)
+        else:
+            self.logger.info("Excluded Sysrouter")
 
         if self.service_definition.starception:
             self.logger.info("Add Middleware Starception")
             self.add_middleware(StarceptionMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Starception")
 
         if self.service_definition.cors:
             self.logger.info("Add Middleware CORS")
@@ -128,24 +136,44 @@ class MSAApp(MSAFastAPI):
                                 allow_credentials=getAllowedCredentials(),
                                 allow_methods=getAllowedMethods(),
                                 allow_headers=getAllowedHeaders(), )
+        else:
+            self.logger.info("Excluded Middleware CORS")
+
         if self.service_definition.redirect:
             self.logger.info("Add Middleware Redirect")
             self.add_middleware(HTTPSRedirectMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Redirect")
+
         if self.service_definition.gzip:
             self.logger.info("Add Middleware GZip")
             self.add_middleware(GZipMiddleware)
+        else:
+            self.logger.info("Excluded Middleware GZip")
+
         if self.service_definition.session:
             self.logger.info("Add Middleware Session")
             self.add_middleware(SessionMiddleware, secret_key=getSecretKeySessions())
+        else:
+            self.logger.info("Excluded Middleware Session")
+
         if self.service_definition.csrf:
             self.logger.info("Add Middleware CSRF")
             self.add_middleware(CSRFProtectMiddleware, csrf_secret=getSecretKeyCSRF())
+        else:
+            self.logger.info("Excluded Middleware CSRF")
+
         if self.service_definition.msgpack:
             self.logger.info("Add Middleware MSGPack")
             self.add_middleware(MessagePackMiddleware)
+        else:
+            self.logger.info("Excluded Middleware MSGPack")
+
         if self.service_definition.instrument:
             self.logger.info("Prometheus Instrument and Expose App")
             Instrumentator().instrument(app=self).expose(app=self, tags=["service"])
+        else:
+            self.logger.info("Excluded Prometheus Instrument and Expose")
 
         if self.service_definition.servicerouter:
             self.logger.info("Include Servicerouter")
@@ -153,19 +181,29 @@ class MSAApp(MSAFastAPI):
             self.add_api_route("/definition", self.get_services_definition, tags=["service"])
             self.add_api_route("/schema", self.get_services_openapi_schema, tags=["openapi"])
             self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"])
+        else:
+            self.logger.info("Excluded Servicerouter")
 
         if self.service_definition.static or self.service_definition.pages:
             self.logger.info("Mount MSAStatic")
             self.mount("/msastatic", StaticFiles(directory="msastatic"), name="msastatic")
+        else:
+            self.logger.info("Excluded MSAStatic")
+
         if self.service_definition.templates or self.service_definition.pages:
             self.logger.info("Init Jinja Template Engine")
             self.templates = Jinja2Templates(directory="msatemplates")
+        else:
+            self.logger.info("Excluded Jinja Template Engine")
+
         if self.service_definition.pages:
             self.logger.info("Add Pages Router")
             self.add_api_route("/", self.index_page, tags=["pages"])
             self.add_api_route("/testpage", self.testpage, tags=["pages"])
             self.add_api_route("/monitor", self.monitor, tags=["pages"])
             self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"])
+        else:
+            self.logger.info("Excluded Pages Router")
 
     async def init_graphql(self, strawberry_schema: schema):
         if self.service_definition.graphql:
