@@ -1,5 +1,5 @@
 import socket
-from typing import Dict, List
+from typing import Dict, List, Union, Optional
 import datetime
 import os
 import psutil
@@ -9,6 +9,159 @@ from u2d_msa_sdk.errorhandling import getMSABaseExceptionHandler
 import decimal
 import os
 from subprocess import getoutput
+from pydantic import BaseModel
+
+
+class DiskIO(BaseModel):
+    read_count: Optional[int]
+    write_count: Optional[int]
+    read_bytes: Optional[int]
+    write_bytes: Optional[int]
+    read_time: Optional[int]
+    write_time: Optional[int]
+    read_merged_count: Optional[int]
+    write_merged_count: Optional[int]
+    busy_time: Optional[int]
+
+
+class NetworkIO(BaseModel):
+    bytes_sent: Optional[int]
+    bytes_recv: Optional[int]
+    packets_sent: Optional[int]
+    packets_recv: Optional[int]
+    errin: Optional[int]
+    errout: Optional[int]
+    dropin: Optional[int]
+    dropout: Optional[int]
+
+
+class NetworkConnection(BaseModel):
+    number: Optional[int]
+    file_descriptor: Optional[int]
+    family: Optional[int]
+    type: Optional[int]
+    local_addr: Optional[List[Union[int, str]]]
+    remote_addr: Optional[List[Union[int, str]]]
+    status: str = ""
+    pid: Optional[int]
+
+
+class NetworkAdapter(BaseModel):
+    family: Optional[int]
+    address: Optional[str]
+    netmask: Optional[str]
+    broadcast: Optional[str]
+    ptp: Optional[int]
+
+
+class NetworkAdapters(BaseModel):
+    name: Optional[str]
+    adapters: Optional[List[NetworkAdapter]]
+
+
+class NetworkStat(BaseModel):
+    isup: Optional[bool]
+    duplex: Optional[int]
+    speed: Optional[int]
+    mtu: Optional[int]
+
+
+class NetworkStats(BaseModel):
+    name: Optional[str]
+    adapters: Optional[List[NetworkStat]]
+
+
+class Temperature(BaseModel):
+    label: Optional[str]
+    current: Optional[float]
+    high: Optional[float]
+    critical: Optional[float]
+
+
+class Temperatures(BaseModel):
+    device: Optional[str]
+    temps: Optional[List[Temperature]]
+
+
+class CPUFrequency(BaseModel):
+    current: Optional[float]
+    min: Optional[int]
+    max: Optional[int]
+
+
+class CPUTimes(BaseModel):
+    user: Optional[float]
+    nice: Optional[int]
+    system: Optional[float]
+    idle: Optional[float]
+    iowait: Optional[float]
+    irq: Optional[int]
+    softirq: Optional[float]
+    steal: Optional[int]
+    guest: Optional[float]
+    guest_nice: Optional[int]
+
+
+class CPUStats(BaseModel):
+    ctx_switches: Optional[int]
+    interrupts: Optional[int]
+    soft_interrupts: Optional[int]
+    syscalls: Optional[int]
+
+
+class MemoryUsage(BaseModel):
+    total: Optional[float]
+    available: Optional[float]
+    used: Optional[float]
+    free: Optional[float]
+    percent: Optional[float]
+    buffers: Optional[float]
+    cached: Optional[float]
+    active: Optional[float]
+    inactive: Optional[float]
+
+
+class Swap(BaseModel):
+    total: Optional[float]
+    used: Optional[float]
+    free: Optional[float]
+    percent: Optional[float]
+
+
+class SystemInfo(BaseModel):
+    OS_Name: str = ""
+    Node_Name: str = ""
+    Host_Name: str = ""
+    OS_Release: str = ""
+    OS_Version: str = ""
+    HW_Identifier: str = ""
+    CPU_Physical: Optional[int]
+    CPU_Logical: Optional[int]
+    Memory_Physical: str = ""
+    Memory_Available: str = ""
+    System_Boot: str = ""
+    Service_Start: str = ""
+    Runtime_Exe: str = ""
+    Runtime_Cmd: List[str] = []
+    Disk_IO: Optional[DiskIO]
+    Network_IO: Optional[NetworkIO]
+    Network_Connections: Optional[List[NetworkConnection]]
+    Network_Adapters: Optional[List[NetworkAdapters]]
+    Network_Stats: Optional[List[NetworkStats]]
+    Temperatures: Optional[List[Temperatures]]
+    CPU_Affinity: Optional[int]
+    CPU_Frequency: Optional[CPUFrequency]
+    CPU_Times: Optional[CPUTimes]
+    CPU_Stats: Optional[CPUStats]
+    PID: Optional[int]
+    CPU_Current: Optional[int]
+    CPU_Usage_Total: Optional[float]
+    CPU_Usage_Process: Optional[float]
+    CPU_Usage_Name: str = ""
+    CPU_LoadAvg: Optional[List[float]]
+    Memory_Usage: Optional[MemoryUsage]
+    Swap: Optional[Swap]
+    Runtime_Status: str = ""
 
 
 async def get_hostname():
@@ -68,50 +221,41 @@ async def get_memory_usage() -> Dict:
     return meminfo
 
 
-async def get_cpu_freq() -> Dict:
-    current, cmin, cmax = psutil.cpu_freq()
-    rdict: Dict = {"current": current, "min": cmin, "max": cmax}
-    return rdict
+async def get_cpu_freq() -> CPUFrequency:
+    cpf: CPUFrequency = CPUFrequency()
+    cpf.current, cpf.min, cpf.max = psutil.cpu_freq()
+    return cpf
 
 
-async def get_cpu_times() -> Dict:
-    print(psutil.cpu_times())
-    user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice = psutil.cpu_times()
-    rdict: Dict = {"user": user, "nice": nice, "system": system,
-                   "idle": idle, "iowait": iowait, "irq": irq, "softirq": softirq, "steal": steal, "guest": guest,
-                   "guest_nice": guest_nice}
-    return rdict
+async def get_cpu_times() -> CPUTimes:
+    cti: CPUTimes = CPUTimes()
+    cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
+    return cti
 
 
-async def get_cpu_stats() -> Dict:
-    ctx_switches, interrupts, soft_interrupts, syscalls = psutil.cpu_stats()
-    rdict: Dict = {"ctx_switches": ctx_switches, "interrupts": interrupts, "soft_interrupts": soft_interrupts,
-                   "syscalls": syscalls}
-    return rdict
+async def get_cpu_stats() -> CPUStats:
+    cst: CPUStats = CPUStats()
+    cst.ctx_switches, cst.interrupts, cst.soft_interrupts, cst.syscalls = psutil.cpu_stats()
+    return cst
 
 
-async def get_disk_io() -> Dict:
-    read_count, write_count, read_bytes, write_bytes, read_time, write_time, read_merged_count, write_merged_count, busy_time = psutil.disk_io_counters()
-    rdict: Dict = {"read_count": read_count, "write_count": write_count, "read_bytes": read_bytes,
-                   "write_bytes": write_bytes, "read_time": read_time, "write_time": write_time,
-                   "read_merged_count": read_merged_count, "write_merged_count": write_merged_count,
-                   "busy_time": busy_time}
-    return rdict
+async def get_disk_io() -> DiskIO:
+    dio: DiskIO = DiskIO()
+    dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
+        dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
+    return dio
 
 
-async def get_network_io() -> Dict:
-    bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout = psutil.net_io_counters()
-    rdict: Dict = {"bytes_sent": bytes_sent, "bytes_recv": bytes_recv, "packets_sent": packets_sent,
-                   "packets_recv": packets_recv, "errin": errin, "errout": errout,
-                   "dropin": dropin, "dropout": dropout}
-    return rdict
+async def get_network_io() -> NetworkIO:
+    nio: NetworkIO = NetworkIO()
+    nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
+    return nio
 
 
 async def get_network_connections() -> List:
     rlist: List = []
     inlist = psutil.net_connections()
     for xi, entry in enumerate(inlist):
-
         fd = entry[0]
         family = entry[1]
         type = entry[2]
@@ -120,7 +264,8 @@ async def get_network_connections() -> List:
         status = entry[5]
         pid = entry[6]
 
-        rdict: Dict = {"number": xi, "file_descriptor": fd, "family": family, "type": type, "local_addr": laddr, "remote_addr": raddr,
+        rdict: Dict = {"number": xi, "file_descriptor": fd, "family": family, "type": type, "local_addr": laddr,
+                       "remote_addr": raddr,
                        "status": status, "pid": pid}
         rlist.append(rdict)
     return rlist
@@ -172,7 +317,34 @@ async def get_sysinfo() -> Dict:
     Get SystemInfo
     """
     sysinfo = {}
+    si: SystemInfo = SystemInfo()
     try:
+        si.OS_Name = os.uname().sysname
+        si.Node_Name = os.uname().nodename
+        si.Host_Name = await get_hostname()
+        si.OS_Release = os.uname().release
+        si.OS_Version = os.uname().version
+        si.HW_Identifier = os.uname().machine
+        si.CPU_Physical = psutil.cpu_count(logical=False)
+        si.CPU_Logical = os.cpu_count()
+        si.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
+        si.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
+        si.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+        si.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        si.Runtime_Exe = psutil.Process().exe()
+        si.Runtime_Cmd = psutil.Process().cmdline()
+        si.PID = psutil.Process().pid
+        si.CPU_Current = psutil.Process().cpu_num()
+        si.Disk_IO = await get_disk_io()
+        si.Network_IO = await get_network_io()
+        si.CPU_Times = await get_cpu_times()
+        si.CPU_Stats = await get_cpu_stats()
+        si.CPU_Frequency = await get_cpu_freq()
+        si.CPU_Affinity = len(psutil.Process().cpu_affinity())
+        #print(si)
+
+        # old
         sysinfo["OS_Name"] = os.uname().sysname
         sysinfo["Node_Name"] = os.uname().nodename
         sysinfo["Host_Name"] = await get_hostname()
@@ -188,8 +360,16 @@ async def get_sysinfo() -> Dict:
             "%Y-%m-%d %H:%M:%S")
         sysinfo["Runtime_Exe"] = psutil.Process().exe()
         sysinfo["Runtime_Cmd"] = psutil.Process().cmdline()
+        sysinfo["PID"] = psutil.Process().pid
+        sysinfo["CPU_Current"] = psutil.Process().cpu_num()
         sysinfo["Disk_IO"] = await get_disk_io()
         sysinfo["Network_IO"] = await get_network_io()
+        sysinfo["CPU_Times"] = await get_cpu_times()
+        sysinfo["CPU_Stats"] = await get_cpu_stats()
+        sysinfo["CPU_Frequency"] = await get_cpu_freq()
+        sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
+
+        # not yet in si
         sysinfo["Network_Connections"] = await get_network_connections()
         sysinfo["Network_Adapters_Definition"] = {"name": [["family", "address", "netmask", "broadcast", "ptp"]]}
         sysinfo["Network_Adapters"] = psutil.net_if_addrs()
@@ -197,12 +377,6 @@ async def get_sysinfo() -> Dict:
         sysinfo["Network_Stats"] = psutil.net_if_stats()
         sysinfo["Temperatures_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
         sysinfo["Temperatures"] = psutil.sensors_temperatures()
-        sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
-        sysinfo["CPU_Frequency"] = await get_cpu_freq()
-        sysinfo["CPU_Times"] = await get_cpu_times()
-        sysinfo["CPU_Stats"] = await get_cpu_stats()
-        sysinfo["PID"] = psutil.Process().pid
-        sysinfo["CPU_Current"] = psutil.Process().cpu_num()
         sysinfo["CPU_Usage_Total"], sysinfo["CPU_Usage_Process"], sysinfo["CPU_Usage_Name"] = await get_cpu_usage()
         sysinfo["CPU_LoadAvg"] = await get_load_avarage()
         sysinfo["Memory_Usage"] = await get_memory_usage()
