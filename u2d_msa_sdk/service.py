@@ -1,11 +1,13 @@
 import os
-from typing import List, Dict, Optional
+from typing import List, Optional
 
 import uvloop
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
 from fastapi_users.password import PasswordHelper
 from fastapi_utils.api_settings import get_api_settings
+from loguru import logger
+from msgpack_asgi import MessagePackMiddleware
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel
@@ -14,12 +16,12 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from starlette.middleware.wsgi import WSGIMiddleware
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette_wtf import CSRFProtectMiddleware
+from strawberry import schema
 
 import healthcheck as health
 from u2d_msa_sdk.models.health import MSAHealthMessage
@@ -27,10 +29,6 @@ from u2d_msa_sdk.models.service import MSAServiceDefinition, MSAHealthDefinition
 from u2d_msa_sdk.msaapi import MSAFastAPI
 from u2d_msa_sdk.router.system import sys_router
 from u2d_msa_sdk.security import getMSASecurity
-from strawberry import fastapi as fgraph , schema
-from msgpack_asgi import MessagePackMiddleware
-from loguru import logger
-
 from u2d_msa_sdk.utils.logger import init_logging
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, SystemInfo
 
@@ -186,16 +184,20 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.instrument:
             self.logger.info("Prometheus Instrument and Expose App")
-            Instrumentator().instrument(app=self).expose(app=self, tags=["service"], response_class=HTMLResponse)
+            Instrumentator().instrument(app=self).expose(app=self, tags=["service"],
+                                                         response_class=HTMLResponse)
         else:
             self.logger.info("Excluded Prometheus Instrument and Expose")
 
         if self.service_definition.servicerouter:
             self.logger.info("Include Servicerouter")
-            self.add_api_route("/status", self.get_services_status, tags=["service"], response_model=ServiceStatus)
-            self.add_api_route("/definition", self.get_services_definition, tags=["service"], response_model=MSAServiceDefinition)
+            self.add_api_route("/status", self.get_services_status, tags=["service"],
+                               response_model=ServiceStatus)
+            self.add_api_route("/definition", self.get_services_definition, tags=["service"],
+                               response_model=MSAServiceDefinition)
             self.add_api_route("/schema", self.get_services_openapi_schema, tags=["openapi"])
-            self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"], response_model=OpenAPIInfo)
+            self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"],
+                               response_model=OpenAPIInfo)
         else:
             self.logger.info("Excluded Servicerouter")
 
@@ -237,7 +239,7 @@ class MSAApp(MSAFastAPI):
         else:
             msg.healthy = self.healthcheck.is_healthy,
             msg.message = await self.healthcheck.get_health()
-            if len(self.healthcheck.error)>0:
+            if len(self.healthcheck.error) > 0:
                 msg.error = self.healthcheck.error
 
         return ORJSONResponse(content=jsonable_encoder(msg))
@@ -250,12 +252,12 @@ class MSAApp(MSAFastAPI):
         if not self.healthcheck:
             sst.name = self.service_definition.name,
             sst.healthy = "disabled:400"
-            sst.message ="Healthcheck is disabled!"
+            sst.message = "Healthcheck is disabled!"
 
         else:
             sst.name = self.service_definition.name,
             sst.healthy = await self.healthcheck.get_health()
-            sst.message ="Healthcheck is enabled!"
+            sst.message = "Healthcheck is enabled!"
         return sst
 
     async def get_services_definition(self) -> MSAServiceDefinition:

@@ -15,7 +15,7 @@ fastapi_utils==0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel,
 fastapi_sessions==0.3.2 # add session authentication to your FastAPI project
 fastapi_profiler==1.0.0 # A FastAPI Middleware of pyinstrument to check your service performance.
 fastapi-users[sqlalchemy]==10.1.5 # Ready-to-use and customizable users management for FastAPI
-gunicorn # WSGI HTTP Server for UNIX
+gunicorn~=20.1.0
 JPype1==1.4.0 # A Python to Java bridge.
 loguru==0.6.0 # Python logging made (stupidly) simple
 lxml==4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
@@ -36,16 +36,16 @@ httpx==0.23.0 # The next generation HTTP client.
 sqlmodel==0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 setuptools==65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 sse_starlette==1.1.6 # Server Sent Events for Starlette and FastAPI
-starlette
+starlette~=0.19.1
 Starlette-WTF==0.4.3
 starception==0.4.0 # Beautiful debugging page for Starlette apps.
 strawberry-graphql==0.126.2 #A library for creating GraphQL APIs
 strawberry-graphql[fastapi]==0.126.2 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
-uvicorn # The lightning-fast ASGI server.
+uvicorn~=0.17.6
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # dependencies
-gputil
+gputil~=1.4.0
 orjson
 python-multipart
 fonttools>=4.22.0 # Tools to manipulate font files
@@ -53,3 +53,6 @@ numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
 pillow>=6.2.0 # Python Imaging Library (Fork)
 pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
 pandas-profiling==3.2.0 # Generate profile report for pandas DataFrame
+Jinja2~=3.1.2
+matplotlib~=3.5.3
+python-magic~=0.4.27
