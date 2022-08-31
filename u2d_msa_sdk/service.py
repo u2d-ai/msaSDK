@@ -32,7 +32,7 @@ from msgpack_asgi import MessagePackMiddleware
 from loguru import logger
 
 from u2d_msa_sdk.utils.logger import init_logging
-from u2d_msa_sdk.utils.sysinfo import get_sysinfo
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo, SystemInfo
 
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(context)
@@ -228,6 +228,9 @@ class MSAApp(MSAFastAPI):
             self.include_router(self.graphql_app, prefix="/graphql", tags=["graphql"])
 
     async def get_healthcheck(self) -> ORJSONResponse:
+        """
+        Get Healthcheck Status
+        """
         msg: MSAHealthMessage = MSAHealthMessage()
         if not self.healthcheck:
             msg.message = "Healthcheck is disabled!"
@@ -240,6 +243,9 @@ class MSAApp(MSAFastAPI):
         return ORJSONResponse(content=jsonable_encoder(msg))
 
     async def get_services_status(self) -> ServiceStatus:
+        """
+        Get Service Status Info
+        """
         sst: ServiceStatus = ServiceStatus()
         if not self.healthcheck:
             sst.name = self.service_definition.name,
@@ -253,17 +259,15 @@ class MSAApp(MSAFastAPI):
         return sst
 
     async def get_services_definition(self) -> MSAServiceDefinition:
+        """
+        Get Service Definition Info
+        """
         return self.service_definition
 
-    async def get_services_definition_old(self) -> ORJSONResponse:
-        return ORJSONResponse(
-            {
-                "name": self.service_definition.name,
-                "definition": jsonable_encoder(self.service_definition)
-            }
-        )
-
     async def get_services_openapi_schema(self) -> ORJSONResponse:
+        """
+        Get Service OpenAPI Schema
+        """
         def try_get_json():
             try:
 
@@ -280,6 +284,9 @@ class MSAApp(MSAFastAPI):
         )
 
     async def get_services_openapi_info(self) -> OpenAPIInfo:
+        """
+        Get Service OpenAPI Info
+        """
         oai: OpenAPIInfo = OpenAPIInfo()
 
         try:
@@ -293,6 +300,9 @@ class MSAApp(MSAFastAPI):
         return oai
 
     async def index_page(self, request: Request):
+        """
+        Get Service Index.html Page
+        """
         return self.templates.TemplateResponse("index.html",
                                                {"request": request,
                                                 "settings": jsonable_encoder(self.msa_settings)})
@@ -310,24 +320,24 @@ class MSAApp(MSAFastAPI):
 
     async def monitor(self, request: Request):
         """
-        Simple Testpage to see if the Micro Service is up and running.
+        Simple Service Monitor Page.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
-        sysinfo: Dict = await get_sysinfo()
+        sysinfo: SystemInfo = await get_sysinfo()
         return self.templates.TemplateResponse("monitor.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
 
     async def monitor_inline(self, request: Request):
         """
-        Simple Testpage to see if the Micro Service is up and running.
+        Simple Monitor Page as Inline without head and body tags.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
-        sysinfo: Dict = await get_sysinfo()
+        sysinfo: SystemInfo = await get_sysinfo()
         return self.templates.TemplateResponse("monitor_inline.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})

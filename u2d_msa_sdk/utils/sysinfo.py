@@ -175,6 +175,27 @@ class SystemInfo(BaseModel):
     CPU_LoadAvg: Optional[List[float]]
     Memory_Usage: Optional[MemoryUsage]
     Swap: Optional[Swap]
+    Runtime_Status: str = ""
+
+
+class SystemGPUInfo(BaseModel):
+    OS_Name: str = ""
+    Node_Name: str = ""
+    Host_Name: str = ""
+    OS_Release: str = ""
+    OS_Version: str = ""
+    HW_Identifier: str = ""
+    IP_Address: str = ""
+    MAC_Address: str = ""
+    CPU_Physical: Optional[int]
+    CPU_Logical: Optional[int]
+    Memory_Physical: str = ""
+    Memory_Available: str = ""
+    System_Boot: str = ""
+    Service_Start: str = ""
+    Runtime_Exe: str = ""
+    Runtime_Cmd: List[str] = []
+    PID: Optional[int]
     GPUs: Optional[List[GPUInfo]]
     Runtime_Status: str = ""
 
@@ -444,11 +465,43 @@ async def get_sysinfo() -> SystemInfo:
         si.Network_Connections = await get_network_connections()
         si.Swap = await get_swap()
         si.Network_Stats = await get_network_stats()
-        si.GPUs = await get_gpus()
         si.IP_Address = socket.gethostbyname(socket.gethostname())
         si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
+
+    return si
+
+
+async def get_sysgpuinfo() -> SystemGPUInfo:
+    """
+    Get SystemGPUInfo
+    """
+    si: SystemGPUInfo = SystemGPUInfo()
+    try:
+        si.OS_Name = os.uname().sysname
+        si.Node_Name = os.uname().nodename
+        si.Host_Name = await get_hostname()
+        si.OS_Release = os.uname().release
+        si.OS_Version = os.uname().version
+        si.HW_Identifier = os.uname().machine
+        si.CPU_Physical = psutil.cpu_count(logical=False)
+        si.CPU_Logical = os.cpu_count()
+        si.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
+        si.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
+        si.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+        si.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        si.Runtime_Exe = psutil.Process().exe()
+        si.Runtime_Cmd = psutil.Process().cmdline()
+        si.Runtime_Status = psutil.Process().status()
+        si.PID = psutil.Process().pid
+        si.GPUs = await get_gpus()
+        si.IP_Address = socket.gethostbyname(socket.gethostname())
+        si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+
+    except Exception as e:
+        getMSABaseExceptionHandler().handle(e, "Error: Get System GPU Information:")
 
     return si
