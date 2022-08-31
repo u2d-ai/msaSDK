@@ -45,6 +45,7 @@ uvicorn # The lightning-fast ASGI server.
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # dependencies
+gputil
 orjson
 python-multipart
 fonttools>=4.22.0 # Tools to manipulate font files

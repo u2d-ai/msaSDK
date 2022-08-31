@@ -1,16 +1,27 @@
-import socket
-from typing import Dict, List, Union, Optional
 import datetime
+import decimal
 import os
+import re
+import socket
+import uuid
+from subprocess import getoutput
+from typing import Dict, List, Optional
+import GPUtil
 import psutil
+from pydantic import BaseModel
 
 from u2d_msa_sdk.errorhandling import getMSABaseExceptionHandler
 
-import decimal
-import os
-from subprocess import getoutput
-from pydantic import BaseModel
 
+class GPUInfo(BaseModel):
+    id: Optional[int]
+    name: Optional[str]
+    load: Optional[str]
+    free_memory: Optional[str]
+    used_memory: Optional[str]
+    total_memory: Optional[str]
+    temperature: Optional[str]
+    uuid: Optional[str]
 
 class DiskIO(BaseModel):
     read_count: Optional[int]
@@ -135,6 +146,8 @@ class SystemInfo(BaseModel):
     OS_Release: str = ""
     OS_Version: str = ""
     HW_Identifier: str = ""
+    IP_Address: str = ""
+    MAC_Address: str = ""
     CPU_Physical: Optional[int]
     CPU_Logical: Optional[int]
     Memory_Physical: str = ""
@@ -161,6 +174,7 @@ class SystemInfo(BaseModel):
     CPU_LoadAvg: Optional[List[float]]
     Memory_Usage: Optional[MemoryUsage]
     Swap: Optional[Swap]
+    GPUs: Optional[List[GPUInfo]]
     Runtime_Status: str = ""
 
 
@@ -176,6 +190,30 @@ async def get_list_partitions() -> List:
     for partition in partitions:
         partitions_list.append(partition[1])
     return partitions_list
+
+
+async def get_gpus() -> List[GPUInfo]:
+    gpus = GPUtil.getGPUs()
+    list_gpus: List[GPUInfo] = []
+    for gpu in gpus:
+        ng: GPUInfo = GPUInfo()
+        # get the GPU id
+        ng.id = gpu.id
+        # name of GPU
+        ng.name = gpu.name
+        # get % percentage of GPU usage of that GPU
+        ng.load = f"{gpu.load * 100}%"
+        # get free memory in MB format
+        ng.free_memory = f"{gpu.memoryFree}MB"
+        # get used memory
+        ng.used_memory = f"{gpu.memoryUsed}MB"
+        # get total memory
+        ng.total_memory = f"{gpu.memoryTotal}MB"
+        # get GPU temperature in Celsius
+        ng.temperature = f"{gpu.temperature} °C"
+        ng.uuid = gpu.uuid
+        list_gpus.append(ng)
+    return list_gpus
 
 
 async def get_partition_usage(partitions) -> Dict:
@@ -243,7 +281,7 @@ async def get_cpu_stats() -> CPUStats:
 async def get_disk_io() -> DiskIO:
     dio: DiskIO = DiskIO()
     dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
-        dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
+    dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
     return dio
 
 
@@ -309,7 +347,6 @@ async def get_network_connections() -> List[NetworkConnection]:
     rlist: List = []
     inlist = psutil.net_connections()
     for xi, entry in enumerate(inlist):
-
         nc: NetworkConnection = NetworkConnection()
         nc.index = xi
         nc.file_descriptor = entry[0]
@@ -405,6 +442,10 @@ async def get_sysinfo() -> SystemInfo:
         si.Network_Connections = await get_network_connections()
         si.Swap = await get_swap()
         si.Network_Stats = await get_network_stats()
+        si.GPUs = await get_gpus()
+        si.IP_Address = socket.gethostbyname(socket.gethostname())
+        si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
