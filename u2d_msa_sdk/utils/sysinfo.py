@@ -23,6 +23,7 @@ class GPUInfo(BaseModel):
     temperature: Optional[str]
     uuid: Optional[str]
 
+
 class DiskIO(BaseModel):
     read_count: Optional[int]
     write_count: Optional[int]
@@ -185,7 +186,6 @@ async def get_hostname():
 
 async def get_list_partitions() -> List:
     partitions_list = []
-    path_list = []
     partitions = psutil.disk_partitions()
     for partition in partitions:
         partitions_list.append(partition[1])
@@ -236,10 +236,11 @@ async def get_partition_usage(partitions) -> Dict:
 
 async def get_map_disk_usage():
     MapUsage: Dict = await get_partition_usage(await get_list_partitions())
-    rdict = {}
-    y = 0
-    disk, total, used, free, percent = MapUsage["partition"], MapUsage["total"], MapUsage["used"], MapUsage["free"], \
-                                       MapUsage["percent"]
+    disk = MapUsage["partition"]
+    total = MapUsage["total"]
+    used = MapUsage["used"]
+    free = MapUsage["free"]
+    percent = MapUsage["percent"]
     rdict = dict(zip(disk, zip(total, used, free, percent)))
     return rdict
 
@@ -268,7 +269,8 @@ async def get_cpu_freq() -> CPUFrequency:
 
 async def get_cpu_times() -> CPUTimes:
     cti: CPUTimes = CPUTimes()
-    cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
+    cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, \
+        cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
     return cti
 
 
@@ -281,13 +283,14 @@ async def get_cpu_stats() -> CPUStats:
 async def get_disk_io() -> DiskIO:
     dio: DiskIO = DiskIO()
     dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
-    dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
+        dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
     return dio
 
 
 async def get_network_io() -> NetworkIO:
     nio: NetworkIO = NetworkIO()
-    nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
+    nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, \
+        nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
     return nio
 
 
@@ -372,7 +375,7 @@ async def get_swap() -> Swap:
     return sw
 
 
-async def get_load_avarage():
+async def get_load_average():
     return [x / psutil.cpu_count() * 100 for x in psutil.getloadavg()]
 
 
@@ -407,7 +410,6 @@ async def get_sysinfo() -> SystemInfo:
     """
     Get SystemInfo
     """
-    sysinfo = {}
     si: SystemInfo = SystemInfo()
     try:
         si.OS_Name = os.uname().sysname
@@ -434,7 +436,7 @@ async def get_sysinfo() -> SystemInfo:
         si.CPU_Frequency = await get_cpu_freq()
         si.CPU_Affinity = len(psutil.Process().cpu_affinity())
         si.Memory_Usage = await get_memory_usage()
-        si.CPU_LoadAvg = await get_load_avarage()
+        si.CPU_LoadAvg = await get_load_average()
         si.CPU_Usage_Total, si.CPU_Usage_Process, si.CPU_Usage_Name = await get_cpu_usage()
         si.Runtime_Status = psutil.Process().status()
         si.Network_Adapters = await get_network_adapters()
@@ -445,7 +447,6 @@ async def get_sysinfo() -> SystemInfo:
         si.GPUs = await get_gpus()
         si.IP_Address = socket.gethostbyname(socket.gethostname())
         si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
-
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
