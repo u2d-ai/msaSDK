@@ -36,12 +36,12 @@ class NetworkIO(BaseModel):
 
 
 class NetworkConnection(BaseModel):
-    number: Optional[int]
+    index: Optional[int]
     file_descriptor: Optional[int]
     family: Optional[int]
     type: Optional[int]
-    local_addr: Optional[List[Union[int, str]]]
-    remote_addr: Optional[List[Union[int, str]]]
+    local_addr: Optional[str]
+    remote_addr: Optional[str]
     status: str = ""
     pid: Optional[int]
 
@@ -55,8 +55,8 @@ class NetworkAdapter(BaseModel):
 
 
 class NetworkAdapters(BaseModel):
-    name: Optional[str]
-    adapters: Optional[List[NetworkAdapter]]
+    name: str = ""
+    adapters: List[NetworkAdapter] = []
 
 
 class NetworkStat(BaseModel):
@@ -67,8 +67,8 @@ class NetworkStat(BaseModel):
 
 
 class NetworkStats(BaseModel):
-    name: Optional[str]
-    adapters: Optional[List[NetworkStat]]
+    name: str = ""
+    adapters: List[NetworkStat] = []
 
 
 class Temperature(BaseModel):
@@ -79,8 +79,8 @@ class Temperature(BaseModel):
 
 
 class Temperatures(BaseModel):
-    device: Optional[str]
-    temps: Optional[List[Temperature]]
+    device: str = ""
+    temps: List[Temperature] = []
 
 
 class CPUFrequency(BaseModel):
@@ -206,19 +206,20 @@ async def get_map_disk_usage():
     return rdict
 
 
-async def get_memory_usage() -> Dict:
+async def get_memory_usage() -> MemoryUsage:
+    mu: MemoryUsage = MemoryUsage()
     memory = psutil.virtual_memory()
-    meminfo = {}
-    meminfo['total'] = memory.total / 1024 / 1024
-    meminfo['available'] = memory.available / 1024 / 1024
-    meminfo['used'] = memory.used / 1024 / 1024
-    meminfo['free'] = memory.free / 1024 / 1024
-    meminfo['percent'] = memory.percent
-    meminfo['buffers'] = memory.buffers / 1024 / 1024
-    meminfo['cached'] = memory.cached / 1024 / 1024
-    meminfo['active'] = memory.active / 1024 / 1024
-    meminfo['inactive'] = memory.inactive / 1024 / 1024
-    return meminfo
+
+    mu.total = memory.total / 1024 / 1024
+    mu.available = memory.available / 1024 / 1024
+    mu.used = memory.used / 1024 / 1024
+    mu.free = memory.free / 1024 / 1024
+    mu.percent = memory.percent
+    mu.buffers = memory.buffers / 1024 / 1024
+    mu.cached = memory.cached / 1024 / 1024
+    mu.active = memory.active / 1024 / 1024
+    mu.inactive = memory.inactive / 1024 / 1024
+    return mu
 
 
 async def get_cpu_freq() -> CPUFrequency:
@@ -252,33 +253,86 @@ async def get_network_io() -> NetworkIO:
     return nio
 
 
-async def get_network_connections() -> List:
+async def get_network_adapters() -> List[NetworkAdapters]:
+    ret: List[NetworkAdapters] = []
+    la: Dict = psutil.net_if_addrs()
+
+    for key, val in la.items():
+        na: NetworkAdapters = NetworkAdapters()
+        na.name = key
+        for entry in val:
+            la_entry: NetworkAdapter = NetworkAdapter()
+            la_entry.family = entry[0]
+            la_entry.address = entry[1]
+            la_entry.netmask = entry[2]
+            la_entry.broadcast = entry[3]
+            la_entry.ptp = entry[4]
+            na.adapters.append(la_entry)
+        ret.append(na)
+    return ret
+
+
+async def get_temperatures() -> List[Temperatures]:
+    ret: List[Temperatures] = []
+    ta: Dict = psutil.sensors_temperatures()
+    for key, val in ta.items():
+        tp: Temperatures = Temperatures()
+        tp.device = key
+        for entry in val:
+            tp_entry: Temperature = Temperature()
+            tp_entry.label = entry[0]
+            tp_entry.current = entry[1]
+            tp_entry.high = entry[2]
+            tp_entry.critical = entry[3]
+            tp.temps.append(tp_entry)
+        ret.append(tp)
+    return ret
+
+
+async def get_network_stats() -> List[NetworkStats]:
+    ret: List[NetworkStats] = []
+    net_stats: Dict = psutil.net_if_stats()
+    for key, entry in net_stats.items():
+        ns: NetworkStats = NetworkStats()
+        ns.name = key
+        ns_entry: NetworkStat = NetworkStat()
+        ns_entry.isup = entry[0]
+        ns_entry.duplex = entry[1]
+        ns_entry.speed = entry[2]
+        ns_entry.mtu = entry[3]
+        ns.adapters.append(ns_entry)
+        ret.append(ns)
+    return ret
+
+
+async def get_network_connections() -> List[NetworkConnection]:
     rlist: List = []
     inlist = psutil.net_connections()
     for xi, entry in enumerate(inlist):
-        fd = entry[0]
-        family = entry[1]
-        type = entry[2]
-        laddr = entry[3]
-        raddr = entry[4]
-        status = entry[5]
-        pid = entry[6]
 
-        rdict: Dict = {"number": xi, "file_descriptor": fd, "family": family, "type": type, "local_addr": laddr,
-                       "remote_addr": raddr,
-                       "status": status, "pid": pid}
-        rlist.append(rdict)
+        nc: NetworkConnection = NetworkConnection()
+        nc.index = xi
+        nc.file_descriptor = entry[0]
+        nc.family = entry[1]
+        nc.type = entry[2]
+
+        nc.local_addr = str(entry[3])
+        nc.remote_addr = str(entry[4])
+
+        nc.status = entry[5]
+        nc.pid = entry[6]
+        rlist.append(nc)
     return rlist
 
 
-async def get_swap() -> Dict:
+async def get_swap() -> Swap:
     swap = psutil.swap_memory()
-    swapinfo = {}
-    swapinfo['total'] = swap.total / 1024 / 1024
-    swapinfo['used'] = swap.used / 1024 / 1024
-    swapinfo['free'] = swap.free / 1024 / 1024
-    swapinfo['percent'] = swap.percent
-    return swapinfo
+    sw: Swap = Swap()
+    sw.total = swap.total / 1024 / 1024
+    sw.used = swap.used / 1024 / 1024
+    sw.free = swap.free / 1024 / 1024
+    sw.percent = swap.percent
+    return sw
 
 
 async def get_load_avarage():
@@ -312,7 +366,7 @@ async def get_cpu_usage(user=None, ignore_self=False):
     return total, largest_process, largest_process_name
 
 
-async def get_sysinfo() -> Dict:
+async def get_sysinfo() -> SystemInfo:
     """
     Get SystemInfo
     """
@@ -342,48 +396,17 @@ async def get_sysinfo() -> Dict:
         si.CPU_Stats = await get_cpu_stats()
         si.CPU_Frequency = await get_cpu_freq()
         si.CPU_Affinity = len(psutil.Process().cpu_affinity())
-        #print(si)
-
-        # old
-        sysinfo["OS_Name"] = os.uname().sysname
-        sysinfo["Node_Name"] = os.uname().nodename
-        sysinfo["Host_Name"] = await get_hostname()
-        sysinfo["OS_Release"] = os.uname().release
-        sysinfo["OS_Version"] = os.uname().version
-        sysinfo["HW_Identifier"] = os.uname().machine
-        sysinfo["CPU_Physical"] = psutil.cpu_count(logical=False)
-        sysinfo["CPU_Logical"] = os.cpu_count()
-        sysinfo["Memory_Physical"] = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
-        sysinfo["Memory_Available"] = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
-        sysinfo["System_Boot"] = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-        sysinfo["Service_Start"] = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
-            "%Y-%m-%d %H:%M:%S")
-        sysinfo["Runtime_Exe"] = psutil.Process().exe()
-        sysinfo["Runtime_Cmd"] = psutil.Process().cmdline()
-        sysinfo["PID"] = psutil.Process().pid
-        sysinfo["CPU_Current"] = psutil.Process().cpu_num()
-        sysinfo["Disk_IO"] = await get_disk_io()
-        sysinfo["Network_IO"] = await get_network_io()
-        sysinfo["CPU_Times"] = await get_cpu_times()
-        sysinfo["CPU_Stats"] = await get_cpu_stats()
-        sysinfo["CPU_Frequency"] = await get_cpu_freq()
-        sysinfo["CPU_Affinity"] = len(psutil.Process().cpu_affinity())
-
-        # not yet in si
-        sysinfo["Network_Connections"] = await get_network_connections()
-        sysinfo["Network_Adapters_Definition"] = {"name": [["family", "address", "netmask", "broadcast", "ptp"]]}
-        sysinfo["Network_Adapters"] = psutil.net_if_addrs()
-        sysinfo["Network_Stats_Definition"] = {"name": ["isup", "duplex", "speed", "mtu"]}
-        sysinfo["Network_Stats"] = psutil.net_if_stats()
-        sysinfo["Temperatures_Definition"] = {"device_name": ["label", "current", "high", "critical"]}
-        sysinfo["Temperatures"] = psutil.sensors_temperatures()
-        sysinfo["CPU_Usage_Total"], sysinfo["CPU_Usage_Process"], sysinfo["CPU_Usage_Name"] = await get_cpu_usage()
-        sysinfo["CPU_LoadAvg"] = await get_load_avarage()
-        sysinfo["Memory_Usage"] = await get_memory_usage()
-        sysinfo["Swap"] = await get_swap()
-        sysinfo["Runtime_Status"] = psutil.Process().status() + " / " + str(int(sysinfo["CPU_LoadAvg"][0])) + "%"
+        si.Memory_Usage = await get_memory_usage()
+        si.CPU_LoadAvg = await get_load_avarage()
+        si.CPU_Usage_Total, si.CPU_Usage_Process, si.CPU_Usage_Name = await get_cpu_usage()
+        si.Runtime_Status = psutil.Process().status()
+        si.Network_Adapters = await get_network_adapters()
+        si.Temperatures = await get_temperatures()
+        si.Network_Connections = await get_network_connections()
+        si.Swap = await get_swap()
+        si.Network_Stats = await get_network_stats()
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
 
-    return sysinfo
+    return si

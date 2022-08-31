@@ -1,5 +1,5 @@
 import os
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import uvloop
 from fastapi.encoders import jsonable_encoder
@@ -8,6 +8,7 @@ from fastapi_users.password import PasswordHelper
 from fastapi_utils.api_settings import get_api_settings
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
+from pydantic import BaseModel
 from starception import StarceptionMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
@@ -15,6 +16,7 @@ from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.wsgi import WSGIMiddleware
 from starlette.requests import Request
+from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette_wtf import CSRFProtectMiddleware
@@ -35,6 +37,19 @@ from u2d_msa_sdk.utils.sysinfo import get_sysinfo
 context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(context)
 security = getMSASecurity()
+
+
+class ServiceStatus(BaseModel):
+    name: Optional[str] = None
+    healthy: Optional[str] = None
+    message: Optional[str] = None
+
+
+class OpenAPIInfo(BaseModel):
+    name: str = "MSA SDK Service"
+    version: str = "0.0.0"
+    url: str = "/openapi.json"
+    tags: Optional[List[str]] = None
 
 
 def getSecretKey():
@@ -171,16 +186,16 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.instrument:
             self.logger.info("Prometheus Instrument and Expose App")
-            Instrumentator().instrument(app=self).expose(app=self, tags=["service"])
+            Instrumentator().instrument(app=self).expose(app=self, tags=["service"], response_class=HTMLResponse)
         else:
             self.logger.info("Excluded Prometheus Instrument and Expose")
 
         if self.service_definition.servicerouter:
             self.logger.info("Include Servicerouter")
-            self.add_api_route("/status", self.get_services_status, tags=["service"])
-            self.add_api_route("/definition", self.get_services_definition, tags=["service"])
+            self.add_api_route("/status", self.get_services_status, tags=["service"], response_model=ServiceStatus)
+            self.add_api_route("/definition", self.get_services_definition, tags=["service"], response_model=MSAServiceDefinition)
             self.add_api_route("/schema", self.get_services_openapi_schema, tags=["openapi"])
-            self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"])
+            self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"], response_model=OpenAPIInfo)
         else:
             self.logger.info("Excluded Servicerouter")
 
@@ -198,10 +213,10 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.pages:
             self.logger.info("Add Pages Router")
-            self.add_api_route("/", self.index_page, tags=["pages"])
-            self.add_api_route("/testpage", self.testpage, tags=["pages"])
-            self.add_api_route("/monitor", self.monitor, tags=["pages"])
-            self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"])
+            self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"], response_class=HTMLResponse)
         else:
             self.logger.info("Excluded Pages Router")
 
@@ -224,39 +239,29 @@ class MSAApp(MSAFastAPI):
 
         return ORJSONResponse(content=jsonable_encoder(msg))
 
-    async def get_services_status(self) -> ORJSONResponse:
+    async def get_services_status(self) -> ServiceStatus:
+        sst: ServiceStatus = ServiceStatus()
         if not self.healthcheck:
-            return ORJSONResponse(
-                {
-                    "name": self.service_definition.name,
-                    "healthy": "disabled:400",
-                    "message": "Healthcheck is disabled!",
-                }
-            )
-        else:
-            return ORJSONResponse(
-                {
-                    "name": self.service_definition.name,
-                    "healthy": await self.healthcheck.get_health(),
-                    "message": "Healthcheck is enabled!",
-                }
-            )
+            sst.name = self.service_definition.name,
+            sst.healthy = "disabled:400"
+            sst.message ="Healthcheck is disabled!"
 
-    async def get_services_definition(self) -> ORJSONResponse:
-        if not self.healthcheck:
-            return ORJSONResponse(
-                {
-                    "name": self.service_definition.name,
-                    "definition": jsonable_encoder(self.service_definition)
-                }
-            )
         else:
-            return ORJSONResponse(
-                {
-                    "name": self.service_definition.name,
-                    "definition": jsonable_encoder(self.service_definition)
-                }
-            )
+            sst.name = self.service_definition.name,
+            sst.healthy = await self.healthcheck.get_health()
+            sst.message ="Healthcheck is enabled!"
+        return sst
+
+    async def get_services_definition(self) -> MSAServiceDefinition:
+        return self.service_definition
+
+    async def get_services_definition_old(self) -> ORJSONResponse:
+        return ORJSONResponse(
+            {
+                "name": self.service_definition.name,
+                "definition": jsonable_encoder(self.service_definition)
+            }
+        )
 
     async def get_services_openapi_schema(self) -> ORJSONResponse:
         def try_get_json():
@@ -274,21 +279,18 @@ class MSAApp(MSAFastAPI):
 
         )
 
-    async def get_services_openapi_info(self) -> ORJSONResponse:
-        def try_get_json():
-            try:
+    async def get_services_openapi_info(self) -> OpenAPIInfo:
+        oai: OpenAPIInfo = OpenAPIInfo()
 
-                return {"version": self.openapi_version,"url": self.openapi_url, "tags": self.openapi_tags}
+        try:
+            oai.name = self.title
+            oai.version = self.openapi_version
+            oai.url = self.openapi_url
+            oai.tags = self.openapi_tags
+        except Exception as e:
+            oai.tags = ["error:400 error" + e.__str__()]
 
-            except Exception as e:
-                return {"status": "error:400", "error": e.__str__()}
-
-        return ORJSONResponse(
-            {
-                self.service_definition.name: try_get_json(),
-            }
-
-        )
+        return oai
 
     async def index_page(self, request: Request):
         return self.templates.TemplateResponse("index.html",
