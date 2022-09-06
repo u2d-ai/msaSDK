@@ -46,6 +46,9 @@
           <li><a class="nav-link scrollto" href="/redoc">API Doc</a></li>
           <li><a class="nav-link scrollto" href="/docs">OpenAPI</a></li>
           <li><a class="nav-link scrollto" href="/monitor">Monitor</a></li>
+          {% if definitions.profiler and definitions.profiler_output_type=="html" %}
+          <li><a class="nav-link scrollto" href="/profiler">Profiler</a></li>
+          {% endif  %}
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
         </ul>
@@ -61,7 +64,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">Micro Service Architecture SDK</h1>
+          <h1 data-aos="fade-up">{{ definitions.name }}</h1>
           <h2 data-aos="fade-up" data-aos-delay="400">Shared SDK for Multi Service Systems/Platform</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">

@@ -27,5 +27,12 @@ class MSAServiceDefinition(BaseModel):
     templates: bool = True
     pages: bool = True
     graphql: bool = True
+    context: bool = True
+    pagination: bool = True
+    profiler: bool = True
+    profiler_output_type: str = "html" # text or html
+    timing: bool = True
+    limiter: bool = True
+
 
 
