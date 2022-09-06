@@ -17,7 +17,7 @@ class MSAProfilerMiddleware:
         msa_app: Optional[Router] = None,
         profiler_interval: float = 0.0001,
         profiler_output_type: str = "html",
-        print_each_request: bool = True,
+        track_each_request: bool = True,
         **profiler_kwargs
     ):
         self.app = app
@@ -28,7 +28,7 @@ class MSAProfilerMiddleware:
         self._profiler_kwargs: dict = profiler_kwargs
         self._handler_init_done: bool = False
         self._htmlfile_init_done: bool = False
-        self._print_each_request: bool = print_each_request
+        self._track_each_request: bool = track_each_request
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         # register an event handler for profiler stop
@@ -61,7 +61,7 @@ class MSAProfilerMiddleware:
                 end = time.perf_counter()
                 if self._output_type == "html" and not self._htmlfile_init_done:
                     await self.get_profiler_result()
-                elif self._print_each_request:
+                elif self._track_each_request:
                     await self.get_profiler_result()
 
     async def get_profiler_result(self):

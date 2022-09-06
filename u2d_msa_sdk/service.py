@@ -206,6 +206,7 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Add Middleware Profiler")
             self.add_middleware(MSAProfilerMiddleware,
                                 profiler_output_type=self.service_definition.profiler_output_type,
+                                track_each_request=self.service_definition.profiler_single_calls,
                                 msa_app=self)
         else:
             self.logger.info("Excluded Middleware Profiler")
