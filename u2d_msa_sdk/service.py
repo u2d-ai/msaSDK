@@ -5,7 +5,7 @@ import uvloop
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
 from fastapi_users.password import PasswordHelper
-from fastapi_utils.api_settings import get_api_settings, APISettings
+from fastapi_utils.api_settings import APISettings
 from fastapi_utils.timing import add_timing_middleware
 from loguru import logger
 from msgpack_asgi import MessagePackMiddleware
@@ -18,20 +18,21 @@ from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette_wtf import CSRFProtectMiddleware
-from starlette_context import context, plugins
+from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
 from strawberry import schema
-from fastapi_pagination import Page, add_pagination, paginate
+from fastapi_pagination import add_pagination
 from slowapi.errors import RateLimitExceeded
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 
 
 import healthcheck as health
+
 from u2d_msa_sdk.models.health import MSAHealthMessage
 from u2d_msa_sdk.models.service import MSAServiceDefinition, MSAHealthDefinition
 from u2d_msa_sdk.msaapi import MSAFastAPI
@@ -120,6 +121,7 @@ class MSAApp(MSAFastAPI):
         self.healthcheck: health.MSAHealthCheck = None
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
+
         if self.service_definition.graphql:
             self.logger.info("Init Graphql")
             from strawberry.fastapi import GraphQLRouter
@@ -226,13 +228,6 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Limiter Engine")
 
-        if self.service_definition.instrument:
-            self.logger.info("Prometheus Instrument and Expose App")
-            Instrumentator().instrument(app=self).expose(app=self, include_in_schema=True, tags=["service"],
-                                                         response_class=HTMLResponse)
-        else:
-            self.logger.info("Excluded Prometheus Instrument and Expose")
-
         if self.service_definition.servicerouter:
             self.logger.info("Include Servicerouter")
             self.add_api_route("/status", self.get_services_status, tags=["service"],
@@ -273,6 +268,13 @@ class MSAApp(MSAFastAPI):
             self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"], response_class=HTMLResponse)
         else:
             self.logger.info("Excluded Pages Router")
+
+        if self.service_definition.instrument:
+            self.logger.info("Prometheus Instrument and Expose App")
+            Instrumentator().instrument(app=self).expose(app=self, include_in_schema=True, tags=["service"],
+                                                         response_class=HTMLResponse)
+        else:
+            self.logger.info("Excluded Prometheus Instrument and Expose")
 
     async def init_graphql(self, strawberry_schema: schema):
         if self.service_definition.graphql:
