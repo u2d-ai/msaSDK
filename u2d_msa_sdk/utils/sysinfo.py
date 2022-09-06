@@ -200,12 +200,12 @@ class SystemGPUInfo(BaseModel):
     Runtime_Status: str = ""
 
 
-async def get_hostname():
+def get_hostname():
     hostname = (socket.gethostname())
     return hostname
 
 
-async def get_list_partitions() -> List:
+def get_list_partitions() -> List:
     partitions_list = []
     partitions = psutil.disk_partitions()
     for partition in partitions:
@@ -213,7 +213,7 @@ async def get_list_partitions() -> List:
     return partitions_list
 
 
-async def get_gpus() -> List[GPUInfo]:
+def get_gpus() -> List[GPUInfo]:
     gpus = GPUtil.getGPUs()
     list_gpus: List[GPUInfo] = []
     for gpu in gpus:
@@ -237,7 +237,7 @@ async def get_gpus() -> List[GPUInfo]:
     return list_gpus
 
 
-async def get_partition_usage(partitions) -> Dict:
+def get_partition_usage(partitions) -> Dict:
     lspartition = []
     lstotal = []
     lsused = []
@@ -255,8 +255,8 @@ async def get_partition_usage(partitions) -> Dict:
     return ret
 
 
-async def get_map_disk_usage():
-    MapUsage: Dict = await get_partition_usage(await get_list_partitions())
+def get_map_disk_usage():
+    MapUsage: Dict = get_partition_usage(get_list_partitions())
     disk = MapUsage["partition"]
     total = MapUsage["total"]
     used = MapUsage["used"]
@@ -266,7 +266,7 @@ async def get_map_disk_usage():
     return rdict
 
 
-async def get_memory_usage() -> MemoryUsage:
+def get_memory_usage() -> MemoryUsage:
     mu: MemoryUsage = MemoryUsage()
     memory = psutil.virtual_memory()
 
@@ -282,40 +282,40 @@ async def get_memory_usage() -> MemoryUsage:
     return mu
 
 
-async def get_cpu_freq() -> CPUFrequency:
+def get_cpu_freq() -> CPUFrequency:
     cpf: CPUFrequency = CPUFrequency()
     cpf.current, cpf.min, cpf.max = psutil.cpu_freq()
     return cpf
 
 
-async def get_cpu_times() -> CPUTimes:
+def get_cpu_times() -> CPUTimes:
     cti: CPUTimes = CPUTimes()
     cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, \
         cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
     return cti
 
 
-async def get_cpu_stats() -> CPUStats:
+def get_cpu_stats() -> CPUStats:
     cst: CPUStats = CPUStats()
     cst.ctx_switches, cst.interrupts, cst.soft_interrupts, cst.syscalls = psutil.cpu_stats()
     return cst
 
 
-async def get_disk_io() -> DiskIO:
+def get_disk_io() -> DiskIO:
     dio: DiskIO = DiskIO()
     dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
         dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
     return dio
 
 
-async def get_network_io() -> NetworkIO:
+def get_network_io() -> NetworkIO:
     nio: NetworkIO = NetworkIO()
     nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, \
         nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
     return nio
 
 
-async def get_network_adapters() -> List[NetworkAdapters]:
+def get_network_adapters() -> List[NetworkAdapters]:
     ret: List[NetworkAdapters] = []
     la: Dict = psutil.net_if_addrs()
 
@@ -334,7 +334,7 @@ async def get_network_adapters() -> List[NetworkAdapters]:
     return ret
 
 
-async def get_temperatures() -> List[Temperatures]:
+def get_temperatures() -> List[Temperatures]:
     ret: List[Temperatures] = []
     ta: Dict = psutil.sensors_temperatures()
     for key, val in ta.items():
@@ -351,7 +351,7 @@ async def get_temperatures() -> List[Temperatures]:
     return ret
 
 
-async def get_network_stats() -> List[NetworkStats]:
+def get_network_stats() -> List[NetworkStats]:
     ret: List[NetworkStats] = []
     net_stats: Dict = psutil.net_if_stats()
     for key, entry in net_stats.items():
@@ -367,7 +367,7 @@ async def get_network_stats() -> List[NetworkStats]:
     return ret
 
 
-async def get_network_connections() -> List[NetworkConnection]:
+def get_network_connections() -> List[NetworkConnection]:
     rlist: List = []
     inlist = psutil.net_connections()
     for xi, entry in enumerate(inlist):
@@ -386,7 +386,7 @@ async def get_network_connections() -> List[NetworkConnection]:
     return rlist
 
 
-async def get_swap() -> Swap:
+def get_swap() -> Swap:
     swap = psutil.swap_memory()
     sw: Swap = Swap()
     sw.total = swap.total / 1024 / 1024
@@ -396,11 +396,11 @@ async def get_swap() -> Swap:
     return sw
 
 
-async def get_load_average():
+def get_load_average():
     return [x / psutil.cpu_count() * 100 for x in psutil.getloadavg()]
 
 
-async def get_cpu_usage(user=None, ignore_self=False):
+def get_cpu_usage(user=None, ignore_self=False):
     """
     Returns the total CPU usage for all available cores.
     :param user: If given, returns only the total CPU usage of all processes
@@ -427,7 +427,7 @@ async def get_cpu_usage(user=None, ignore_self=False):
     return total, largest_process, largest_process_name
 
 
-async def get_sysinfo() -> SystemInfo:
+def get_sysinfo() -> SystemInfo:
     """
     Get SystemInfo
     """
@@ -435,7 +435,7 @@ async def get_sysinfo() -> SystemInfo:
     try:
         si.OS_Name = os.uname().sysname
         si.Node_Name = os.uname().nodename
-        si.Host_Name = await get_hostname()
+        si.Host_Name = get_hostname()
         si.OS_Release = os.uname().release
         si.OS_Version = os.uname().version
         si.HW_Identifier = os.uname().machine
@@ -450,21 +450,21 @@ async def get_sysinfo() -> SystemInfo:
         si.Runtime_Cmd = psutil.Process().cmdline()
         si.PID = psutil.Process().pid
         si.CPU_Current = psutil.Process().cpu_num()
-        si.Disk_IO = await get_disk_io()
-        si.Network_IO = await get_network_io()
-        si.CPU_Times = await get_cpu_times()
-        si.CPU_Stats = await get_cpu_stats()
-        si.CPU_Frequency = await get_cpu_freq()
+        si.Disk_IO = get_disk_io()
+        si.Network_IO = get_network_io()
+        si.CPU_Times = get_cpu_times()
+        si.CPU_Stats = get_cpu_stats()
+        si.CPU_Frequency = get_cpu_freq()
         si.CPU_Affinity = len(psutil.Process().cpu_affinity())
-        si.Memory_Usage = await get_memory_usage()
-        si.CPU_LoadAvg = await get_load_average()
-        si.CPU_Usage_Total, si.CPU_Usage_Process, si.CPU_Usage_Name = await get_cpu_usage()
+        si.Memory_Usage = get_memory_usage()
+        si.CPU_LoadAvg = get_load_average()
+        si.CPU_Usage_Total, si.CPU_Usage_Process, si.CPU_Usage_Name = get_cpu_usage()
         si.Runtime_Status = psutil.Process().status()
-        si.Network_Adapters = await get_network_adapters()
-        si.Temperatures = await get_temperatures()
-        si.Network_Connections = await get_network_connections()
-        si.Swap = await get_swap()
-        si.Network_Stats = await get_network_stats()
+        si.Network_Adapters = get_network_adapters()
+        si.Temperatures = get_temperatures()
+        si.Network_Connections = get_network_connections()
+        si.Swap = get_swap()
+        si.Network_Stats = get_network_stats()
         si.IP_Address = socket.gethostbyname(socket.gethostname())
         si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
@@ -474,7 +474,7 @@ async def get_sysinfo() -> SystemInfo:
     return si
 
 
-async def get_sysgpuinfo() -> SystemGPUInfo:
+def get_sysgpuinfo() -> SystemGPUInfo:
     """
     Get SystemGPUInfo
     """
@@ -482,7 +482,7 @@ async def get_sysgpuinfo() -> SystemGPUInfo:
     try:
         si.OS_Name = os.uname().sysname
         si.Node_Name = os.uname().nodename
-        si.Host_Name = await get_hostname()
+        si.Host_Name = get_hostname()
         si.OS_Release = os.uname().release
         si.OS_Version = os.uname().version
         si.HW_Identifier = os.uname().machine
@@ -497,7 +497,7 @@ async def get_sysgpuinfo() -> SystemGPUInfo:
         si.Runtime_Cmd = psutil.Process().cmdline()
         si.Runtime_Status = psutil.Process().status()
         si.PID = psutil.Process().pid
-        si.GPUs = await get_gpus()
+        si.GPUs = get_gpus()
         si.IP_Address = socket.gethostbyname(socket.gethostname())
         si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 

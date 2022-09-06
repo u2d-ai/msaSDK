@@ -41,8 +41,9 @@ from u2d_msa_sdk.utils.logger import init_logging
 from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, SystemInfo
 
-context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-password_helper = PasswordHelper(context)
+
+security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+password_helper = PasswordHelper(security_context)
 security = getMSASecurity()
 
 
@@ -312,13 +313,13 @@ class MSAApp(MSAFastAPI):
 
         return sst
 
-    async def get_services_definition(self, request: Request) -> MSAServiceDefinition:
+    def get_services_definition(self, request: Request) -> MSAServiceDefinition:
         """
         Get Service Definition Info
         """
         return self.service_definition
 
-    async def get_services_settings(self, request: Request) -> ORJSONResponse:
+    def get_services_settings(self, request: Request) -> ORJSONResponse:
         """
         Get Service OpenAPI Schema
         """
@@ -338,7 +339,7 @@ class MSAApp(MSAFastAPI):
 
         )
 
-    async def get_services_openapi_schema(self, request: Request) -> ORJSONResponse:
+    def get_services_openapi_schema(self, request: Request) -> ORJSONResponse:
         """
         Get Service OpenAPI Schema
         """
@@ -358,7 +359,7 @@ class MSAApp(MSAFastAPI):
 
         )
 
-    async def get_services_openapi_info(self, request: Request) -> MSAOpenAPIInfo:
+    def get_services_openapi_info(self, request: Request) -> MSAOpenAPIInfo:
         """
         Get Service OpenAPI Info
         """
@@ -374,7 +375,7 @@ class MSAApp(MSAFastAPI):
 
         return oai
 
-    async def index_page(self, request: Request):
+    def index_page(self, request: Request):
         """
         Get Service Index.html Page
         """
@@ -383,7 +384,7 @@ class MSAApp(MSAFastAPI):
                                                 "settings": jsonable_encoder(self.settings),
                                                 "definitions": jsonable_encoder(self.service_definition)})
 
-    async def testpage(self, request: Request):
+    def testpage(self, request: Request):
         """
         Simple Testpage to see if the Micro Service is up and running.
         Only works if pages is enabled in MSAServiceDefinition
@@ -406,7 +407,7 @@ class MSAApp(MSAFastAPI):
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
 
-    async def profiler(self, request: Request):
+    def profiler(self, request: Request):
         """
         Simple Profiler Page.
         Only works if pages is enabled in MSAServiceDefinition
