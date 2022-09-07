@@ -20,7 +20,7 @@ from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.templating import Jinja2Templates
 
 import u2d_msa_sdk.admin
-from .parser import AmisParser
+from .parser import MSAUIParser
 from .settings import Settings
 from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
     Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
@@ -280,7 +280,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         return self.list_filter or list(self.schema_filter.__fields__.values())
 
     async def get_list_column(self, request: Request, modelfield: ModelField) -> TableColumn:
-        column = AmisParser(modelfield).as_table_column()
+        column = MSAUIParser(modelfield).as_table_column()
         if await self.has_update_permission(request, None, None) and modelfield.name in self.schema_update.__fields__:
             item = await self.get_form_item(request, modelfield, action=MSACRUDEnum.update)
             if isinstance(item, BaseModel):
@@ -400,7 +400,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         set_default = action == MSACRUDEnum.create
         return (
                 await self.get_form_item_on_foreign_key(request, modelfield, is_filter=is_filter)
-                or AmisParser(modelfield).as_form_item(is_filter=is_filter, set_default=set_default)
+                or MSAUIParser(modelfield).as_form_item(is_filter=is_filter, set_default=set_default)
         )
 
     async def get_list_filter_form(self, request: Request) -> Form:
@@ -810,7 +810,7 @@ class BaseFormAdmin(PageAdmin):
             request: Request,
             modelfield: ModelField
     ) -> Union[FormItem, SchemaNode]:
-        return AmisParser(modelfield).as_form_item(set_default=True)
+        return MSAUIParser(modelfield).as_form_item(set_default=True)
 
     async def get_form(self, request: Request) -> Form:
         form = self.form or Form()

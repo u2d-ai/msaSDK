@@ -5,13 +5,14 @@ from pydantic import Json
 from pydantic.fields import ModelField
 from pydantic.utils import smart_deepcopy
 
-from fastapi_amis_admin import amis
-from fastapi_amis_admin.amis.components import FormItem, Remark, Validation, InputNumber, TableColumn
-from fastapi_amis_admin.amis.constants import LabelEnum
-from fastapi_amis_admin.models.enums import Choices
-from fastapi_amis_admin.utils.translation import i18n as _
+from u2d_msa_sdk.admin import frontend
+from u2d_msa_sdk.admin.frontend.components import FormItem, Remark, Validation, InputNumber, TableColumn, Group
+from u2d_msa_sdk.admin.frontend.constants import LabelEnum
+from u2d_msa_sdk.admin.utils.choices import MSAChoices
+from u2d_msa_sdk.admin.utils.translation import i18n as _
 
-class AmisParser:
+
+class MSAUIParser:
 
     def __init__(self, modelfield: ModelField):
         self.modelfield = modelfield  # read only
@@ -22,7 +23,8 @@ class AmisParser:
 
     @property
     def remark(self):
-        return Remark(content = self.modelfield.field_info.description) if self.modelfield.field_info.description else None
+        return Remark(
+            content=self.modelfield.field_info.description) if self.modelfield.field_info.description else None
 
     def as_form_item(self, set_default: bool = False, is_filter: bool = False) -> FormItem:
         formitem = self._parse_form_item_from_kwargs(is_filter)
@@ -38,12 +40,12 @@ class AmisParser:
         formitem.label = formitem.label or self.label
         formitem.labelRemark = formitem.labelRemark or self.remark
         if formitem.type in {'input-image', 'input-file'}:
-            formitem = amis.Group(
-                name = formitem.name, body = [
+            formitem = Group(
+                name=formitem.name, body=[
                     formitem,
                     formitem.copy(
-                        exclude = {'maxLength', 'receiver'},
-                        update = {'type': 'input-text'},
+                        exclude={'maxLength', 'receiver'},
+                        update={'type': 'input-text'},
                     ),
                 ]
             )
@@ -60,10 +62,10 @@ class AmisParser:
         elif column.type in ['switch', 'mapping']:
             column.sortable = False
         if quick_edit:
-            column.quickEdit = self.as_form_item(set_default = True).dict(
-                exclude_none = True,
-                by_alias = True,
-                exclude = {'name', 'label'}
+            column.quickEdit = self.as_form_item(set_default=True).dict(
+                exclude_none=True,
+                by_alias=True,
+                exclude={'name', 'label'}
             )
             column.quickEdit.update({"saveImmediately": True})
             if column.quickEdit.get('type') == 'switch':
@@ -81,14 +83,14 @@ class AmisParser:
                 kwargs = formitem
                 formitem = FormItem(**kwargs) if kwargs.get('type') else None
             elif isinstance(formitem, str):
-                formitem = FormItem(type = formitem)
+                formitem = FormItem(type=formitem)
             else:
                 formitem = None
         if formitem is not None:
             pass
         elif self.modelfield.type_ in [str, Any]:
             kwargs['type'] = 'input-text'
-        elif issubclass(self.modelfield.type_, Choices):
+        elif issubclass(self.modelfield.type_, MSAChoices):
             kwargs.update(
                 {
                     'type': 'select',
@@ -116,9 +118,9 @@ class AmisParser:
             else:
                 kwargs['type'] = 'input-text'
         elif issubclass(self.modelfield.type_, int):
-            formitem = InputNumber(precision = 0, validations = Validation(isInt = True))
+            formitem = InputNumber(precision=0, validations=Validation(isInt=True))
         elif issubclass(self.modelfield.type_, float):
-            formitem = InputNumber(validations = Validation(isFloat = True))
+            formitem = InputNumber(validations=Validation(isFloat=True))
         elif issubclass(self.modelfield.type_, datetime.datetime):
             kwargs['type'] = 'input-datetime'
             kwargs['format'] = 'YYYY-MM-DDTHH:mm:ss'
@@ -145,7 +147,7 @@ class AmisParser:
                 kwargs = column
                 column = TableColumn(**kwargs) if kwargs.get('type') else None
             elif isinstance(column, str):
-                column = TableColumn(type = column)
+                column = TableColumn(type=column)
             else:
                 column = None
         if column is not None:
@@ -163,7 +165,7 @@ class AmisParser:
             kwargs['type'] = 'date'
         elif issubclass(self.modelfield.type_, datetime.time):
             kwargs['type'] = 'time'
-        elif issubclass(self.modelfield.type_, Choices):
+        elif issubclass(self.modelfield.type_, MSAChoices):
             kwargs['type'] = 'mapping'
             kwargs['filterable'] = {
                 "options": [{"label": v, "value": k} for k, v in self.modelfield.type_.choices]
@@ -173,6 +175,7 @@ class AmisParser:
                 for (k, v), l in zip(self.modelfield.type_.choices, cyclic_generator(LabelEnum))
             }
         return column or TableColumn(**kwargs)
+
 
 def cyclic_generator(iterable: Iterable):
     while True:

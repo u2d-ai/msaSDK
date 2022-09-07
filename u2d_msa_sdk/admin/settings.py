@@ -1,7 +1,7 @@
 from pydantic import BaseSettings, Field, validator, root_validator
 
 
-class Settings(BaseSettings):
+class AdminSettings(BaseSettings):
     host: str = '127.0.0.1'
     port: int = 8000
     debug: bool = False

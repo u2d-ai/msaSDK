@@ -23,7 +23,7 @@ from .admin import (
     RouterAdmin,
     TemplateAdmin,
 )
-from .parser import AmisParser
+from .parser import MSAUIParser
 from .settings import Settings
 from .site import (
     AdminSite,
