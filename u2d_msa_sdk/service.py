@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __version__ = '0.0.3'
 
+import asyncio
 import os
 import time
 from typing import List, Optional
@@ -23,6 +24,7 @@ from slowapi.util import get_remote_address
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
+from starlette.concurrency import run_in_threadpool
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
@@ -51,6 +53,18 @@ from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(security_context)
 security = getMSASecurity()
+
+
+class MSATimerStatus(BaseModel):
+    mode: Optional[str] = None
+    func: Optional[str] = None
+    mark_HH_MM: Optional[str] = None
+
+
+class MSASchedulerStatus(BaseModel):
+    name: Optional[str] = "None"
+    timers: Optional[List[MSATimerStatus]] = []
+    message: Optional[str] = "None"
 
 
 class MSAServiceStatus(BaseModel):
@@ -255,6 +269,8 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.servicerouter:
             self.logger.info("Include Servicerouter")
+            self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
+                               response_model=MSASchedulerStatus)
             self.add_api_route("/status", self.get_services_status, tags=["service"],
                                response_model=MSAServiceStatus)
             self.add_api_route("/definition", self.get_services_definition, tags=["service"],
@@ -313,7 +329,8 @@ class MSAApp(MSAFastAPI):
                 offsetHour = time.timezone / 3600
             tz: str = 'Etc/GMT%+d' % offsetHour
             self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
-                                          poll_millis=self.service_definition.scheduler_poll_millis)
+                                          poll_millis=self.service_definition.scheduler_poll_millis,
+                                          parent_logger=self.logger)
         elif not self.service_definition.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
         else:
@@ -333,7 +350,7 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.scheduler and self.timers:
             self.logger.info("Scheduler - Start All Timers")
-            await self.scheduler.run_timers()
+            asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
 
     async def shutdown_event(self):
         self.logger.info("MSA SDK Internal Shutdown Event")
@@ -362,6 +379,30 @@ class MSAApp(MSAFastAPI):
                 msg.error = self.healthcheck.error
 
         return ORJSONResponse(content=jsonable_encoder(msg))
+
+    async def get_scheduler_status(self, request: Request) -> MSASchedulerStatus:
+        """
+        Get Service Status Info
+        """
+        sst: MSASchedulerStatus = MSASchedulerStatus()
+        if not self.service_definition.scheduler:
+            sst.name = self.service_definition.name
+            sst.message = "Scheduler is disabled!"
+
+        else:
+            sst.name = self.service_definition.name
+            for key, val in self.timers.timer_jobs.items():
+                nt: MSATimerStatus = MSATimerStatus()
+                nt.mode = key
+                if isinstance(val, tuple):
+                    nt.func = str(val[0])
+                    nt.mark_HH_MM = str(val[1])
+                else:
+                    nt.func = str(val)
+                sst.timers.append(nt)
+            sst.message = "Scheduler is enabled!"
+
+        return sst
 
     async def get_services_status(self, request: Request) -> MSAServiceStatus:
         """

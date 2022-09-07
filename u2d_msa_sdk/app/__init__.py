@@ -13,8 +13,8 @@ from u2d_msa_sdk.service import MSAApp
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
 
 
-async def test_timer_sec():
-    app.logger.info("MSA SDK Test Timer Async Second")
+async def test_timer_min():
+    app.logger.info("MSA SDK Test Timer Async Every Minute")
 
 
 def test_timer_five_sec():
@@ -44,12 +44,13 @@ settings.version = "SPK.0.0.1"
 settings.debug = True
 
 my_timers: MSATimers = MSATimers()
-my_timers.create_timer(MSATimerEnum.every_second, test_timer_sec)
+my_timers.create_timer(MSATimerEnum.every_minute, test_timer_min)
 my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 
 app = MSAApp(settings=settings, timers=my_timers, sql_models=[TestArticle, TestCategory],
              contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
+
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 

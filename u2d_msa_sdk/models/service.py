@@ -38,7 +38,7 @@ class MSAServiceDefinition(BaseModel):
     timing: bool = False
     limiter: bool = False
     scheduler: bool = True
-    scheduler_poll_millis: int = 500
+    scheduler_poll_millis: int = 1000
     db: bool = True
     db_crud: bool = True
     db_meta_drop: bool = False
