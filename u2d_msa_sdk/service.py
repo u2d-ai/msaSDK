@@ -312,6 +312,7 @@ class MSAApp(MSAFastAPI):
             tz: str = 'Etc/GMT%+d' % offsetHour
             self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
                                           poll_millis=self.service_definition.scheduler_poll_millis)
+            await self.scheduler.run_timers()
 
     async def startup_event(self):
         self.logger.info("MSA SDK Internal Startup Event")

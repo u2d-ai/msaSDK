@@ -107,7 +107,7 @@ class MSATimers:
 
 
 class MSAScheduler:
-    def __init__(self, jobs, local_time_zone='UTC', poll_millis=500, wait_to_run=False):
+    def __init__(self, jobs, local_time_zone='UTC', poll_millis=500):
         '''MSAScheduler object runs timers
         Standard Polling is .5 seconds
         '''
@@ -123,9 +123,6 @@ class MSAScheduler:
         self.POLL_MILLIS = poll_millis
         self.local_time_zone = local_time_zone
 
-        if wait_to_run == False:
-            self.run_timers()
-
     async def _run_job(self, job: typing.Callable):
         is_coroutine = asyncio.iscoroutinefunction(job)
         if is_coroutine:
@@ -133,7 +130,7 @@ class MSAScheduler:
         else:
             await run_in_threadpool(job.__call__())
 
-    def run_timers(self, poll_adjuster=.99, debug=False):
+    async def run_timers(self, poll_adjuster=.99, debug=False):
         '''runs timers as follows:
         Step 1:  run every poll jobs
         Step 2: load timer queues for next poll
