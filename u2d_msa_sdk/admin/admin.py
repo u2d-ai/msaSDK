@@ -21,7 +21,7 @@ from starlette.templating import Jinja2Templates
 
 import u2d_msa_sdk.admin
 from .parser import MSAUIParser
-from .settings import Settings
+from .settings import AdminSettings
 from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
     Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
 from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
@@ -1193,7 +1193,7 @@ class BaseAdminSite(AdminApp):
 
     def __init__(
             self,
-            settings: Settings,
+            settings: AdminSettings,
             fastapi: FastAPI = None,
             engine: Union[Engine, AsyncEngine] = None
     ):

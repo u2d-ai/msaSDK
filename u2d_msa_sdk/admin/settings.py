@@ -23,5 +23,5 @@ class AdminSettings(BaseSettings):
     @root_validator(pre=True)
     def valid_database_url(cls, values):
         if not values.get('database_url') and not values.get('database_url_async'):
-            values.setdefault('database_url', 'sqlite+aiosqlite:///amisadmin.db?check_same_thread=False')
+            values.setdefault('database_url', 'sqlite+aiosqlite:///msa_sdk_admin.db?check_same_thread=False')
         return values

@@ -4,7 +4,7 @@ from typing import Union, List, Optional, Any, Dict
 from pydantic import Field
 
 from .constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
-from .types import API, Expression, MSAUINode, SchemaNode, Template, MSABaseUIModel, OptionsNode, Tpl
+from .types import MSA_UI_API, Expression, MSAUINode, SchemaNode, Template, MSABaseUIModel, OptionsNode, Tpl
 from .utils import msa_ui_templates
 
 try:
@@ -73,7 +73,7 @@ class Page(MSAUINode):
     bodyClassName: str = None  # "wrapper"  # Body dom 类名
     asideClassName: str = None  # "w page-aside-region bg-auto"  # Aside dom 类名
     headerClassName: str = None  # "bg-light b-b wrapper"  # Header 区域 dom 类名
-    initApi: API = None  # Page 用来获取初始数据的 api。返回的数据可以整个 page 级别使用。
+    initApi: MSA_UI_API = None  # Page 用来获取初始数据的 api。返回的数据可以整个 page 级别使用。
     initFetch: bool = None  # True  # 是否起始拉取 initApi
     initFetchOn: Expression = None  # 是否起始拉取 initApi, 通过表达式配置
     interval: int = None  # 刷新时间(最小 1000)
@@ -242,7 +242,7 @@ class ActionType:
 
     class Ajax(Action):
         actionType: str = 'ajax'  # 点击后显示一个弹出框
-        api: API = None  # 请求地址，参考 api 格式说明。
+        api: MSA_UI_API = None  # 请求地址，参考 api 格式说明。
         redirect: Template = None  # 指定当前请求结束后跳转的路径，可用 ${xxx} 取值。
         feedback: "Dialog" = None  # 如果 ajax 类型的，当 ajax 返回正常后，还能接着弹出一个 dialog 做其他交互。返回的数据可用于这个 dialog 中。格式可参考Dialog
         messages: dict = None  # success：ajax 操作成功后提示，可以不指定，不指定时以 api 返回为准。failed：ajax 操作失败提示。
@@ -279,7 +279,7 @@ class PageSchema(MSAUINode):
     # 当路径是 / 开头如： /crud/list 时，则不会拼接父级路径。
     # 另外还支持 /crud/view/:id 这类带参数的路由，页面中可以通过 ${params.id} 取到此值。
     schema_: Union[Page, "Iframe"] = Field(None, alias='schema')  # 页面的配置，具体配置请前往 Page 页面说明
-    schemaApi: API = None  # 如果想通过接口拉取，请配置。返回路径为 json>data。schema 和 schemaApi 只能二选一。
+    schemaApi: MSA_UI_API = None  # 如果想通过接口拉取，请配置。返回路径为 json>data。schema 和 schemaApi 只能二选一。
     link: str = None  # 如果想配置个外部链接菜单，只需要配置 link 即可。
     redirect: str = None  # 跳转，当命中当前页面时，跳转到目标页面。
     rewrite: str = None  # 改成渲染其他路径的页面，这个方式页面地址不会发生修改。
@@ -315,7 +315,7 @@ class App(Page):
     """多页应用"""
     __default_template_path__: str = f'{BASE_DIR}/templates/app.html'
     type: str = "app"
-    api: API = None  # 页面配置接口，如果你想远程拉取页面配置请配置。返回配置路径 json>data>pages，具体格式请参考 pages 属性。
+    api: MSA_UI_API = None  # 页面配置接口，如果你想远程拉取页面配置请配置。返回配置路径 json>data>pages，具体格式请参考 pages 属性。
     brandName: str = None  # 应用名称
     logo: str = None  # 支持图片地址，或者 svg。
     className: str = None  # css 类名
@@ -356,11 +356,11 @@ class Service(MSAUINode):
     data: dict = None  #
     className: str = None  # 外层 Dom 的类名
     body: SchemaNode = None  # 内容容器
-    api: API = None  # 初始化数据域接口地址
+    api: MSA_UI_API = None  # 初始化数据域接口地址
     ws: str = None  # WebScocket 地址
     dataProvider: str = None  # 数据获取函数
     initFetch: bool = None  # 是否默认拉取
-    schemaApi: API = None  # 用来获取远程 Schema 接口地址
+    schemaApi: MSA_UI_API = None  # 用来获取远程 Schema 接口地址
     initFetchSchema: bool = None  # 是否默认拉取 Schema
     messages: dict = None  # 消息提示覆写，默认消息读取的是接口返回的 toast 提示文字，但是在此可以覆写它。
     # messages.fetchSuccess: str = None  # 接口请求成功时的 toast 提示文字
@@ -383,17 +383,17 @@ class Nav(MSAUINode):
         active: bool = None  # 是否高亮
         activeOn: Expression = None  # 是否高亮的条件，留空将自动分析链接地址
         defer: bool = None  # 标记是否为懒加载项
-        deferApi: API = None  # 可以不配置，如果配置优先级更高
+        deferApi: MSA_UI_API = None  # 可以不配置，如果配置优先级更高
 
     type: str = "nav"  # 指定为 Nav 渲染器
     className: str = None  # 外层 Dom 的类名
     stacked: bool = True  # 设置成 false 可以以 tabs 的形式展示
-    source: API = None  # 可以通过变量或 API 接口动态创建导航
-    deferApi: API = None  # 用来延时加载选项详情的接口，可以不配置，不配置公用 source 接口。
+    source: MSA_UI_API = None  # 可以通过变量或 MSA_UI_API 接口动态创建导航
+    deferApi: MSA_UI_API = None  # 用来延时加载选项详情的接口，可以不配置，不配置公用 source 接口。
     itemActions: SchemaNode = None  # 更多操作相关配置
     draggable: bool = None  # 是否支持拖拽排序
     dragOnSameLevel: bool = None  # 仅允许同层级内拖拽
-    saveOrderApi: API = None  # 保存排序的 api
+    saveOrderApi: MSA_UI_API = None  # 保存排序的 api
     itemBadge: Badge = None  # 角标
     links: list = None  # 链接集合
 
@@ -492,22 +492,22 @@ class Form(MSAUINode):
     body: List[Union[FormItem, SchemaNode]] = None  # Form 表单项集合
     actions: List["Action"] = None  # Form 提交按钮，成员为 Action
     actionsClassName: str = None  # actions 的类名
-    messages: Messages = None  # 消息提示覆写，默认消息读取的是 API 返回的消息，但是在此可以覆写它。
+    messages: Messages = None  # 消息提示覆写，默认消息读取的是 MSA_UI_API 返回的消息，但是在此可以覆写它。
     wrapWithPanel: bool = None  # 是否让 Form 用 panel 包起来，设置为 false 后，actions 将无效。
     panelClassName: str = None  # 外层 panel 的类名
-    api: API = None  # Form 用来保存数据的 api。
-    initApi: API = None  # Form 用来获取初始数据的 api。
+    api: MSA_UI_API = None  # Form 用来保存数据的 api。
+    initApi: MSA_UI_API = None  # Form 用来获取初始数据的 api。
     rules: list = None  # 表单组合校验规则 Array<{rule:string;message:string}>
     interval: int = None  # 刷新时间(最低 3000)
     silentPolling: bool = False  # 配置刷新时是否显示加载动画
     stopAutoRefreshWhen: str = None  # 通过表达式 来配置停止刷新的条件
-    initAsyncApi: API = None  # Form 用来获取初始数据的 api,与 initApi 不同的是，会一直轮询请求该接口，直到返回 finished 属性为 true 才 结束。
+    initAsyncApi: MSA_UI_API = None  # Form 用来获取初始数据的 api,与 initApi 不同的是，会一直轮询请求该接口，直到返回 finished 属性为 true 才 结束。
     initFetch: bool = None  # 设置了 initApi 或者 initAsyncApi 后，默认会开始就发请求，设置为 false 后就不会起始就请求接口
     initFetchOn: str = None  # 用表达式来配置
     initFinishedField: Optional[str] = None  # 设置了 initAsyncApi 后，默认会从返回数据的 data.finished 来判断是否完成，
     # 也可以设置成其他的 xxx，就会从 data.xxx 中获取
     initCheckInterval: int = None  # 设置了 initAsyncApi 以后，默认拉取的时间间隔
-    asyncApi: API = None  # 设置此属性后，表单提交发送保存接口后，还会继续轮询请求该接口，直到返回 finished 属性为 true 才 结束。
+    asyncApi: MSA_UI_API = None  # 设置此属性后，表单提交发送保存接口后，还会继续轮询请求该接口，直到返回 finished 属性为 true 才 结束。
     checkInterval: int = None  # 轮询请求的时间间隔，默认为 3 秒。设置 asyncApi 才有效
     finishedField: Optional[str] = None  # 如果决定结束的字段名不是 finished 请设置此属性，比如 is_success
     submitOnChange: bool = None  # 表单修改即提交
@@ -577,7 +577,7 @@ class Radios(FormItem):
     """单选框"""
     type: str = 'radios'
     options: List[Union[dict, str]] = None  # 选项组
-    source: API = None  # 动态选项组
+    source: MSA_UI_API = None  # 动态选项组
     labelField: bool = None  # "label"  # 选项标签字段
     valueField: bool = None  # "value"  # 选项值字段
     columnsCount: int = None  # 1  # 选项按几列显示，默认为一列
@@ -598,7 +598,7 @@ class Checkboxes(FormItem):
     """复选框"""
     type: str = 'checkboxes'
     options: OptionsNode = None  # 选项组
-    source: API = None  # 动态选项组
+    source: MSA_UI_API = None  # 动态选项组
     delimiter: str = None  # ","  # 拼接符
     labelField: str = None  # "label"  # 选项标签字段
     valueField: str = None  # "value"  # 选项值字段
@@ -611,12 +611,12 @@ class Checkboxes(FormItem):
     creatable: bool = None  # False  # 新增选项
     createBtnLabel: str = None  # "新增选项"  # 新增选项
     addControls: List[FormItem] = None  # 自定义新增表单项
-    addApi: API = None  # 配置新增选项接口
+    addApi: MSA_UI_API = None  # 配置新增选项接口
     editable: bool = None  # False  # 编辑选项
     editControls: List[FormItem] = None  # 自定义编辑表单项
-    editApi: API = None  # 配置编辑选项接口
+    editApi: MSA_UI_API = None  # 配置编辑选项接口
     removable: bool = None  # False  # 删除选项
-    deleteApi: API = None  # 配置删除选项接口
+    deleteApi: MSA_UI_API = None  # 配置删除选项接口
 
 
 class InputCity(FormItem):
@@ -658,7 +658,7 @@ class Combo(FormItem):
     addable: bool = False  # 是否可新增
     addButtonText: str = None  # "新增"  # 新增按钮文字
     removable: bool = False  # 是否可删除
-    deleteApi: API = None  # 如果配置了，则删除前会发送一个 api，请求成功才完成删除
+    deleteApi: MSA_UI_API = None  # 如果配置了，则删除前会发送一个 api，请求成功才完成删除
     deleteConfirmText: str = None  # "确认要删除？"  # 当配置 deleteApi 才生效！删除时用来做用户确认
     draggable: bool = False  # 是否可以拖动排序, 需要注意的是当启用拖动排序的时候，会多一个$id 字段
     draggableTip: str = None  # "可通过拖动每行中的【交换】按钮进行顺序调整"  # 可拖拽的提示文字
@@ -714,9 +714,9 @@ class ConditionBuilder(FormItem):
         """下拉选择"""
         type: str = 'select'
         options: OptionsNode = None  # 选项列表，Array<{label: string, value: any}>
-        source: API = None  # 动态选项，请配置 api。
+        source: MSA_UI_API = None  # 动态选项，请配置 api。
         searchable: bool = None  # 是否可以搜索
-        autoComplete: API = None  # 自动提示补全，每次输入新内容后，将调用接口，根据接口返回更新选项。
+        autoComplete: MSA_UI_API = None  # 自动提示补全，每次输入新内容后，将调用接口，根据接口返回更新选项。
 
     type: str = 'condition-builder'
     fields: List[Field] = None  # 为数组类型，每个成员表示一个可选字段，支持多个层，配置示例
@@ -743,7 +743,7 @@ class Markdown(MSAUINode):
     name: str = None  # 字段名，指定该表单项提交时的 key
     value: Union[int, str] = None  # 字段的值
     className: str = None  # 表单最外层类名
-    src: API = None  # 外部地址
+    src: MSA_UI_API = None  # 外部地址
     options: dict = None  # html，是否支持 html 标签，默认 false;
     # linkify，是否自动识别链接，默认值是 true;breaks，是否回车就是换行，默认 false
 
@@ -751,7 +751,7 @@ class Markdown(MSAUINode):
 class InputFile(FormItem):
     """文件上传"""
     type: str = 'input-file'
-    receiver: API = None  # 上传文件接口
+    receiver: MSA_UI_API = None  # 上传文件接口
     accept: str = None  # "text/plain"  # 默认只支持纯文本，要支持其他类型，请配置此属性为文件后缀.xxx
     asBase64: bool = None  # False  # 将文件以base64的形式，赋值给当前组件
     asBlob: bool = None  # False  # 将文件以二进制的形式，赋值给当前组件
@@ -774,9 +774,9 @@ class InputFile(FormItem):
     # 默认显示文件路径的时候会支持直接下载，可以支持加前缀如：http://xx.dom/filename= ，如果不希望这样，可以把当前配置项设置为 false。
     useChunk: bool = None  # amis 所在服务器，限制了文件上传大小不得超出 10M，所以 amis 在用户选择大文件的时候，自动会改成分块上传模式。
     chunkSize: int = None  # 5 * 1024 * 1024  # 分块大小
-    startChunkApi: API = None  # startChunkApi
-    chunkApi: API = None  # chunkApi
-    finishChunkApi: API = None  # finishChunkApi
+    startChunkApi: MSA_UI_API = None  # startChunkApi
+    chunkApi: MSA_UI_API = None  # chunkApi
+    finishChunkApi: MSA_UI_API = None  # finishChunkApi
     autoFill: Dict[str, str] = None  # 上传成功后，可以通过配置 autoFill 将上传接口返回的值填充到某个表单项中（在非表单下暂不支持）
 
 
@@ -798,9 +798,9 @@ class InputTable(FormItem):
     editable: bool = None  # False  # 是否可编辑
     removable: bool = None  # False  # 是否可删除
     showAddBtn: bool = None  # True  # 是否显示添加按钮
-    addApi: API = None  # 新增时提交的 API
-    updateApi: API = None  # 修改时提交的 API
-    deleteApi: API = None  # 删除时提交的 API
+    addApi: MSA_UI_API = None  # 新增时提交的 MSA_UI_API
+    updateApi: MSA_UI_API = None  # 修改时提交的 MSA_UI_API
+    deleteApi: MSA_UI_API = None  # 删除时提交的 MSA_UI_API
     addBtnLabel: str = None  # 增加按钮名称
     addBtnIcon: str = None  # "plus"  # 增加按钮图标
     copyBtnLabel: str = None  # 复制按钮文字
@@ -856,7 +856,7 @@ class InputImage(FormItem):
         # 如果要设置 16:9 请设置 1.7777777777777777 即 16 / 9。 如果不想限制比率，请设置空字符串。
 
     type: str = 'input-image'
-    receiver: API = None  # 上传文件接口
+    receiver: MSA_UI_API = None  # 上传文件接口
     accept: str = None  # ".jpeg,.jpg,.png,.gif"  # 支持的图片类型格式，请配置此属性为图片后缀，例如.jpg,.png
     maxSize: int = None  # 默认没有限制，当设置后，文件大小大于此值将不允许上传。单位为B
     maxLength: int = None  # 默认没有限制，当设置后，一次只允许上传指定数量文件。
@@ -906,7 +906,7 @@ class Picker(FormItem):
     type: str = 'picker'  # 列表选取，在功能上和 Select 类似，但它能显示更复杂的信息。
     size: Union[str, SizeEnum] = None  # 支持: xs、sm、md、lg、xl、 full
     options: OptionsNode = None  # 选项组
-    source: API = None  # 动态选项组
+    source: MSA_UI_API = None  # 动态选项组
     multiple: bool = None  # 是否为多选。
     delimiter: bool = None  # False # 拼接符
     labelField: str = None  # "label" # 选项标签字段
@@ -948,8 +948,8 @@ class InputText(FormItem):
     """输入框"""
     type: str = 'input-text'  # input-text|input-url|input-email|input-password|divider
     options: Union[List[str], List[dict]] = None  # 选项组
-    source: Union[str, API] = None  # 动态选项组
-    autoComplete: Union[str, API] = None  # 自动补全
+    source: Union[str, MSA_UI_API] = None  # 动态选项组
+    autoComplete: Union[str, MSA_UI_API] = None  # 自动补全
     multiple: bool = None  # 是否多选
     delimiter: str = None  # 拼接符 ","
     labelField: str = None  # 选项标签字段 "label"
@@ -977,8 +977,8 @@ class InputRichText(FormItem):
     """富文本编辑器"""
     type: str = 'input-rich-text'
     saveAsUbb: bool = None  # 是否保存为 ubb 格式
-    receiver: API = None  # ''  # 默认的图片保存 API
-    videoReceiver: API = None  # ''  # 默认的视频保存 API
+    receiver: MSA_UI_API = None  # ''  # 默认的图片保存 MSA_UI_API
+    videoReceiver: MSA_UI_API = None  # ''  # 默认的视频保存 MSA_UI_API
     size: str = None  # 框的大小，可设置为 md 或者 lg
     options: dict = None  # 需要参考 tinymce 或 froala 的文档
     buttons: List[str] = None  # froala 专用，配置显示的按钮，tinymce 可以通过前面的 options 设置 toolbar 字符串
@@ -989,8 +989,8 @@ class Select(FormItem):
     """下拉框"""
     type: str = 'select'
     options: OptionsNode = None  # 选项组
-    source: API = None  # 动态选项组
-    autoComplete: API = None  # 自动提示补全
+    source: MSA_UI_API = None  # 动态选项组
+    autoComplete: MSA_UI_API = None  # 自动提示补全
     delimiter: Union[bool, str] = None  # False  # 拼接符
     labelField: str = None  # "label"  # 选项标签字段
     valueField: str = None  # "value"  # 选项值字段
@@ -1005,12 +1005,12 @@ class Select(FormItem):
     searchable: bool = None  # False  # 检索
     createBtnLabel: str = None  # "新增选项"  # 新增选项
     addControls: List[FormItem] = None  # 自定义新增表单项
-    addApi: API = None  # 配置新增选项接口
+    addApi: MSA_UI_API = None  # 配置新增选项接口
     editable: bool = None  # False  # 编辑选项
     editControls: List[FormItem] = None  # 自定义编辑表单项
-    editApi: API = None  # 配置编辑选项接口
+    editApi: MSA_UI_API = None  # 配置编辑选项接口
     removable: bool = None  # False  # 删除选项
-    deleteApi: API = None  # 配置删除选项接口
+    deleteApi: MSA_UI_API = None  # 配置删除选项接口
     autoFill: dict = None  # 自动填充
     menuTpl: str = None  # 支持配置自定义菜单
     clearable: bool = None  # 单选模式下是否支持清空
@@ -1146,12 +1146,12 @@ class Transfer(FormItem):
     """穿梭器"""
     type: Literal['transfer', 'transfer-picker', 'tabs-transfer', 'tabs-transfer-picker'] = 'transfer'
     options: OptionsNode = None  # 选项组
-    source: API = None  # 动态选项组
+    source: MSA_UI_API = None  # 动态选项组
     delimiter: str = None  # "False"  # 拼接符
     joinValues: bool = None  # True  # 拼接值
     extractValue: bool = None  # False  # 提取值
     searchable: bool = None  # False  # 当设置为 true 时表示可以通过输入部分内容检索出选项。
-    searchApi: API = None  # 如果想通过接口检索，可以设置个 api。
+    searchApi: MSA_UI_API = None  # 如果想通过接口检索，可以设置个 api。
     statistics: bool = None  # True  # 是否显示统计数据
     selectTitle: str = None  # "请选择"  # 左侧的标题文字
     resultTitle: str = None  # "当前选择"  # 右侧结果的标题文字
@@ -1186,8 +1186,8 @@ class InputTree(FormItem):
     """树形选择框"""
     type: str = 'input-tree'
     options: OptionsNode = None  # 选项组
-    source: API = None  # 动态选项组
-    autoComplete: API = None  # 自动提示补全
+    source: MSA_UI_API = None  # 动态选项组
+    autoComplete: MSA_UI_API = None  # 自动提示补全
     multiple: bool = None  # False  # 是否多选
     delimiter: str = None  # "False"  # 拼接符
     labelField: str = None  # "label"  # 选项标签字段
@@ -1197,12 +1197,12 @@ class InputTree(FormItem):
     extractValue: bool = None  # False  # 提取值
     creatable: bool = None  # False  # 新增选项
     addControls: List[FormItem] = None  # 自定义新增表单项
-    addApi: API = None  # 配置新增选项接口
+    addApi: MSA_UI_API = None  # 配置新增选项接口
     editable: bool = None  # False  # 编辑选项
     editControls: List[FormItem] = None  # 自定义编辑表单项
-    editApi: API = None  # 配置编辑选项接口
+    editApi: MSA_UI_API = None  # 配置编辑选项接口
     removable: bool = None  # False  # 删除选项
-    deleteApi: API = None  # 配置删除选项接口
+    deleteApi: MSA_UI_API = None  # 配置删除选项接口
     searchable: bool = None  # False  # 是否可检索，仅在 type 为 tree-select 的时候生效
     hideRoot: bool = None  # True  # 如果想要显示个顶级节点，请设置为 false
     rootLabel: bool = None  # "顶级"  # 当 hideRoot 不为 false 时有用，用来设置顶级节点的文字。
@@ -1220,7 +1220,7 @@ class InputTree(FormItem):
     treeContainerClassName: str = None  # tree 最外层容器类名
     enableNodePath: bool = None  # False  # 是否开启节点路径模式
     pathSeparator: str = None  # "/"  # 节点路径的分隔符，enableNodePath为true时生效
-    deferApi: API = None  # 懒加载的选项请配置 defer 为 true，然后配置 deferApi 即可完成懒加载
+    deferApi: MSA_UI_API = None  # 懒加载的选项请配置 defer 为 true，然后配置 deferApi 即可完成懒加载
     selectFirst: bool = None
 
 
@@ -1310,7 +1310,7 @@ class CRUD(MSAUINode):
     mode: str = None  # "table"  # "table" 、 "cards" 或者 "list"
     title: str = None  # ""  # 可设置成空，当设置成空时，没有标题栏
     className: str = None  # 表格外层 Dom 的类名
-    api: API = None  # CRUD 用来获取列表数据的 api。
+    api: MSA_UI_API = None  # CRUD 用来获取列表数据的 api。
     loadDataOnce: bool = None  # 是否一次性加载所有数据（前端分页）
     loadDataOnceFetchOnFilter: bool = None  # True  # 在开启 loadDataOnce 时，filter 时是否去重新请求 api
     source: str = None  # 数据映射接口返回某字段的值，不设置会默认使用接口返回的${items}或者${rows}，也可以设置成上层数据源的内容
@@ -1325,9 +1325,9 @@ class CRUD(MSAUINode):
     syncLocation: bool = None  # False  # 是否将过滤条件的参数同步到地址栏, !!!开启后可能改变数据类型,无法通过fastpi数据校验
     draggable: bool = None  # 是否可通过拖拽排序
     itemDraggableOn: bool = None  # 用表达式来配置是否可拖拽排序
-    saveOrderApi: API = None  # 保存排序的 api。
-    quickSaveApi: API = None  # 快速编辑后用来批量保存的 API。
-    quickSaveItemApi: API = None  # 快速编辑配置成及时保存时使用的 API。
+    saveOrderApi: MSA_UI_API = None  # 保存排序的 api。
+    quickSaveApi: MSA_UI_API = None  # 快速编辑后用来批量保存的 MSA_UI_API。
+    quickSaveItemApi: MSA_UI_API = None  # 快速编辑配置成及时保存时使用的 MSA_UI_API。
     bulkActions: List[Action] = None  # 批量操作列表，配置后，表格可进行选中操作。
     defaultChecked: bool = None  # 当可批量操作时，默认是否全部勾选。
     messages: Messages = None  # 覆盖消息提示，如果不指定，将采用 api 返回的 message
@@ -1424,7 +1424,7 @@ class Chart(MSAUINode):
     type: str = "chart"  # 指定为 chart 渲染器
     className: str = None  # 外层 Dom 的类名
     body: SchemaNode = None  # 内容容器
-    api: API = None  # 配置项接口地址
+    api: MSA_UI_API = None  # 配置项接口地址
     source: dict = None  # 通过数据映射获取数据链中变量值作为配置
     initFetch: bool = None  # 组件初始化时，是否请求接口
     interval: int = None  # 刷新时间(最小 1000)
@@ -1477,7 +1477,7 @@ class Link(MSAUINode):
 class Log(MSAUINode):
     """实时日志"""
     type: str = "log"
-    source: API = None  # 支持变量,可以初始设置为空，这样初始不会加载，而等这个变量有值的时候再加载
+    source: MSA_UI_API = None  # 支持变量,可以初始设置为空，这样初始不会加载，而等这个变量有值的时候再加载
     height: int = None  # 500  # 展示区域高度
     className: str = None  # 外层 CSS 类名
     autoScroll: bool = None  # True  # 是否自动滚动
@@ -1491,7 +1491,7 @@ class Mapping(MSAUINode):
     className: str = None  # 外层 CSS 类名
     placeholder: str = None  # 占位文本
     map: dict = None  # 映射配置
-    source: API = None  # API 或 数据映射
+    source: MSA_UI_API = None  # MSA_UI_API 或 数据映射
 
 
 class Property(MSAUINode):
@@ -1654,9 +1654,9 @@ class Tasks(MSAUINode):
     className: str = None  # 外层 Dom 的类名
     tableClassName: str = None  # table Dom 的类名
     items: List[Item] = None  # 任务列表
-    checkApi: API = None  # 返回任务列表，返回的数据请参考 items。
-    submitApi: API = None  # 提交任务使用的 API
-    reSubmitApi: API = None  # 如果任务失败，且可以重试，提交的时候会使用此 API
+    checkApi: MSA_UI_API = None  # 返回任务列表，返回的数据请参考 items。
+    submitApi: MSA_UI_API = None  # 提交任务使用的 MSA_UI_API
+    reSubmitApi: MSA_UI_API = None  # 如果任务失败，且可以重试，提交的时候会使用此 MSA_UI_API
     interval: int = None  # 3000  # 当有任务进行中，会每隔一段时间再次检测，而时间间隔就是通过此项配置，默认 3s。
     taskNameLabel: str = None  # "任务名称"  # 任务名称列说明
     operationLabel: str = None  # "操作"  # 操作列说明
@@ -1678,17 +1678,17 @@ class Wizard(MSAUINode):
         title: str = None  # 步骤标题
         mode: str = None  # 展示默认，跟 Form 中的模式一样，选择： normal、horizontal或者inline。
         horizontal: Horizontal = None  # 当为水平模式时，用来控制左右占比
-        api: API = None  # 当前步骤保存接口，可以不配置。
-        initApi: API = None  # 当前步骤数据初始化接口。
+        api: MSA_UI_API = None  # 当前步骤保存接口，可以不配置。
+        initApi: MSA_UI_API = None  # 当前步骤数据初始化接口。
         initFetch: bool = None  # 当前步骤数据初始化接口是否初始拉取。
         initFetchOn: Expression = None  # 当前步骤数据初始化接口是否初始拉取，用表达式来决定。
         body: List[FormItem] = None  # 当前步骤的表单项集合，请参考 FormItem。
 
     type: str = "wizard"  # 指定为 Wizard 组件
     mode: str = None  # "horizontal"  # 展示模式，选择：horizontal 或者 vertical
-    api: API = None  # 最后一步保存的接口。
-    initApi: API = None  # 初始化数据接口
-    initFetch: API = None  # 初始是否拉取数据。
+    api: MSA_UI_API = None  # 最后一步保存的接口。
+    initApi: MSA_UI_API = None  # 初始化数据接口
+    initFetch: MSA_UI_API = None  # 初始是否拉取数据。
     initFetchOn: Expression = None  # 初始是否拉取数据，通过表达式来配置
     actionPrevLabel: str = None  # "上一步"  # 上一步按钮文本
     actionNextLabel: str = None  # "下一步"  # 下一步按钮文本

@@ -18,7 +18,7 @@ from .types import (
     MSABaseUIApiOut,
     MSAUINode,
     MSAUIAPI,
-    API,
+    MSA_UI_API,
     Tpl,
     Event,
 )

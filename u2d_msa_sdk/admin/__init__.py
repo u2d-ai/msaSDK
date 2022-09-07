@@ -24,7 +24,7 @@ from .admin import (
     TemplateAdmin,
 )
 from .parser import MSAUIParser
-from .settings import Settings
+from .settings import AdminSettings
 from .site import (
     AdminSite,
     DocsAdmin,

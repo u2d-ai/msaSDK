@@ -14,7 +14,7 @@ from u2d_msa_sdk import admin
 from u2d_msa_sdk.db.crud.schema import MSACRUDOut
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
-from .settings import Settings
+from .settings import AdminSettings
 from .utils.translation import i18n as _
 
 
@@ -120,6 +120,6 @@ class FileAdmin(RouterAdmin):
 
 class AdminSite(BaseAdminSite):
 
-    def __init__(self, settings: Settings, fastapi: FastAPI = None, engine: AsyncEngine = None):
+    def __init__(self, settings: AdminSettings, fastapi: FastAPI = None, engine: AsyncEngine = None):
         super().__init__(settings, fastapi, engine)
         self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, FileAdmin)
