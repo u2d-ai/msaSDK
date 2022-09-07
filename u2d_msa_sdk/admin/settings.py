@@ -16,8 +16,8 @@ class AdminSettings(BaseSettings):
     msa_ui_cdn: str = 'https://unpkg.com'
     msa_ui_pkg: str = 'msa_ui@1.10.2'
 
-    @validator('amis_cdn', 'root_path', 'site_url', pre=True)
-    def valid_url(url: str):
+    @validator('msa_ui_cdn', 'root_path', 'site_url', pre=True)
+    def valid_url(cls, url: str):
         return url[:-1] if url.endswith('/') else url
 
     @root_validator(pre=True)
