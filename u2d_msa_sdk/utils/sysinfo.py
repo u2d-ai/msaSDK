@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import datetime
 import decimal
 import os
@@ -10,10 +13,10 @@ import GPUtil
 import psutil
 from pydantic import BaseModel
 
-from u2d_msa_sdk.errorhandling import getMSABaseExceptionHandler
+from u2d_msa_sdk.utils.errorhandling import getMSABaseExceptionHandler
 
 
-class GPUInfo(BaseModel):
+class MSAGPUInfo(BaseModel):
     id: Optional[int]
     name: Optional[str]
     load: Optional[str]
@@ -24,7 +27,7 @@ class GPUInfo(BaseModel):
     uuid: Optional[str]
 
 
-class DiskIO(BaseModel):
+class MSADiskIO(BaseModel):
     read_count: Optional[int]
     write_count: Optional[int]
     read_bytes: Optional[int]
@@ -36,7 +39,7 @@ class DiskIO(BaseModel):
     busy_time: Optional[int]
 
 
-class NetworkIO(BaseModel):
+class MSANetworkIO(BaseModel):
     bytes_sent: Optional[int]
     bytes_recv: Optional[int]
     packets_sent: Optional[int]
@@ -47,7 +50,7 @@ class NetworkIO(BaseModel):
     dropout: Optional[int]
 
 
-class NetworkConnection(BaseModel):
+class MSANetworkConnection(BaseModel):
     index: Optional[int]
     file_descriptor: Optional[int]
     family: Optional[int]
@@ -58,7 +61,7 @@ class NetworkConnection(BaseModel):
     pid: Optional[int]
 
 
-class NetworkAdapter(BaseModel):
+class MSANetworkAdapter(BaseModel):
     family: Optional[int]
     address: Optional[str]
     netmask: Optional[str]
@@ -66,12 +69,12 @@ class NetworkAdapter(BaseModel):
     ptp: Optional[int]
 
 
-class NetworkAdapters(BaseModel):
+class MSANetworkAdapters(BaseModel):
     name: str = ""
-    adapters: List[NetworkAdapter] = []
+    adapters: List[MSANetworkAdapter] = []
 
 
-class NetworkStat(BaseModel):
+class MSANetworkStat(BaseModel):
     isup: Optional[bool]
     duplex: Optional[int]
     speed: Optional[int]
@@ -80,28 +83,28 @@ class NetworkStat(BaseModel):
 
 class NetworkStats(BaseModel):
     name: str = ""
-    adapters: List[NetworkStat] = []
+    adapters: List[MSANetworkStat] = []
 
 
-class Temperature(BaseModel):
+class MSATemperature(BaseModel):
     label: Optional[str]
     current: Optional[float]
     high: Optional[float]
     critical: Optional[float]
 
 
-class Temperatures(BaseModel):
+class MSATemperatures(BaseModel):
     device: str = ""
-    temps: List[Temperature] = []
+    temps: List[MSATemperature] = []
 
 
-class CPUFrequency(BaseModel):
+class MSACPUFrequency(BaseModel):
     current: Optional[float]
     min: Optional[int]
     max: Optional[int]
 
 
-class CPUTimes(BaseModel):
+class MSACPUTimes(BaseModel):
     user: Optional[float]
     nice: Optional[int]
     system: Optional[float]
@@ -114,14 +117,14 @@ class CPUTimes(BaseModel):
     guest_nice: Optional[int]
 
 
-class CPUStats(BaseModel):
+class MSACPUStats(BaseModel):
     ctx_switches: Optional[int]
     interrupts: Optional[int]
     soft_interrupts: Optional[int]
     syscalls: Optional[int]
 
 
-class MemoryUsage(BaseModel):
+class MSAMemoryUsage(BaseModel):
     total: Optional[float]
     available: Optional[float]
     used: Optional[float]
@@ -133,14 +136,14 @@ class MemoryUsage(BaseModel):
     inactive: Optional[float]
 
 
-class Swap(BaseModel):
+class MSASwap(BaseModel):
     total: Optional[float]
     used: Optional[float]
     free: Optional[float]
     percent: Optional[float]
 
 
-class SystemInfo(BaseModel):
+class MSASystemInfo(BaseModel):
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -157,28 +160,28 @@ class SystemInfo(BaseModel):
     Service_Start: str = ""
     Runtime_Exe: str = ""
     Runtime_Cmd: List[str] = []
-    Disk_IO: Optional[DiskIO]
-    Network_IO: Optional[NetworkIO]
-    Network_Connections: Optional[List[NetworkConnection]]
-    Network_Adapters: Optional[List[NetworkAdapters]]
+    Disk_IO: Optional[MSADiskIO]
+    Network_IO: Optional[MSANetworkIO]
+    Network_Connections: Optional[List[MSANetworkConnection]]
+    Network_Adapters: Optional[List[MSANetworkAdapters]]
     Network_Stats: Optional[List[NetworkStats]]
-    Temperatures: Optional[List[Temperatures]]
+    Temperatures: Optional[List[MSATemperatures]]
     CPU_Affinity: Optional[int]
-    CPU_Frequency: Optional[CPUFrequency]
-    CPU_Times: Optional[CPUTimes]
-    CPU_Stats: Optional[CPUStats]
+    CPU_Frequency: Optional[MSACPUFrequency]
+    CPU_Times: Optional[MSACPUTimes]
+    CPU_Stats: Optional[MSACPUStats]
     PID: Optional[int]
     CPU_Current: Optional[int]
     CPU_Usage_Total: Optional[float]
     CPU_Usage_Process: Optional[float]
     CPU_Usage_Name: str = ""
     CPU_LoadAvg: Optional[List[float]]
-    Memory_Usage: Optional[MemoryUsage]
-    Swap: Optional[Swap]
+    Memory_Usage: Optional[MSAMemoryUsage]
+    Swap: Optional[MSASwap]
     Runtime_Status: str = ""
 
 
-class SystemGPUInfo(BaseModel):
+class MSASystemGPUInfo(BaseModel):
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -196,7 +199,7 @@ class SystemGPUInfo(BaseModel):
     Runtime_Exe: str = ""
     Runtime_Cmd: List[str] = []
     PID: Optional[int]
-    GPUs: Optional[List[GPUInfo]]
+    GPUs: Optional[List[MSAGPUInfo]]
     Runtime_Status: str = ""
 
 
@@ -213,11 +216,11 @@ def get_list_partitions() -> List:
     return partitions_list
 
 
-def get_gpus() -> List[GPUInfo]:
+def get_gpus() -> List[MSAGPUInfo]:
     gpus = GPUtil.getGPUs()
-    list_gpus: List[GPUInfo] = []
+    list_gpus: List[MSAGPUInfo] = []
     for gpu in gpus:
-        ng: GPUInfo = GPUInfo()
+        ng: MSAGPUInfo = MSAGPUInfo()
         # get the GPU id
         ng.id = gpu.id
         # name of GPU
@@ -266,8 +269,8 @@ def get_map_disk_usage():
     return rdict
 
 
-def get_memory_usage() -> MemoryUsage:
-    mu: MemoryUsage = MemoryUsage()
+def get_memory_usage() -> MSAMemoryUsage:
+    mu: MSAMemoryUsage = MSAMemoryUsage()
     memory = psutil.virtual_memory()
 
     mu.total = memory.total / 1024 / 1024
@@ -282,48 +285,48 @@ def get_memory_usage() -> MemoryUsage:
     return mu
 
 
-def get_cpu_freq() -> CPUFrequency:
-    cpf: CPUFrequency = CPUFrequency()
+def get_cpu_freq() -> MSACPUFrequency:
+    cpf: MSACPUFrequency = MSACPUFrequency()
     cpf.current, cpf.min, cpf.max = psutil.cpu_freq()
     return cpf
 
 
-def get_cpu_times() -> CPUTimes:
-    cti: CPUTimes = CPUTimes()
+def get_cpu_times() -> MSACPUTimes:
+    cti: MSACPUTimes = MSACPUTimes()
     cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, \
         cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
     return cti
 
 
-def get_cpu_stats() -> CPUStats:
-    cst: CPUStats = CPUStats()
+def get_cpu_stats() -> MSACPUStats:
+    cst: MSACPUStats = MSACPUStats()
     cst.ctx_switches, cst.interrupts, cst.soft_interrupts, cst.syscalls = psutil.cpu_stats()
     return cst
 
 
-def get_disk_io() -> DiskIO:
-    dio: DiskIO = DiskIO()
+def get_disk_io() -> MSADiskIO:
+    dio: MSADiskIO = MSADiskIO()
     dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
         dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
     return dio
 
 
-def get_network_io() -> NetworkIO:
-    nio: NetworkIO = NetworkIO()
+def get_network_io() -> MSANetworkIO:
+    nio: MSANetworkIO = MSANetworkIO()
     nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, \
         nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
     return nio
 
 
-def get_network_adapters() -> List[NetworkAdapters]:
-    ret: List[NetworkAdapters] = []
+def get_network_adapters() -> List[MSANetworkAdapters]:
+    ret: List[MSANetworkAdapters] = []
     la: Dict = psutil.net_if_addrs()
 
     for key, val in la.items():
-        na: NetworkAdapters = NetworkAdapters()
+        na: MSANetworkAdapters = MSANetworkAdapters()
         na.name = key
         for entry in val:
-            la_entry: NetworkAdapter = NetworkAdapter()
+            la_entry: MSANetworkAdapter = MSANetworkAdapter()
             la_entry.family = entry[0]
             la_entry.address = entry[1]
             la_entry.netmask = entry[2]
@@ -334,14 +337,14 @@ def get_network_adapters() -> List[NetworkAdapters]:
     return ret
 
 
-def get_temperatures() -> List[Temperatures]:
-    ret: List[Temperatures] = []
+def get_temperatures() -> List[MSATemperatures]:
+    ret: List[MSATemperatures] = []
     ta: Dict = psutil.sensors_temperatures()
     for key, val in ta.items():
-        tp: Temperatures = Temperatures()
+        tp: MSATemperatures = MSATemperatures()
         tp.device = key
         for entry in val:
-            tp_entry: Temperature = Temperature()
+            tp_entry: MSATemperature = MSATemperature()
             tp_entry.label = entry[0]
             tp_entry.current = entry[1]
             tp_entry.high = entry[2]
@@ -357,7 +360,7 @@ def get_network_stats() -> List[NetworkStats]:
     for key, entry in net_stats.items():
         ns: NetworkStats = NetworkStats()
         ns.name = key
-        ns_entry: NetworkStat = NetworkStat()
+        ns_entry: MSANetworkStat = MSANetworkStat()
         ns_entry.isup = entry[0]
         ns_entry.duplex = entry[1]
         ns_entry.speed = entry[2]
@@ -367,11 +370,11 @@ def get_network_stats() -> List[NetworkStats]:
     return ret
 
 
-def get_network_connections() -> List[NetworkConnection]:
+def get_network_connections() -> List[MSANetworkConnection]:
     rlist: List = []
     inlist = psutil.net_connections()
     for xi, entry in enumerate(inlist):
-        nc: NetworkConnection = NetworkConnection()
+        nc: MSANetworkConnection = MSANetworkConnection()
         nc.index = xi
         nc.file_descriptor = entry[0]
         nc.family = entry[1]
@@ -386,9 +389,9 @@ def get_network_connections() -> List[NetworkConnection]:
     return rlist
 
 
-def get_swap() -> Swap:
+def get_swap() -> MSASwap:
     swap = psutil.swap_memory()
-    sw: Swap = Swap()
+    sw: MSASwap = MSASwap()
     sw.total = swap.total / 1024 / 1024
     sw.used = swap.used / 1024 / 1024
     sw.free = swap.free / 1024 / 1024
@@ -427,11 +430,11 @@ def get_cpu_usage(user=None, ignore_self=False):
     return total, largest_process, largest_process_name
 
 
-def get_sysinfo() -> SystemInfo:
+def get_sysinfo() -> MSASystemInfo:
     """
-    Get SystemInfo
+    Get MSASystemInfo
     """
-    si: SystemInfo = SystemInfo()
+    si: MSASystemInfo = MSASystemInfo()
     try:
         si.OS_Name = os.uname().sysname
         si.Node_Name = os.uname().nodename
@@ -474,11 +477,11 @@ def get_sysinfo() -> SystemInfo:
     return si
 
 
-def get_sysgpuinfo() -> SystemGPUInfo:
+def get_sysgpuinfo() -> MSASystemGPUInfo:
     """
-    Get SystemGPUInfo
+    Get MSASystemGPUInfo
     """
-    si: SystemGPUInfo = SystemGPUInfo()
+    si: MSASystemGPUInfo = MSASystemGPUInfo()
     try:
         si.OS_Name = os.uname().sysname
         si.Node_Name = os.uname().nodename

@@ -1,6 +1,6 @@
 aiomultiprocess==0.9.0 # running a full AsyncIO event loop on each child process
-tinydb==4.7.0 # TinyDB is a tiny, document oriented database
 aiofiles==0.8.0 # handling local disk files in asyncio applications
+aiosqlite>=0.17.0 # asyncio bridge to the standard sqlite3 module
 Babel==2.10.3 # collection of tools for internationalizing Python applications
 charset_normalizer==2.1.1 #  read text from an unknown charset encoding
 country_list==1.0.0 # List of all countries with names and ISO 3166-1 codes in all languages and all data formats
@@ -34,7 +34,6 @@ python-dotenv==0.20.0 # reads key-value pairs from a .env file and can set them 
 python-jose[cryptography]==3.3.0 # SON Web Signature (JWS), JSON Web Encryption (JWE), JSON Web Key (JWK), and JSON Web Algorithms (JWA)
 regex==2022.3.2 # Alternative regular expression module, to replace re.
 httpx==0.23.0 # The next generation HTTP client.
-sqlmodel==0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 setuptools==65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 slowapi>=0.1.6 # A rate limiting extension for Starlette and Fastapi
 sse_starlette==1.1.6 # Server Sent Events for Starlette and FastAPI
@@ -44,10 +43,14 @@ starlette-context==0.3.4 # Access context in Starlette
 starception==0.4.0 # Beautiful debugging page for Starlette apps.
 strawberry-graphql==0.126.2 #A library for creating GraphQL APIs
 strawberry-graphql[fastapi]==0.126.2 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
+sqlmodel==0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
+sqlalchemy[asyncio]>=1.4.40 # Database Abstraction Library
+sqlalchemy_database>=0.0.7 # SQLAlchemy-Database provides shortcut functions to common database operations for SQLAlchemy ORM
 uvicorn~=0.17.6
 uvloop==0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # dependencies
+pytz
 gputil~=1.4.0
 orjson
 python-multipart

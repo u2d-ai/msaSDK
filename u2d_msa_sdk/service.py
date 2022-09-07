@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import os
+import time
 from typing import List, Optional
 
 import uvloop
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
+from fastapi_pagination import add_pagination
 from fastapi_users.password import PasswordHelper
 from fastapi_utils.api_settings import APISettings
 from fastapi_utils.timing import add_timing_middleware
@@ -12,6 +17,11 @@ from msgpack_asgi import MessagePackMiddleware
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
@@ -21,27 +31,22 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from starlette_wtf import CSRFProtectMiddleware
 from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
+from starlette_wtf import CSRFProtectMiddleware
 from strawberry import schema
-from fastapi_pagination import add_pagination
-from slowapi.errors import RateLimitExceeded
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
 
-
-import healthcheck as health
-
+from u2d_msa_sdk.db.crud import MSASQLModelCrud
 from u2d_msa_sdk.models.health import MSAHealthMessage
 from u2d_msa_sdk.models.service import MSAServiceDefinition, MSAHealthDefinition
 from u2d_msa_sdk.msaapi import MSAFastAPI
 from u2d_msa_sdk.router.system import sys_router
 from u2d_msa_sdk.security import getMSASecurity
+from u2d_msa_sdk.utils import healthcheck as health
 from u2d_msa_sdk.utils.logger import init_logging
 from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
-from u2d_msa_sdk.utils.sysinfo import get_sysinfo, SystemInfo
-
+from u2d_msa_sdk.utils.scheduler import MSATimers, MSAScheduler
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(security_context)
@@ -104,6 +109,8 @@ class MSAApp(MSAFastAPI):
             self,
             settings: APISettings,
             service_definition: MSAServiceDefinition = MSAServiceDefinition(),
+            timers: MSATimers = None,
+            sql_models: List[SQLModel] = None,
             *args,
             **kwargs
     ) -> None:
@@ -113,14 +120,32 @@ class MSAApp(MSAFastAPI):
         init_logging()
         self.settings = settings
         self.service_definition: MSAServiceDefinition = service_definition
+        self.timers: MSATimers = timers
         self.healthdefinition: MSAHealthDefinition = self.service_definition.healthdefinition
         self.limiter: Limiter = None
+        self.db_engine: AsyncEngine = None
+        self.sql_models: List[SQLModel] = sql_models
+        self.sql_cruds: List[MSASQLModelCrud] = []
+        self.scheduler: MSAScheduler = None
 
         if self.service_definition.uvloop:
             uvloop.install()
         self.healthcheck: health.MSAHealthCheck = None
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
+
+        if self.service_definition.db:
+            self.logger.info("DB - Init: " + self.service_definition.db_url)
+            self.db_engine = create_async_engine(self.service_definition.db_url, future=True)
+            if self.service_definition.db_crud and self.sql_models:
+                self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
+                # register all Models and the crud for them
+                for model in self.sql_models:
+                    new_crud: MSASQLModelCrud = MSASQLModelCrud(model=model, engine=self.db_engine).register_crud()
+                    self.include_router(new_crud.router)
+                    self.sql_cruds.append(new_crud)
+        else:
+            self.logger.info("Excluded DB")
 
         if self.service_definition.graphql:
             self.logger.info("Init Graphql")
@@ -276,6 +301,35 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Prometheus Instrument and Expose")
 
+        self.add_event_handler("shutdown", self.shutdown_event)
+        self.add_event_handler("startup", self.startup_event)
+
+        if self.service_definition.scheduler and self.timers:
+            if time.daylight:
+                offsetHour = time.altzone / 3600
+            else:
+                offsetHour = time.timezone / 3600
+            tz: str = 'Etc/GMT%+d' % offsetHour
+            self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
+                                          poll_millis=self.service_definition.scheduler_poll_millis)
+
+    async def startup_event(self):
+        self.logger.info("MSA SDK Internal Startup Event")
+        if self.service_definition.db:
+            async with self.db_engine.begin() as conn:
+                if self.service_definition.db_meta_drop:
+                    self.logger.info("DB - Drop Meta All: " + self.service_definition.db_url)
+                    await conn.run_sync(SQLModel.metadata.drop_all)
+                if self.service_definition.db_meta_create:
+                    self.logger.info("DB - Create Meta All: " + self.service_definition.db_url)
+                    await conn.run_sync(SQLModel.metadata.create_all)
+
+    async def shutdown_event(self):
+        self.logger.info("MSA SDK Internal Shutdown Event")
+        if self.service_definition.db:
+            self.logger.info("DB - Dispose Connections: " + self.service_definition.db_url)
+            await self.db_engine.dispose()
+
     async def init_graphql(self, strawberry_schema: schema):
         if self.service_definition.graphql:
             from strawberry.fastapi import GraphQLRouter
@@ -404,7 +458,7 @@ class MSAApp(MSAFastAPI):
         :param request:
         :return:
         """
-        sysinfo: SystemInfo = await get_sysinfo()
+        sysinfo: MSASystemInfo = await get_sysinfo()
         return self.templates.TemplateResponse("monitor.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
@@ -426,7 +480,7 @@ class MSAApp(MSAFastAPI):
         :param request:
         :return:
         """
-        sysinfo: SystemInfo = await get_sysinfo()
+        sysinfo: MSASystemInfo = await get_sysinfo()
         return self.templates.TemplateResponse("monitor_inline.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})

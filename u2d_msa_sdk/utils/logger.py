@@ -1,4 +1,6 @@
-"""Configure handlers and formats for application loggers."""
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import logging
 import sys
 from pprint import pformat

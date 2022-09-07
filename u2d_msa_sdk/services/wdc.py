@@ -1,10 +1,13 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import html
 import json
 from typing import Dict, List
 
 import pandas as pd
 
-from u2d_msa_sdk.errorhandling import getMSABaseExceptionHandler
+from u2d_msa_sdk.utils.errorhandling import getMSABaseExceptionHandler
 from u2d_msa_sdk.models.sdu import SDUPage, SDUSentence
 from u2d_msa_sdk.models.wdc import WDCDocument, WDCSentence, WDCPage, WDCParagraph, WDCSpan, WDCPosition, WDCToken, \
     WDCWord, WDCTriple, WDCMLDocument

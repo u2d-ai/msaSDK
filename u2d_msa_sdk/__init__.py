@@ -11,7 +11,7 @@
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"
-__version__ = "0.0.1"
+__version__ = "0.0.3"
 __maintainer__ = "Stefan Welcker"
 __email__ = "stefan@u2d,.ai"
 __status__ = "Alpha"

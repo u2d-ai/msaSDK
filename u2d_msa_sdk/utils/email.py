@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText

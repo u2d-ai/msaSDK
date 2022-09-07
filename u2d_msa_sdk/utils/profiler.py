@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import time
 import codecs
 from typing import Optional
 
 from pyinstrument import Profiler
-from pyinstrument.renderers import HTMLRenderer
 
 from starlette.routing import Router
 from starlette.requests import Request

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import html
 from typing import List, Tuple, Optional, Dict
 from pydantic import BaseModel

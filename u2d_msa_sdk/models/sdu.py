@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import html
 import os
 from typing import Optional, List, Dict, Tuple
 from pydantic import BaseModel
-from u2d_msa_sdk.htmlutils import sanitize
+from u2d_msa_sdk.utils.htmlutils import sanitize
 
 
 def getCRLF() -> str:

@@ -1,12 +1,15 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 from fastapi import APIRouter
 from starlette.requests import Request
 
-from u2d_msa_sdk.utils.sysinfo import get_sysinfo, SystemInfo, SystemGPUInfo, get_sysgpuinfo
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo, MSASystemGPUInfo, get_sysgpuinfo
 
 sys_router = APIRouter(prefix="", tags=["system"], include_in_schema=True)
 
 
-@sys_router.get('/sysinfo', response_model=SystemInfo)
+@sys_router.get('/sysinfo', response_model=MSASystemInfo)
 def system_info(request: Request):
     """
     Get System Info
@@ -15,7 +18,7 @@ def system_info(request: Request):
     return sysinfo
 
 
-@sys_router.get('/sysgpuinfo', response_model=SystemGPUInfo)
+@sys_router.get('/sysgpuinfo', response_model=MSASystemGPUInfo)
 def system_gpu_info(request: Request):
     """
     Get System Nvidia GPU's Info

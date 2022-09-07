@@ -1,7 +1,11 @@
-import asyncio
-from threading import Thread
-import httpx
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import time
+from threading import Thread
+
+import httpx
+
 from u2d_msa_sdk.models.service import MSAHealthDefinition
 
 

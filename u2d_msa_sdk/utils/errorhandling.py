@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import sys
 import traceback
 from functools import lru_cache

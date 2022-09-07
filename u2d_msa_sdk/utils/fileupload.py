@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import os
+import re
 import shutil
 import unicodedata
 from typing import List, Optional
@@ -8,8 +12,6 @@ import magic
 from fastapi import HTTPException
 from starlette.datastructures import UploadFile
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
-
-from app.api.v1.filehandling.models import API_File
 
 from u2d_msa_sdk.models.files import MSAFile
 
