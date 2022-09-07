@@ -133,7 +133,7 @@ class MSAScheduler:
         else:
             await run_in_threadpool(job.__call__())
 
-    async def run_timers(self, poll_adjuster=.99, debug=False):
+    def run_timers(self, poll_adjuster=.99, debug=False):
         '''runs timers as follows:
         Step 1:  run every poll jobs
         Step 2: load timer queues for next poll
