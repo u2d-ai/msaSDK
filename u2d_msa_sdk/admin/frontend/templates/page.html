@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <title>${site_title}</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+    <link href="${site_icon}" rel="shortcut icon" type="image/x-icon"/>
+    <link href="${cdn}/${pkg}/sdk/sdk.css" rel="stylesheet" title="default"/>
+    <link href="${cdn}/${pkg}/sdk/helper.css" rel="stylesheet"/>
+    <link href="${cdn}/${pkg}/sdk/iconfont.css" rel="stylesheet"/>
+    <script src="${cdn}/${pkg}/sdk/sdk.js"></script>
+    <script src="${cdn}/vue@2.6.14/dist/vue.js"></script>
+    <script src="${cdn}/history@4.10.1/umd/history.js"></script>
+    <style>
+        html, body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="amiss" id="amisId"></div>
+<script type="text/javascript">
+    let amis = amisRequire('amis/embed')
+    let amisData = amis.embed('#amisId', ${MSAUISchemaJson}, {locale: "${locale}"});
+</script>
+</body>
+</html>
