@@ -8,6 +8,7 @@ from queue import Queue
 from time import time
 
 import pytz
+from loguru import Logger, logger
 from pydantic import typing
 from starlette.concurrency import run_in_threadpool
 
@@ -107,13 +108,15 @@ class MSATimers:
 
 
 class MSAScheduler:
-    def __init__(self, jobs, local_time_zone='UTC', poll_millis=500):
+    def __init__(self, jobs, local_time_zone='UTC', poll_millis=500, debug=False, parent_logger: Logger = None):
         '''MSAScheduler object runs timers
         Standard Polling is .5 seconds
         '''
         # self.jobs are all of the timers
         # it is a dictionary created by the MSATimers class
         self.jobs = jobs
+        self.debug = debug
+        self.logger = parent_logger if parent_logger else logger
 
         self.poll_queue = Queue(maxsize=10)
         self.seconds_queue = Queue(maxsize=10)
@@ -125,10 +128,12 @@ class MSAScheduler:
 
     async def _run_job(self, job: typing.Callable):
         is_coroutine = asyncio.iscoroutinefunction(job)
+        if self.debug:
+            self.logger.info("Scheduler.run_job is_coroutine: " + str(is_coroutine) + " Job: " + str(job))
         if is_coroutine:
             await job.__call__()  # type: ignore
         else:
-            await run_in_threadpool(job.__call__())
+            await run_in_threadpool(job.__call__)
 
     async def run_timers(self, poll_adjuster=.99, debug=False):
         '''runs timers as follows:
