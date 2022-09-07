@@ -301,10 +301,12 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Prometheus Instrument and Expose")
 
+        self.logger.info("Events - Add Internal Handlers")
         self.add_event_handler("shutdown", self.shutdown_event)
         self.add_event_handler("startup", self.startup_event)
 
         if self.service_definition.scheduler and self.timers:
+            self.logger.info("Add Scheduler Timers: " + str(len(self.timers.timer_jobs)))
             if time.daylight:
                 offsetHour = time.altzone / 3600
             else:
@@ -312,10 +314,14 @@ class MSAApp(MSAFastAPI):
             tz: str = 'Etc/GMT%+d' % offsetHour
             self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
                                           poll_millis=self.service_definition.scheduler_poll_millis)
-            await self.scheduler.run_timers()
+        elif not self.service_definition.scheduler:
+            self.logger.info("Excluded Scheduler, Disabled")
+        else:
+            self.logger.info("Excluded Scheduler, Timers is Empty")
 
     async def startup_event(self):
         self.logger.info("MSA SDK Internal Startup Event")
+
         if self.service_definition.db:
             async with self.db_engine.begin() as conn:
                 if self.service_definition.db_meta_drop:
@@ -324,6 +330,10 @@ class MSAApp(MSAFastAPI):
                 if self.service_definition.db_meta_create:
                     self.logger.info("DB - Create Meta All: " + self.service_definition.db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
+
+        if self.service_definition.scheduler and self.timers:
+            self.logger.info("Scheduler - Start All Timers")
+            await self.scheduler.run_timers()
 
     async def shutdown_event(self):
         self.logger.info("MSA SDK Internal Shutdown Event")

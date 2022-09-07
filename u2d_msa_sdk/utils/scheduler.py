@@ -51,7 +51,7 @@ class MSATimers:
             MSATimerEnum.schedule: [],  # (function, 'HH:MM')
         }
 
-    async def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM=None):
+    def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM=None):
 
         #### validate timer
 
@@ -126,7 +126,7 @@ class MSAScheduler:
     async def _run_job(self, job: typing.Callable):
         is_coroutine = asyncio.iscoroutinefunction(job)
         if is_coroutine:
-            await entry.__call__()  # type: ignore
+            await job.__call__()  # type: ignore
         else:
             await run_in_threadpool(job.__call__())
 
