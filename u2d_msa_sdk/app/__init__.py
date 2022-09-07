@@ -7,12 +7,9 @@ __version__ = "0.0.1"
 from typing import Optional
 
 from fastapi_utils.api_settings import get_api_settings
-from fastapi_utils.tasks import repeat_every
-
-from u2d_msa_sdk.models.service import MSARepeatDefinition
-from u2d_msa_sdk.service import MSAApp
 from sqlmodel import SQLModel, Field
 
+from u2d_msa_sdk.service import MSAApp
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
 
 
