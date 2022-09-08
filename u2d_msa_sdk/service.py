@@ -356,17 +356,25 @@ class MSAApp(MSAFastAPI):
                     self.logger.info("DB - Create Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
 
-        if self.settings.site:
-            self.logger.info("Add Admin Site")
-            # from u2d_msa_sdk.admin import AdminSite
-            # site = AdminSite(msa_app=self)
-            from u2d_msa_sdk.auth.site import AuthAdminSite
-            site = AuthAdminSite(msa_app=self)
-            # await site.db.async_run_sync(SQLModel.metadata.create_all, is_session=False)
-            # await site.auth.create_role_user('admin')
-            # await site.auth.create_role_user('vip')
+        if self.settings.site or self.settings.site_auth:
+
+            site = None
+            if self.settings.site_auth:
+                self.logger.info("Add Admin Site with Auth")
+                from u2d_msa_sdk.auth.site import AuthAdminSite
+                site = AuthAdminSite(msa_app=self)
+                try:
+                    await site.db.async_run_sync(SQLModel.metadata.create_all, is_session=False)
+                    await site.auth.create_role_user('admin')
+                except Exception as e:
+                    pass
+            else:
+                self.logger.info("Add Admin Site without Auth")
+                from u2d_msa_sdk.admin import AdminSite
+                site = AdminSite(msa_app=self)
+
             self.site = site
-            if self.auto_mount_site:
+            if site and self.auto_mount_site:
                 self.mount_site()
 
         if self.settings.scheduler and self.timers:

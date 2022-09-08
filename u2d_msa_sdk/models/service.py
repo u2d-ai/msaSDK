@@ -50,6 +50,7 @@ class MSAServiceDefinition(APISettings):
     db_meta_create: bool = True
     db_url: str = 'sqlite+aiosqlite:///msa_sdk.db?check_same_thread=False'
     site: bool = True
+    site_auth: bool = True
     site_title: str = 'Admin'
     site_copyright: str = 'Copyright © 2022 by u2d.ai'
     site_icon: str = '/msastatic/img/favicon.png'
