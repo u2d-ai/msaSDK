@@ -6,13 +6,12 @@ __version__ = "0.0.1"
 
 from typing import Optional
 
-from fastapi_utils.api_settings import get_api_settings
 from sqlmodel import SQLModel
 
+from u2d_msa_sdk.models.service import get_msa_app_settings
 from u2d_msa_sdk.service import MSAApp
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
 
-from u2d_msa_sdk.admin.settings import AdminSettings
 from u2d_msa_sdk.admin.site import AdminSite
 from u2d_msa_sdk.admin import admin
 from u2d_msa_sdk.admin.utils.fields import Field
@@ -42,8 +41,8 @@ class TestCategory(SQLModel, table=True):
     content: str = Field(title='ArticleContent')
 
 
-get_api_settings.cache_clear()
-settings = get_api_settings()
+get_msa_app_settings.cache_clear()
+settings = get_msa_app_settings()
 settings.title = "SPK.ai - MSA/SDK MVP"
 settings.version = "SPK.0.0.1"
 settings.debug = True
@@ -57,7 +56,7 @@ app = MSAApp(settings=settings, timers=my_timers, sql_models=[TestArticle, TestC
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
 # create AdminSite instance
-site = AdminSite(fastapi=app, engine=app.db_engine, settings=AdminSettings(database_url_async='sqlite+aiosqlite:///msa_sdk.db'))
+site = AdminSite(msa_app=app)
 
 
 # register ModelAdmin

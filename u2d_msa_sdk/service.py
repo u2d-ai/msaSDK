@@ -121,8 +121,7 @@ def getAllowedCredentials() -> bool:
 class MSAApp(MSAFastAPI):
     def __init__(
             self,
-            settings: APISettings,
-            service_definition: MSAServiceDefinition = MSAServiceDefinition(),
+            settings: MSAServiceDefinition,
             timers: MSATimers = None,
             sql_models: List[SQLModel] = None,
             *args,
@@ -133,25 +132,24 @@ class MSAApp(MSAFastAPI):
         self.logger = logger
         init_logging()
         self.settings = settings
-        self.service_definition: MSAServiceDefinition = service_definition
         self.timers: MSATimers = timers
-        self.healthdefinition: MSAHealthDefinition = self.service_definition.healthdefinition
+        self.healthdefinition: MSAHealthDefinition = self.settings.healthdefinition
         self.limiter: Limiter = None
         self.db_engine: AsyncEngine = None
         self.sql_models: List[SQLModel] = sql_models
         self.sql_cruds: List[MSASQLModelCrud] = []
         self.scheduler: MSAScheduler = None
 
-        if self.service_definition.uvloop:
+        if self.settings.uvloop:
             uvloop.install()
         self.healthcheck: health.MSAHealthCheck = None
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
-        if self.service_definition.db:
-            self.logger.info("DB - Init: " + self.service_definition.db_url)
-            self.db_engine = create_async_engine(self.service_definition.db_url, future=True)
-            if self.service_definition.db_crud and self.sql_models:
+        if self.settings.db:
+            self.logger.info("DB - Init: " + self.settings.db_url)
+            self.db_engine = create_async_engine(self.settings.db_url, future=True)
+            if self.settings.db_crud and self.sql_models:
                 self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
                 # register all Models and the crud for them
                 for model in self.sql_models:
@@ -161,7 +159,7 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded DB")
 
-        if self.service_definition.graphql:
+        if self.settings.graphql:
             self.logger.info("Init Graphql")
             from strawberry.fastapi import GraphQLRouter
             self.graphql_app: GraphQLRouter = None
@@ -173,8 +171,8 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Init Healthcheck")
             self.healthcheck = health.MSAHealthCheck(
                 healthdefinition=self.healthdefinition,
-                host=self.service_definition.host,
-                port=self.service_definition.port
+                host=self.settings.host,
+                port=self.settings.port
             )
             self.logger.info("Start Healthcheck Thread")
             self.healthcheck.start()
@@ -184,19 +182,19 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Healthcheck")
 
-        if self.service_definition.sysrouter:
+        if self.settings.sysrouter:
             self.logger.info("Include Sysrouter")
             self.include_router(sys_router)
         else:
             self.logger.info("Excluded Sysrouter")
 
-        if self.service_definition.starception:
+        if self.settings.starception:
             self.logger.info("Add Middleware Starception")
             self.add_middleware(StarceptionMiddleware)
         else:
             self.logger.info("Excluded Middleware Starception")
 
-        if self.service_definition.cors:
+        if self.settings.cors:
             self.logger.info("Add Middleware CORS")
             self.add_middleware(CORSMiddleware, allow_origins=getAllowedOrigins(),
                                 allow_credentials=getAllowedCredentials(),
@@ -205,37 +203,37 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Middleware CORS")
 
-        if self.service_definition.redirect:
+        if self.settings.redirect:
             self.logger.info("Add Middleware Redirect")
             self.add_middleware(HTTPSRedirectMiddleware)
         else:
             self.logger.info("Excluded Middleware Redirect")
 
-        if self.service_definition.gzip:
+        if self.settings.gzip:
             self.logger.info("Add Middleware GZip")
             self.add_middleware(GZipMiddleware)
         else:
             self.logger.info("Excluded Middleware GZip")
 
-        if self.service_definition.session:
+        if self.settings.session:
             self.logger.info("Add Middleware Session")
             self.add_middleware(SessionMiddleware, secret_key=getSecretKeySessions())
         else:
             self.logger.info("Excluded Middleware Session")
 
-        if self.service_definition.csrf:
+        if self.settings.csrf:
             self.logger.info("Add Middleware CSRF")
             self.add_middleware(CSRFProtectMiddleware, csrf_secret=getSecretKeyCSRF())
         else:
             self.logger.info("Excluded Middleware CSRF")
 
-        if self.service_definition.msgpack:
+        if self.settings.msgpack:
             self.logger.info("Add Middleware MSGPack")
             self.add_middleware(MessagePackMiddleware)
         else:
             self.logger.info("Excluded Middleware MSGPack")
 
-        if self.service_definition.context:
+        if self.settings.context:
             self.logger.info("Add Middleware Context")
             self.add_middleware(RawContextMiddleware, plugins=(
                 plugins.RequestIdPlugin(),
@@ -244,22 +242,22 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Middleware Context")
 
-        if self.service_definition.profiler:
+        if self.settings.profiler:
             self.logger.info("Add Middleware Profiler")
             self.add_middleware(MSAProfilerMiddleware,
-                                profiler_output_type=self.service_definition.profiler_output_type,
-                                track_each_request=self.service_definition.profiler_single_calls,
+                                profiler_output_type=self.settings.profiler_output_type,
+                                track_each_request=self.settings.profiler_single_calls,
                                 msa_app=self)
         else:
             self.logger.info("Excluded Middleware Profiler")
 
-        if self.service_definition.timing:
+        if self.settings.timing:
             self.logger.info("Add Middleware Timing")
             add_timing_middleware(self, record=self.logger.info, prefix="app", exclude="untimed")
         else:
             self.logger.info("Excluded Middleware Timing")
 
-        if self.service_definition.limiter:
+        if self.settings.limiter:
             self.logger.info("Add Limiter Engine")
             self.limiter = Limiter(key_func=get_remote_address)
             self.state.limiter = self.limiter
@@ -267,7 +265,7 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Limiter Engine")
 
-        if self.service_definition.servicerouter:
+        if self.settings.servicerouter:
             self.logger.info("Include Servicerouter")
             self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
                                response_model=MSASchedulerStatus)
@@ -282,25 +280,25 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Servicerouter")
 
-        if self.service_definition.static or self.service_definition.pages:
+        if self.settings.static or self.settings.pages:
             self.logger.info("Mount MSAStatic")
             self.mount("/msastatic", StaticFiles(directory="msastatic"), name="msastatic")
         else:
             self.logger.info("Excluded MSAStatic")
 
-        if self.service_definition.pagination:
+        if self.settings.pagination:
             self.logger.info("Add Pagination Engine")
             add_pagination(self)
         else:
             self.logger.info("Excluded Pagination Engine")
 
-        if self.service_definition.templates or self.service_definition.pages:
+        if self.settings.templates or self.settings.pages:
             self.logger.info("Init Jinja Template Engine")
             self.templates = Jinja2Templates(directory="msatemplates")
         else:
             self.logger.info("Excluded Jinja Template Engine")
 
-        if self.service_definition.pages:
+        if self.settings.pages:
             self.logger.info("Add Pages Router")
             self.add_api_route("/overview", self.index_page, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
@@ -310,7 +308,7 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Pages Router")
 
-        if self.service_definition.instrument:
+        if self.settings.instrument:
             self.logger.info("Prometheus Instrument and Expose App")
             Instrumentator().instrument(app=self).expose(app=self, include_in_schema=True, tags=["service"],
                                                          response_class=HTMLResponse)
@@ -321,7 +319,7 @@ class MSAApp(MSAFastAPI):
         self.add_event_handler("shutdown", self.shutdown_event)
         self.add_event_handler("startup", self.startup_event)
 
-        if self.service_definition.scheduler and self.timers:
+        if self.settings.scheduler and self.timers:
             self.logger.info("Add Scheduler Timers: " + str(len(self.timers.timer_jobs)))
             if time.daylight:
                 offsetHour = time.altzone / 3600
@@ -329,9 +327,9 @@ class MSAApp(MSAFastAPI):
                 offsetHour = time.timezone / 3600
             tz: str = 'Etc/GMT%+d' % offsetHour
             self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
-                                          poll_millis=self.service_definition.scheduler_poll_millis,
+                                          poll_millis=self.settings.scheduler_poll_millis,
                                           parent_logger=self.logger)
-        elif not self.service_definition.scheduler:
+        elif not self.settings.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
         else:
             self.logger.info("Excluded Scheduler, Timers is Empty")
@@ -339,27 +337,27 @@ class MSAApp(MSAFastAPI):
     async def startup_event(self):
         self.logger.info("MSA SDK Internal Startup Event")
 
-        if self.service_definition.db:
+        if self.settings.db:
             async with self.db_engine.begin() as conn:
-                if self.service_definition.db_meta_drop:
-                    self.logger.info("DB - Drop Meta All: " + self.service_definition.db_url)
+                if self.settings.db_meta_drop:
+                    self.logger.info("DB - Drop Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.drop_all)
-                if self.service_definition.db_meta_create:
-                    self.logger.info("DB - Create Meta All: " + self.service_definition.db_url)
+                if self.settings.db_meta_create:
+                    self.logger.info("DB - Create Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
 
-        if self.service_definition.scheduler and self.timers:
+        if self.settings.scheduler and self.timers:
             self.logger.info("Scheduler - Start All Timers")
             asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
 
     async def shutdown_event(self):
         self.logger.info("MSA SDK Internal Shutdown Event")
-        if self.service_definition.db:
-            self.logger.info("DB - Dispose Connections: " + self.service_definition.db_url)
+        if self.settings.db:
+            self.logger.info("DB - Dispose Connections: " + self.settings.db_url)
             await self.db_engine.dispose()
 
     async def init_graphql(self, strawberry_schema: schema):
-        if self.service_definition.graphql:
+        if self.settings.graphql:
             from strawberry.fastapi import GraphQLRouter
             self.graphql_schema = strawberry_schema
             self.graphql_app = GraphQLRouter(self.graphql_schema, graphiql=True)
@@ -385,12 +383,12 @@ class MSAApp(MSAFastAPI):
         Get Service Status Info
         """
         sst: MSASchedulerStatus = MSASchedulerStatus()
-        if not self.service_definition.scheduler:
-            sst.name = self.service_definition.name
+        if not self.settings.scheduler:
+            sst.name = self.settings.name
             sst.message = "Scheduler is disabled!"
 
         else:
-            sst.name = self.service_definition.name
+            sst.name = self.settings.name
             for key, val in self.timers.timer_jobs.items():
                 nt: MSATimerStatus = MSATimerStatus()
                 nt.mode = key
@@ -410,12 +408,12 @@ class MSAApp(MSAFastAPI):
         """
         sst: MSAServiceStatus = MSAServiceStatus()
         if not self.healthcheck:
-            sst.name = self.service_definition.name
+            sst.name = self.settings.name
             sst.healthy = "disabled:400"
             sst.message = "Healthcheck is disabled!"
 
         else:
-            sst.name = self.service_definition.name
+            sst.name = self.settings.name
             sst.healthy = await self.healthcheck.get_health()
             sst.message = "Healthcheck is enabled!"
 
@@ -425,7 +423,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Service Definition Info
         """
-        return self.service_definition
+        return self.settings
 
     def get_services_settings(self, request: Request) -> ORJSONResponse:
         """
@@ -442,7 +440,7 @@ class MSAApp(MSAFastAPI):
 
         return ORJSONResponse(
             {
-                self.service_definition.name: try_get_json(),
+                self.settings.name: try_get_json(),
             }
 
         )
@@ -462,7 +460,7 @@ class MSAApp(MSAFastAPI):
 
         return ORJSONResponse(
             {
-                self.service_definition.name: try_get_json(),
+                self.settings.name: try_get_json(),
             }
 
         )
@@ -490,7 +488,7 @@ class MSAApp(MSAFastAPI):
         return self.templates.TemplateResponse("index.html",
                                                {"request": request,
                                                 "settings": jsonable_encoder(self.settings),
-                                                "definitions": jsonable_encoder(self.service_definition)})
+                                                "definitions": jsonable_encoder(self.settings)})
 
     def testpage(self, request: Request):
         """

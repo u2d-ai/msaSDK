@@ -4,9 +4,8 @@ import time
 import uuid
 
 import aiofiles
-from fastapi import UploadFile, File, FastAPI
+from fastapi import UploadFile, File
 from pydantic import BaseModel
-from sqlalchemy.ext.asyncio import AsyncEngine
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 
@@ -14,8 +13,8 @@ from u2d_msa_sdk import admin
 from u2d_msa_sdk.db.crud.schema import MSACRUDOut
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
-from .settings import AdminSettings
 from .utils.translation import i18n as _
+from ..service import MSAApp
 from ..utils.sysinfo import get_sysinfo
 
 
@@ -25,7 +24,7 @@ class DocsAdmin(IframeAdmin):
 
     @property
     def src(self):
-        return self.app.site.router_path + self.app.site.fastapi.docs_url
+        return self.app.site.router_path + self.app.site.msa_app.docs_url
 
 
 class ReDocsAdmin(IframeAdmin):
@@ -34,7 +33,16 @@ class ReDocsAdmin(IframeAdmin):
 
     @property
     def src(self):
-        return self.app.site.router_path + self.app.site.fastapi.redoc_url
+        return self.app.site.router_path + self.app.site.msa_app.redoc_url
+
+
+class ProfilerAdmin(IframeAdmin):
+    group_schema = None
+    page_schema = PageSchema(label='Profiler', icon='fa fa-microchip', sort=-110)
+
+    @property
+    def src(self):
+        return self.app.site.router_path + self.app.site.msa_app.settings.profiler_url
 
 
 class HomeAdmin(PageAdmin):
@@ -50,10 +58,10 @@ class HomeAdmin(PageAdmin):
                 title='Service Info',
                 column=4,
                 items=[
-                    Property.Item(label='Title', content=self.site.fastapi.title),
-                    Property.Item(label='Version', content=self.site.fastapi.version),
+                    Property.Item(label='Title', content=self.site.msa_app.title),
+                    Property.Item(label='Version', content=self.site.msa_app.version),
                     Property.Item(label='Language', content=self.site.settings.language),
-                    Property.Item(label='Debug', content=str(self.site.fastapi.debug)),
+                    Property.Item(label='Debug', content=str(self.site.msa_app.debug)),
                 ]
             ),
             Divider(),
@@ -112,7 +120,7 @@ class FileAdmin(RouterAdmin):
 
     def mount_staticfile(self) -> str:
         os.path.exists(self.file_directory) or os.makedirs(self.file_directory)
-        self.app.site.fastapi.mount(self.file_path, StaticFiles(directory=self.file_directory), self.file_directory)
+        self.app.site.msa_app.mount(self.file_path, StaticFiles(directory=self.file_directory), self.file_directory)
         return self.app.site.router_path + self.file_path
 
     def register_router(self):
@@ -143,6 +151,6 @@ class FileAdmin(RouterAdmin):
 
 class AdminSite(BaseAdminSite):
 
-    def __init__(self, settings: AdminSettings, fastapi: FastAPI = None, engine: AsyncEngine = None):
-        super().__init__(settings, fastapi, engine)
-        self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, FileAdmin)
+    def __init__(self, msa_app: MSAApp):
+        super().__init__(msa_app)
+        self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, ProfilerAdmin, FileAdmin)

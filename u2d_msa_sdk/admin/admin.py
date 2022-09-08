@@ -21,7 +21,7 @@ from starlette.templating import Jinja2Templates
 
 import u2d_msa_sdk.admin
 from .parser import MSAUIParser
-from .settings import AdminSettings
+
 from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
     Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
 from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
@@ -32,6 +32,7 @@ from u2d_msa_sdk.db.crud.schema import MSACRUDEnum, MSACRUDPaginator, MSACRUDOut
 from u2d_msa_sdk.db.crud.utils import parser_item_id, schema_create_by_schema, parser_str_set_list
 from .utils.functools import cached_property
 from .utils.translation import i18n as _
+from ..service import MSAApp
 
 try:
     from typing import Literal
@@ -1082,10 +1083,10 @@ class AdminApp(PageAdmin, AdminGroup):
     page_path = '/'
     tabs_mode: TabsModeEnum = None
 
-    def __init__(self, app: "AdminApp"):
+    def __init__(self, app: "AdminApp", msa_app: MSAApp):
         PageAdmin.__init__(self, app)
         AdminGroup.__init__(self, app)
-        self.engine = self.engine or self.app.engine
+        self.engine = self.engine or msa_app.db_engine
         assert self.engine, 'engine is None'
         self.db = AsyncDatabase(self.engine) if isinstance(self.engine, AsyncEngine) else Database(self.engine)
         self._registered: Dict[Type[_BaseAdminT], Optional[_BaseAdminT]] = {}
@@ -1189,31 +1190,28 @@ class BaseAdminSite(AdminApp):
 
     def __init__(
             self,
-            settings: AdminSettings,
-            fastapi: FastAPI = None,
-            engine: Union[Engine, AsyncEngine] = None
+            msa_app: MSAApp
     ):
         try:
-            from fastapi_user_auth.auth import Auth
+            from u2d_msa_sdk.auth.auth import Auth
 
             self.auth: Auth = None
         except ImportError:
             pass
-        self.settings = settings
-        self.fastapi = fastapi or FastAPI(debug=settings.debug, reload=settings.debug)
-        self.router = self.fastapi.router
-        if engine:
-            self.engine = engine
-        elif settings.database_url_async:
-            self.engine = create_async_engine(settings.database_url_async, echo=settings.debug, future=True)
-        elif settings.database_url:
-            self.engine = create_engine(settings.database_url, echo=settings.debug, future=True)
-        super().__init__(self)
+        self.settings = msa_app.settings
+        self.msa_app = msa_app
+        self.router = self.msa_app.router
+        if self.msa_app.db_engine:
+            self.db_engine = self.msa_app.db_engine
+        elif self.settings.db_url:
+            self.db_engine = create_async_engine(self.settings.db_url, echo=self.settings.debug, future=True)
+
+        super().__init__(self, msa_app)
 
     @cached_property
     def router_path(self) -> str:
         return self.settings.site_url + self.settings.root_path + self.router.prefix
 
-    def mount_app(self, fastapi: FastAPI, name: str = 'admin') -> None:
+    def mount_app(self, msa_app: MSAApp, name: str = 'admin') -> None:
         self.register_router()
-        fastapi.mount(self.settings.root_path, self.fastapi, name=name)
+        msa_app.mount(self.settings.root_path, self.msa_app, name=name)

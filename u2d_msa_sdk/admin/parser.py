@@ -5,7 +5,6 @@ from pydantic import Json
 from pydantic.fields import ModelField
 from pydantic.utils import smart_deepcopy
 
-from u2d_msa_sdk.admin import frontend
 from u2d_msa_sdk.admin.frontend.components import FormItem, Remark, Validation, InputNumber, TableColumn, Group
 from u2d_msa_sdk.admin.frontend.constants import LabelEnum
 from u2d_msa_sdk.admin.utils.choices import MSAChoices
