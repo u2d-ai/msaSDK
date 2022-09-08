@@ -15,7 +15,7 @@ fastapi[all]>=0.80.0 # FastAPI framework, high performance, easy to learn, fast 
 fastapi_utils>=0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
 fastapi_sessions>=0.3.2 # add session authentication to your FastAPI project
 pyinstrument>=4.3.0 # pyinstrument to check service performance.
-fastapi-users[sqlalchemy]>=10.1.5 # Ready-to-use and customizable users management for FastAPI
+fastapi-users[sqlalchemy,oauth]>=10.1.5 # Ready-to-use and customizable users management for FastAPI
 fastapi-pagination>=0.10.0 # library that provides pagination feature
 gunicorn~=20.1.0
 JPype1==1.4.0 # A Python to Java bridge.
@@ -59,7 +59,7 @@ fonttools>=4.22.0 # Tools to manipulate font files
 numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
 pillow>=6.2.0 # Python Imaging Library (Fork)
 pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
-pandas-profiling==3.2.0 # Generate profile report for pandas DataFrame
+pandas-profiling>=3.2.0 # Generate profile report for pandas DataFrame
 Jinja2~=3.1.2
 matplotlib~=3.5.3
 python-magic~=0.4.27

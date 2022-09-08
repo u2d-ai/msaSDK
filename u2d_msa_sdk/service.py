@@ -23,6 +23,9 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import DeclarativeMeta
+from sqlalchemy.pool import NullPool
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
 from starlette.middleware.cors import CORSMiddleware
@@ -156,7 +159,8 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.db:
             self.logger.info("DB - Init: " + self.settings.db_url)
-            self.db_engine = create_async_engine(self.settings.db_url, future=True)
+            self.Base: DeclarativeMeta = declarative_base()
+            self.db_engine = create_async_engine(self.settings.db_url, poolclass=NullPool,)
             if (self.settings.db_crud or self.settings.site) and self.sql_models:
                 self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
                 # register all Models and the crud for them
@@ -348,13 +352,14 @@ class MSAApp(MSAFastAPI):
         self.logger.info("MSA SDK Internal Startup Event")
 
         if self.settings.db:
-            async with self.db_engine.connect() as conn:
+            async with self.db_engine.begin() as conn:
                 if self.settings.db_meta_drop:
                     self.logger.info("DB - Drop Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.drop_all)
                 if self.settings.db_meta_create:
                     self.logger.info("DB - Create Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
+            await self.db_engine.dispose()
 
         if self.settings.site or self.settings.site_auth:
 

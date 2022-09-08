@@ -5,7 +5,7 @@ from functools import lru_cache
 from typing import Dict, List, Optional
 
 from fastapi_utils.api_settings import APISettings
-from pydantic import BaseModel, typing, validator, root_validator, BaseSettings
+from pydantic import validator, root_validator
 
 from u2d_msa_sdk.models.health import MSAHealthDefinition
 
