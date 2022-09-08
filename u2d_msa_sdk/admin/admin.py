@@ -1137,7 +1137,6 @@ class AdminApp(PageAdmin, AdminGroup):
         inc_in_schema: bool = not crud
         for admin in self._registered.values():
             if isinstance(admin, RouterAdmin):  # 注册路由
-                print("_register_admin_router_all", admin, admin.router_path)
                 admin.register_router()
                 self.router.include_router(admin.router, include_in_schema=inc_in_schema)
 
