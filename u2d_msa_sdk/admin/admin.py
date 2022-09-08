@@ -176,7 +176,7 @@ class LinkModelForm:
                     + '/${REPLACE(query.link_item_id, "!", "")}?link_id=${IF(ids, ids, id)}'
             )  # query.link_item_id
             adaptor = 'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}' \
-                      'payload=JSON.parse(payload._payload);button_create=' + button_create.amis_json() \
+                      'payload=JSON.parse(payload._payload);button_create=' + button_create.msa_ui_json() \
                       + ';' 'payload.data.body.bulkActions.push(button_create);' \
                         'payload.data.body.itemActions.push(button_create);' \
                         'return payload;'.replace('action_id', 'create' + self.path.replace('/', '_'))
@@ -210,8 +210,8 @@ class LinkModelForm:
                     + '/${query.link_item_id}?link_id=${IF(ids, ids, id)}'
             )
             adaptor = 'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}' \
-                      'payload=JSON.parse(payload._payload);button_delete=' + button_delete.amis_json() \
-                      + ';payload.data.body.headerToolbar.push(' + button_create_dialog.amis_json() \
+                      'payload=JSON.parse(payload._payload);button_delete=' + button_delete.msa_ui_json() \
+                      + ';payload.data.body.headerToolbar.push(' + button_create_dialog.msa_ui_json() \
                       + ');payload.data.body.bulkActions.push(button_delete);payload.data.body.itemActions.push(button_delete);' \
                         'return payload;'.replace('action_id', 'delete' + self.path.replace('/', '_'))
         return Service(
@@ -677,7 +677,7 @@ class RouterAdmin(BaseAdmin, MSARouterMixin):
 
 
 class PageAdmin(PageSchemaAdmin, RouterAdmin):
-    """Amis页面管理"""
+    """msa_ui页面管理"""
     page: Page = None
     page_path: Optional[str] = None
     page_parser_mode: Literal["json", "html"] = 'json'
@@ -721,14 +721,12 @@ class PageAdmin(PageSchemaAdmin, RouterAdmin):
             result = page.msa_ui_html(
                 template_path=self.template_name,
                 locale=_.get_language(),
-                cdn=self.site.settings.msa_ui_cdn,
-                pkg=self.site.settings.msa_ui_pkg,
                 site_title=self.site.settings.site_title,
                 site_icon=self.site.settings.site_icon,
             )
             result = HTMLResponse(result)
         else:
-            data = page.amis_dict()
+            data = page.msa_ui_dict()
             if await request.body():
                 data = deep_update(data, (await request.json()).get('_update', {}))
             result = MSABaseUIApiOut(data=data)
@@ -1168,14 +1166,12 @@ class AdminApp(PageAdmin, AdminGroup):
                 f'<div><a href="{u2d_msa_sdk.admin.__url__}" target="_blank" '
                 'title="Copyright"><i class="fa fa-github fa-2x"></i></a></div></div>'
         )
-        app.footer = '<div class="p-2 text-center bg-light">Copyright © 2021 - 2022  ' \
+        app.footer = '<div class="p-2 text-center bg-light">Copyright © 2022 by u2d.ai ' \
                      f'<a href="{u2d_msa_sdk.admin.__url__}" target="_blank" ' \
-                     'class="link-secondary">fastapi-amis-admin</a>. All rights reserved. ' \
+                     'class="link-secondary">msa-sdk-admin</a>. ' \
                      f'<a target="_blank" href="{u2d_msa_sdk.admin.__url__}" ' \
                      f'class="link-secondary" rel="noopener">v{u2d_msa_sdk.admin.__version__}</a></div> '
-        # app.asideBefore = '<div class="p-2 text-center">菜单前面区域</div>'
-        # app.asideAfter = f'<div class="p-2 text-center">' \
-        #                  f'<a href="{u2d_msa_sdk.admin.__url__}"  target="_blank">fastapi-amis-admin</a></div>'
+
         children = await self.get_page_schema_children(request)
         app.pages = [{'children': children}] if children else []
         return app

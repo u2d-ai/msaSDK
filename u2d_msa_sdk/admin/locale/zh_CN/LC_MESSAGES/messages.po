@@ -18,75 +18,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: amis_admin/admin.py:175 amis_admin/admin.py:187 amis_admin/admin.py:190
+#: u2d_msa_sdk.admin/admin.py:175 u2d_msa_sdk.admin/admin.py:187 u2d_msa_sdk.admin/admin.py:190
 msgid "Add Association"
 msgstr "添加关联"
 
-#: amis_admin/admin.py:176
+#: u2d_msa_sdk.admin/admin.py:176
 msgid "Are you sure you want to add the association?"
 msgstr "你确定要添加关联吗?"
 
-#: amis_admin/admin.py:209
+#: u2d_msa_sdk.admin/admin.py:209
 msgid "Remove Association"
 msgstr "移除关联"
 
-#: amis_admin/admin.py:210
+#: u2d_msa_sdk.admin/admin.py:210
 msgid "Are you sure you want to remove the association?"
 msgstr "你确定要移除关联吗?"
 
-#: amis_admin/admin.py:335
+#: u2d_msa_sdk.admin/admin.py:335
 msgid "SHOWING ${items|count} OF ${total} RESULT(S)"
 msgstr "显示${total}条结果中的${items|count}条"
 
-#: amis_admin/admin.py:391
+#: u2d_msa_sdk.admin/admin.py:391
 msgid "Filter"
 msgstr "数据筛选"
 
-#: amis_admin/admin.py:398
+#: u2d_msa_sdk.admin/admin.py:398
 msgid "Clear"
 msgstr "清空"
 
-#: amis_admin/admin.py:403
+#: u2d_msa_sdk.admin/admin.py:403
 msgid "Reset"
 msgstr "重置"
 
-#: amis_admin/admin.py:406
+#: u2d_msa_sdk.admin/admin.py:406
 msgid "Search"
 msgstr "搜索"
 
-#: amis_admin/admin.py:443 amis_admin/admin.py:446
+#: u2d_msa_sdk.admin/admin.py:443 u2d_msa_sdk.admin/admin.py:446
 msgid "Create"
 msgstr "新增"
 
 msgid "Bulk Create"
 msgstr "批量新增"
 
-#: amis_admin/admin.py:459 amis_admin/admin.py:461
+#: u2d_msa_sdk.admin/admin.py:459 u2d_msa_sdk.admin/admin.py:461
 msgid "Update"
 msgstr "更新"
 
-#: amis_admin/admin.py:469 amis_admin/admin.py:471
+#: u2d_msa_sdk.admin/admin.py:469 u2d_msa_sdk.admin/admin.py:471
 msgid "Bulk Update"
 msgstr "批量更新"
 
-#: amis_admin/admin.py:484
+#: u2d_msa_sdk.admin/admin.py:484
 msgid "Bulk Delete"
 msgstr "批量删除"
 
-#: amis_admin/admin.py:485
+#: u2d_msa_sdk.admin/admin.py:485
 msgid "Are you sure you want to delete the selected rows?"
 msgstr "你确定要批量删除选中行吗?"
 
-#: amis_admin/admin.py:489
+#: u2d_msa_sdk.admin/admin.py:489
 msgid "Delete"
 msgstr "删除"
 
-#: amis_admin/admin.py:490
+#: u2d_msa_sdk.admin/admin.py:490
 #, python-format
 msgid "Are you sure you want to delete row ${%s}?"
 msgstr "你确定要删除行${%s}?"
 
-#: amis_admin/admin.py:864
+#: u2d_msa_sdk.admin/admin.py:864
 msgid "Custom form actions"
 msgstr "自定义表单动作"
 

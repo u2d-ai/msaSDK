@@ -85,18 +85,14 @@ class Page(MSAUINode):
             self,
             template_path: str = '',
             locale: str = 'zh_CN',
-            cdn: str = 'https://unpkg.com',
-            pkg: str = 'msa_ui@1.10.2',
-            site_title: str = 'MSA SDK Admin',
+            site_title: str = 'Admin',
             site_icon: str = '',
     ):
         template_path = template_path or self.__default_template_path__
         return msa_ui_templates(template_path).safe_substitute(
             {
-                "MSAUISchemaJson": self.amis_json(),
+                "MSAUISchemaJson": self.msa_ui_json(),
                 "locale": locale,
-                "cdn": cdn,
-                "pkg": pkg,
                 "site_title": site_title,
                 "site_icon": site_icon,
             }
@@ -317,7 +313,7 @@ class App(Page):
     type: str = "app"
     api: MSA_UI_API = None  # 页面配置接口，如果你想远程拉取页面配置请配置。返回配置路径 json>data>pages，具体格式请参考 pages 属性。
     brandName: str = None  # 应用名称
-    logo: str = None  # 支持图片地址，或者 svg。
+    logo: str = "/msastatic/img/msa_logo.png"  # 支持图片地址，或者 svg。
     className: str = None  # css 类名
     header: str = None  # header
     asideBefore: str = None  # 页面菜单上前面区域。
@@ -772,7 +768,7 @@ class InputFile(FormItem):
     btnLabel: str = None  # 上传按钮的文字
     downloadUrl: Union[str, bool] = None  # 1.1.6 版本开始支持 post:http://xxx.com/${value} 这种写法
     # 默认显示文件路径的时候会支持直接下载，可以支持加前缀如：http://xx.dom/filename= ，如果不希望这样，可以把当前配置项设置为 false。
-    useChunk: bool = None  # amis 所在服务器，限制了文件上传大小不得超出 10M，所以 amis 在用户选择大文件的时候，自动会改成分块上传模式。
+    useChunk: bool = None  # msa_ui 所在服务器，限制了文件上传大小不得超出 10M，所以 msa_ui 在用户选择大文件的时候，自动会改成分块上传模式。
     chunkSize: int = None  # 5 * 1024 * 1024  # 分块大小
     startChunkApi: MSA_UI_API = None  # startChunkApi
     chunkApi: MSA_UI_API = None  # chunkApi
@@ -874,7 +870,7 @@ class InputImage(FormItem):
     frameImage: str = None  # 默认占位图地址
     fixedSize: bool = None  # 是否开启固定尺寸,若开启，需同时设置 fixedSizeClassName
     fixedSizeClassName: str = None  # 开启固定尺寸时，根据此值控制展示尺寸。
-    # 例如h-30,即图片框高为 h-30,AMIS 将自动缩放比率设置默认图所占位置的宽度，最终上传图片根据此尺寸对应缩放。
+    # 例如h-30,即图片框高为 h-30,msa_ui 将自动缩放比率设置默认图所占位置的宽度，最终上传图片根据此尺寸对应缩放。
     autoFill: Dict[str, str] = None  # 上传成功后，可以通过配置 autoFill 将上传接口返回的值填充到某个表单项中（在非表单下暂不支持）
 
 

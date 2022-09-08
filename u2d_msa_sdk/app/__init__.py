@@ -57,7 +57,7 @@ app = MSAApp(settings=settings, timers=my_timers, sql_models=[TestArticle, TestC
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
 # create AdminSite instance
-site = AdminSite(settings=AdminSettings(database_url_async='sqlite+aiosqlite:///msa_sdk_admin.db'))
+site = AdminSite(fastapi=app, engine=app.db_engine, settings=AdminSettings(database_url_async='sqlite+aiosqlite:///msa_sdk.db'))
 
 
 # register ModelAdmin

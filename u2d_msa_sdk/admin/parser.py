@@ -74,7 +74,7 @@ class MSAUIParser:
 
     def _parse_form_item_from_kwargs(self, is_filter: bool = False) -> FormItem:
         kwargs = {}
-        formitem = self.modelfield.field_info.extra.get(['amis_form_item', 'amis_filter_item'][is_filter])
+        formitem = self.modelfield.field_info.extra.get(['msa_ui_form_item', 'msa_ui_filter_item'][is_filter])
         if formitem is not None:
             formitem = smart_deepcopy(formitem)
             if isinstance(formitem, FormItem):
@@ -138,7 +138,7 @@ class MSAUIParser:
 
     def _parse_table_column_from_kwargs(self) -> TableColumn:
         kwargs = {}
-        column = self.modelfield.field_info.extra.get('amis_table_column')
+        column = self.modelfield.field_info.extra.get('msa_ui_table_column')
         if column is not None:
             column = smart_deepcopy(column)
             if isinstance(column, TableColumn):

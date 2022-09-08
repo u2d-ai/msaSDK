@@ -16,11 +16,12 @@ from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
 from .settings import AdminSettings
 from .utils.translation import i18n as _
+from ..utils.sysinfo import get_sysinfo
 
 
 class DocsAdmin(IframeAdmin):
-    group_schema = PageSchema(label='APIDocs', icon='fa fa-book', sort=-100)
-    page_schema = PageSchema(label='AdminDocs', icon='fa fa-book')
+    group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
+    page_schema = PageSchema(label='OpenAPI', icon='fa fa-book')
 
     @property
     def src(self):
@@ -28,8 +29,8 @@ class DocsAdmin(IframeAdmin):
 
 
 class ReDocsAdmin(IframeAdmin):
-    group_schema = PageSchema(label='APIDocs', icon='fa fa-book', sort=-100)
-    page_schema = PageSchema(label='AdminRedocs', icon='fa fa-book')
+    group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
+    page_schema = PageSchema(label='Redocs', icon='fa fa-book')
 
     @property
     def src(self):
@@ -43,28 +44,50 @@ class HomeAdmin(PageAdmin):
 
     async def get_page(self, request: Request) -> Page:
         page = await super().get_page(request)
+        sysinfo = get_sysinfo()
         page.body = [
             Property(
-                title='SiteInfo',
+                title='Service Info',
                 column=4,
                 items=[
-                    Property.Item(label='title', content=self.site.settings.site_title),
-                    Property.Item(label='version', content=self.site.settings.version),
-                    Property.Item(label='language', content=self.site.settings.language),
-                    Property.Item(label='debug', content=str(self.site.settings.debug)),
+                    Property.Item(label='Title', content=self.site.fastapi.title),
+                    Property.Item(label='Version', content=self.site.fastapi.version),
+                    Property.Item(label='Language', content=self.site.settings.language),
+                    Property.Item(label='Debug', content=str(self.site.fastapi.debug)),
                 ]
             ),
             Divider(),
             Property(
-                title='MSA SDK - Admin',
+                title='MSA SDK',
                 column=4,
                 items=[
-                    Property.Item(label='system', content=platform.system()),
-                    Property.Item(label='python', content=platform.python_version()),
-                    Property.Item(label='version', content=admin.__version__),
-                    Property.Item(label='license', content='MIT'),
-                    Property.Item(label='msa-ui-cdn', content=self.site.settings.msa_ui_cdn),
-                    Property.Item(label='msa-ui-pkg', content=self.site.settings.msa_ui_pkg),
+                    Property.Item(label='System', content=platform.system()),
+                    Property.Item(label='Python', content=platform.python_version()),
+                    Property.Item(label='Version', content=admin.__version__),
+                    Property.Item(label='License', content='MIT'),
+                ]
+            ),
+            Divider(),
+            Property(
+                title='System',
+                column=4,
+                items=[
+                    Property.Item(label='Booted', content=sysinfo.System_Boot),
+                    Property.Item(label='IP', content=sysinfo.IP_Address),
+                    Property.Item(label='MAC Address', content=sysinfo.MAC_Address),
+                    Property.Item(label='Host Name', content=sysinfo.Host_Name),
+                    Property.Item(label='CPU Physical', content=sysinfo.CPU_Physical),
+                    Property.Item(label='CPU Logical', content=sysinfo.CPU_Logical),
+                    Property.Item(label='CPU in Use', content=sysinfo.CPU_Current),
+                    Property.Item(label='CPU Affinity', content=sysinfo.CPU_Affinity),
+                    Property.Item(label='Mem Total', content=sysinfo.Memory_Physical),
+                    Property.Item(label='Mem Usage', content=str(sysinfo.Memory_Usage.percent) + "%"),
+                    Property.Item(label='Mem Free', content=sysinfo.Memory_Available),
+                    Property.Item(label='PID', content=sysinfo.PID),
+                    Property.Item(label='OS Name', content=sysinfo.OS_Name),
+                    Property.Item(label='OS Version', content=sysinfo.OS_Version),
+                    Property.Item(label='OS Release', content=sysinfo.OS_Release),
+                    Property.Item(label='Status', content=sysinfo.Runtime_Status),
                 ]
             ),
         ]

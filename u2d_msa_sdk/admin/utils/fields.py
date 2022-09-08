@@ -42,17 +42,17 @@ def Field(
         sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
         sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
         schema_extra: Optional[Dict[str, Any]] = None,
-        amis_form_item: Union[FormItem, dict, str] = None,
-        amis_filter_item: Union[FormItem, dict, str] = None,
-        amis_table_column: Union[TableColumn, dict, str] = None,
+        msa_ui_form_item: Union[FormItem, dict, str] = None,
+        msa_ui_filter_item: Union[FormItem, dict, str] = None,
+        msa_ui_table_column: Union[TableColumn, dict, str] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
-    if amis_form_item:
-        current_schema_extra['amis_form_item'] = amis_form_item
-    if amis_filter_item:
-        current_schema_extra['amis_filter_item'] = amis_filter_item
-    if amis_table_column:
-        current_schema_extra['amis_table_column'] = amis_table_column
+    if msa_ui_form_item:
+        current_schema_extra['msa_ui_form_item'] = msa_ui_form_item
+    if msa_ui_filter_item:
+        current_schema_extra['msa_ui_filter_item'] = msa_ui_filter_item
+    if msa_ui_table_column:
+        current_schema_extra['msa_ui_table_column'] = msa_ui_table_column
     field_info = FieldInfo(
         default,
         default_factory=default_factory,

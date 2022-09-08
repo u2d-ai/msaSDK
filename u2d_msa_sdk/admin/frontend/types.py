@@ -19,10 +19,10 @@ class MSABaseUIModel(BaseModel):
         json_loads = json.loads
         json_dumps = json.dumps
 
-    def amis_json(self):
+    def msa_ui_json(self):
         return self.json(exclude_none=True, by_alias=True)
 
-    def amis_dict(self):
+    def msa_ui_dict(self):
         return self.dict(exclude_none=True, by_alias=True)
 
     def update_from_dict(self, kwargs: Dict[str, Any]):
@@ -65,12 +65,12 @@ class MSAUIAPI(MSABaseUIModel):
     headers: Dict[str, Any] = None  # 请求的头部信息
     sendOn: Expression = None  # 配置请求条件
     cache: int = None  # 设置cache来设置缓存时间，单位是毫秒，在设置的缓存时间内，同样的请求将不会重复发起，而是会获取缓存好的请求响应数据。
-    requestAdaptor: str = None  # 发送适配器 , amis 的 API 配置，如果无法配置出你想要的请求结构，那么可以配置requestAdaptor发送适配器
+    requestAdaptor: str = None  # 发送适配器 , msa_ui 的 API 配置，如果无法配置出你想要的请求结构，那么可以配置requestAdaptor发送适配器
     responseData: Dict[str, Any] = None  # 如果接口返回的数据结构不符合预期，可以通过配置 responseData来修改，同样支持数据映射，
     # 可用来映射的数据为接口的实际数据（接口返回的 data 部分），额外加 api 变量。
     # 其中 api.query 为接口发送的 query 参数，api.body 为接口发送的内容体原始数据。
     replaceData: bool = None  # 返回的数据是否替换掉当前的数据，默认为 false，即：追加，设置成 true 就是完全替换。
-    adaptor: str = None  # 接收适配器, 如果接口返回不符合要求，可以通过配置一个适配器来处理成 amis 需要的。
+    adaptor: str = None  # 接收适配器, 如果接口返回不符合要求，可以通过配置一个适配器来处理成 msa_ui 需要的。
     # 同样支持 Function 或者 字符串函数体格式
     responseType: str = None  # 返回类型 ,如果是下载需要设置为 'blob'
     autoRefresh: bool = None  # 配置是否需要自动刷新接口。

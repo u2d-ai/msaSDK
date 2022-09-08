@@ -302,7 +302,7 @@ class MSAApp(MSAFastAPI):
 
         if self.service_definition.pages:
             self.logger.info("Add Pages Router")
-            self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route("/overview", self.index_page, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/profiler", self.profiler, tags=["pages"], response_class=HTMLResponse)
@@ -510,7 +510,7 @@ class MSAApp(MSAFastAPI):
         :param request:
         :return:
         """
-        sysinfo: MSASystemInfo = await get_sysinfo()
+        sysinfo: MSASystemInfo = get_sysinfo()
         return self.templates.TemplateResponse("monitor.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
@@ -532,7 +532,7 @@ class MSAApp(MSAFastAPI):
         :param request:
         :return:
         """
-        sysinfo: MSASystemInfo = await get_sysinfo()
+        sysinfo: MSASystemInfo = get_sysinfo()
         return self.templates.TemplateResponse("monitor_inline.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
