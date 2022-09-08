@@ -1092,9 +1092,7 @@ class AdminApp(PageAdmin, AdminGroup):
         self.engine = self.engine or self.app.engine
         if msa_app:
             self.engine = msa_app.db_engine
-            print("AdminApp using msa_app engine", self.engine.url)
         else:
-            print("AdminApp NOT using msa_app engine", self.engine.url)
             self.engine = create_async_engine(self.engine.url, future=True)
         assert self.engine, 'engine is None'
         self.db = AsyncDatabase(self.engine) #if isinstance(self.engine, AsyncEngine) else Database(self.engine)
