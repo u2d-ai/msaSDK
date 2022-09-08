@@ -11,7 +11,6 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
 from fastapi_users.password import PasswordHelper
-from fastapi_utils.api_settings import APISettings
 from fastapi_utils.timing import add_timing_middleware
 from loguru import logger
 from msgpack_asgi import MessagePackMiddleware
@@ -24,7 +23,6 @@ from slowapi.util import get_remote_address
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
-from starlette.concurrency import run_in_threadpool
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
@@ -139,6 +137,7 @@ class MSAApp(MSAFastAPI):
         self.sql_models: List[SQLModel] = sql_models
         self.sql_cruds: List[MSASQLModelCrud] = []
         self.scheduler: MSAScheduler = None
+        self.site = None
 
         if self.settings.uvloop:
             uvloop.install()
@@ -146,15 +145,19 @@ class MSAApp(MSAFastAPI):
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
+        if not self.settings.site:
+            self.logger.info("Excluded Admin Site")
+
         if self.settings.db:
             self.logger.info("DB - Init: " + self.settings.db_url)
             self.db_engine = create_async_engine(self.settings.db_url, future=True)
-            if self.settings.db_crud and self.sql_models:
+            if (self.settings.db_crud or self.settings.site) and self.sql_models:
                 self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
                 # register all Models and the crud for them
                 for model in self.sql_models:
                     new_crud: MSASQLModelCrud = MSASQLModelCrud(model=model, engine=self.db_engine).register_crud()
-                    self.include_router(new_crud.router)
+                    if self.settings.db_crud:
+                        self.include_router(new_crud.router)
                     self.sql_cruds.append(new_crud)
         else:
             self.logger.info("Excluded DB")
@@ -300,7 +303,11 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.pages:
             self.logger.info("Add Pages Router")
-            self.add_api_route("/overview", self.index_page, tags=["pages"], response_class=HTMLResponse)
+            if self.settings.site:
+                self.add_api_route("/overview", self.index_page, tags=["pages"], response_class=HTMLResponse)
+            else:
+                self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
+
             self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/profiler", self.profiler, tags=["pages"], response_class=HTMLResponse)
@@ -349,6 +356,20 @@ class MSAApp(MSAFastAPI):
         if self.settings.scheduler and self.timers:
             self.logger.info("Scheduler - Start All Timers")
             asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
+
+        if self.settings.site:
+            self.logger.info("Add Admin Site")
+            from u2d_msa_sdk.admin import AdminSite
+            site = AdminSite(msa_app=self)
+            self.site = site
+            self.mount_site()
+
+    def mount_site(self):
+        if self.site:
+            self.logger.info("Mount Admin Site")
+            self.site.mount_app(self)
+        else:
+            self.logger.error("Can't Mount Admin Site - Not initialized or enabled")
 
     async def shutdown_event(self):
         self.logger.info("MSA SDK Internal Shutdown Event")

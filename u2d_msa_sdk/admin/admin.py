@@ -252,7 +252,9 @@ class BaseModelAdmin(MSASQLModelCrud):
     bulk_update_fields: List[Union[SQLModelListField, FormItem]] = []  # 批量编辑字段
     search_fields: List[SQLModelField] = []  # 模糊搜索字段
 
-    def __init__(self, app: "AdminApp"):
+    def __init__(self, app: "AdminApp", model=None):
+        if model:
+            self.model = model
         assert self.model, 'model is None'
         assert app, 'app is None'
         self.app = app
@@ -884,8 +886,8 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
     page_path: str = ''
     bind_model: bool = True
 
-    def __init__(self, app: "AdminApp"):
-        BaseModelAdmin.__init__(self, app)
+    def __init__(self, app: "AdminApp", model=None):
+        BaseModelAdmin.__init__(self, app, model)
         PageAdmin.__init__(self, app)
 
     @property
@@ -1086,11 +1088,27 @@ class AdminApp(PageAdmin, AdminGroup):
     def __init__(self, app: "AdminApp", msa_app: MSAApp):
         PageAdmin.__init__(self, app)
         AdminGroup.__init__(self, app)
+        self.msa_app: MSAApp = msa_app
         self.engine = self.engine or msa_app.db_engine
         assert self.engine, 'engine is None'
         self.db = AsyncDatabase(self.engine) if isinstance(self.engine, AsyncEngine) else Database(self.engine)
         self._registered: Dict[Type[_BaseAdminT], Optional[_BaseAdminT]] = {}
         self.__register_lock = False
+
+        if self.msa_app.sql_models:
+            # self.logger.info("Admin App - Register SQL Models: " + str(self.msa_app.sql_models))
+            model: SQLModel
+            for model in self.msa_app.sql_models:
+                # print("AdminApp Init model", model, model.__tablename__, model.__name__, model.__class__.__name__)
+                # creating class dynamically
+                temp_admin_model = type(model.__name__ + "Admin", (ModelAdmin,), {
+                    # data members
+                    "page_schema": model.__name__,
+                    "model": model,
+                })
+
+                self.register_admin(temp_admin_model)
+                pass
 
     @property
     def router_prefix(self):
@@ -1114,18 +1132,22 @@ class AdminApp(PageAdmin, AdminGroup):
     def _register_admin_router_all_pre(self):
         [admin.get_link_model_forms() for admin in self._registered.values() if isinstance(admin, ModelAdmin)]
 
-    def _register_admin_router_all(self):
+    def _register_admin_router_all(self, crud: bool = False):
+        # if crud was already enabled in service settings, then we don't need an addition endpoint
+        inc_in_schema: bool = not crud
         for admin in self._registered.values():
             if isinstance(admin, RouterAdmin):  # 注册路由
+                print("_register_admin_router_all", admin, admin.router_path)
                 admin.register_router()
-                self.router.include_router(admin.router)
+                self.router.include_router(admin.router, include_in_schema=inc_in_schema)
 
-    def register_router(self):
+    def register_router(self, crud: bool = False):
         if not self.__register_lock:
             super(AdminApp, self).register_router()
             self._create_admin_instance_all()
             self._register_admin_router_all_pre()
-            self._register_admin_router_all()
+
+            self._register_admin_router_all(crud)
             self.__register_lock = True
         return self
 
@@ -1213,5 +1235,5 @@ class BaseAdminSite(AdminApp):
         return self.settings.site_url + self.settings.root_path + self.router.prefix
 
     def mount_app(self, msa_app: MSAApp, name: str = 'admin') -> None:
-        self.register_router()
+        self.register_router(msa_app.settings.db_crud)
         msa_app.mount(self.settings.root_path, self.msa_app, name=name)

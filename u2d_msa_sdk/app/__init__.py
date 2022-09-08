@@ -8,13 +8,11 @@ from typing import Optional
 
 from sqlmodel import SQLModel
 
+from u2d_msa_sdk.admin import ModelAdmin
+from u2d_msa_sdk.admin.utils.fields import Field
 from u2d_msa_sdk.models.service import get_msa_app_settings
 from u2d_msa_sdk.service import MSAApp
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
-
-from u2d_msa_sdk.admin.site import AdminSite
-from u2d_msa_sdk.admin import admin
-from u2d_msa_sdk.admin.utils.fields import Field
 
 
 async def test_timer_min():
@@ -55,33 +53,14 @@ app = MSAApp(settings=settings, timers=my_timers, sql_models=[TestArticle, TestC
              contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
-# create AdminSite instance
-site = AdminSite(msa_app=app)
 
-
-# register ModelAdmin
-@site.register_admin
-class TestArticleAdmin(admin.ModelAdmin):
-    page_schema = 'TestArticle'
-    # set model
-    model = TestArticle
-
-
-# register ModelAdmin
-@site.register_admin
-class TestCategoryAdmin(admin.ModelAdmin):
-    page_schema = 'TestCategory'
-    # set model
-    model = TestCategory
-
-
-site.mount_app(app)
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 
 @app.on_event("startup")
 async def startup():
     app.logger.info("MSA SDK Own Startup Event")
+
 
 
 @app.on_event("shutdown")
