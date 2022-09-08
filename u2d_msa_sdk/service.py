@@ -7,8 +7,9 @@ import time
 from typing import List, Optional
 
 import uvloop
-from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
+from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
 from fastapi_users.password import PasswordHelper
@@ -123,6 +124,7 @@ class MSAApp(MSAFastAPI):
             settings: MSAServiceDefinition,
             timers: MSATimers = None,
             sql_models: List[SQLModel] = None,
+            auto_mount_site: bool = True,
             *args,
             **kwargs
     ) -> None:
@@ -130,6 +132,7 @@ class MSAApp(MSAFastAPI):
         super().__init__(*args, **settings.fastapi_kwargs)
         self.logger = logger
         init_logging()
+        self.auto_mount_site: bool = auto_mount_site
         self.settings = settings
         self.timers: MSATimers = timers
         self.healthdefinition: MSAHealthDefinition = self.settings.healthdefinition
@@ -146,7 +149,7 @@ class MSAApp(MSAFastAPI):
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
-        self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler )
+        self.add_exception_handler(HTTPException, self.msa_exception_handler)
 
         if not self.settings.site:
             self.logger.info("Excluded Admin Site")
@@ -345,7 +348,7 @@ class MSAApp(MSAFastAPI):
         self.logger.info("MSA SDK Internal Startup Event")
 
         if self.settings.db:
-            async with self.db_engine.begin() as conn:
+            async with self.db_engine.connect() as conn:
                 if self.settings.db_meta_drop:
                     self.logger.info("DB - Drop Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.drop_all)
@@ -353,16 +356,22 @@ class MSAApp(MSAFastAPI):
                     self.logger.info("DB - Create Meta All: " + self.settings.db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
 
+        if self.settings.site:
+            self.logger.info("Add Admin Site")
+            # from u2d_msa_sdk.admin import AdminSite
+            # site = AdminSite(msa_app=self)
+            from u2d_msa_sdk.auth.site import AuthAdminSite
+            site = AuthAdminSite(msa_app=self)
+            # await site.db.async_run_sync(SQLModel.metadata.create_all, is_session=False)
+            # await site.auth.create_role_user('admin')
+            # await site.auth.create_role_user('vip')
+            self.site = site
+            if self.auto_mount_site:
+                self.mount_site()
+
         if self.settings.scheduler and self.timers:
             self.logger.info("Scheduler - Start All Timers")
             asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
-
-        if self.settings.site:
-            self.logger.info("Add Admin Site")
-            from u2d_msa_sdk.admin import AdminSite
-            site = AdminSite(msa_app=self)
-            self.site = site
-            self.mount_site()
 
     def mount_site(self):
         if self.site:
@@ -502,7 +511,7 @@ class MSAApp(MSAFastAPI):
 
         return oai
 
-    async def msa_exception_handler(self, request: Request, exc: StarletteHTTPException):
+    async def msa_exception_handler(self, request: Request, exc: HTTPException):
         # print(exc.status_code, exc.detail)
         if exc.status_code == 403:
             return self.templates.TemplateResponse('403.html', {'request': request, 'detail': exc.detail,
@@ -516,6 +525,8 @@ class MSAApp(MSAFastAPI):
             return self.templates.TemplateResponse('500.html', {'request': request, 'detail': exc.detail,
                                                                 'status': exc.status_code,
                                                                 "definitions": jsonable_encoder(self.settings)})
+        elif exc.status_code == 307:
+            return await http_exception_handler(request, exc)
         else:
             # Generic error page
             return self.templates.TemplateResponse('error.html', {'request': request, 'detail': exc.detail,

@@ -24,7 +24,7 @@ class UserAuthApp(AdminApp, AuthRouter):
     PermissionAdmin: Type[ModelAdmin] = PermissionAdmin
 
     def __init__(self, app: "AdminApp"):
-        AdminApp.__init__(self, app)
+        AdminApp.__init__(self, app, None)
         AuthRouter.__init__(self)
         self.UserAdmin.model = self.UserAdmin.model or self.auth.user_model
         self.UserLoginFormAdmin.schema = self.UserLoginFormAdmin.schema or schema_create_by_schema(

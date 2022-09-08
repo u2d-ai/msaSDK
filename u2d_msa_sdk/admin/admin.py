@@ -4,11 +4,11 @@ from abc import ABC
 from functools import lru_cache
 from typing import Type, Callable, Any, List, Union, Dict, Iterable, Optional, TypeVar, NewType, Iterator
 
-from fastapi import Request, Depends, FastAPI, Query, HTTPException, Body
+from fastapi import Request, Depends, Query, HTTPException, Body
 from pydantic import BaseModel
 from pydantic.fields import ModelField
 from pydantic.utils import deep_update
-from sqlalchemy import delete, Column, Table, insert, create_engine
+from sqlalchemy import delete, Column, Table, insert
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 from sqlalchemy.orm import InstrumentedAttribute, RelationshipProperty
@@ -20,18 +20,18 @@ from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.templating import Jinja2Templates
 
 import u2d_msa_sdk.admin
-from .parser import MSAUIParser
-
-from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
-    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
-from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
-from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, SchemaNode
 from u2d_msa_sdk.db.crud import MSASQLModelCrud, MSASQLModelSelector, MSARouterMixin
 from u2d_msa_sdk.db.crud.parser import MSASQLModelFieldParser, SQLModelField, SQLModelListField, get_python_type_parse
 from u2d_msa_sdk.db.crud.schema import MSACRUDEnum, MSACRUDPaginator, MSACRUDOut
 from u2d_msa_sdk.db.crud.utils import parser_item_id, schema_create_by_schema, parser_str_set_list
+from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
+    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
+from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
+from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, SchemaNode
+from .parser import MSAUIParser
 from .utils.functools import cached_property
 from .utils.translation import i18n as _
+from ..auth.auth import Auth
 from ..service import MSAApp
 
 try:
@@ -1089,13 +1089,15 @@ class AdminApp(PageAdmin, AdminGroup):
         PageAdmin.__init__(self, app)
         AdminGroup.__init__(self, app)
         self.msa_app: MSAApp = msa_app
-        self.engine = self.engine or msa_app.db_engine
+        self.engine = self.engine or self.app.engine
+        if msa_app:
+            self.engine = msa_app.db_engine
         assert self.engine, 'engine is None'
         self.db = AsyncDatabase(self.engine) if isinstance(self.engine, AsyncEngine) else Database(self.engine)
         self._registered: Dict[Type[_BaseAdminT], Optional[_BaseAdminT]] = {}
         self.__register_lock = False
 
-        if self.msa_app.sql_models:
+        if self.msa_app and self.msa_app.sql_models:
             # self.logger.info("Admin App - Register SQL Models: " + str(self.msa_app.sql_models))
             model: SQLModel
             for model in self.msa_app.sql_models:
@@ -1132,21 +1134,19 @@ class AdminApp(PageAdmin, AdminGroup):
     def _register_admin_router_all_pre(self):
         [admin.get_link_model_forms() for admin in self._registered.values() if isinstance(admin, ModelAdmin)]
 
-    def _register_admin_router_all(self, crud: bool = False):
+    def _register_admin_router_all(self):
         # if crud was already enabled in service settings, then we don't need an addition endpoint
-        inc_in_schema: bool = not crud
         for admin in self._registered.values():
             if isinstance(admin, RouterAdmin):  # 注册路由
                 admin.register_router()
-                self.router.include_router(admin.router, include_in_schema=inc_in_schema)
+                self.router.include_router(admin.router)
 
-    def register_router(self, crud: bool = False):
+    def register_router(self):
         if not self.__register_lock:
             super(AdminApp, self).register_router()
             self._create_admin_instance_all()
             self._register_admin_router_all_pre()
-
-            self._register_admin_router_all(crud)
+            self._register_admin_router_all()
             self.__register_lock = True
         return self
 
@@ -1209,17 +1209,12 @@ class AdminApp(PageAdmin, AdminGroup):
 
 
 class BaseAdminSite(AdminApp):
+    auth: Auth = None
 
     def __init__(
             self,
             msa_app: MSAApp
     ):
-        try:
-            from u2d_msa_sdk.auth.auth import Auth
-
-            self.auth: Auth = None
-        except ImportError:
-            pass
         self.settings = msa_app.settings
         self.msa_app = msa_app
         self.router = self.msa_app.router
@@ -1235,5 +1230,5 @@ class BaseAdminSite(AdminApp):
         return self.settings.site_url + self.settings.root_path + self.router.prefix
 
     def mount_app(self, msa_app: MSAApp, name: str = 'admin') -> None:
-        self.register_router(msa_app.settings.db_crud)
+        self.register_router()
         msa_app.mount(self.settings.root_path, self.msa_app, name=name)

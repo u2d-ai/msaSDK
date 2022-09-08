@@ -217,7 +217,7 @@ class Auth(Generic[_UserModelT]):
             user = self.user_model(
                 username=role_key,
                 password=self.pwd_context.hash(role_key),
-                email=f'{role_key}@amis.work',  # type:ignore
+                email=f'{role_key}@u2d.ai',  # type:ignore
                 roles=[role],
             )
             session.add(user)

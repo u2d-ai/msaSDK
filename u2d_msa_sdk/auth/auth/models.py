@@ -205,7 +205,8 @@ class BaseUser(PkMixin, UsernameMixin, PasswordMixin, EmailMixin, CreateTimeMixi
 
 
 class User(BaseUser, table=True):
-    """用户"""
+    __tablename__ = 'auth_user'
+    __table_args__ = {'extend_existing': True}
     roles: List["Role"] = Relationship(link_model=UserRoleLink)
     groups: List["Group"] = Relationship(link_model=UserGroupLink)
 

@@ -21,11 +21,11 @@ class MSAServiceDefinition(APISettings):
     uvloop: bool = True
     sysrouter: bool = True
     servicerouter: bool = True
-    starception: bool = True
+    starception: bool = False
     cors: bool = True
     redirect: bool = False
     gzip: bool = False
-    session: bool = True
+    session: bool = False
     csrf: bool = True
     msgpack: bool = False
     instrument: bool = True
@@ -36,7 +36,7 @@ class MSAServiceDefinition(APISettings):
     pagination: bool = False
     profiler: bool = False
     templates: bool = True
-    templates_dir: List[str] = ["msatemplates", "msatemplates/errors", "u2d_msa_sdk/msatemplates", "u2d_msa_sdk/msatemplates/errors"]
+    templates_dir: List[str] = ["msatemplates", "msatemplates/errors"]
     profiler_output_type: str = "html"  # text or html
     profiler_single_calls: bool = True
     profiler_url: str = '/profiler'

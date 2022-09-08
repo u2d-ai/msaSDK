@@ -7,8 +7,8 @@ from u2d_msa_sdk.admin.frontend.constants import SizeEnum
 from u2d_msa_sdk.admin.frontend.types import MSAUIAPI
 from u2d_msa_sdk.admin.site import AdminSite
 from u2d_msa_sdk.admin.utils.translation import i18n as _
-from .app import UserAuthApp
-from .auth import Auth
+from u2d_msa_sdk.auth.app import UserAuthApp
+from u2d_msa_sdk.auth.auth import Auth
 from ..service import MSAApp
 
 
