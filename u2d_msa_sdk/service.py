@@ -25,7 +25,6 @@ from slowapi.util import get_remote_address
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeMeta
-from sqlalchemy.pool import NullPool
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
 from starlette.middleware.cors import CORSMiddleware
@@ -160,7 +159,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.db:
             self.logger.info("DB - Init: " + self.settings.db_url)
             self.Base: DeclarativeMeta = declarative_base()
-            self.db_engine = create_async_engine(self.settings.db_url, poolclass=NullPool,)
+            self.db_engine = create_async_engine(self.settings.db_url, echo=self.settings.db_debug, future=True)
             if (self.settings.db_crud or self.settings.site) and self.sql_models:
                 self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
                 # register all Models and the crud for them

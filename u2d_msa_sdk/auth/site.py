@@ -23,6 +23,7 @@ class AuthAdminSite(AdminSite):
     ):
         super().__init__(msa_app)
         self.auth = auth or self.auth or Auth(db=self.db)
+        self.UserAuthApp.msa_app = msa_app
         self.UserAuthApp.auth = self.auth
         self.register_admin(self.UserAuthApp)
 

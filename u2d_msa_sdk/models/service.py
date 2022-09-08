@@ -45,10 +45,11 @@ class MSAServiceDefinition(APISettings):
     scheduler: bool = True
     scheduler_poll_millis: int = 1000
     db: bool = True
+    db_debug: bool = False
     db_crud: bool = True
     db_meta_drop: bool = False
     db_meta_create: bool = True
-    db_url: str = 'sqlite+aiosqlite:///msa_sdk.db?check_same_thread=False'
+    db_url: str = 'sqlite+aiosqlite:///msa_sdk.db?check_same_thread=True'
     site: bool = True
     site_auth: bool = True
     site_title: str = 'Admin'
@@ -61,12 +62,6 @@ class MSAServiceDefinition(APISettings):
     @validator('root_path', 'site_url', pre=True)
     def valid_url(cls, url: str):
         return url[:-1] if url.endswith('/') else url
-
-    @root_validator(pre=True)
-    def valid_database_url(cls, values):
-        if not values.get('db_url'):
-            values.setdefault('db_url', 'sqlite+aiosqlite:///msa_sdk.db?check_same_thread=False')
-        return values
 
 
 @lru_cache()

@@ -23,8 +23,9 @@ class UserAuthApp(AdminApp, AuthRouter):
     GroupAdmin: Type[ModelAdmin] = GroupAdmin
     PermissionAdmin: Type[ModelAdmin] = PermissionAdmin
 
-    def __init__(self, app: "AdminApp"):
-        AdminApp.__init__(self, app, None)
+    def __init__(self, app: "AdminApp", msa_app=None):
+        self.msa_app = msa_app
+        AdminApp.__init__(self, app, msa_app)
         AuthRouter.__init__(self)
         self.UserAdmin.model = self.UserAdmin.model or self.auth.user_model
         self.UserLoginFormAdmin.schema = self.UserLoginFormAdmin.schema or schema_create_by_schema(
