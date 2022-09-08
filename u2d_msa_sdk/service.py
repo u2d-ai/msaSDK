@@ -7,6 +7,7 @@ import time
 from typing import List, Optional
 
 import uvloop
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
@@ -144,6 +145,8 @@ class MSAApp(MSAFastAPI):
         self.healthcheck: health.MSAHealthCheck = None
 
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
+
+        self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler )
 
         if not self.settings.site:
             self.logger.info("Excluded Admin Site")
@@ -297,21 +300,18 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.templates or self.settings.pages:
             self.logger.info("Init Jinja Template Engine")
-            self.templates = Jinja2Templates(directory="msatemplates")
+            self.templates = Jinja2Templates(directory=self.settings.templates_dir)
         else:
             self.logger.info("Excluded Jinja Template Engine")
 
         if self.settings.pages:
             self.logger.info("Add Pages Router")
-            if self.settings.site:
-                self.add_api_route("/overview", self.index_page, tags=["pages"], response_class=HTMLResponse)
-            else:
-                self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
-
-            self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
-            self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/profiler", self.profiler, tags=["pages"], response_class=HTMLResponse)
-            self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
+            if not self.settings.site:
+                self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
+                self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
+                self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"], response_class=HTMLResponse)
         else:
             self.logger.info("Excluded Pages Router")
 
@@ -501,6 +501,26 @@ class MSAApp(MSAFastAPI):
             oai.tags = ["error:400 error" + e.__str__()]
 
         return oai
+
+    async def msa_exception_handler(self, request: Request, exc: StarletteHTTPException):
+        # print(exc.status_code, exc.detail)
+        if exc.status_code == 403:
+            return self.templates.TemplateResponse('403.html', {'request': request, 'detail': exc.detail,
+                                                                'status': exc.status_code,
+                                                                "definitions": jsonable_encoder(self.settings)})
+        elif exc.status_code == 404:
+            return self.templates.TemplateResponse('404.html', {'request': request, 'detail': exc.detail,
+                                                                'status': exc.status_code,
+                                                                "definitions": jsonable_encoder(self.settings)})
+        elif exc.status_code == 500:
+            return self.templates.TemplateResponse('500.html', {'request': request, 'detail': exc.detail,
+                                                                'status': exc.status_code,
+                                                                "definitions": jsonable_encoder(self.settings)})
+        else:
+            # Generic error page
+            return self.templates.TemplateResponse('error.html', {'request': request, 'detail': exc.detail,
+                                                                  'status': exc.status_code,
+                                                                  "definitions": jsonable_encoder(self.settings)})
 
     def index_page(self, request: Request):
         """

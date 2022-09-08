@@ -1188,9 +1188,10 @@ class AdminApp(PageAdmin, AdminGroup):
                 f'<div><a href="{u2d_msa_sdk.admin.__url__}" target="_blank" '
                 'title="Copyright"><i class="fa fa-github fa-2x"></i></a></div></div>'
         )
-        app.footer = '<div class="p-2 text-center bg-light">Copyright © 2022 by u2d.ai ' \
-                     f'<a href="{u2d_msa_sdk.admin.__url__}" target="_blank" ' \
-                     'class="link-secondary">msa-sdk-admin</a>. ' \
+
+        app.footer = '<div class="p-2 text-center bg-light">' + self.site.settings.site_copyright + \
+                     f' <a href="{u2d_msa_sdk.admin.__url__}" target="_blank" ' \
+                     'class="link-secondary">msa-sdk-admin</a> ' \
                      f'<a target="_blank" href="{u2d_msa_sdk.admin.__url__}" ' \
                      f'class="link-secondary" rel="noopener">v{u2d_msa_sdk.admin.__version__}</a></div> '
 

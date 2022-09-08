@@ -30,12 +30,13 @@ class MSAServiceDefinition(APISettings):
     msgpack: bool = False
     instrument: bool = True
     static: bool = True
-    templates: bool = True
     pages: bool = True
     graphql: bool = False
     context: bool = False
     pagination: bool = False
     profiler: bool = False
+    templates: bool = True
+    templates_dir: List[str] = ["msatemplates", "msatemplates/errors", "u2d_msa_sdk/msatemplates", "u2d_msa_sdk/msatemplates/errors"]
     profiler_output_type: str = "html"  # text or html
     profiler_single_calls: bool = True
     profiler_url: str = '/profiler'
@@ -50,6 +51,7 @@ class MSAServiceDefinition(APISettings):
     db_url: str = 'sqlite+aiosqlite:///msa_sdk.db?check_same_thread=False'
     site: bool = True
     site_title: str = 'Admin'
+    site_copyright: str = 'Copyright © 2022 by u2d.ai'
     site_icon: str = '/msastatic/img/favicon.png'
     site_url: str = ''
     root_path: str = '/admin'
