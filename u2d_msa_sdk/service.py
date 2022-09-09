@@ -100,26 +100,6 @@ def getSecretKeyCSRF():
     return ret_key
 
 
-def getAllowedOrigins() -> List[str]:
-    origins: List[str] = [os.getenv("ALLOWED_ORIGINS", "*")]
-    return origins
-
-
-def getAllowedMethods() -> List[str]:
-    methods: List[str] = [os.getenv("ALLOWED_METHODS", "*")]
-    return methods
-
-
-def getAllowedHeaders() -> List[str]:
-    headers: List[str] = [os.getenv("ALLOWED_HEADERS", "*")]
-    return headers
-
-
-def getAllowedCredentials() -> bool:
-    cred: bool = os.getenv("ALLOWED_CREDENTIALS", True)
-    return cred
-
-
 class MSAApp(MSAFastAPI):
     def __init__(
             self,
@@ -144,17 +124,20 @@ class MSAApp(MSAFastAPI):
         self.sql_cruds: List[MSASQLModelCrud] = []
         self.scheduler: MSAScheduler = None
         self.site = None
-
-        if self.settings.uvloop:
-            uvloop.install()
-        self.healthcheck: health.MSAHealthCheck = None
-
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
-        self.add_exception_handler(HTTPException, self.msa_exception_handler)
+        if self.settings.uvloop:
+            self.logger.info("Enable UVLoop")
+            uvloop.install()
+        else:
+            self.logger.info("Excluded UVLoop")
+
+        self.healthcheck: health.MSAHealthCheck = None
 
         if not self.settings.site:
             self.logger.info("Excluded Admin Site")
+        if not self.settings.site_auth:
+            self.logger.info("Excluded Admin Auth Site")
 
         if self.settings.db:
             self.logger.info("DB - Init: " + self.settings.db_url)
@@ -200,6 +183,12 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Sysrouter")
 
+        if self.settings.httpception:
+            self.logger.info("Add Handler HTTPException")
+            self.add_exception_handler(HTTPException, self.msa_exception_handler)
+        else:
+            self.logger.info("Excluded Handler HTTPException")
+
         if self.settings.starception:
             self.logger.info("Add Middleware Starception")
             self.add_middleware(StarceptionMiddleware)
@@ -208,18 +197,18 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.cors:
             self.logger.info("Add Middleware CORS")
-            self.add_middleware(CORSMiddleware, allow_origins=getAllowedOrigins(),
-                                allow_credentials=getAllowedCredentials(),
-                                allow_methods=getAllowedMethods(),
-                                allow_headers=getAllowedHeaders(), )
+            self.add_middleware(CORSMiddleware, allow_origins=self.settings.allow_origins,
+                                allow_credentials=self.settings.allow_credentials,
+                                allow_methods=self.settings.allow_methods,
+                                allow_headers=self.settings.allow_headers, )
         else:
             self.logger.info("Excluded Middleware CORS")
 
-        if self.settings.redirect:
-            self.logger.info("Add Middleware Redirect")
+        if self.settings.httpsredirect:
+            self.logger.info("Add Middleware HTTPSRedirect")
             self.add_middleware(HTTPSRedirectMiddleware)
         else:
-            self.logger.info("Excluded Middleware Redirect")
+            self.logger.info("Excluded Middleware HTTPSRedirect")
 
         if self.settings.gzip:
             self.logger.info("Add Middleware GZip")
@@ -537,7 +526,7 @@ class MSAApp(MSAFastAPI):
             return self.templates.TemplateResponse('500.html', {'request': request, 'detail': exc.detail,
                                                                 'status': exc.status_code,
                                                                 "definitions": jsonable_encoder(self.settings)})
-        elif exc.status_code == 307:
+        elif exc.status_code in self.settings.httpception_exclude:
             return await http_exception_handler(request, exc)
         else:
             # Generic error page

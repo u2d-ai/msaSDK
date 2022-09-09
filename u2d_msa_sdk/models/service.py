@@ -17,13 +17,19 @@ class MSAServiceDefinition(APISettings):
     port: int = 8090
     tags: List[str] = []
     metadata: Optional[Dict]
+    allow_origins: List[str] = ["*"]
+    allow_credentials: bool = True
+    allow_methods: List[str] = ["*"]
+    allow_headers: List[str] = ["*"]
     healthdefinition: MSAHealthDefinition = MSAHealthDefinition()
     uvloop: bool = True
     sysrouter: bool = True
     servicerouter: bool = True
-    starception: bool = False
+    starception: bool = True
+    httpception: bool = True
+    httpception_exclude: List[int] = [307, ]
     cors: bool = True
-    redirect: bool = False
+    httpsredirect: bool = False
     gzip: bool = False
     session: bool = False
     csrf: bool = True
