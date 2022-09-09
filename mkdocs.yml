@@ -21,10 +21,16 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
 
 theme:
   name: 'material'
   custom_dir: 'docs'
+  icon:
+    repo: fontawesome/brands/github
   palette:
 
     # Palette toggle for light mode
