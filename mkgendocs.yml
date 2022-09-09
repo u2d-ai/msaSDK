@@ -1,0 +1,595 @@
+site_name: MSA SDK - Documentation
+
+
+# Repository
+repo_name: U2D_MSA_SDK
+repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
+edit_uri: ""
+# Copyright
+copyright: Stefan Welcker, 2022, stefan@u2d.ai
+
+#This specifies the autogeneration portion
+pages:
+  - page: "modules/u2d_msa_sdk/session.md"
+    source: "u2d_msa_sdk/session.py"
+    classes:
+      - SessionData
+      - BasicVerifier
+    functions:
+      - xuuid4
+      - getSecretKey
+
+  - page: "modules/u2d_msa_sdk/msaapi.md"
+    source: "u2d_msa_sdk/msaapi.py"
+    classes:
+      - MSAFastAPI
+
+  - page: "modules/u2d_msa_sdk/security.md"
+    source: "u2d_msa_sdk/security.py"
+    classes:
+      - MSASecurity
+    functions:
+      - getSecretKey
+      - get_jwt_strategy
+      - getMSASecurity
+
+  - page: "modules/u2d_msa_sdk/userprogress.md"
+    source: "u2d_msa_sdk/userprogress.py"
+    classes:
+      - MSAUserProgress
+    functions:
+      - getMSAUserProgress
+
+  - page: "modules/u2d_msa_sdk/service.md"
+    source: "u2d_msa_sdk/service.py"
+    classes:
+      - MSATimerStatus
+      - MSASchedulerStatus
+      - MSAServiceStatus
+      - MSAOpenAPIInfo
+      - MSAApp
+    functions:
+      - getSecretKey
+      - getSecretKeySessions
+      - getSecretKeyCSRF
+
+  - page: "modules/u2d_msa_sdk/server/srv_uvicorn.md"
+    source: "u2d_msa_sdk/server/srv_uvicorn.py"
+    classes:
+      - MSAServerUvicorn
+
+  - page: "modules/u2d_msa_sdk/server/srv_gunicorn.md"
+    source: "u2d_msa_sdk/server/srv_gunicorn.py"
+    classes:
+      - InterceptHandler
+      - StubbedGunicornLogger
+      - StandaloneApplication
+      - MSAServerGunicorn
+    functions:
+      - number_of_workers
+
+  - page: "modules/u2d_msa_sdk/services/wdc.md"
+    source: "u2d_msa_sdk/services/wdc.py"
+    functions:
+      - getResultSentences
+      - getResultDependencies
+      - getResultTriples
+      - getResultEntities
+      - getResultEntitiesGroups
+      - getResultTokens
+      - getResultWords
+      - getResultParagraphs
+      - getResultPages
+      - createEntityOnly
+      - createEntitySimple
+      - createEntity
+      - createToken
+      - createWord
+      - getCompleteRoleFromDep
+      - createTriple
+      - createParagraph
+      - createNewDoc
+      - createNewMLDoc
+      - createNewParagraphs
+
+  - page: "modules/u2d_msa_sdk/auth/site.md"
+    source: "u2d_msa_sdk/auth/site.py"
+    classes:
+      - AuthAdminSite
+
+  - page: "modules/u2d_msa_sdk/auth/app.md"
+    source: "u2d_msa_sdk/auth/app.py"
+    classes:
+      - UserAuthApp
+
+  - page: "modules/u2d_msa_sdk/auth/admin.md"
+    source: "u2d_msa_sdk/auth/admin.py"
+    classes:
+      - UserLoginFormAdmin
+      - UserRegFormAdmin
+      - UserInfoFormAdmin
+      - UserAdmin
+      - RoleAdmin
+      - GroupAdmin
+      - PermissionAdmin
+    functions:
+      - attach_page_head
+
+  - page: "modules/u2d_msa_sdk/auth/auth/models.md"
+    source: "u2d_msa_sdk/auth/auth/models.py"
+    classes:
+      - PkMixin
+      - CreateTimeMixin
+      - UsernameMixin
+      - PasswordStr
+      - PasswordMixin
+      - EmailMixin
+      - UserRoleLink
+      - UserGroupLink
+      - GroupRoleLink
+      - RolePermissionLink
+      - BaseUser
+      - User
+      - BaseRBAC
+      - Role
+      - BaseGroup
+      - Group
+      - Permission
+
+  - page: "modules/u2d_msa_sdk/auth/auth/schemas.md"
+    source: "u2d_msa_sdk/auth/auth/schemas.py"
+    classes:
+      - BaseTokenData
+      - UserLoginOut
+      - UserRegIn
+
+  - page: "modules/u2d_msa_sdk/auth/auth/auth.md"
+    source: "u2d_msa_sdk/auth/auth/auth.py"
+    classes:
+      - AuthBackend
+      - Auth
+      - AuthRouter
+
+  - page: "modules/u2d_msa_sdk/auth/auth/backends/base.md"
+    source: "u2d_msa_sdk/auth/auth/backends/base.py"
+    classes:
+      - BaseTokenStore
+
+  - page: "modules/u2d_msa_sdk/auth/auth/backends/db.md"
+    source: "u2d_msa_sdk/auth/auth/backends/db.py"
+    classes:
+      - TokenStoreModel
+      - DbTokenStore
+
+  - page: "modules/u2d_msa_sdk/auth/auth/backends/redis.md"
+    source: "u2d_msa_sdk/auth/auth/backends/redis.py"
+    classes:
+      - RedisTokenStore
+
+  - page: "modules/u2d_msa_sdk/auth/auth/backends/jwt.md"
+    source: "u2d_msa_sdk/auth/auth/backends/jwt.py"
+    classes:
+      - JwtTokenStore
+
+  - page: "modules/u2d_msa_sdk/admin/site.md"
+    source: "u2d_msa_sdk/admin/site.py"
+    classes:
+      - DocsAdmin
+      - ReDocsAdmin
+      - ProfilerAdmin
+      - HomeAdmin
+      - FileAdmin
+      - AdminSite
+
+  - page: "modules/u2d_msa_sdk/admin/parser.md"
+    source: "u2d_msa_sdk/admin/parser.py"
+    classes:
+      - MSAUIParser
+    functions:
+      - cyclic_generator
+
+  - page: "modules/u2d_msa_sdk/admin/admin.md"
+    source: "u2d_msa_sdk/admin/admin.py"
+    classes:
+      - LinkModelForm
+      - BaseModelAdmin
+      - BaseAdmin
+      - PageSchemaAdmin
+      - LinkAdmin
+      - IframeAdmin
+      - RouterAdmin
+      - PageAdmin
+      - TemplateAdmin
+      - BaseFormAdmin
+      - FormAdmin
+      - ModelFormAdmin
+      - ModelAdmin
+      - BaseModelAction
+      - ModelAction
+      - AdminGroup
+      - AdminApp
+      - BaseAdminSite
+
+  - page: "modules/u2d_msa_sdk/admin/frontend/types.md"
+    source: "u2d_msa_sdk/admin/frontend/types.py"
+    classes:
+      - MSABaseUIModel
+      - MSABaseUIApiOut
+      - MSAUINode
+      - MSAUIAPI
+      - Tpl
+      - Event
+
+  - page: "modules/u2d_msa_sdk/admin/frontend/utils.md"
+    source: "u2d_msa_sdk/admin/frontend/utils.py"
+    functions:
+      - msa_ui_templates
+
+  - page: "modules/u2d_msa_sdk/admin/frontend/constants.md"
+    source: "u2d_msa_sdk/admin/frontend/constants.py"
+    classes:
+      - LevelEnum
+      - SizeEnum
+      - DisplayModeEnum
+      - LabelEnum
+      - StatusEnum
+      - TabsModeEnum
+
+  - page: "modules/u2d_msa_sdk/admin/frontend/components.md"
+    source: "u2d_msa_sdk/admin/frontend/components.py"
+    classes:
+      - Html
+      - Icon
+      - Remark
+      - Badge
+      - Page
+      - Divider
+      - Flex
+      - Grid
+      - Panel
+      - Tabs
+      - Portlet
+      - Horizontal
+      - Action
+      - ActionType
+      - PageSchema
+      - App
+      - ButtonGroup
+      - Custom
+      - Service
+      - Nav
+      - AnchorNav
+      - ButtonToolbar
+      - Validation
+      - FormItem
+      - Form
+      - Button
+      - InputArray
+      - Hidden
+      - Checkbox
+      - Radios
+      - ChartRadios
+      - Checkboxes
+      - InputCity
+      - InputColor
+      - Combo
+      - ConditionBuilder
+      - Editor
+      - Markdown
+      - InputFile
+      - InputExcel
+      - InputTable
+      - InputGroup
+      - Group
+      - InputImage
+      - LocationPicker
+      - InputNumber
+      - Picker
+      - Switch
+      - Static
+      - InputText
+      - InputPassword
+      - InputRichText
+      - Select
+      - NestedSelect
+      - Textarea
+      - InputMonth
+      - InputTime
+      - InputDatetime
+      - InputDate
+      - InputTimeRange
+      - InputDatetimeRange
+      - InputDateRange
+      - InputMonthRange
+      - Transfer
+      - TransferPicker
+      - TabsTransfer
+      - TabsTransferPicker
+      - InputTree
+      - TreeSelect
+      - Image
+      - Images
+      - Carousel
+      - CRUD
+      - TableColumn
+      - ColumnOperation
+      - ColumnImage
+      - ColumnImages
+      - Table
+      - Chart
+      - Code
+      - Json
+      - Link
+      - Log
+      - Mapping
+      - Property
+      - QRCode
+      - Video
+      - Alert
+      - Dialog
+      - Drawer
+      - Iframe
+      - Spinner
+      - TableCRUD
+      - Avatar
+      - Audio
+      - Status
+      - Tasks
+      - Wizard
+
+  - page: "modules/u2d_msa_sdk/admin/utils/choices.md"
+    source: "u2d_msa_sdk/admin/utils/choices.py"
+    classes:
+      - MSAChoicesMeta
+      - MSAChoices
+      - MSAIntegerChoices
+      - MSATextChoices
+      - Promise
+
+  - page: "modules/u2d_msa_sdk/admin/utils/translation.md"
+    source: "u2d_msa_sdk/admin/utils/translation.py"
+    classes:
+      - I18N
+
+  - page: "modules/u2d_msa_sdk/admin/utils/fields.md"
+    source: "u2d_msa_sdk/admin/utils/fields.py"
+    functions:
+      - Field
+
+  - page: "modules/u2d_msa_sdk/router/system.md"
+    source: "u2d_msa_sdk/router/system.py"
+    functions:
+      - system_info
+      - system_gpu_info
+      - system_test_error
+
+  - page: "modules/u2d_msa_sdk/utils/htmlutils.md"
+    source: "u2d_msa_sdk/utils/htmlutils.py"
+    functions:
+      - sanitize
+
+  - page: "modules/u2d_msa_sdk/utils/email.md"
+    source: "u2d_msa_sdk/utils/email.py"
+    classes:
+      - MSASendEmail
+
+  - page: "modules/u2d_msa_sdk/utils/sysinfo.md"
+    source: "u2d_msa_sdk/utils/sysinfo.py"
+    classes:
+      - MSAGPUInfo
+      - MSADiskIO
+      - MSANetworkIO
+      - MSANetworkConnection
+      - MSANetworkAdapter
+      - MSANetworkAdapters
+      - MSANetworkStat
+      - NetworkStats
+      - MSATemperature
+      - MSATemperatures
+      - MSACPUFrequency
+      - MSACPUTimes
+      - MSACPUStats
+      - MSAMemoryUsage
+      - MSASwap
+      - MSASystemInfo
+      - MSASystemGPUInfo
+    functions:
+      - get_hostname
+      - get_list_partitions
+      - get_gpus
+      - get_partition_usage
+      - get_map_disk_usage
+      - get_memory_usage
+      - get_cpu_freq
+      - get_cpu_times
+      - get_cpu_stats
+      - get_disk_io
+      - get_network_io
+      - get_network_adapters
+      - get_temperatures
+      - get_network_stats
+      - get_network_connections
+      - get_swap
+      - get_load_average
+      - get_cpu_usage
+      - get_sysinfo
+      - get_sysgpuinfo
+
+  - page: "modules/u2d_msa_sdk/utils/logger.md"
+    source: "u2d_msa_sdk/utils/logger.py"
+    classes:
+      - InterceptHandler
+    functions:
+      - format_record
+      - init_logging
+
+  - page: "modules/u2d_msa_sdk/utils/errorhandling.md"
+    source: "u2d_msa_sdk/utils/errorhandling.py"
+    classes:
+      - MSABaseExceptionHandler
+    functions:
+      - getMSABaseExceptionHandler
+
+  - page: "modules/u2d_msa_sdk/utils/token.md"
+    source: "u2d_msa_sdk/utils/token.py"
+    classes:
+      - MSATokenData
+      - MSAToken
+
+  - page: "modules/u2d_msa_sdk/utils/fonts.md"
+    source: "u2d_msa_sdk/utils/fonts.py"
+    functions:
+      - findSystemFonts
+
+  - page: "modules/u2d_msa_sdk/utils/fileupload.md"
+    source: "u2d_msa_sdk/utils/fileupload.py"
+    classes:
+      - ServerHTTPException
+      - InvalidResource
+      - NoSuchFieldFound
+      - FileMaxSizeLimit
+      - FileExtNotAllowed
+      - FileUpload
+      - FileDelete
+    functions:
+      - secure_filename
+      - nameGen
+      - checkIfFileIsArchive
+      - createMSAFile
+      - createMSAFileFromUnpacked
+
+  - page: "modules/u2d_msa_sdk/utils/profiler.md"
+    source: "u2d_msa_sdk/utils/profiler.py"
+    classes:
+      - MSAProfilerMiddleware
+
+  - page: "modules/u2d_msa_sdk/utils/fileutils.md"
+    source: "u2d_msa_sdk/utils/fileutils.py"
+    functions:
+      - all_dirs_with_subdirs
+      - get_directory_listing
+      - save_content_to_file
+      - save_binary_to_file
+      - load_content_from_file
+
+  - page: "modules/u2d_msa_sdk/utils/healthcheck.md"
+    source: "u2d_msa_sdk/utils/healthcheck.py"
+    classes:
+      - MSAHealthCheck
+
+  - page: "modules/u2d_msa_sdk/utils/scheduler.md"
+    source: "u2d_msa_sdk/utils/scheduler.py"
+    classes:
+      - MSATimerEnum
+      - MSATimers
+      - MSAScheduler
+    functions:
+      - get_time_stamp
+      - get_time
+
+  - page: "modules/u2d_msa_sdk/db/crud/schema.md"
+    source: "u2d_msa_sdk/db/crud/schema.py"
+    classes:
+      - MSACRUDSchema
+      - MSACRUDOut
+      - MSACRUDListSchema
+      - MSACRUDEnum
+      - MSACRUDPaginator
+
+  - page: "modules/u2d_msa_sdk/db/crud/utils.md"
+    source: "u2d_msa_sdk/db/crud/utils.py"
+    functions:
+      - validator_skip_blank
+      - schema_create_by_schema
+      - schema_create_by_modelfield
+      - paginator_factory
+      - parser_str_set_list
+      - parser_item_id
+
+  - page: "modules/u2d_msa_sdk/db/crud/base.md"
+    source: "u2d_msa_sdk/db/crud/base.py"
+    classes:
+      - MSARouterMixin
+      - MSABaseCrud
+
+  - page: "modules/u2d_msa_sdk/db/crud/parser.md"
+    source: "u2d_msa_sdk/db/crud/parser.py"
+    classes:
+      - MSASQLModelFieldParser
+    functions:
+      - get_python_type_parse
+
+  - page: "modules/u2d_msa_sdk/db/crud/_sqlmodel.md"
+    source: "u2d_msa_sdk/db/crud/_sqlmodel.py"
+    classes:
+      - MSASQLModelSelector
+      - MSASQLModelCrud
+
+  - page: "modules/u2d_msa_sdk/models/health.md"
+    source: "u2d_msa_sdk/models/health.py"
+    classes:
+      - MSAHealthDefinition
+      - MSAHealthMessage
+
+  - page: "modules/u2d_msa_sdk/models/service.md"
+    source: "u2d_msa_sdk/models/service.py"
+    classes:
+      - MSAServiceDefinition
+    functions:
+      - get_msa_app_settings
+
+  - page: "modules/u2d_msa_sdk/models/wfl.md"
+    source: "u2d_msa_sdk/models/wfl.py"
+    classes:
+      - WFLModule
+      - WFLNodeType
+
+  - page: "modules/u2d_msa_sdk/models/files.md"
+    source: "u2d_msa_sdk/models/files.py"
+    classes:
+      - MSAFile
+
+  - page: "modules/u2d_msa_sdk/models/sdu.md"
+    source: "u2d_msa_sdk/models/sdu.py"
+    classes:
+      - SDUPageImage
+      - SDUEmail
+      - SDULanguage
+      - SDUStatistic
+      - SDUSentence
+      - SDUPDFElement
+      - SDUParagraph
+      - SDUText
+      - SDUPage
+      - SDUVersion
+      - SDULearnset
+      - SDUData
+      - SDUBBox
+      - SDUElement
+      - SDUAttachment
+      - SDUDimensions
+      - SDUFonts
+      - SDULayout
+      - SDUContent
+    functions:
+      - getCRLF
+      - getSentenceSeperator
+      - getCRParagraph
+
+  - page: "modules/u2d_msa_sdk/models/wdc.md"
+    source: "u2d_msa_sdk/models/wdc.py"
+    classes:
+      - WDCPosition
+      - WDCWord
+      - WDCToken
+      - WDCTriple
+      - WDCItem
+      - WDCMeaning
+      - WDCSpan
+      - WDCMLEntry
+      - WDCSentence
+      - WDCParagraph
+      - WDCPage
+      - WDCMLDocument
+      - WDCDocument
+
