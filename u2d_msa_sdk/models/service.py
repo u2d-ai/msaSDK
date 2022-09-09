@@ -11,6 +11,20 @@ from u2d_msa_sdk.models.health import MSAHealthDefinition
 
 
 class MSAServiceDefinition(APISettings):
+    """
+    MSAApp Settings (Service Definitions)
+
+    This class enables the configuration of your MSAApp instance through the use of environment variables.
+
+    Any of the instance attributes can be overridden upon instantiation by either passing the desired value to the
+    initializer, or by setting the corresponding environment variable.
+
+    Attribute `xxx_yyy` corresponds to environment variable `API_XXX_YYY`. So, for example, to override
+    `openapi_prefix`, you would set the environment variable `API_OPENAPI_PREFIX`.
+
+    Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
+    to the config, they should have the correct types.
+    """
     name: str = "MSA SDK Service"
     version: str = "0.0.0"
     host: str = "127.0.0.1"
@@ -18,9 +32,13 @@ class MSAServiceDefinition(APISettings):
     tags: List[str] = []
     metadata: Optional[Dict]
     allow_origins: List[str] = ["*"]
+    """CORSMiddleware. List[str]. List of allowed origins (as strings) or all of them with the wildcard '*' """
     allow_credentials: bool = True
+    """CORSMiddleware. Bool. Allow (True) Credentials (Authorization headers, Cookies, etc)."""
     allow_methods: List[str] = ["*"]
+    """CORSMiddleware. List[str]. Specific HTTP methods (POST, PUT) or all of them with the wildcard '*' """
     allow_headers: List[str] = ["*"]
+    """CORSMiddleware. List[str]. Specific HTTP headers or all of them with the wildcard '*' """
     healthdefinition: MSAHealthDefinition = MSAHealthDefinition()
     uvloop: bool = True
     sysrouter: bool = True

@@ -13,6 +13,9 @@ from loguru import logger
 
 from u2d_msa_sdk.service import MSAApp
 
+if __name__ == '__main__':
+    pass
+
 JSON_LOGS = True if os.environ.get("JSON_LOGS", "0") == "1" else False
 
 

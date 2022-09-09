@@ -12,6 +12,8 @@ from u2d_msa_sdk.models.sdu import SDUPage, SDUSentence
 from u2d_msa_sdk.models.wdc import WDCDocument, WDCSentence, WDCPage, WDCParagraph, WDCSpan, WDCPosition, WDCToken, \
     WDCWord, WDCTriple, WDCMLDocument
 
+if __name__ == '__main__':
+    pass
 
 async def getResultSentences(doc: WDCDocument):
     ret = []

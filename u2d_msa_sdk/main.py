@@ -5,6 +5,9 @@ import os
 
 from server.srv_uvicorn import MSAServerUvicorn
 
+if __name__ == '__main__':
+    pass
+
 ROOTPATH = os.path.join(os.path.dirname(__file__))
 
 

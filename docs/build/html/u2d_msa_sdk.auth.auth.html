@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u2d_msa_sdk.auth.auth package &mdash; MSA SDK 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="u2d_msa_sdk.auth.auth.backends package" href="u2d_msa_sdk.auth.auth.backends.html" />
+    <link rel="prev" title="u2d_msa_sdk.auth package" href="u2d_msa_sdk.auth.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MSA SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">U2D MSA SDK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="u2d_msa_sdk.html">u2d_msa_sdk package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="u2d_msa_sdk.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.html">u2d_msa_sdk.admin package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.app.html">u2d_msa_sdk.app package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.html">u2d_msa_sdk.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.models.html">u2d_msa_sdk.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.router.html">u2d_msa_sdk.router package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.server.html">u2d_msa_sdk.server package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.services.html">u2d_msa_sdk.services package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.utils.html">u2d_msa_sdk.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#u2d-msa-sdk-main-module">u2d_msa_sdk.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.msaapi">u2d_msa_sdk.msaapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.run">u2d_msa_sdk.run module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.security">u2d_msa_sdk.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.service">u2d_msa_sdk.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.session">u2d_msa_sdk.session module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.userprogress">u2d_msa_sdk.userprogress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MSA SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">U2D MSA SDK</a> &raquo;</li>
+          <li><a href="u2d_msa_sdk.html">u2d_msa_sdk package</a> &raquo;</li>
+          <li><a href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a> &raquo;</li>
+      <li>u2d_msa_sdk.auth.auth package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/u2d_msa_sdk.auth.auth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="u2d-msa-sdk-auth-auth-package">
+<h1>u2d_msa_sdk.auth.auth package<a class="headerlink" href="#u2d-msa-sdk-auth-auth-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html">u2d_msa_sdk.auth.auth.backends package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#module-u2d_msa_sdk.auth.auth.backends.base">u2d_msa_sdk.auth.auth.backends.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#module-u2d_msa_sdk.auth.auth.backends.db">u2d_msa_sdk.auth.auth.backends.db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#module-u2d_msa_sdk.auth.auth.backends.jwt">u2d_msa_sdk.auth.auth.backends.jwt module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#module-u2d_msa_sdk.auth.auth.backends.redis">u2d_msa_sdk.auth.auth.backends.redis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#module-u2d_msa_sdk.auth.auth.backends">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-u2d_msa_sdk.auth.auth.auth">
+<span id="u2d-msa-sdk-auth-auth-auth-module"></span><h2>u2d_msa_sdk.auth.auth.auth module<a class="headerlink" href="#module-u2d_msa_sdk.auth.auth.auth" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.auth.</span></span><span class="sig-name descname"><span class="pre">Auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">db:</span> <span class="pre">~typing.Union[~sqlalchemy_database.database.AsyncDatabase,</span> <span class="pre">~sqlalchemy_database.database.Database],</span> <span class="pre">token_store:</span> <span class="pre">~typing.Optional[~u2d_msa_sdk.auth.auth.backends.base.BaseTokenStore]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">user_model:</span> <span class="pre">~typing.Type[~u2d_msa_sdk.auth.auth.auth._UserModelT]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'u2d_msa_sdk.auth.auth.models.User'&gt;,</span> <span class="pre">pwd_context:</span> <span class="pre">~passlib.context.CryptContext</span> <span class="pre">=</span> <span class="pre">&lt;CryptContext&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_UserModelT</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.authenticate_user">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authenticate_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SecretStr</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">_UserModelT</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.authenticate_user" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.backend">
+<span class="sig-name descname"><span class="pre">backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.auth.AuthBackend" title="u2d_msa_sdk.auth.auth.auth.AuthBackend"><span class="pre">AuthBackend</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_UserModelT</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.backend" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.create_role_user">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_role_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'admin'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.User" title="u2d_msa_sdk.auth.auth.models.User"><span class="pre">User</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.create_role_user" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.db">
+<span class="sig-name descname"><span class="pre">db</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">AsyncDatabase</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Database</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.db" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.get_current_user">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_current_user</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.get_current_user" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.requires">
+<span class="sig-name descname"><span class="pre">requires</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">403</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Response</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.requires" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.Auth.user_model">
+<span class="sig-name descname"><span class="pre">user_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">_UserModelT</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.Auth.user_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthBackend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.auth.</span></span><span class="sig-name descname"><span class="pre">AuthBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#u2d_msa_sdk.auth.auth.auth.Auth" title="u2d_msa_sdk.auth.auth.auth.Auth"><span class="pre">Auth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.auth.auth.backends.html#u2d_msa_sdk.auth.auth.backends.base.BaseTokenStore" title="u2d_msa_sdk.auth.auth.backends.base.BaseTokenStore"><span class="pre">BaseTokenStore</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthBackend" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationBackend</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_UserModelT</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthBackend.attach_middleware">
+<span class="sig-name descname"><span class="pre">attach_middleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthBackend.attach_middleware" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthBackend.authenticate">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.auth.Auth" title="u2d_msa_sdk.auth.auth.auth.Auth"><span class="pre">Auth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">_UserModelT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthBackend.authenticate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthBackend.get_user_token">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_user_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthBackend.get_user_token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.auth.</span></span><span class="sig-name descname"><span class="pre">AuthRouter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.auth.Auth" title="u2d_msa_sdk.auth.auth.auth.Auth"><span class="pre">Auth</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="u2d_msa_sdk.db.crud.html#u2d_msa_sdk.db.crud.base.MSARouterMixin" title="u2d_msa_sdk.db.crud.base.MSARouterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSARouterMixin</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OAuth2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokenUrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">OAuth2PasswordBearer</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SecurityBase</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2.model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2.scheme_name">
+<span class="sig-name descname"><span class="pre">scheme_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.OAuth2.scheme_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.auth">
+<span class="sig-name descname"><span class="pre">auth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.auth.Auth" title="u2d_msa_sdk.auth.auth.auth.Auth"><span class="pre">Auth</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.auth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.route_gettoken">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">route_gettoken</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.route_gettoken" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.route_logout">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">route_logout</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.route_logout" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.route_userinfo">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">route_userinfo</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.route_userinfo" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.router_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">router_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.router_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.router_prefix">
+<span class="sig-name descname"><span class="pre">router_prefix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/auth'</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.router_prefix" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.schema_user_info">
+<span class="sig-name descname"><span class="pre">schema_user_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.schema_user_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.auth.AuthRouter.schema_user_login_out">
+<span class="sig-name descname"><span class="pre">schema_user_login_out</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.auth.AuthRouter.schema_user_login_out" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#u2d_msa_sdk.auth.auth.schemas.UserLoginOut" title="u2d_msa_sdk.auth.auth.schemas.UserLoginOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserLoginOut</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.auth.auth.models">
+<span id="u2d-msa-sdk-auth-auth-models-module"></span><h2>u2d_msa_sdk.auth.auth.models module<a class="headerlink" href="#module-u2d_msa_sdk.auth.auth.models" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">BaseGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseGroup" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC" title="u2d_msa_sdk.auth.auth.models.BaseRBAC"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRBAC</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseGroup.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseGroup.parent_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseRBAC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">BaseRBAC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PkMixin" title="u2d_msa_sdk.auth.auth.models.PkMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PkMixin</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseRBAC.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC.desc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseRBAC.key">
+<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC.key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseRBAC.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">BaseUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PasswordStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PkMixin" title="u2d_msa_sdk.auth.auth.models.PkMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PkMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.UsernameMixin" title="u2d_msa_sdk.auth.auth.models.UsernameMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsernameMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PasswordMixin" title="u2d_msa_sdk.auth.auth.models.PasswordMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.EmailMixin" title="u2d_msa_sdk.auth.auth.models.EmailMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.CreateTimeMixin" title="u2d_msa_sdk.auth.auth.models.CreateTimeMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateTimeMixin</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.Config" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.Config.use_enum_values">
+<span class="sig-name descname"><span class="pre">use_enum_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.Config.use_enum_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.avatar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.display_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">display_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.display_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.has_requires">
+<span class="sig-name descname"><span class="pre">has_requires</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.has_requires" title="Permalink to this definition"></a></dt>
+<dd><p>检查用户是否属于拥有指定的RBAC权限
+Args:</p>
+<blockquote>
+<div><p>session: sqlalchemy <cite>Session</cite>;异步`AsyncSession`,请使用`run_sync`方法.
+roles: 角色列表
+groups: 用户组列表
+permissions: 权限列表</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>检测成功返回`True`</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.identity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">identity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.identity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.is_active" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.is_authenticated">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_authenticated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.is_authenticated" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.BaseUser.nickname">
+<span class="sig-name descname"><span class="pre">nickname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.BaseUser.nickname" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.CreateTimeMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">CreateTimeMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.CreateTimeMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.CreateTimeMixin.create_time">
+<span class="sig-name descname"><span class="pre">create_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.CreateTimeMixin.create_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.EmailMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">EmailMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.EmailMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.EmailMixin.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EmailStr</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.EmailMixin.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">Group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseGroup" title="u2d_msa_sdk.auth.auth.models.BaseGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseGroup</span></code></a></p>
+<p>用户组</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.desc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.key">
+<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.parent_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Group.roles">
+<span class="sig-name descname"><span class="pre">roles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Role" title="u2d_msa_sdk.auth.auth.models.Role"><span class="pre">Role</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Group.roles" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.GroupRoleLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">GroupRoleLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.GroupRoleLink" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.GroupRoleLink.group_id">
+<span class="sig-name descname"><span class="pre">group_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.GroupRoleLink.group_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.GroupRoleLink.role_id">
+<span class="sig-name descname"><span class="pre">role_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.GroupRoleLink.role_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.PasswordMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">PasswordMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PasswordStr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.PasswordMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.PasswordMixin.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PasswordStr" title="u2d_msa_sdk.auth.auth.models.PasswordStr"><span class="pre">PasswordStr</span></a></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.PasswordMixin.password" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.PasswordStr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">PasswordStr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">unicode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.PasswordStr" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SecretStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">Permission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC" title="u2d_msa_sdk.auth.auth.models.BaseRBAC"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRBAC</span></code></a></p>
+<p>权限</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission.desc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission.key">
+<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission.key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Permission.roles">
+<span class="sig-name descname"><span class="pre">roles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Role" title="u2d_msa_sdk.auth.auth.models.Role"><span class="pre">Role</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Permission.roles" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.PkMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">PkMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.PkMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.PkMixin.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.PkMixin.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">Role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseRBAC" title="u2d_msa_sdk.auth.auth.models.BaseRBAC"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRBAC</span></code></a></p>
+<p>角色</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.desc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Group" title="u2d_msa_sdk.auth.auth.models.Group"><span class="pre">Group</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.groups" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.key">
+<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.Role.permissions">
+<span class="sig-name descname"><span class="pre">permissions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Permission" title="u2d_msa_sdk.auth.auth.models.Permission"><span class="pre">Permission</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.Role.permissions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.RolePermissionLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">RolePermissionLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.RolePermissionLink" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.RolePermissionLink.permission_id">
+<span class="sig-name descname"><span class="pre">permission_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.RolePermissionLink.permission_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.RolePermissionLink.role_id">
+<span class="sig-name descname"><span class="pre">role_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.RolePermissionLink.role_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PasswordStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseUser" title="u2d_msa_sdk.auth.auth.models.BaseUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseUser</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.avatar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.create_time">
+<span class="sig-name descname"><span class="pre">create_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.create_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EmailStr</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Group" title="u2d_msa_sdk.auth.auth.models.Group"><span class="pre">Group</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.groups" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.is_active" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.nickname">
+<span class="sig-name descname"><span class="pre">nickname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.nickname" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PasswordStr" title="u2d_msa_sdk.auth.auth.models.PasswordStr"><span class="pre">PasswordStr</span></a></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.password" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.roles">
+<span class="sig-name descname"><span class="pre">roles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.Role" title="u2d_msa_sdk.auth.auth.models.Role"><span class="pre">Role</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.roles" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.User.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.User.username" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserGroupLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">UserGroupLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserGroupLink" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserGroupLink.group_id">
+<span class="sig-name descname"><span class="pre">group_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserGroupLink.group_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserGroupLink.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserGroupLink.user_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserRoleLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">UserRoleLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserRoleLink" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserRoleLink.role_id">
+<span class="sig-name descname"><span class="pre">role_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserRoleLink.role_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UserRoleLink.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UserRoleLink.user_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UsernameMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.models.</span></span><span class="sig-name descname"><span class="pre">UsernameMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UsernameMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.models.UsernameMixin.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.models.UsernameMixin.username" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.auth.auth.schemas">
+<span id="u2d-msa-sdk-auth-auth-schemas-module"></span><h2>u2d_msa_sdk.auth.auth.schemas module<a class="headerlink" href="#module-u2d_msa_sdk.auth.auth.schemas" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.BaseTokenData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.schemas.</span></span><span class="sig-name descname"><span class="pre">BaseTokenData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.BaseTokenData" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.BaseTokenData.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.BaseTokenData.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.BaseTokenData.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.BaseTokenData.username" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserLoginOut">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.schemas.</span></span><span class="sig-name descname"><span class="pre">UserLoginOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SecretStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bearer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserLoginOut" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.BaseUser" title="u2d_msa_sdk.auth.auth.models.BaseUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseUser</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserLoginOut.access_token">
+<span class="sig-name descname"><span class="pre">access_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserLoginOut.access_token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserLoginOut.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SecretStr</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserLoginOut.password" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserLoginOut.token_type">
+<span class="sig-name descname"><span class="pre">token_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserLoginOut.token_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserRegIn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.auth.auth.schemas.</span></span><span class="sig-name descname"><span class="pre">UserRegIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PasswordStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConstrainedStrValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserRegIn" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.UsernameMixin" title="u2d_msa_sdk.auth.auth.models.UsernameMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsernameMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.PasswordMixin" title="u2d_msa_sdk.auth.auth.models.PasswordMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordMixin</span></code></a>, <a class="reference internal" href="#u2d_msa_sdk.auth.auth.models.EmailMixin" title="u2d_msa_sdk.auth.auth.models.EmailMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMixin</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserRegIn.password2">
+<span class="sig-name descname"><span class="pre">password2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserRegIn.password2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.auth.auth.schemas.UserRegIn.passwords_match">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">passwords_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.auth.auth.schemas.UserRegIn.passwords_match" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.auth.auth">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-u2d_msa_sdk.auth.auth" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="u2d_msa_sdk.auth.html" class="btn btn-neutral float-left" title="u2d_msa_sdk.auth package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="u2d_msa_sdk.auth.auth.backends.html" class="btn btn-neutral float-right" title="u2d_msa_sdk.auth.auth.backends package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stefan Welcker (stefan@u2d.ai).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u2d_msa_sdk.server package &mdash; MSA SDK 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="u2d_msa_sdk.services package" href="u2d_msa_sdk.services.html" />
+    <link rel="prev" title="u2d_msa_sdk.router package" href="u2d_msa_sdk.router.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MSA SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">U2D MSA SDK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="u2d_msa_sdk.html">u2d_msa_sdk package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="u2d_msa_sdk.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.html">u2d_msa_sdk.admin package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.app.html">u2d_msa_sdk.app package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.html">u2d_msa_sdk.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.models.html">u2d_msa_sdk.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.router.html">u2d_msa_sdk.router package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">u2d_msa_sdk.server package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.services.html">u2d_msa_sdk.services package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.utils.html">u2d_msa_sdk.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#u2d-msa-sdk-main-module">u2d_msa_sdk.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.msaapi">u2d_msa_sdk.msaapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.run">u2d_msa_sdk.run module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.security">u2d_msa_sdk.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.service">u2d_msa_sdk.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.session">u2d_msa_sdk.session module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.userprogress">u2d_msa_sdk.userprogress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MSA SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">U2D MSA SDK</a> &raquo;</li>
+          <li><a href="u2d_msa_sdk.html">u2d_msa_sdk package</a> &raquo;</li>
+      <li>u2d_msa_sdk.server package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/u2d_msa_sdk.server.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="u2d-msa-sdk-server-package">
+<h1>u2d_msa_sdk.server package<a class="headerlink" href="#u2d-msa-sdk-server-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-u2d_msa_sdk.server.srv_gunicorn">
+<span id="u2d-msa-sdk-server-srv-gunicorn-module"></span><h2>u2d_msa_sdk.server.srv_gunicorn module<a class="headerlink" href="#module-u2d_msa_sdk.server.srv_gunicorn" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.InterceptHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_gunicorn.</span></span><span class="sig-name descname"><span class="pre">InterceptHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.InterceptHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.InterceptHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.InterceptHandler.emit" title="Permalink to this definition"></a></dt>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.MSAServerGunicorn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_gunicorn.</span></span><span class="sig-name descname"><span class="pre">MSAServerGunicorn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.html#u2d_msa_sdk.service.MSAApp" title="u2d_msa_sdk.service.MSAApp"><span class="pre">MSAApp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.MSAServerGunicorn" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.MSAServerGunicorn.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.MSAServerGunicorn.run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_gunicorn.</span></span><span class="sig-name descname"><span class="pre">StandaloneApplication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.html#u2d_msa_sdk.service.MSAApp" title="u2d_msa_sdk.service.MSAApp"><span class="pre">MSAApp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseApplication</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication.load" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication.load_config">
+<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.StandaloneApplication.load_config" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to load the configuration from one or several input(s).
+Custom Command line, configuration file.
+You have to override this method in your class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.StubbedGunicornLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_gunicorn.</span></span><span class="sig-name descname"><span class="pre">StubbedGunicornLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.StubbedGunicornLogger" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_gunicorn.number_of_workers">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_gunicorn.</span></span><span class="sig-name descname"><span class="pre">number_of_workers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_gunicorn.number_of_workers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.server.srv_uvicorn">
+<span id="u2d-msa-sdk-server-srv-uvicorn-module"></span><h2>u2d_msa_sdk.server.srv_uvicorn module<a class="headerlink" href="#module-u2d_msa_sdk.server.srv_uvicorn" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_uvicorn.MSAServerUvicorn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.server.srv_uvicorn.</span></span><span class="sig-name descname"><span class="pre">MSAServerUvicorn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_uvicorn.MSAServerUvicorn" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.server.srv_uvicorn.MSAServerUvicorn.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.server.srv_uvicorn.MSAServerUvicorn.run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.server">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-u2d_msa_sdk.server" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="u2d_msa_sdk.router.html" class="btn btn-neutral float-left" title="u2d_msa_sdk.router package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="u2d_msa_sdk.services.html" class="btn btn-neutral float-right" title="u2d_msa_sdk.services package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stefan Welcker (stefan@u2d.ai).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

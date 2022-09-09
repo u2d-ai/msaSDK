@@ -4,16 +4,11 @@ Copyright (c) 2022 - U2D.ai / S.Welcker
 """
 __version__ = "0.0.1"
 
-from typing import Optional, Any
+from typing import Optional
 
-from pydantic import BaseModel
 from sqlmodel import SQLModel
-from starlette.requests import Request
 
-from u2d_msa_sdk.admin import ModelAdmin, FormAdmin
-from u2d_msa_sdk.admin.frontend import Form
 from u2d_msa_sdk.admin.utils.fields import Field
-from u2d_msa_sdk.db.crud import MSACRUDOut
 from u2d_msa_sdk.models.service import get_msa_app_settings
 from u2d_msa_sdk.service import MSAApp
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
@@ -89,3 +84,7 @@ async def startup():
 @app.on_event("shutdown")
 async def shutdown():
     app.logger.info("MSA SDK Own Shutdown Event")
+
+
+if __name__ == '__main__':
+    pass

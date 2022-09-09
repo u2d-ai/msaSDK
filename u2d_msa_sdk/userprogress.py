@@ -6,6 +6,9 @@ from typing import List, Dict
 import asyncio
 from functools import lru_cache
 
+if __name__ == '__main__':
+    pass
+
 
 class MSAUserProgress():
 

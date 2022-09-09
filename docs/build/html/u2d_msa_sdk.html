@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u2d_msa_sdk package &mdash; MSA SDK 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="u2d_msa_sdk.admin package" href="u2d_msa_sdk.admin.html" />
+    <link rel="prev" title="U2D MSA SDK" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MSA SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">U2D MSA SDK</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">u2d_msa_sdk package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.html">u2d_msa_sdk.admin package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.app.html">u2d_msa_sdk.app package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.html">u2d_msa_sdk.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.models.html">u2d_msa_sdk.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.router.html">u2d_msa_sdk.router package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.server.html">u2d_msa_sdk.server package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.services.html">u2d_msa_sdk.services package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.utils.html">u2d_msa_sdk.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#u2d-msa-sdk-main-module">u2d_msa_sdk.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.msaapi">u2d_msa_sdk.msaapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.run">u2d_msa_sdk.run module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.security">u2d_msa_sdk.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.service">u2d_msa_sdk.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.session">u2d_msa_sdk.session module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk.userprogress">u2d_msa_sdk.userprogress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-u2d_msa_sdk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MSA SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">U2D MSA SDK</a> &raquo;</li>
+      <li>u2d_msa_sdk package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/u2d_msa_sdk.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="u2d-msa-sdk-package">
+<h1>u2d_msa_sdk package<a class="headerlink" href="#u2d-msa-sdk-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.admin.html">u2d_msa_sdk.admin package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html">u2d_msa_sdk.admin.frontend package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#module-u2d_msa_sdk.admin.frontend.components">u2d_msa_sdk.admin.frontend.components module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#module-u2d_msa_sdk.admin.frontend.constants">u2d_msa_sdk.admin.frontend.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#module-u2d_msa_sdk.admin.frontend.types">u2d_msa_sdk.admin.frontend.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#module-u2d_msa_sdk.admin.frontend.utils">u2d_msa_sdk.admin.frontend.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.frontend.html#module-u2d_msa_sdk.admin.frontend">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html">u2d_msa_sdk.admin.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#module-u2d_msa_sdk.admin.utils.choices">u2d_msa_sdk.admin.utils.choices module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#module-u2d_msa_sdk.admin.utils.fields">u2d_msa_sdk.admin.utils.fields module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#module-u2d_msa_sdk.admin.utils.functools">u2d_msa_sdk.admin.utils.functools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#module-u2d_msa_sdk.admin.utils.translation">u2d_msa_sdk.admin.utils.translation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.utils.html#module-u2d_msa_sdk.admin.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#module-u2d_msa_sdk.admin.admin">u2d_msa_sdk.admin.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#module-u2d_msa_sdk.admin.parser">u2d_msa_sdk.admin.parser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#module-u2d_msa_sdk.admin.site">u2d_msa_sdk.admin.site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.admin.html#module-u2d_msa_sdk.admin">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.app.html">u2d_msa_sdk.app package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.app.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html">u2d_msa_sdk.auth.auth package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#module-u2d_msa_sdk.auth.auth.auth">u2d_msa_sdk.auth.auth.auth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#module-u2d_msa_sdk.auth.auth.models">u2d_msa_sdk.auth.auth.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#module-u2d_msa_sdk.auth.auth.schemas">u2d_msa_sdk.auth.auth.schemas module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.auth.html#module-u2d_msa_sdk.auth.auth">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#module-u2d_msa_sdk.auth.admin">u2d_msa_sdk.auth.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#module-u2d_msa_sdk.auth.app">u2d_msa_sdk.auth.app module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#module-u2d_msa_sdk.auth.site">u2d_msa_sdk.auth.site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.auth.html#module-u2d_msa_sdk.auth">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.db.html">u2d_msa_sdk.db package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.db.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.db.crud.html">u2d_msa_sdk.db.crud package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#module-u2d_msa_sdk.db.crud.base">u2d_msa_sdk.db.crud.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#module-u2d_msa_sdk.db.crud.parser">u2d_msa_sdk.db.crud.parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#module-u2d_msa_sdk.db.crud.schema">u2d_msa_sdk.db.crud.schema module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#module-u2d_msa_sdk.db.crud.utils">u2d_msa_sdk.db.crud.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.crud.html#module-u2d_msa_sdk.db.crud">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.db.html#module-u2d_msa_sdk.db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.models.html">u2d_msa_sdk.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.files">u2d_msa_sdk.models.files module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.health">u2d_msa_sdk.models.health module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.sdu">u2d_msa_sdk.models.sdu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.service">u2d_msa_sdk.models.service module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.wdc">u2d_msa_sdk.models.wdc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models.wfl">u2d_msa_sdk.models.wfl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.models.html#module-u2d_msa_sdk.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.router.html">u2d_msa_sdk.router package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.router.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.router.html#module-u2d_msa_sdk.router.system">u2d_msa_sdk.router.system module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.router.html#module-u2d_msa_sdk.router">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.server.html">u2d_msa_sdk.server package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.server.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.server.html#module-u2d_msa_sdk.server.srv_gunicorn">u2d_msa_sdk.server.srv_gunicorn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.server.html#module-u2d_msa_sdk.server.srv_uvicorn">u2d_msa_sdk.server.srv_uvicorn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.server.html#module-u2d_msa_sdk.server">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.services.html">u2d_msa_sdk.services package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.services.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.services.html#module-u2d_msa_sdk.services.wdc">u2d_msa_sdk.services.wdc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.services.html#module-u2d_msa_sdk.services">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="u2d_msa_sdk.utils.html">u2d_msa_sdk.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.constants">u2d_msa_sdk.utils.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.email">u2d_msa_sdk.utils.email module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.errorhandling">u2d_msa_sdk.utils.errorhandling module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.fileupload">u2d_msa_sdk.utils.fileupload module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.fileutils">u2d_msa_sdk.utils.fileutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.fonts">u2d_msa_sdk.utils.fonts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.healthcheck">u2d_msa_sdk.utils.healthcheck module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.htmlutils">u2d_msa_sdk.utils.htmlutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.logger">u2d_msa_sdk.utils.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.profiler">u2d_msa_sdk.utils.profiler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.scheduler">u2d_msa_sdk.utils.scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.sysinfo">u2d_msa_sdk.utils.sysinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils.token">u2d_msa_sdk.utils.token module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="u2d_msa_sdk.utils.html#module-u2d_msa_sdk.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="u2d-msa-sdk-main-module">
+<h2>u2d_msa_sdk.main module<a class="headerlink" href="#u2d-msa-sdk-main-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-u2d_msa_sdk.msaapi">
+<span id="u2d-msa-sdk-msaapi-module"></span><h2>u2d_msa_sdk.msaapi module<a class="headerlink" href="#module-u2d_msa_sdk.msaapi" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.msaapi.MSAFastAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.msaapi.</span></span><span class="sig-name descname"><span class="pre">MSAFastAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">debug:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">routes:</span> <span class="pre">~typing.Optional[~typing.List[~starlette.routing.BaseRoute]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">title:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'FastAPI',</span> <span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'0.1.0',</span> <span class="pre">openapi_url:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">'/openapi.json',</span> <span class="pre">openapi_tags:</span> <span class="pre">~typing.Optional[~typing.List[~typing.Dict[str,</span> <span class="pre">~typing.Any]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">servers:</span> <span class="pre">~typing.Optional[~typing.List[~typing.Dict[str,</span> <span class="pre">~typing.Union[~typing.Any,</span> <span class="pre">str]]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">dependencies:</span> <span class="pre">~typing.Optional[~typing.Sequence[~fastapi.params.Depends]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">default_response_class:</span> <span class="pre">~typing.Type[~starlette.responses.Response]</span> <span class="pre">=</span> <span class="pre">&lt;fastapi.datastructures.DefaultPlaceholder</span> <span class="pre">object&gt;,</span> <span class="pre">docs_url:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">'/docs',</span> <span class="pre">redoc_url:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">'/redoc',</span> <span class="pre">swagger_ui_oauth2_redirect_url:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">'/docs/oauth2-redirect',</span> <span class="pre">swagger_ui_init_oauth:</span> <span class="pre">~typing.Optional[~typing.Dict[str,</span> <span class="pre">~typing.Any]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">middleware:</span> <span class="pre">~typing.Optional[~typing.Sequence[~starlette.middleware.Middleware]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exception_handlers:</span> <span class="pre">~typing.Optional[~typing.Dict[~typing.Union[int,</span> <span class="pre">~typing.Type[Exception]],</span> <span class="pre">~typing.Callable[[~starlette.requests.Request,</span> <span class="pre">~typing.Any],</span> <span class="pre">~typing.Coroutine[~typing.Any,</span> <span class="pre">~typing.Any,</span> <span class="pre">~starlette.responses.Response]]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">on_startup:</span> <span class="pre">~typing.Optional[~typing.Sequence[~typing.Callable[[],</span> <span class="pre">~typing.Any]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">on_shutdown:</span> <span class="pre">~typing.Optional[~typing.Sequence[~typing.Callable[[],</span> <span class="pre">~typing.Any]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">terms_of_service:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">contact:</span> <span class="pre">~typing.Optional[~typing.Dict[str,</span> <span class="pre">~typing.Union[~typing.Any,</span> <span class="pre">str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">license_info:</span> <span class="pre">~typing.Optional[~typing.Dict[str,</span> <span class="pre">~typing.Union[~typing.Any,</span> <span class="pre">str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">openapi_prefix:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">root_path:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">root_path_in_servers:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">responses:</span> <span class="pre">~typing.Optional[~typing.Dict[~typing.Union[int,</span> <span class="pre">str],</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">callbacks:</span> <span class="pre">~typing.Optional[~typing.List[~starlette.routing.BaseRoute]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">deprecated:</span> <span class="pre">~typing.Optional[bool]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">include_in_schema:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">swagger_ui_parameters:</span> <span class="pre">~typing.Optional[~typing.Dict[str,</span> <span class="pre">~typing.Any]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">generate_unique_id_function:</span> <span class="pre">~typing.Callable[[~fastapi.routing.APIRoute],</span> <span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;fastapi.datastructures.DefaultPlaceholder</span> <span class="pre">object&gt;,</span> <span class="pre">**extra:</span> <span class="pre">~typing.Any</span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.msaapi.MSAFastAPI" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FastAPI</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.run">
+<span id="u2d-msa-sdk-run-module"></span><h2>u2d_msa_sdk.run module<a class="headerlink" href="#module-u2d_msa_sdk.run" title="Permalink to this heading"></a></h2>
+<p>Copyright (c) 2021 SWelcker</p>
+</section>
+<section id="module-u2d_msa_sdk.security">
+<span id="u2d-msa-sdk-security-module"></span><h2>u2d_msa_sdk.security module<a class="headerlink" href="#module-u2d_msa_sdk.security" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.security.MSASecurity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.security.</span></span><span class="sig-name descname"><span class="pre">MSASecurity</span></span><a class="headerlink" href="#u2d_msa_sdk.security.MSASecurity" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.security.getMSASecurity">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.security.</span></span><span class="sig-name descname"><span class="pre">getMSASecurity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.security.MSASecurity" title="u2d_msa_sdk.security.MSASecurity"><span class="pre">MSASecurity</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.security.getMSASecurity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.security.getSecretKey">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.security.</span></span><span class="sig-name descname"><span class="pre">getSecretKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.security.getSecretKey" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.security.get_jwt_strategy">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.security.</span></span><span class="sig-name descname"><span class="pre">get_jwt_strategy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JWTStrategy</span></span></span><a class="headerlink" href="#u2d_msa_sdk.security.get_jwt_strategy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.service">
+<span id="u2d-msa-sdk-service-module"></span><h2>u2d_msa_sdk.service module<a class="headerlink" href="#module-u2d_msa_sdk.service" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">MSAApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.service.MSAServiceDefinition" title="u2d_msa_sdk.models.service.MSAServiceDefinition"><span class="pre">MSAServiceDefinition</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="u2d_msa_sdk.utils.html#u2d_msa_sdk.utils.scheduler.MSATimers" title="u2d_msa_sdk.utils.scheduler.MSATimers"><span class="pre">MSATimers</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">SQLModel</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_mount_site</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#u2d_msa_sdk.msaapi.MSAFastAPI" title="u2d_msa_sdk.msaapi.MSAFastAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSAFastAPI</span></code></a></p>
+<p>Creates an application MSA SDK instance.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><strong>settings</strong> - MSAServiceDefinition (Must be provided), instance of a service definition with all settings</p></li>
+<li><p><strong>timers</strong> - MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly</p></li>
+<li><p><strong>sql_models</strong> - List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD</p></li>
+<li><p><strong>auto_mount_site</strong> - Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.</p></li>
+</ul>
+<p><strong>Inherited Parameters: used as *args, **kwargs</strong></p>
+<ul class="simple">
+<li><p><strong>debug</strong> - Boolean indicating if debug tracebacks should be returned on errors.</p></li>
+<li><p><strong>routes</strong> - A list of routes to serve incoming HTTP and WebSocket requests.</p></li>
+<li><p><strong>middleware</strong> - A list of middleware to run for every request. A starlette</p></li>
+</ul>
+<p>application will always automatically include two middleware classes.
+<cite>ServerErrorMiddleware</cite> is added as the very outermost middleware, to handle
+any uncaught errors occurring anywhere in the entire stack.
+<cite>ExceptionMiddleware</cite> is added as the very innermost middleware, to deal
+with handled exception cases occurring in the routing or endpoints.
+* <strong>exception_handlers</strong> - A mapping of either integer status codes,
+or exception class types onto callables which handle the exceptions.
+Exception handler callables should be of the form
+<cite>handler(request, exc) -&gt; response</cite> and may be be either standard functions, or
+async functions.
+* <strong>on_startup</strong> - A list of callables to run on application startup.
+Startup handler callables do not take any arguments, and may be be either
+standard functions, or async functions.
+* <strong>on_shutdown</strong> - A list of callables to run on application shutdown.
+Shutdown handler callables do not take any arguments, and may be be either
+standard functions, or async functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_healthcheck">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_healthcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ORJSONResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_healthcheck" title="Permalink to this definition"></a></dt>
+<dd><p>Get Healthcheck Status</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_scheduler_status">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scheduler_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.service.MSASchedulerStatus" title="u2d_msa_sdk.service.MSASchedulerStatus"><span class="pre">MSASchedulerStatus</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_scheduler_status" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service Status Info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_services_definition">
+<span class="sig-name descname"><span class="pre">get_services_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.service.MSAServiceDefinition" title="u2d_msa_sdk.models.service.MSAServiceDefinition"><span class="pre">MSAServiceDefinition</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_services_definition" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service Definition Info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_services_openapi_info">
+<span class="sig-name descname"><span class="pre">get_services_openapi_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.service.MSAOpenAPIInfo" title="u2d_msa_sdk.service.MSAOpenAPIInfo"><span class="pre">MSAOpenAPIInfo</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_services_openapi_info" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service OpenAPI Info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_services_openapi_schema">
+<span class="sig-name descname"><span class="pre">get_services_openapi_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ORJSONResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_services_openapi_schema" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service OpenAPI Schema</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_services_settings">
+<span class="sig-name descname"><span class="pre">get_services_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ORJSONResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_services_settings" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service OpenAPI Schema</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.get_services_status">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_services_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.service.MSAServiceStatus" title="u2d_msa_sdk.service.MSAServiceStatus"><span class="pre">MSAServiceStatus</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.get_services_status" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service Status Info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.index_page">
+<span class="sig-name descname"><span class="pre">index_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_TemplateResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.index_page" title="Permalink to this definition"></a></dt>
+<dd><p>Get Service Index.html Page</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.monitor">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_TemplateResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.monitor" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Service Monitor Page.
+Only works if pages is enabled in MSAServiceDefinition
+:param request:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.monitor_inline">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">monitor_inline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_TemplateResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.monitor_inline" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Monitor Page as Inline without head and body tags.
+Only works if pages is enabled in MSAServiceDefinition
+:param request:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.mount_site">
+<span class="sig-name descname"><span class="pre">mount_site</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.mount_site" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.msa_exception_handler">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msa_exception_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPException</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.msa_exception_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Handles all HTTPExceptions if enabled with HTML Response or forward error if the code is in the exclude settings list.
+:param request:
+:type request:
+:param exc:
+:type exc:
+:return:
+:rtype:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.msa_exception_handler_disabled">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msa_exception_handler_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPException</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JSONResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.msa_exception_handler_disabled" title="Permalink to this definition"></a></dt>
+<dd><p>Handles all HTTPExceptions if Disabled with JSON Response.
+:param request:
+:type request:
+:param exc:
+:type exc:
+:return:
+:rtype:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.profiler">
+<span class="sig-name descname"><span class="pre">profiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_TemplateResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.profiler" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Profiler Page.
+Only works if pages is enabled in MSAServiceDefinition
+:param request:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.shutdown_event">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shutdown_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.shutdown_event" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.startup_event">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startup_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.startup_event" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.testpage">
+<span class="sig-name descname"><span class="pre">testpage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_TemplateResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.testpage" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Testpage to see if the Micro Service is up and running.
+Only works if pages is enabled in MSAServiceDefinition
+:param request:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAApp.validation_exception_handler">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validation_exception_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">RequestValidationError</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JSONResponse</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.MSAApp.validation_exception_handler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAOpenAPIInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">MSAOpenAPIInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MSA</span> <span class="pre">SDK</span> <span class="pre">Service'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/openapi.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSAOpenAPIInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p><strong>MSAOpenAPIInfo</strong> Pydantic Response Class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAOpenAPIInfo.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAOpenAPIInfo.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAOpenAPIInfo.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAOpenAPIInfo.tags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAOpenAPIInfo.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAOpenAPIInfo.url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAOpenAPIInfo.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAOpenAPIInfo.version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSASchedulerStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">MSASchedulerStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.service.MSATimerStatus" title="u2d_msa_sdk.service.MSATimerStatus"><span class="pre">MSATimerStatus</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'None'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSASchedulerStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p><strong>MSASchedulerStatus</strong> Pydantic Response Class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSASchedulerStatus.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSASchedulerStatus.message" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSASchedulerStatus.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSASchedulerStatus.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSASchedulerStatus.timers">
+<span class="sig-name descname"><span class="pre">timers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#u2d_msa_sdk.service.MSATimerStatus" title="u2d_msa_sdk.service.MSATimerStatus"><span class="pre">MSATimerStatus</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSASchedulerStatus.timers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAServiceStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">MSAServiceStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">healthy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'None'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSAServiceStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p><strong>MSAServiceStatus</strong> Pydantic Response Class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAServiceStatus.healthy">
+<span class="sig-name descname"><span class="pre">healthy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAServiceStatus.healthy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAServiceStatus.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAServiceStatus.message" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSAServiceStatus.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSAServiceStatus.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSATimerStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">MSATimerStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mark_HH_MM</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.MSATimerStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p><strong>MSATimerStatus</strong> Pydantic Response Class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSATimerStatus.func">
+<span class="sig-name descname"><span class="pre">func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSATimerStatus.func" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSATimerStatus.mark_HH_MM">
+<span class="sig-name descname"><span class="pre">mark_HH_MM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSATimerStatus.mark_HH_MM" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.MSATimerStatus.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#u2d_msa_sdk.service.MSATimerStatus.mode" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.getSecretKey">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">getSecretKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.getSecretKey" title="Permalink to this definition"></a></dt>
+<dd><p>Get Secret Key for Token creation from OS Environment Variable <strong>SECRET_KEY_TOKEN</strong>
+:return: key as str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.getSecretKeyCSRF">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">getSecretKeyCSRF</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#u2d_msa_sdk.service.getSecretKeyCSRF" title="Permalink to this definition"></a></dt>
+<dd><p>Get Secret Key for CSRF Middleware from OS Environment Variable <strong>SECRET_KEY_CSRF</strong>
+:return: key as str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.service.getSecretKeySessions">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.service.</span></span><span class="sig-name descname"><span class="pre">getSecretKeySessions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.service.getSecretKeySessions" title="Permalink to this definition"></a></dt>
+<dd><p>Get Secret Key for Session Middleware from OS Environment Variable <strong>SECRET_KEY_SESSIONS</strong>
+:return: key as str</p>
+</dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.session">
+<span id="u2d-msa-sdk-session-module"></span><h2>u2d_msa_sdk.session module<a class="headerlink" href="#module-u2d_msa_sdk.session" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.session.</span></span><span class="sig-name descname"><span class="pre">BasicVerifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InMemoryBackend</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#u2d_msa_sdk.session.SessionData" title="u2d_msa_sdk.session.SessionData"><span class="pre">SessionData</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_http_exception</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPException</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SessionVerifier</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code>, <a class="reference internal" href="#u2d_msa_sdk.session.SessionData" title="u2d_msa_sdk.session.SessionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionData</span></code></a>]</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier.auth_http_exception">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auth_http_exception</span></span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier.auth_http_exception" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier.auto_error">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auto_error</span></span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier.auto_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier.backend">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backend</span></span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier.backend" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier.identifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">identifier</span></span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier.identifier" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.BasicVerifier.verify_session">
+<span class="sig-name descname"><span class="pre">verify_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#u2d_msa_sdk.session.SessionData" title="u2d_msa_sdk.session.SessionData"><span class="pre">SessionData</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#u2d_msa_sdk.session.BasicVerifier.verify_session" title="Permalink to this definition"></a></dt>
+<dd><p>If the session exists, it is valid</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.SessionData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.session.</span></span><span class="sig-name descname"><span class="pre">SessionData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.session.SessionData" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.SessionData.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.session.SessionData.email" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.SessionData.input">
+<span class="sig-name descname"><span class="pre">input</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#u2d_msa_sdk.session.SessionData.input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.SessionData.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#u2d_msa_sdk.session.SessionData.settings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.getSecretKey">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.session.</span></span><span class="sig-name descname"><span class="pre">getSecretKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.session.getSecretKey" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.session.xuuid4">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.session.</span></span><span class="sig-name descname"><span class="pre">xuuid4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.session.xuuid4" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.userprogress">
+<span id="u2d-msa-sdk-userprogress-module"></span><h2>u2d_msa_sdk.userprogress module<a class="headerlink" href="#module-u2d_msa_sdk.userprogress" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="u2d_msa_sdk.userprogress.MSAUserProgress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.userprogress.</span></span><span class="sig-name descname"><span class="pre">MSAUserProgress</span></span><a class="headerlink" href="#u2d_msa_sdk.userprogress.MSAUserProgress" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.userprogress.MSAUserProgress.addToProgress">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">addToProgress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.userprogress.MSAUserProgress.addToProgress" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="u2d_msa_sdk.userprogress.MSAUserProgress.resetProgress">
+<span class="sig-name descname"><span class="pre">resetProgress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.userprogress.MSAUserProgress.resetProgress" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.userprogress.getMSAUserProgress">
+<span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.userprogress.</span></span><span class="sig-name descname"><span class="pre">getMSAUserProgress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#u2d_msa_sdk.userprogress.MSAUserProgress" title="u2d_msa_sdk.userprogress.MSAUserProgress"><span class="pre">MSAUserProgress</span></a></span></span><a class="headerlink" href="#u2d_msa_sdk.userprogress.getMSAUserProgress" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-u2d_msa_sdk" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="U2D MSA SDK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="u2d_msa_sdk.admin.html" class="btn btn-neutral float-right" title="u2d_msa_sdk.admin package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stefan Welcker (stefan@u2d.ai).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

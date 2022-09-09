@@ -6,6 +6,9 @@ from functools import lru_cache
 
 from fastapi_users.authentication import JWTStrategy, BearerTransport, CookieTransport, AuthenticationBackend
 
+if __name__ == '__main__':
+    pass
+
 
 def getSecretKey():
     ret_key: str = os.getenv("SECRET_KEY_SECURITY", "documentunderstandingaiservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")

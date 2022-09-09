@@ -28,6 +28,9 @@ from starlette.responses import Response
 from starlette.routing import BaseRoute
 from starlette.types import ASGIApp, Receive, Scope, Send
 
+if __name__ == '__main__':
+    pass
+
 
 class MSAFastAPI(FastAPI):
     pass

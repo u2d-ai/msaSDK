@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u2d_msa_sdk.services package &mdash; MSA SDK 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="u2d_msa_sdk.utils package" href="u2d_msa_sdk.utils.html" />
+    <link rel="prev" title="u2d_msa_sdk.server package" href="u2d_msa_sdk.server.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MSA SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">U2D MSA SDK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="u2d_msa_sdk.html">u2d_msa_sdk package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="u2d_msa_sdk.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.admin.html">u2d_msa_sdk.admin package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.app.html">u2d_msa_sdk.app package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.auth.html">u2d_msa_sdk.auth package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.db.html">u2d_msa_sdk.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.models.html">u2d_msa_sdk.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.router.html">u2d_msa_sdk.router package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.server.html">u2d_msa_sdk.server package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">u2d_msa_sdk.services package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="u2d_msa_sdk.utils.html">u2d_msa_sdk.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#u2d-msa-sdk-main-module">u2d_msa_sdk.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.msaapi">u2d_msa_sdk.msaapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.run">u2d_msa_sdk.run module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.security">u2d_msa_sdk.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.service">u2d_msa_sdk.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.session">u2d_msa_sdk.session module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk.userprogress">u2d_msa_sdk.userprogress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="u2d_msa_sdk.html#module-u2d_msa_sdk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MSA SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">U2D MSA SDK</a> &raquo;</li>
+          <li><a href="u2d_msa_sdk.html">u2d_msa_sdk package</a> &raquo;</li>
+      <li>u2d_msa_sdk.services package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/u2d_msa_sdk.services.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="u2d-msa-sdk-services-package">
+<h1>u2d_msa_sdk.services package<a class="headerlink" href="#u2d-msa-sdk-services-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-u2d_msa_sdk.services.wdc">
+<span id="u2d-msa-sdk-services-wdc-module"></span><h2>u2d_msa_sdk.services.wdc module<a class="headerlink" href="#module-u2d_msa_sdk.services.wdc" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createEntity">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paragraph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCParagraph" title="u2d_msa_sdk.models.wdc.WDCParagraph"><span class="pre">WDCParagraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionCountry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionOrg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionDensity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionNatural</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createEntity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createEntityOnly">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createEntityOnly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paraid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">senid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createEntityOnly" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createEntitySimple">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createEntitySimple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paragraph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCParagraph" title="u2d_msa_sdk.models.wdc.WDCParagraph"><span class="pre">WDCParagraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">senx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createEntitySimple" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createNewDoc">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createNewDoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputText</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'en'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createNewDoc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createNewMLDoc">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createNewMLDoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'en'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionTargetFields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IMPULSKATEGORIE,</span> <span class="pre">IMPULSART'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionTrainFields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'SACHVERHALT'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createNewMLDoc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createNewParagraphs">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createNewParagraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCPage" title="u2d_msa_sdk.models.wdc.WDCPage"><span class="pre">WDCPage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdu_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.sdu.SDUPage" title="u2d_msa_sdk.models.sdu.SDUPage"><span class="pre">SDUPage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parmove</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionSentiment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createNewParagraphs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createParagraph">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createParagraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createParagraph" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createToken">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tok</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionDensity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionNatural</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">langcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createToken" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createTriple">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createTriple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createTriple" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.createWord">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">createWord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wrd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.createWord" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getCompleteRoleFromDep">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getCompleteRoleFromDep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dep</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getCompleteRoleFromDep" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultDependencies">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultDependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultDependencies" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultEntities">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultEntities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultEntities" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultEntitiesGroups">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultEntitiesGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultEntitiesGroups" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultPages">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultPages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultPages" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultParagraphs">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultParagraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultParagraphs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultSentences">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultSentences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultSentences" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultTokens">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultTokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultTokens" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultTriples">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultTriples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultTriples" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="u2d_msa_sdk.services.wdc.getResultWords">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">u2d_msa_sdk.services.wdc.</span></span><span class="sig-name descname"><span class="pre">getResultWords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="u2d_msa_sdk.models.html#u2d_msa_sdk.models.wdc.WDCDocument" title="u2d_msa_sdk.models.wdc.WDCDocument"><span class="pre">WDCDocument</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#u2d_msa_sdk.services.wdc.getResultWords" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-u2d_msa_sdk.services">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-u2d_msa_sdk.services" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="u2d_msa_sdk.server.html" class="btn btn-neutral float-left" title="u2d_msa_sdk.server package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="u2d_msa_sdk.utils.html" class="btn btn-neutral float-right" title="u2d_msa_sdk.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stefan Welcker (stefan@u2d.ai).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

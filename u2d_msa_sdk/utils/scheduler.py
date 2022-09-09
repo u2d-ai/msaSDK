@@ -28,11 +28,14 @@ class MSATimerEnum(str, Enum):
 
 
 class MSATimers:
-    '''Class to create dictionary of timers for use in MSAScheduler.
-    '''
+    """
+        Class to create dictionary of timers for use in MSAScheduler.
+    """
+
 
     def __init__(self):
-        '''self.timer_jobs is the primary resource in MSATimers
+        '''
+        self.timer_jobs is the primary resource in MSATimers
         This is filled by MSATimers
         It is then accessed by the source
         and served to MSAScheduler
@@ -125,6 +128,8 @@ class MSAScheduler:
         # polling time in milliseconds
         self.POLL_MILLIS = poll_millis
         self.local_time_zone = local_time_zone
+        self.enabled: bool = False
+        self.is_running: bool = False
 
     async def _run_job(self, job: typing.Callable):
         is_coroutine = asyncio.iscoroutinefunction(job)
@@ -134,6 +139,11 @@ class MSAScheduler:
             await job.__call__()  # type: ignore
         else:
             await run_in_threadpool(job.__call__)
+
+    async def stop_timers(self):
+        while self.is_running:
+            self.enabled = False
+            await asyncio.sleep(self.POLL_MILLIS / 1000)
 
     async def run_timers(self, poll_adjuster=.99, debug=False):
         '''runs timers as follows:
@@ -148,8 +158,12 @@ class MSAScheduler:
         (last_hour, last_minute, last_second) = get_time(self.local_time_zone)
         last_milli = 0
         start_milli = time() * 1000
-
-        while True:
+        self.enabled = True
+        self.is_running = True
+        while self.enabled:
+            if not self.enabled:
+                break
+            await asyncio.sleep(0.1)
             milli = (time() * 1000) - start_milli
 
             #### deal with millis rolling
@@ -245,6 +259,7 @@ class MSAScheduler:
                 #### update milli
                 milli = (time() * 1000) - start_milli
 
+        self.is_running = False
 
 def get_time_stamp(local_time_zone='UTC', time_format='HMS'):
     now_local = datetime.now(pytz.timezone(local_time_zone))

@@ -3,6 +3,9 @@ __version__ = '0.0.3'
 
 import uvicorn
 
+if __name__ == '__main__':
+    pass
+
 
 class MSAServerUvicorn:
 

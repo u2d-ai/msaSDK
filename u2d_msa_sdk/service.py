@@ -4,6 +4,7 @@ __version__ = '0.0.3'
 import asyncio
 import os
 import time
+from asyncio import Task
 from typing import List, Optional
 
 import uvloop
@@ -55,30 +56,46 @@ from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSAScheduler
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 
+
+if __name__ == '__main__':
+    pass
+
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 password_helper = PasswordHelper(security_context)
 security = getMSASecurity()
 
 
 class MSATimerStatus(BaseModel):
+    """
+    **MSATimerStatus** Pydantic Response Class
+    """
     mode: Optional[str] = None
     func: Optional[str] = None
     mark_HH_MM: Optional[str] = None
 
 
 class MSASchedulerStatus(BaseModel):
+    """
+    **MSASchedulerStatus** Pydantic Response Class
+    """
     name: Optional[str] = "None"
     timers: Optional[List[MSATimerStatus]] = []
     message: Optional[str] = "None"
 
 
 class MSAServiceStatus(BaseModel):
+    """
+    **MSAServiceStatus** Pydantic Response Class
+    """
     name: Optional[str] = "None"
     healthy: Optional[str] = "None"
     message: Optional[str] = "None"
 
 
 class MSAOpenAPIInfo(BaseModel):
+    """
+    **MSAOpenAPIInfo** Pydantic Response Class
+    """
     name: str = "MSA SDK Service"
     version: str = "0.0.0"
     url: str = "/openapi.json"
@@ -86,24 +103,68 @@ class MSAOpenAPIInfo(BaseModel):
 
 
 def getSecretKey():
+    """
+    Get Secret Key for Token creation from OS Environment Variable **SECRET_KEY_TOKEN**
+    :return: key as str
+    """
     ret_key: str = os.getenv("SECRET_KEY_TOKEN",
                              "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
     return ret_key
 
 
 def getSecretKeySessions():
+    """
+    Get Secret Key for Session Middleware from OS Environment Variable **SECRET_KEY_SESSIONS**
+    :return: key as str
+    """
     ret_key: str = os.getenv("SECRET_KEY_SESSIONS",
                              "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)")
     return ret_key
 
 
-def getSecretKeyCSRF():
+def getSecretKeyCSRF() -> str:
+    """
+    Get Secret Key for CSRF Middleware from OS Environment Variable **SECRET_KEY_CSRF**
+    :return: key as str
+    """
     ret_key: str = os.getenv("SECRET_KEY_CSRF",
                              "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s")
     return ret_key
 
 
 class MSAApp(MSAFastAPI):
+    """
+    Creates an application MSA SDK instance.
+
+    **Parameters:**
+
+    * **settings** - MSAServiceDefinition (Must be provided), instance of a service definition with all settings
+    * **timers** - MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
+    * **sql_models** - List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
+    * **auto_mount_site** - Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
+
+    **Inherited Parameters: used as *args, **kwargs**
+
+    * **debug** - Boolean indicating if debug tracebacks should be returned on errors.
+    * **routes** - A list of routes to serve incoming HTTP and WebSocket requests.
+    * **middleware** - A list of middleware to run for every request. A starlette
+    application will always automatically include two middleware classes.
+    `ServerErrorMiddleware` is added as the very outermost middleware, to handle
+    any uncaught errors occurring anywhere in the entire stack.
+    `ExceptionMiddleware` is added as the very innermost middleware, to deal
+    with handled exception cases occurring in the routing or endpoints.
+    * **exception_handlers** - A mapping of either integer status codes,
+    or exception class types onto callables which handle the exceptions.
+    Exception handler callables should be of the form
+    `handler(request, exc) -> response` and may be be either standard functions, or
+    async functions.
+    * **on_startup** - A list of callables to run on application startup.
+    Startup handler callables do not take any arguments, and may be be either
+    standard functions, or async functions.
+    * **on_shutdown** - A list of callables to run on application shutdown.
+    Shutdown handler callables do not take any arguments, and may be be either
+    standard functions, or async functions.
+    """
     def __init__(
             self,
             settings: MSAServiceDefinition,
@@ -127,6 +188,7 @@ class MSAApp(MSAFastAPI):
         self.sql_cruds: List[MSASQLModelCrud] = []
         self.scheduler: MSAScheduler = None
         self.site = None
+        self.scheduler_task: Task = None
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
         if self.settings.uvloop:
@@ -387,7 +449,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.scheduler and self.timers:
             self.logger.info("Scheduler - Start All Timers")
-            asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
+            self.scheduler_task = asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
 
     def mount_site(self) -> None:
         if self.site:
@@ -398,11 +460,39 @@ class MSAApp(MSAFastAPI):
 
     async def shutdown_event(self) -> None:
         self.logger.info("MSA SDK Internal Shutdown Event")
+        if self.settings.scheduler and self.timers:
+            self.logger.info("Stop Scheduler Timers: " + str(len(self.timers.timer_jobs)))
+            await self.scheduler.stop_timers()
+            self.logger.info("Cancel Scheduler Timers: " + str(len(self.timers.timer_jobs)))
+            if not self.scheduler_task.cancelled():
+                try:
+                    self.scheduler_task.cancel()
+                except Exception as ex:
+                    self.logger.error(f"scheduler_task cancel failed")
+                    pass
+
+
+            self.logger.info("End Scheduler")
+            self.scheduler_task = None
+            del self.scheduler_task
+
+        if self.site:
+            self.logger.info("Stopping Site")
+            self.site = None
+
+        if self.healthcheck:
+            self.logger.info("Stopping Healthcheck Thread")
+            await self.healthcheck.stop()
+            self.healthcheck = None
+
         if self.settings.db:
             self.logger.info("DB - Dispose Connections: " + self.settings.db_url)
             await self.db_engine.dispose()
 
-    async def init_graphql(self, strawberry_schema: schema) -> None:
+    async def _init_graphql(self, strawberry_schema: schema) -> None:
+        """
+        Internal helper function to initialize the graphql router
+        """
         if self.settings.graphql:
             from strawberry.fastapi import GraphQLRouter
             self.graphql_schema = strawberry_schema

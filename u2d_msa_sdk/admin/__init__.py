@@ -1,3 +1,8 @@
+"""admin package, Admin Site implementation.
+
+    The admin package implements the HTML UI Admin Site. It allows to have a Dashboard style .
+"""
+
 from os.path import dirname, basename, isfile, join
 import glob
 import gettext

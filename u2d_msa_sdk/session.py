@@ -11,6 +11,9 @@ from fastapi_sessions.backends.implementations import InMemoryBackend
 from fastapi_sessions.session_verifier import SessionVerifier
 from fastapi_sessions.frontends.implementations import SessionCookie, CookieParameters
 
+if __name__ == '__main__':
+    pass
+
 
 def xuuid4():
     return uuid4()
