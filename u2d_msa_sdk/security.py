@@ -1,7 +1,13 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import os
 from functools import lru_cache
 
 from fastapi_users.authentication import JWTStrategy, BearerTransport, CookieTransport, AuthenticationBackend
+
+if __name__ == '__main__':
+    pass
 
 
 def getSecretKey():
@@ -20,25 +26,25 @@ class MSASecurity:
         self.auth_backends = []
         self.bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
         self.cookie_authentication = CookieTransport(cookie_name="sduaiservices-cookie")
-        auth_backend_jwt = AuthenticationBackend(
+        self.auth_backend_jwt = AuthenticationBackend(
             name="jwt_bearer",
             transport=self.bearer_transport,
             get_strategy=get_jwt_strategy,
         )
 
-        auth_backend_cookie = AuthenticationBackend(
+        self.auth_backend_cookie = AuthenticationBackend(
             name="jwt_cookie",
             transport=self.cookie_authentication,
             get_strategy=get_jwt_strategy,
         )
 
-        self.auth_backends.append(auth_backend_jwt)
-        self.auth_backends.append(auth_backend_cookie)
+        self.auth_backends.append(self.auth_backend_jwt)
+        self.auth_backends.append(self.auth_backend_cookie)
 
 
 @lru_cache()
 def getMSASecurity() -> MSASecurity:
-    yield MSASecurity()
+    return MSASecurity()
 
 
 

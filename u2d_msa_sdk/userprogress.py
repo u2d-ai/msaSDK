@@ -1,7 +1,13 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 from datetime import datetime
 from typing import List, Dict
 import asyncio
 from functools import lru_cache
+
+if __name__ == '__main__':
+    pass
 
 
 class MSAUserProgress():
@@ -51,4 +57,4 @@ class MSAUserProgress():
 
 @lru_cache()
 def getMSAUserProgress() -> MSAUserProgress:
-    yield MSAUserProgress()
+    return MSAUserProgress()

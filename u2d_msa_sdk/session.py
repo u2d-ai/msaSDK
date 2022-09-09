@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = '0.0.3'
+
 import os
 
 from pydantic import BaseModel
@@ -7,6 +10,9 @@ from uuid import UUID, uuid4
 from fastapi_sessions.backends.implementations import InMemoryBackend
 from fastapi_sessions.session_verifier import SessionVerifier
 from fastapi_sessions.frontends.implementations import SessionCookie, CookieParameters
+
+if __name__ == '__main__':
+    pass
 
 
 def xuuid4():

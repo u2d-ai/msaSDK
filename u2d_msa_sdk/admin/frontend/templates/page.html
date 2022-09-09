@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <title>${site_title}</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+    <link href="${site_icon}" rel="shortcut icon" type="image/x-icon"/>
+    <link href="/msastatic/css/sdk.css" rel="stylesheet" title="default"/>
+    <link href="/msastatic/css/helper.css" rel="stylesheet"/>
+    <link href="/msastatic/css/iconfont.css" rel="stylesheet"/>
+    <script src="/msastatic/js/sdk.js"></script>
+    <script src="/msastatic/js/vue.js"></script>
+    <script src="/msastatic/js/history.js"></script>
+    <style>
+        html, body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="msa_ui" id="msa_uiId"></div>
+<script type="text/javascript">
+    let msa_ui = msa_uiRequire('msa_ui/embed')
+    let msa_uiData = msa_ui.embed('#msa_uiId', ${MSAUISchemaJson}, {locale: "${locale}"});
+</script>
+</body>
+</html>
