@@ -10,6 +10,7 @@ import uvloop
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.exception_handlers import http_exception_handler
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
 from fastapi_users.password import PasswordHelper
@@ -27,17 +28,19 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeMeta
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
+from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
-from starlette.templating import Jinja2Templates
+from starlette.templating import Jinja2Templates, _TemplateResponse
 from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
 from starlette_wtf import CSRFProtectMiddleware
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from strawberry import schema
 
 from u2d_msa_sdk.db.crud import MSASQLModelCrud
@@ -134,6 +137,25 @@ class MSAApp(MSAFastAPI):
 
         self.healthcheck: health.MSAHealthCheck = None
 
+        if self.settings.validationception:
+            self.logger.info("Add Handler ValidationError")
+            self.add_exception_handler(RequestValidationError, self.validation_exception_handler)
+        else:
+            self.logger.info("Excluded Handler ValidationError")
+
+        if self.settings.httpception:
+            self.logger.info("Add Handler HTTPException")
+            self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler)
+        else:
+            self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler_disabled)
+            self.logger.info("Excluded Handler HTTPException")
+
+        if self.settings.starception:
+            self.logger.info("Add Middleware Starception")
+            self.add_middleware(StarceptionMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Starception")
+
         if not self.settings.site:
             self.logger.info("Excluded Admin Site")
         if not self.settings.site_auth:
@@ -182,18 +204,6 @@ class MSAApp(MSAFastAPI):
             self.include_router(sys_router)
         else:
             self.logger.info("Excluded Sysrouter")
-
-        if self.settings.httpception:
-            self.logger.info("Add Handler HTTPException")
-            self.add_exception_handler(HTTPException, self.msa_exception_handler)
-        else:
-            self.logger.info("Excluded Handler HTTPException")
-
-        if self.settings.starception:
-            self.logger.info("Add Middleware Starception")
-            self.add_middleware(StarceptionMiddleware)
-        else:
-            self.logger.info("Excluded Middleware Starception")
 
         if self.settings.cors:
             self.logger.info("Add Middleware CORS")
@@ -336,7 +346,12 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Scheduler, Timers is Empty")
 
-    async def startup_event(self):
+    async def startup_event(self) -> None:
+        """
+
+        :return:
+        :rtype:
+        """
         self.logger.info("MSA SDK Internal Startup Event")
 
         if self.settings.db:
@@ -374,20 +389,20 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Scheduler - Start All Timers")
             asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
 
-    def mount_site(self):
+    def mount_site(self) -> None:
         if self.site:
             self.logger.info("Mount Admin Site")
             self.site.mount_app(self)
         else:
             self.logger.error("Can't Mount Admin Site - Not initialized or enabled")
 
-    async def shutdown_event(self):
+    async def shutdown_event(self) -> None:
         self.logger.info("MSA SDK Internal Shutdown Event")
         if self.settings.db:
             self.logger.info("DB - Dispose Connections: " + self.settings.db_url)
             await self.db_engine.dispose()
 
-    async def init_graphql(self, strawberry_schema: schema):
+    async def init_graphql(self, strawberry_schema: schema) -> None:
         if self.settings.graphql:
             from strawberry.fastapi import GraphQLRouter
             self.graphql_schema = strawberry_schema
@@ -398,6 +413,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Healthcheck Status
         """
+        self.logger.info("Called - get_healthcheck :" + str(request.url))
         msg: MSAHealthMessage = MSAHealthMessage()
         if not self.healthcheck:
             msg.message = "Healthcheck is disabled!"
@@ -413,6 +429,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Service Status Info
         """
+        self.logger.info("Called - get_scheduler_status :" + str(request.url))
         sst: MSASchedulerStatus = MSASchedulerStatus()
         if not self.settings.scheduler:
             sst.name = self.settings.name
@@ -437,6 +454,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Service Status Info
         """
+        self.logger.info("Called - get_services_status :" + str(request.url))
         sst: MSAServiceStatus = MSAServiceStatus()
         if not self.healthcheck:
             sst.name = self.settings.name
@@ -454,12 +472,14 @@ class MSAApp(MSAFastAPI):
         """
         Get Service Definition Info
         """
+        self.logger.info("Called - get_services_definition :" + str(request.url))
         return self.settings
 
     def get_services_settings(self, request: Request) -> ORJSONResponse:
         """
         Get Service OpenAPI Schema
         """
+        self.logger.info("Called - get_services_settings :" + str(request.url))
 
         def try_get_json():
             try:
@@ -480,6 +500,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Service OpenAPI Schema
         """
+        self.logger.info("Called - get_services_openapi_schema :" + str(request.url))
 
         def try_get_json():
             try:
@@ -500,6 +521,7 @@ class MSAApp(MSAFastAPI):
         """
         Get Service OpenAPI Info
         """
+        self.logger.info("Called - get_services_openapi_info :" + str(request.url))
         oai: MSAOpenAPIInfo = MSAOpenAPIInfo()
 
         try:
@@ -512,77 +534,116 @@ class MSAApp(MSAFastAPI):
 
         return oai
 
+    async def validation_exception_handler(self, request: Request, exc: RequestValidationError) -> JSONResponse:
+        self.logger.error("validation_exception_handler - " + str(exc.errors()))
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
+        )
+
+    async def msa_exception_handler_disabled(self, request: Request, exc: HTTPException) -> JSONResponse:
+        """
+        Handles all HTTPExceptions if Disabled with JSON Response.
+        :param request:
+        :type request:
+        :param exc:
+        :type exc:
+        :return:
+        :rtype:
+        """
+
+        error_content = jsonable_encoder({"status_code": exc.status_code,
+                                          "detail": exc.detail,
+                                          "args": exc.args,
+                                          "headers": exc.headers,
+                                          "request": request.url,
+                                          })
+        self.logger.error("msa_exception_handler_disabled - " + str(error_content))
+        return JSONResponse(
+            status_code=exc.status_code,
+            content=error_content,
+        )
+
     async def msa_exception_handler(self, request: Request, exc: HTTPException):
-        # print(exc.status_code, exc.detail)
+        """
+        Handles all HTTPExceptions if enabled with HTML Response or forward error if the code is in the exclude settings list.
+        :param request:
+        :type request:
+        :param exc:
+        :type exc:
+        :return:
+        :rtype:
+        """
+        error_content = {'request': request, 'detail': exc.detail,
+                         'status': exc.status_code,
+                         "definitions": jsonable_encoder(self.settings)}
+        self.logger.error("msa_exception_handler - " + str(error_content))
         if exc.status_code == 403:
-            return self.templates.TemplateResponse('403.html', {'request': request, 'detail': exc.detail,
-                                                                'status': exc.status_code,
-                                                                "definitions": jsonable_encoder(self.settings)})
+            return self.templates.TemplateResponse('403.html', error_content)
         elif exc.status_code == 404:
-            return self.templates.TemplateResponse('404.html', {'request': request, 'detail': exc.detail,
-                                                                'status': exc.status_code,
-                                                                "definitions": jsonable_encoder(self.settings)})
+            return self.templates.TemplateResponse('404.html', error_content)
         elif exc.status_code == 500:
-            return self.templates.TemplateResponse('500.html', {'request': request, 'detail': exc.detail,
-                                                                'status': exc.status_code,
-                                                                "definitions": jsonable_encoder(self.settings)})
+            return self.templates.TemplateResponse('500.html', error_content)
         elif exc.status_code in self.settings.httpception_exclude:
             return await http_exception_handler(request, exc)
         else:
             # Generic error page
-            return self.templates.TemplateResponse('error.html', {'request': request, 'detail': exc.detail,
-                                                                  'status': exc.status_code,
-                                                                  "definitions": jsonable_encoder(self.settings)})
+            return self.templates.TemplateResponse('error.html', error_content)
 
-    def index_page(self, request: Request):
+    def index_page(self, request: Request) -> _TemplateResponse:
         """
         Get Service Index.html Page
         """
+        self.logger.info("Called - index_page :" + str(request.url))
         return self.templates.TemplateResponse("index.html",
                                                {"request": request,
                                                 "settings": jsonable_encoder(self.settings),
                                                 "definitions": jsonable_encoder(self.settings)})
 
-    def testpage(self, request: Request):
+    def testpage(self, request: Request) -> _TemplateResponse:
         """
         Simple Testpage to see if the Micro Service is up and running.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
+        self.logger.info("Called - testpage :" + str(request.url))
         return self.templates.TemplateResponse("test.html",
                                                {"request": request,
                                                 "settings": jsonable_encoder(self.settings)})
 
-    async def monitor(self, request: Request):
+    async def monitor(self, request: Request) -> _TemplateResponse:
         """
         Simple Service Monitor Page.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
+        self.logger.info("Called - monitor :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()
         return self.templates.TemplateResponse("monitor.html",
                                                {"request": request,
                                                 "outputSystemInfo": sysinfo})
 
-    def profiler(self, request: Request):
+    def profiler(self, request: Request) -> _TemplateResponse:
         """
         Simple Profiler Page.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
+        self.logger.info("Called - profiler :" + str(request.url))
         return self.templates.TemplateResponse("profiler.html",
                                                {"request": request})
 
-    async def monitor_inline(self, request: Request):
+    async def monitor_inline(self, request: Request) -> _TemplateResponse:
         """
         Simple Monitor Page as Inline without head and body tags.
         Only works if pages is enabled in MSAServiceDefinition
         :param request:
         :return:
         """
+        self.logger.info("Called - monitor_inline :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()
         return self.templates.TemplateResponse("monitor_inline.html",
                                                {"request": request,

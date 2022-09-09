@@ -26,6 +26,7 @@ class MSAServiceDefinition(APISettings):
     sysrouter: bool = True
     servicerouter: bool = True
     starception: bool = True
+    validationception: bool = True
     httpception: bool = True
     httpception_exclude: List[int] = [307, ]
     cors: bool = True
