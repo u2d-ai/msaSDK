@@ -1,14 +1,22 @@
-![Logo](../images/msa_logo_big.png)
+# Admin Site
 
-------
+<h2 align="center">
+  MSA SDK - Admin Site
+</h2>
 <p align="center">
-    <em>MSA SDK - FastAPI based Microservice Architecture Development Kit</em>
-</p>
-<p align="center">
-    Welcome to MSA SDK's documentation!
+    <em>Admin Site is an efficient and easily extensible MSAApp (FastAPI) admin framework.</em><br/>
+    <em>Inspired by Django-admin, and for a fast track through PoC's, MVP's to Production.</em>
 </p>
 
-------
+---
+
+`MSA SDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `u2d_msa_sdk` & `fastapi` & `amis` , and
+build with standard Python type hints. The original intention of the development is to improve the application ecology and
+to quickly generate a visual dashboard for API's and web application. It was build to support very quick PoC's, MVP's 
+in AI Applications. It can be extended with Auth and Login for an MVP Phase with the Auth Module by just define a setting to True. 
+
+---
+
 ## Features
 - **Build connected distributed applications faster**: Ready for Distributed Application Runtime (Dapr).
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
@@ -23,7 +31,25 @@
 - **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
   interfaces.
 
-### Usage example is in the app module \_\_init\_\_.py
+## Dependencies
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [SQLModel](https://sqlmodel.tiangolo.com/)
+  combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
+  their features .
+- [Amis](https://baidu.gitee.io/amis): Vue Frontend
+
+## Composition
+
+`MSA SDK - Admin` consists of three core modules, of which, `amis`, `crud`, which can be used as separate
+modules, and `MSAApp` as the core SDK part.
+
+- `amis`: Based on the `pydantic` data model building library of `baidu amis`. To generate/parse data rapidly.
+- `crud`: Based on `FastAPI` & `SQLModel`. To quickly build Create, Read, Update, Delete common API interfaces.
+- `admin`: Inspired by `Django-Admin`. Combine `amis` with `crud`. To quickly build Web Admin dashboard .
+
+## Simple Example
+
 
 ``` {.python caption="Usage example"}
 # -*- encoding: utf-8 -*-
@@ -75,7 +101,7 @@ my_timers: MSATimers = MSATimers()
 my_timers.create_timer(MSATimerEnum.every_minute, test_timer_min)
 my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 
-# Create the main app instance, like the FastAPI but provide a Setting Definition Instance
+# Create the main app instance, like FastAPI but provide a Setting Definition Instance
 # Optional the Classes of your SQLModels
 # Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup Event Handler
 # Optional the MSATimers instance
@@ -88,11 +114,9 @@ app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 # Optional use startup event
-# Mount the Admin Site here if enabled and the auto mount option was False
 @app.on_event("startup")
 async def startup():
     app.logger.info("MSA SDK Own Startup Event")
-    #app.mount_site()
 
 # Optional use shutdown event
 @app.on_event("shutdown")
@@ -100,5 +124,27 @@ async def shutdown():
     app.logger.info("MSA SDK Own Shutdown Event")
 ```
 
-# Typical Run Log
-![Typical Log Run](../images/msa_sdk_run.png)
+
+## Interface Preview
+
+
+#### Home Screen with System Info
+- Open `http://127.0.0.1:8090/admin/` in your browser:
+![Home](../../../docs/images/msa_admin_home.png)
+
+#### CRUD of SQLModels Screen
+![CRUD](../../../docs/images/msa_admin_crud.png)
+
+#### OpenAPI Interactive Documentation (Swagger) Screen
+- Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
+![OpenAPI](../../../docs/images/msa_admin_openapi.png)
+
+#### Profiler Screen
+- Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
+![OpenAPI](../../../docs/images/msa_admin_profiler.png)
+
+## License Agreement
+
+- `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
+
+

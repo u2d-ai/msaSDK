@@ -16,7 +16,6 @@ plugins:
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
-      auto_title: true
       linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
@@ -60,7 +59,7 @@ theme:
 nav:
   - Home: index.md
   - Sites:
-    - Admin: auth/auth.md
+    - Admin: admin/admin.md
     - Auth Admin: auth/auth.md
   - Modules:
     - u2d_msa_sdk:

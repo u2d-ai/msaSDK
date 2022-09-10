@@ -3,50 +3,57 @@
 <h2 align="center">
   MSA SDK Auth
 </h2>
+
+---
 <p align="center">
     <em>MSA SDK Auth.</em><br/>
-    <em>Auth Site that includes in Admin Site Web UI.</em>
+    <em>Auth Site that extends the Admin Site Web UI with Login/Auth for the API's.</em>
 </p>
 
-
-
-------
+---
 
 ## Simple Example
 
+Just define in the Service Definition (Settings)
+
+    site_auth: bool = False
+
 ```python
-from fastapi import FastAPI
-from fastapi_amis_admin.admin.settings import Settings
-from fastapi_user_auth.site import AuthAdminSite
-from starlette.requests import Request
-from sqlmodel import SQLModel
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2022 - U2D.ai / S.Welcker
+"""
+__version__ = "0.0.1"
 
-app = FastAPI()
+from u2d_msa_sdk.models.service import get_msa_app_settings
+from u2d_msa_sdk.service import MSAApp
 
-site = AuthAdminSite(settings = Settings(database_url_async = 'sqlite+aiosqlite:///amisadmin.db'))
-auth = site.auth
+# get the MSA app setting, clear the cache, set some settings
+get_msa_app_settings.cache_clear()
+settings = get_msa_app_settings()
+settings.title = "SPK.ai - MSA/SDK MVP"
+settings.version = "SPK.0.0.1"
+settings.debug = True
+settings.site_auth = True
 
-site.mount_app(app)
+# Create the main app instance, like FastAPI but provide a Setting Definition Instance
+# Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup Event Handler
+app = MSAApp(settings=settings, auto_mount_site=True,
+             contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
+             license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
+# use the internal logger of app
+app.logger.info("Initialized " + settings.title + " " + settings.version)
 
+# Optional use startup event
 @app.on_event("startup")
 async def startup():
-    await site.db.async_run_sync(SQLModel.metadata.create_all, is_session = False)
+    app.logger.info("MSA SDK Own Startup Event")
 
-    await auth.create_role_user('admin')
-    await auth.create_role_user('vip')
-
-
-@app.get("/auth/get_user")
-@auth.requires()
-def get_user(request: Request):
-    return request.user
-
-if __name__ == '__main__':
-    import uvicorn
-
-    uvicorn.run(app, debug = True)
-
+# Optional use shutdown event
+@app.on_event("shutdown")
+async def shutdown():
+    app.logger.info("MSA SDK Own Shutdown Event")
 ```
 
 ## Validation Method
@@ -57,43 +64,43 @@ if __name__ == '__main__':
 
 ```python
 @app.get("/auth/user")
-@auth.requires()
+@app.auth.requires()
 def user(request: Request):
     return request.user  
 
 
 @app.get("/auth/admin_roles")
-@auth.requires('admin')
+@app.auth.requires('admin')
 def admin_roles(request: Request):
     return request.user
 
 
 @app.get("/auth/vip_roles")
-@auth.requires(['vip'])
+@app.auth.requires(['vip'])
 async def vip_roles(request: Request):
     return request.user
 
 
 @app.get("/auth/admin_or_vip_roles")
-@auth.requires(roles = ['admin', 'vip'])
+@app.auth.requires(roles = ['admin', 'vip'])
 def admin_or_vip_roles(request: Request):
     return request.user
 
 
 @app.get("/auth/admin_groups")
-@auth.requires(groups = ['admin'])
+@app.auth.requires(groups = ['admin'])
 def admin_groups(request: Request):
     return request.user
 
 
 @app.get("/auth/admin_roles_and_admin_groups")
-@auth.requires(roles = ['admin'], groups = ['admin'])
+@app.auth.requires(roles = ['admin'], groups = ['admin'])
 def admin_roles_and_admin_groups(request: Request):
     return request.user
 
 
 @app.get("/auth/vip_roles_and_article_update")
-@auth.requires(roles = ['vip'], permissions = ['article:update'])
+@app.auth.requires(roles = ['vip'], permissions = ['article:update'])
 def vip_roles_and_article_update(request: Request):
     return request.user
 
@@ -106,20 +113,23 @@ def vip_roles_and_article_update(request: Request):
 ```python
 from fastapi import Depends
 from typing import Tuple
-from fastapi_user_auth.auth import Auth
-from fastapi_user_auth.auth.models import User
+from u2d_msa_sdk.auth import Auth
+from u2d_msa_sdk.auth.models import User
+
+app = MSAApp ...
 
 @app.get("/auth/admin_roles_depend_1")
-def admin_roles(user: User = Depends(auth.get_current_user)):
+def admin_roles(user: User = Depends(app.auth.get_current_user)):
     return user  # or request.user
 
 
-@app.get("/auth/admin_roles_depend_2", dependencies = [Depends(auth.requires('admin')())])
+@app.get("/auth/admin_roles_depend_2", dependencies=[Depends(app.auth.requires('admin')())])
 def admin_roles(request: Request):
     return request.user
 
 
-app = FastAPI(dependencies = [Depends(auth.requires('admin')())])
+app = MSAApp(dependencies=[Depends(app.auth.requires('admin')())])
+
 
 @app.get("/auth/admin_roles_depend_3")
 def admin_roles(request: Request):
@@ -132,7 +142,7 @@ def admin_roles(request: Request):
 - Recommended Scenario: MSAApp Application
 
 ```python
-app = FastAPI()
+app = MSAApp()
 
 auth.backend.attach_middleware(app)
 
@@ -143,7 +153,7 @@ auth.backend.attach_middleware(app)
 - Recommended scenarios: Non-routed methods
 
 ```python
-from fastapi_user_auth.auth.models import User
+from u2d_msa_sdk.auth.models import User
 
 async def get_request_user(request: Request) -> Optional[User]:
     # user= await auth.get_current_user(request)
@@ -161,7 +171,7 @@ async def get_request_user(request: Request) -> Optional[User]:
 ### JwtTokenStore
 
 ```python
-from fastapi_user_auth.auth.backends.jwt import JwtTokenStore
+from u2d_msa_sdk.auth.backends.jwt import JwtTokenStore
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy_database import AsyncDatabase
 
@@ -185,7 +195,7 @@ site = AuthAdminSite(
 
 ```python
 
-from fastapi_user_auth.auth.backends.db import DbTokenStore
+from u2d_msa_sdk.auth.backends.db import DbTokenStore
 
 auth = Auth(
     db = AsyncDatabase(engine),
@@ -197,7 +207,7 @@ auth = Auth(
 
 ```python
 # Creating auth objects with `RedisTokenStore`
-from fastapi_user_auth.auth.backends.redis import RedisTokenStore
+from u2d_msa_sdk.auth.backends.redis import RedisTokenStore
 from aioredis import Redis
 
 auth = Auth(
@@ -227,8 +237,8 @@ flowchart LR
 ```python
 from datetime import date
 
-from fastapi_amis_admin.models.fields import Field
-from fastapi_user_auth.auth.models import BaseUser
+from u2d_msa_sdk.admin.models.fields import Field
+from u2d_msa_sdk.auth.models import BaseUser
 
 # Customize the `User` model, inherit from `BaseUser`.
 class MyUser(BaseUser, table = True):
@@ -280,19 +290,20 @@ site = MyAuthAdminSite(settings, auth = auth)
 
 ## Interface Preview
 
-- Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
 #### Login Screen
-![Login](msa_auth_login.png)
+- Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
+![Login](../../../docs/images/msa_auth_login.png)
 
-- Open `http://127.0.0.1:8090/admin/` in your browser:
 #### Home Screen with System Info
-![Home](msa_auth_home.png)
-#### CRUD of SQLModels Screen
-![CRUD](msa_auth_crud_model.png)
+- Open `http://127.0.0.1:8090/admin/` in your browser:
+![Home](../../../docs/images/msa_auth_home.png)
 
-- Open `http://127.0.0.1:8090/admin/docs` in your browser:
+#### CRUD of SQLModels Screen
+![CRUD](../../../docs/images/msa_auth_crud_model.png)
+
 #### OpenAPI Interactive Documentation (Swagger) Screen
-![OpenAPI](msa_auth_openapi.png)
+- Open `http://127.0.0.1:8090/admin/docs` in your browser:
+![OpenAPI](../../../docs/images/msa_auth_openapi.png)
 
 ## License Agreement
 
