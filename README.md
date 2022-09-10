@@ -37,7 +37,7 @@
 
 ### Usage example is in the app module \_\_init\_\_.py
 
-``` {.python caption="Usage example"}
+```python
 # -*- encoding: utf-8 -*-
 """
 Copyright (c) 2022 - U2D.ai / S.Welcker
