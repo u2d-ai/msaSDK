@@ -1,8 +1,11 @@
 #
 
 
-## MSAGPUInfo
-```python 
+
+## `MSAGPUInfo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L19"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSAGPUInfo()
 ```
 
@@ -11,8 +14,11 @@ MSAGPUInfo()
 ----
 
 
-## MSADiskIO
-```python 
+
+## `MSADiskIO`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L30"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSADiskIO()
 ```
 
@@ -21,8 +27,11 @@ MSADiskIO()
 ----
 
 
-## MSANetworkIO
-```python 
+
+## `MSANetworkIO`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L42"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSANetworkIO()
 ```
 
@@ -31,8 +40,11 @@ MSANetworkIO()
 ----
 
 
-## MSANetworkConnection
-```python 
+
+## `MSANetworkConnection`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L53"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSANetworkConnection()
 ```
 
@@ -41,8 +53,11 @@ MSANetworkConnection()
 ----
 
 
-## MSANetworkAdapter
-```python 
+
+## `MSANetworkAdapter`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L64"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSANetworkAdapter()
 ```
 
@@ -51,8 +66,11 @@ MSANetworkAdapter()
 ----
 
 
-## MSANetworkAdapters
-```python 
+
+## `MSANetworkAdapters`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L72"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSANetworkAdapters()
 ```
 
@@ -61,8 +79,11 @@ MSANetworkAdapters()
 ----
 
 
-## MSANetworkStat
-```python 
+
+## `MSANetworkStat`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L77"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSANetworkStat()
 ```
 
@@ -71,8 +92,11 @@ MSANetworkStat()
 ----
 
 
-## NetworkStats
-```python 
+
+## `NetworkStats`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L84"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 NetworkStats()
 ```
 
@@ -81,8 +105,11 @@ NetworkStats()
 ----
 
 
-## MSATemperature
-```python 
+
+## `MSATemperature`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L89"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSATemperature()
 ```
 
@@ -91,8 +118,11 @@ MSATemperature()
 ----
 
 
-## MSATemperatures
-```python 
+
+## `MSATemperatures`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L96"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSATemperatures()
 ```
 
@@ -101,8 +131,11 @@ MSATemperatures()
 ----
 
 
-## MSACPUFrequency
-```python 
+
+## `MSACPUFrequency`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L101"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSACPUFrequency()
 ```
 
@@ -111,8 +144,11 @@ MSACPUFrequency()
 ----
 
 
-## MSACPUTimes
-```python 
+
+## `MSACPUTimes`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L107"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSACPUTimes()
 ```
 
@@ -121,8 +157,11 @@ MSACPUTimes()
 ----
 
 
-## MSACPUStats
-```python 
+
+## `MSACPUStats`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L120"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSACPUStats()
 ```
 
@@ -131,8 +170,11 @@ MSACPUStats()
 ----
 
 
-## MSAMemoryUsage
-```python 
+
+## `MSAMemoryUsage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L127"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSAMemoryUsage()
 ```
 
@@ -141,8 +183,11 @@ MSAMemoryUsage()
 ----
 
 
-## MSASwap
-```python 
+
+## `MSASwap`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L139"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSASwap()
 ```
 
@@ -151,8 +196,11 @@ MSASwap()
 ----
 
 
-## MSASystemInfo
-```python 
+
+## `MSASystemInfo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L146"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSASystemInfo()
 ```
 
@@ -161,8 +209,11 @@ MSASystemInfo()
 ----
 
 
-## MSASystemGPUInfo
-```python 
+
+## `MSASystemGPUInfo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L184"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSASystemGPUInfo()
 ```
 
@@ -171,7 +222,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_hostname
+
+## get_hostname
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L206"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_hostname()
 ```
@@ -180,7 +234,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_list_partitions
+
+## get_list_partitions
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L211"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_partitions()
 ```
@@ -189,7 +246,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_gpus
+
+## get_gpus
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L219"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_gpus()
 ```
@@ -198,7 +258,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_partition_usage
+
+## get_partition_usage
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L243"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_partition_usage(
    partitions
@@ -209,7 +272,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_map_disk_usage
+
+## get_map_disk_usage
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L261"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_map_disk_usage()
 ```
@@ -218,7 +284,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_memory_usage
+
+## get_memory_usage
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L272"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_memory_usage()
 ```
@@ -227,7 +296,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_cpu_freq
+
+## get_cpu_freq
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L288"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_cpu_freq()
 ```
@@ -236,7 +308,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_cpu_times
+
+## get_cpu_times
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L294"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_cpu_times()
 ```
@@ -245,7 +320,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_cpu_stats
+
+## get_cpu_stats
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L301"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_cpu_stats()
 ```
@@ -254,7 +332,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_disk_io
+
+## get_disk_io
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L307"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_disk_io()
 ```
@@ -263,7 +344,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_network_io
+
+## get_network_io
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L314"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_network_io()
 ```
@@ -272,7 +356,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_network_adapters
+
+## get_network_adapters
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L321"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_network_adapters()
 ```
@@ -281,7 +368,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_temperatures
+
+## get_temperatures
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L340"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_temperatures()
 ```
@@ -290,7 +380,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_network_stats
+
+## get_network_stats
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L357"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_network_stats()
 ```
@@ -299,7 +392,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_network_connections
+
+## get_network_connections
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L373"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_network_connections()
 ```
@@ -308,7 +404,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_swap
+
+## get_swap
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L392"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_swap()
 ```
@@ -317,7 +416,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_load_average
+
+## get_load_average
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L402"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_load_average()
 ```
@@ -326,7 +428,10 @@ MSASystemGPUInfo()
 ----
 
 
-### get_cpu_usage
+
+## get_cpu_usage
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L406"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_cpu_usage(
    user = None, ignore_ = False
@@ -343,7 +448,10 @@ Returns the total CPU usage for all available cores.
 ----
 
 
-### get_sysinfo
+
+## get_sysinfo
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L433"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_sysinfo()
 ```
@@ -354,7 +462,10 @@ Get MSASystemInfo
 ----
 
 
-### get_sysgpuinfo
+
+## get_sysgpuinfo
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/sysinfo.py/#L480"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_sysgpuinfo()
 ```

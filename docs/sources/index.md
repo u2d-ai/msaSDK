@@ -113,29 +113,29 @@ async def shutdown():
 ```
 
 # Typical Run Log
-![Typical Log Run](docs/images/msa_sdk_run.png)
+![Typical Log Run](./docs/images/msa_sdk_run.png)
 
 ## Interface Preview
 
 
 #### Home Screen with System Info
 - Open `http://127.0.0.1:8090/admin/` in your browser:
-![Home](docs/images/msa_admin_home.png)
+![Home](./docs/images/msa_admin_home.png)
 
 #### CRUD of SQLModels Screen
-![CRUD](docs/images/msa_admin_crud.png)
+![CRUD](./docs/images/msa_admin_crud.png)
 
 #### Login Screen
 - Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
-![Login](docs/images/msa_auth_login.png)
+![Login](./docs/images/msa_auth_login.png)
 - 
 #### OpenAPI Interactive Documentation (Swagger) Screen
 - Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
-![OpenAPI](docs/images/msa_admin_openapi.png)
+![OpenAPI](./docs/images/msa_admin_openapi.png)
 
 #### Profiler Screen
 - Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
-![OpenAPI](docs/images/msa_admin_profiler.png)
+![OpenAPI](./docs/images/msa_admin_profiler.png)
 
 ## License Agreement
 

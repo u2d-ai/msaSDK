@@ -1,8 +1,11 @@
 #
 
 
-## WDCPosition
-```python 
+
+## `WDCPosition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L9"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCPosition()
 ```
 
@@ -11,8 +14,11 @@ WDCPosition()
 ----
 
 
-## WDCWord
-```python 
+
+## `WDCWord`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L18"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCWord()
 ```
 
@@ -21,8 +27,11 @@ WDCWord()
 ----
 
 
-## WDCToken
-```python 
+
+## `WDCToken`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L32"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCToken()
 ```
 
@@ -32,7 +41,10 @@ WDCToken()
 **Methods:**
 
 
-### .addWord
+
+### `.addWord`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L42"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addWord(
    wrd: WDCWord
@@ -43,8 +55,11 @@ WDCToken()
 ----
 
 
-## WDCTriple
-```python 
+
+## `WDCTriple`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L49"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCTriple()
 ```
 
@@ -53,8 +68,11 @@ WDCTriple()
 ----
 
 
-## WDCItem
-```python 
+
+## `WDCItem`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L60"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCItem()
 ```
 
@@ -63,8 +81,11 @@ WDCItem()
 ----
 
 
-## WDCMeaning
-```python 
+
+## `WDCMeaning`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L69"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCMeaning()
 ```
 
@@ -74,7 +95,10 @@ WDCMeaning()
 **Methods:**
 
 
-### .addPosition
+
+### `.addPosition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L103"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPosition(
    pos: WDCPosition
@@ -82,7 +106,10 @@ WDCMeaning()
 ```
 
 
-### .processSynset
+
+### `.processSynset`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L107"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .processSynset(
    syn, type: str
@@ -90,91 +117,136 @@ WDCMeaning()
 ```
 
 
-### .get_tree
+
+### `.get_tree`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L293"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_tree()
 ```
 
 
-### .get_root_tree_names
+
+### `.get_root_tree_names`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L297"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_root_tree_names()
 ```
 
 
-### .get_root_tree
+
+### `.get_root_tree`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L305"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_root_tree()
 ```
 
 
-### .get_frames
+
+### `.get_frames`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L313"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_frames()
 ```
 
 
-### .get_frames_set
+
+### `.get_frames_set`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L317"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_frames_set()
 ```
 
 
-### .get_domains
+
+### `.get_domains`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L321"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_domains()
 ```
 
 
-### .get_lemmas
+
+### `.get_lemmas`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L325"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_lemmas()
 ```
 
 
-### .get_sees
+
+### `.get_sees`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L329"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_sees()
 ```
 
 
-### .get_similar
+
+### `.get_similar`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L333"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_similar()
 ```
 
 
-### .get_hyponyms
+
+### `.get_hyponyms`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L337"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_hyponyms()
 ```
 
 
-### .get_hypernyms
+
+### `.get_hypernyms`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L341"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_hypernyms()
 ```
 
 
-### .get_holonyms
+
+### `.get_holonyms`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L345"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_holonyms()
 ```
 
 
-### .get_meronyms
+
+### `.get_meronyms`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L349"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_meronyms()
 ```
 
 
-### .get_entailments
+
+### `.get_entailments`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L353"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_entailments()
 ```
 
 
-### .get_synset_list_names
+
+### `.get_synset_list_names`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L357"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_synset_list_names(
    lst_syn: List, sep: str = ', '
@@ -182,7 +254,10 @@ WDCMeaning()
 ```
 
 
-### .get_tooltip
+
+### `.get_tooltip`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L372"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_tooltip()
 ```
@@ -191,8 +266,11 @@ WDCMeaning()
 ----
 
 
-## WDCSpan
-```python 
+
+## `WDCSpan`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L409"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCSpan()
 ```
 
@@ -202,7 +280,10 @@ WDCSpan()
 **Methods:**
 
 
-### .addPosition
+
+### `.addPosition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L419"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPosition(
    pos: WDCPosition
@@ -213,8 +294,11 @@ WDCSpan()
 ----
 
 
-## WDCMLEntry
-```python 
+
+## `WDCMLEntry`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L429"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCMLEntry()
 ```
 
@@ -224,7 +308,10 @@ WDCMLEntry()
 **Methods:**
 
 
-### .addEntity
+
+### `.addEntity`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L452"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addEntity(
    entity: WDCSpan
@@ -232,7 +319,10 @@ WDCMLEntry()
 ```
 
 
-### .addMeaning
+
+### `.addMeaning`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L457"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addMeaning(
    meaning: WDCMeaning, pos: WDCPosition
@@ -243,8 +333,11 @@ WDCMLEntry()
 ----
 
 
-## WDCSentence
-```python 
+
+## `WDCSentence`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L472"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCSentence()
 ```
 
@@ -254,7 +347,10 @@ WDCSentence()
 **Methods:**
 
 
-### .addPosition
+
+### `.addPosition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L498"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPosition(
    pos: WDCPosition
@@ -262,7 +358,10 @@ WDCSentence()
 ```
 
 
-### .addToken
+
+### `.addToken`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L503"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addToken(
    tok: WDCToken
@@ -270,7 +369,10 @@ WDCSentence()
 ```
 
 
-### .addTriple
+
+### `.addTriple`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L513"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addTriple(
    triple: WDCTriple
@@ -281,8 +383,11 @@ WDCSentence()
 ----
 
 
-## WDCParagraph
-```python 
+
+## `WDCParagraph`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L521"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCParagraph()
 ```
 
@@ -292,7 +397,10 @@ WDCParagraph()
 **Methods:**
 
 
-### .addPosition
+
+### `.addPosition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L535"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPosition(
    pos: WDCPosition
@@ -300,7 +408,10 @@ WDCParagraph()
 ```
 
 
-### .addSentence
+
+### `.addSentence`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L540"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addSentence(
    sentence: WDCSentence
@@ -308,7 +419,10 @@ WDCParagraph()
 ```
 
 
-### .getTextNoLF
+
+### `.getTextNoLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L547"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextNoLF()
 ```
@@ -317,8 +431,11 @@ WDCParagraph()
 ----
 
 
-## WDCPage
-```python 
+
+## `WDCPage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L555"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCPage()
 ```
 
@@ -328,7 +445,10 @@ WDCPage()
 **Methods:**
 
 
-### .addParagraph
+
+### `.addParagraph`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L563"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addParagraph(
    paragraph: WDCParagraph
@@ -339,8 +459,11 @@ WDCPage()
 ----
 
 
-## WDCMLDocument
-```python 
+
+## `WDCMLDocument`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L570"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCMLDocument()
 ```
 
@@ -350,7 +473,10 @@ WDCMLDocument()
 **Methods:**
 
 
-### .set_leaderboard_html
+
+### `.set_leaderboard_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L583"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .set_leaderboard_html(
    strHTML: str
@@ -358,13 +484,19 @@ WDCMLDocument()
 ```
 
 
-### .get_leaderboard_html
+
+### `.get_leaderboard_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L587"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_leaderboard_html()
 ```
 
 
-### .set_profile_learn_html
+
+### `.set_profile_learn_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L593"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .set_profile_learn_html(
    strHTML: str
@@ -372,13 +504,19 @@ WDCMLDocument()
 ```
 
 
-### .get_profile_learn_html
+
+### `.get_profile_learn_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L597"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_profile_learn_html()
 ```
 
 
-### .set_profile_html
+
+### `.set_profile_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L603"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .set_profile_html(
    strHTML: str
@@ -386,13 +524,19 @@ WDCMLDocument()
 ```
 
 
-### .get_profile_html
+
+### `.get_profile_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L607"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_profile_html()
 ```
 
 
-### .set_prediction_html
+
+### `.set_prediction_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L613"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .set_prediction_html(
    strHTML: str
@@ -400,13 +544,19 @@ WDCMLDocument()
 ```
 
 
-### .get_prediction_html
+
+### `.get_prediction_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L617"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_prediction_html()
 ```
 
 
-### .addEntry
+
+### `.addEntry`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L623"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addEntry(
    entry: WDCMLEntry
@@ -417,8 +567,11 @@ WDCMLDocument()
 ----
 
 
-## WDCDocument
-```python 
+
+## `WDCDocument`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L629"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 WDCDocument()
 ```
 
@@ -428,13 +581,19 @@ WDCDocument()
 **Methods:**
 
 
-### .getCurrentPageID
+
+### `.getCurrentPageID`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L645"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getCurrentPageID()
 ```
 
 
-### .addPage
+
+### `.addPage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L652"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPage(
    page: WDCPage
@@ -442,7 +601,10 @@ WDCDocument()
 ```
 
 
-### .addEntity
+
+### `.addEntity`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L658"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addEntity(
    entity: WDCSpan
@@ -450,7 +612,10 @@ WDCDocument()
 ```
 
 
-### .addMeaning
+
+### `.addMeaning`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/wdc.py/#L663"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addMeaning(
    meaning: WDCMeaning, pos: WDCPosition

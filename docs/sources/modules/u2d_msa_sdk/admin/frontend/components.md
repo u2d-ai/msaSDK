@@ -1,8 +1,11 @@
 #
 
 
-## Html
-```python 
+
+## `Html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L18"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Html()
 ```
 
@@ -13,8 +16,11 @@ Html
 ----
 
 
-## Icon
-```python 
+
+## `Icon`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L24"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Icon()
 ```
 
@@ -25,8 +31,11 @@ Icon()
 ----
 
 
-## Remark
-```python 
+
+## `Remark`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L31"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Remark()
 ```
 
@@ -37,8 +46,11 @@ Remark()
 ----
 
 
-## Badge
-```python 
+
+## `Badge`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L41"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Badge()
 ```
 
@@ -49,8 +61,11 @@ Badge()
 ----
 
 
-## Page
-```python 
+
+## `Page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L56"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Page()
 ```
 
@@ -62,7 +77,10 @@ Page()
 **Methods:**
 
 
-### .msa_ui_html
+
+### `.msa_ui_html`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L84"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .msa_ui_html(
    template_path: str = '', locale: str = 'zh_CN', site_title: str = 'Admin',
@@ -74,8 +92,11 @@ Page()
 ----
 
 
-## Divider
-```python 
+
+## `Divider`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L102"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Divider()
 ```
 
@@ -84,8 +105,11 @@ Divider()
 ----
 
 
-## Flex
-```python 
+
+## `Flex`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L108"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Flex()
 ```
 
@@ -94,8 +118,11 @@ Flex()
 ----
 
 
-## Grid
-```python 
+
+## `Grid`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L117"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Grid()
 ```
 
@@ -104,8 +131,11 @@ Grid()
 ----
 
 
-## Panel
-```python 
+
+## `Panel`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L136"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Panel()
 ```
 
@@ -114,8 +144,11 @@ Panel()
 ----
 
 
-## Tabs
-```python 
+
+## `Tabs`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L151"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Tabs()
 ```
 
@@ -124,8 +157,11 @@ Tabs()
 ----
 
 
-## Portlet
-```python 
+
+## `Portlet`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L187"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Portlet()
 ```
 
@@ -134,8 +170,11 @@ Portlet()
 ----
 
 
-## Horizontal
-```python 
+
+## `Horizontal`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L201"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Horizontal()
 ```
 
@@ -144,8 +183,11 @@ Horizontal()
 ----
 
 
-## Action
-```python 
+
+## `Action`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L207"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Action()
 ```
 
@@ -154,8 +196,11 @@ Action()
 ----
 
 
-## ActionType
-```python 
+
+## `ActionType`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L237"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ActionType()
 ```
 
@@ -164,8 +209,11 @@ ActionType()
 ----
 
 
-## PageSchema
-```python 
+
+## `PageSchema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L270"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PageSchema()
 ```
 
@@ -175,7 +223,10 @@ PageSchema()
 **Methods:**
 
 
-### .as_tabs_item
+
+### `.as_tabs_item`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L288"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .as_tabs_item(
    tabs_extra: Dict[str, Any] = None, item_extra: Dict[str, Any] = None
@@ -186,8 +237,11 @@ PageSchema()
 ----
 
 
-## App
-```python 
+
+## `App`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L310"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 App()
 ```
 
@@ -198,8 +252,11 @@ App()
 ----
 
 
-## ButtonGroup
-```python 
+
+## `ButtonGroup`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L327"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ButtonGroup()
 ```
 
@@ -210,8 +267,11 @@ ButtonGroup()
 ----
 
 
-## Custom
-```python 
+
+## `Custom`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L335"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Custom()
 ```
 
@@ -222,8 +282,11 @@ Custom()
 ----
 
 
-## Service
-```python 
+
+## `Service`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L348"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Service()
 ```
 
@@ -234,8 +297,11 @@ Service()
 ----
 
 
-## Nav
-```python 
+
+## `Nav`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L369"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Nav()
 ```
 
@@ -246,8 +312,11 @@ Nav()
 ----
 
 
-## AnchorNav
-```python 
+
+## `AnchorNav`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L397"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 AnchorNav()
 ```
 
@@ -258,8 +327,11 @@ AnchorNav()
 ----
 
 
-## ButtonToolbar
-```python 
+
+## `ButtonToolbar`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L416"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ButtonToolbar()
 ```
 
@@ -270,8 +342,11 @@ ButtonToolbar()
 ----
 
 
-## Validation
-```python 
+
+## `Validation`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L422"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Validation()
 ```
 
@@ -280,8 +355,11 @@ Validation()
 ----
 
 
-## FormItem
-```python 
+
+## `FormItem`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L446"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 FormItem()
 ```
 
@@ -292,8 +370,11 @@ FormItem()
 ----
 
 
-## Form
-```python 
+
+## `Form`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L471"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Form()
 ```
 
@@ -304,8 +385,11 @@ Form()
 ----
 
 
-## Button
-```python 
+
+## `Button`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L529"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Button()
 ```
 
@@ -316,8 +400,11 @@ Button()
 ----
 
 
-## InputArray
-```python 
+
+## `InputArray`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L546"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputArray()
 ```
 
@@ -328,8 +415,11 @@ InputArray()
 ----
 
 
-## Hidden
-```python 
+
+## `Hidden`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L559"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Hidden()
 ```
 
@@ -340,8 +430,11 @@ Hidden()
 ----
 
 
-## Checkbox
-```python 
+
+## `Checkbox`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L564"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Checkbox()
 ```
 
@@ -352,8 +445,11 @@ Checkbox()
 ----
 
 
-## Radios
-```python 
+
+## `Radios`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L572"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Radios()
 ```
 
@@ -364,8 +460,11 @@ Radios()
 ----
 
 
-## ChartRadios
-```python 
+
+## `ChartRadios`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L585"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ChartRadios()
 ```
 
@@ -376,8 +475,11 @@ ChartRadios()
 ----
 
 
-## Checkboxes
-```python 
+
+## `Checkboxes`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L593"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Checkboxes()
 ```
 
@@ -388,8 +490,11 @@ Checkboxes()
 ----
 
 
-## InputCity
-```python 
+
+## `InputCity`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L618"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputCity()
 ```
 
@@ -400,8 +505,11 @@ InputCity()
 ----
 
 
-## InputColor
-```python 
+
+## `InputColor`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L627"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputColor()
 ```
 
@@ -412,8 +520,11 @@ InputColor()
 ----
 
 
-## Combo
-```python 
+
+## `Combo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L637"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Combo()
 ```
 
@@ -424,8 +535,11 @@ Combo()
 ----
 
 
-## ConditionBuilder
-```python 
+
+## `ConditionBuilder`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L672"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ConditionBuilder()
 ```
 
@@ -436,8 +550,11 @@ ConditionBuilder()
 ----
 
 
-## Editor
-```python 
+
+## `Editor`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L724"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Editor()
 ```
 
@@ -448,8 +565,11 @@ Editor()
 ----
 
 
-## Markdown
-```python 
+
+## `Markdown`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L736"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Markdown()
 ```
 
@@ -460,8 +580,11 @@ Markdown渲染
 ----
 
 
-## InputFile
-```python 
+
+## `InputFile`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L747"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputFile()
 ```
 
@@ -472,8 +595,11 @@ InputFile()
 ----
 
 
-## InputExcel
-```python 
+
+## `InputExcel`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L779"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputExcel()
 ```
 
@@ -484,8 +610,11 @@ InputExcel()
 ----
 
 
-## InputTable
-```python 
+
+## `InputTable`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L788"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputTable()
 ```
 
@@ -496,8 +625,11 @@ InputTable()
 ----
 
 
-## InputGroup
-```python 
+
+## `InputGroup`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L820"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputGroup()
 ```
 
@@ -508,8 +640,11 @@ InputGroup()
 ----
 
 
-## Group
-```python 
+
+## `Group`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L827"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Group()
 ```
 
@@ -520,8 +655,11 @@ Group()
 ----
 
 
-## InputImage
-```python 
+
+## `InputImage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L835"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputImage()
 ```
 
@@ -532,8 +670,11 @@ InputImage()
 ----
 
 
-## LocationPicker
-```python 
+
+## `LocationPicker`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L877"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 LocationPicker()
 ```
 
@@ -544,8 +685,11 @@ LocationPicker()
 ----
 
 
-## InputNumber
-```python 
+
+## `InputNumber`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L887"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputNumber()
 ```
 
@@ -556,8 +700,11 @@ InputNumber()
 ----
 
 
-## Picker
-```python 
+
+## `Picker`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L900"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Picker()
 ```
 
@@ -568,8 +715,11 @@ Picker()
 ----
 
 
-## Switch
-```python 
+
+## `Switch`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L919"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Switch()
 ```
 
@@ -580,8 +730,11 @@ Switch()
 ----
 
 
-## Static
-```python 
+
+## `Static`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L929"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Static()
 ```
 
@@ -592,8 +745,11 @@ Static()
 ----
 
 
-## InputText
-```python 
+
+## `InputText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L943"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputText()
 ```
 
@@ -604,8 +760,11 @@ InputText()
 ----
 
 
-## InputPassword
-```python 
+
+## `InputPassword`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L967"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputPassword()
 ```
 
@@ -616,8 +775,11 @@ InputPassword()
 ----
 
 
-## InputRichText
-```python 
+
+## `InputRichText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L972"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputRichText()
 ```
 
@@ -628,8 +790,11 @@ InputRichText()
 ----
 
 
-## Select
-```python 
+
+## `Select`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L984"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Select()
 ```
 
@@ -640,8 +805,11 @@ Select()
 ----
 
 
-## NestedSelect
-```python 
+
+## `NestedSelect`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1024"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 NestedSelect()
 ```
 
@@ -652,8 +820,11 @@ NestedSelect()
 ----
 
 
-## Textarea
-```python 
+
+## `Textarea`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1036"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Textarea()
 ```
 
@@ -664,8 +835,11 @@ Textarea()
 ----
 
 
-## InputMonth
-```python 
+
+## `InputMonth`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1048"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputMonth()
 ```
 
@@ -676,8 +850,11 @@ InputMonth()
 ----
 
 
-## InputTime
-```python 
+
+## `InputTime`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1058"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputTime()
 ```
 
@@ -688,8 +865,11 @@ InputTime()
 ----
 
 
-## InputDatetime
-```python 
+
+## `InputDatetime`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1070"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputDatetime()
 ```
 
@@ -700,8 +880,11 @@ InputDatetime()
 ----
 
 
-## InputDate
-```python 
+
+## `InputDate`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1086"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputDate()
 ```
 
@@ -712,8 +895,11 @@ InputDate()
 ----
 
 
-## InputTimeRange
-```python 
+
+## `InputTimeRange`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1108"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputTimeRange()
 ```
 
@@ -724,8 +910,11 @@ InputTimeRange()
 ----
 
 
-## InputDatetimeRange
-```python 
+
+## `InputDatetimeRange`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1119"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputDatetimeRange()
 ```
 
@@ -736,8 +925,11 @@ InputDatetimeRange()
 ----
 
 
-## InputDateRange
-```python 
+
+## `InputDateRange`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1129"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputDateRange()
 ```
 
@@ -748,8 +940,11 @@ InputDateRange()
 ----
 
 
-## InputMonthRange
-```python 
+
+## `InputMonthRange`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1136"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputMonthRange()
 ```
 
@@ -760,8 +955,11 @@ InputMonthRange()
 ----
 
 
-## Transfer
-```python 
+
+## `Transfer`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1141"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Transfer()
 ```
 
@@ -772,8 +970,11 @@ Transfer()
 ----
 
 
-## TransferPicker
-```python 
+
+## `TransferPicker`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1166"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TransferPicker()
 ```
 
@@ -784,8 +985,11 @@ TransferPicker()
 ----
 
 
-## TabsTransfer
-```python 
+
+## `TabsTransfer`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1171"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TabsTransfer()
 ```
 
@@ -796,8 +1000,11 @@ TabsTransfer()
 ----
 
 
-## TabsTransferPicker
-```python 
+
+## `TabsTransferPicker`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1176"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TabsTransferPicker()
 ```
 
@@ -808,8 +1015,11 @@ TabsTransferPicker()
 ----
 
 
-## InputTree
-```python 
+
+## `InputTree`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1181"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InputTree()
 ```
 
@@ -820,8 +1030,11 @@ InputTree()
 ----
 
 
-## TreeSelect
-```python 
+
+## `TreeSelect`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1223"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TreeSelect()
 ```
 
@@ -832,8 +1045,11 @@ TreeSelect()
 ----
 
 
-## Image
-```python 
+
+## `Image`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1229"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Image()
 ```
 
@@ -844,8 +1060,11 @@ Image()
 ----
 
 
-## Images
-```python 
+
+## `Images`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1252"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Images()
 ```
 
@@ -856,8 +1075,11 @@ Images()
 ----
 
 
-## Carousel
-```python 
+
+## `Carousel`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1267"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Carousel()
 ```
 
@@ -868,8 +1090,11 @@ Carousel()
 ----
 
 
-## CRUD
-```python 
+
+## `CRUD`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1295"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 CRUD()
 ```
 
@@ -880,8 +1105,11 @@ CRUD()
 ----
 
 
-## TableColumn
-```python 
+
+## `TableColumn`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1352"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TableColumn()
 ```
 
@@ -892,8 +1120,11 @@ TableColumn()
 ----
 
 
-## ColumnOperation
-```python 
+
+## `ColumnOperation`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1370"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ColumnOperation()
 ```
 
@@ -904,8 +1135,11 @@ ColumnOperation()
 ----
 
 
-## ColumnImage
-```python 
+
+## `ColumnImage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1378"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ColumnImage()
 ```
 
@@ -916,8 +1150,11 @@ ColumnImage()
 ----
 
 
-## ColumnImages
-```python 
+
+## `ColumnImages`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1383"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ColumnImages()
 ```
 
@@ -928,8 +1165,11 @@ ColumnImages()
 ----
 
 
-## Table
-```python 
+
+## `Table`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1388"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Table()
 ```
 
@@ -940,8 +1180,11 @@ Table()
 ----
 
 
-## Chart
-```python 
+
+## `Chart`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1418"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Chart()
 ```
 
@@ -952,8 +1195,11 @@ Chart()
 ----
 
 
-## Code
-```python 
+
+## `Code`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1435"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Code()
 ```
 
@@ -964,8 +1210,11 @@ Code()
 ----
 
 
-## Json
-```python 
+
+## `Json`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1447"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Json()
 ```
 
@@ -976,8 +1225,11 @@ JSON 展示组件
 ----
 
 
-## Link
-```python 
+
+## `Link`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1460"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Link()
 ```
 
@@ -988,8 +1240,11 @@ Link()
 ----
 
 
-## Log
-```python 
+
+## `Log`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1473"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Log()
 ```
 
@@ -1000,8 +1255,11 @@ Log()
 ----
 
 
-## Mapping
-```python 
+
+## `Mapping`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1484"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Mapping()
 ```
 
@@ -1012,8 +1270,11 @@ Mapping()
 ----
 
 
-## Property
-```python 
+
+## `Property`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1493"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Property()
 ```
 
@@ -1024,8 +1285,11 @@ Property()
 ----
 
 
-## QRCode
-```python 
+
+## `QRCode`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1516"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 QRCode()
 ```
 
@@ -1036,8 +1300,11 @@ QRCode()
 ----
 
 
-## Video
-```python 
+
+## `Video`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1528"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Video()
 ```
 
@@ -1048,8 +1315,11 @@ Video()
 ----
 
 
-## Alert
-```python 
+
+## `Alert`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1541"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Alert()
 ```
 
@@ -1060,8 +1330,11 @@ Alert()
 ----
 
 
-## Dialog
-```python 
+
+## `Dialog`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1554"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Dialog()
 ```
 
@@ -1072,8 +1345,11 @@ Dialog()
 ----
 
 
-## Drawer
-```python 
+
+## `Drawer`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1569"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Drawer()
 ```
 
@@ -1084,8 +1360,11 @@ Drawer()
 ----
 
 
-## Iframe
-```python 
+
+## `Iframe`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1585"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Iframe()
 ```
 
@@ -1096,8 +1375,11 @@ Iframe
 ----
 
 
-## Spinner
-```python 
+
+## `Spinner`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1596"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Spinner()
 ```
 
@@ -1108,8 +1390,11 @@ Spinner()
 ----
 
 
-## TableCRUD
-```python 
+
+## `TableCRUD`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1601"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TableCRUD()
 ```
 
@@ -1120,8 +1405,11 @@ TableCRUD()
 ----
 
 
-## Avatar
-```python 
+
+## `Avatar`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1605"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Avatar()
 ```
 
@@ -1132,8 +1420,11 @@ Avatar()
 ----
 
 
-## Audio
-```python 
+
+## `Audio`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1618"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Audio()
 ```
 
@@ -1144,8 +1435,11 @@ Audio()
 ----
 
 
-## Status
-```python 
+
+## `Status`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1630"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Status()
 ```
 
@@ -1156,8 +1450,11 @@ Status()
 ----
 
 
-## Tasks
-```python 
+
+## `Tasks`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1639"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Tasks()
 ```
 
@@ -1168,8 +1465,11 @@ Tasks()
 ----
 
 
-## Wizard
-```python 
+
+## `Wizard`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/components.py/#L1670"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Wizard()
 ```
 

@@ -1,8 +1,11 @@
 #
 
 
-## LinkModelForm
-```python 
+
+## `LinkModelForm`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L47"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 LinkModelForm(
    pk_admin: 'BaseModelAdmin', display_admin: 'ModelAdmin',
    link_model: Union[SQLModel, Table], link_col: Column, item_col: Column
@@ -15,7 +18,10 @@ LinkModelForm(
 **Methods:**
 
 
-### .bind_model_admin
+
+### `.bind_model_admin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L69"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .bind_model_admin(
    cls, pk_admin: 'BaseModelAdmin', insfield: InstrumentedAttribute
@@ -23,19 +29,28 @@ LinkModelForm(
 ```
 
 
-### .route_delete
+
+### `.route_delete`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L105"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_delete()
 ```
 
 
-### .route_create
+
+### `.route_create`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L129"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_create()
 ```
 
 
-### .get_form_item
+
+### `.get_form_item`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L156"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_form_item(
    request: Request
@@ -43,7 +58,10 @@ LinkModelForm(
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L227"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
@@ -52,8 +70,11 @@ LinkModelForm(
 ----
 
 
-## BaseModelAdmin
-```python 
+
+## `BaseModelAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L247"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseModelAdmin(
    app: 'AdminApp', model = None
 )
@@ -65,19 +86,28 @@ BaseModelAdmin(
 **Methods:**
 
 
-### .router_path
+
+### `.router_path`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L270"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_path()
 ```
 
 
-### .get_link_model_forms
+
+### `.get_link_model_forms`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L273"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_link_model_forms()
 ```
 
 
-### .get_list_display
+
+### `.get_list_display`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L279"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_display(
    request: Request
@@ -85,7 +115,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_filter
+
+### `.get_list_filter`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L282"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_filter(
    request: Request
@@ -93,7 +126,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_column
+
+### `.get_list_column`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L285"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_column(
    request: Request, modelfield: ModelField
@@ -101,7 +137,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_columns
+
+### `.get_list_columns`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L298"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_columns(
    request: Request
@@ -109,7 +148,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_table_api
+
+### `.get_list_table_api`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L320"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_table_api(
    request: Request
@@ -117,7 +159,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_table
+
+### `.get_list_table`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L337"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_table(
    request: Request
@@ -125,7 +170,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_form_item_on_foreign_key
+
+### `.get_form_item_on_foreign_key`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L368"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_form_item_on_foreign_key(
    request: Request, modelfield: ModelField, is_filter: bool = False
@@ -133,7 +181,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_form_item
+
+### `.get_form_item`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L396"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_form_item(
    request: Request, modelfield: ModelField, action: MSACRUDEnum
@@ -141,7 +192,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_list_filter_form
+
+### `.get_list_filter_form`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L409"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_list_filter_form(
    request: Request
@@ -149,7 +203,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_create_form
+
+### `.get_create_form`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L438"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_create_form(
    request: Request, bulk: bool = False
@@ -157,7 +214,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_update_form
+
+### `.get_update_form`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L465"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_update_form(
    request: Request, bulk: bool = False
@@ -165,7 +225,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_create_action
+
+### `.get_create_action`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L482"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_create_action(
    request: Request, bulk: bool = False
@@ -173,7 +236,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_update_action
+
+### `.get_update_action`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L507"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_update_action(
    request: Request, bulk: bool = False
@@ -181,7 +247,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_delete_action
+
+### `.get_delete_action`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L535"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_delete_action(
    request: Request, bulk: bool = False
@@ -189,7 +258,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_actions_on_header_toolbar
+
+### `.get_actions_on_header_toolbar`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L549"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_actions_on_header_toolbar(
    request: Request
@@ -197,7 +269,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_actions_on_item
+
+### `.get_actions_on_item`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L554"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_actions_on_item(
    request: Request
@@ -205,7 +280,10 @@ BaseModelAdmin(
 ```
 
 
-### .get_actions_on_bulk
+
+### `.get_actions_on_bulk`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L560"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_actions_on_bulk(
    request: Request
@@ -216,8 +294,11 @@ BaseModelAdmin(
 ----
 
 
-## BaseAdmin
-```python 
+
+## `BaseAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L585"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseAdmin(
    app: 'AdminApp'
 )
@@ -229,13 +310,19 @@ BaseAdmin(
 **Methods:**
 
 
-### .site
+
+### `.site`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L592"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .site()
 ```
 
 
-### .unique_id
+
+### `.unique_id`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L596"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .unique_id()
 ```
@@ -244,8 +331,11 @@ BaseAdmin(
 ----
 
 
-## PageSchemaAdmin
-```python 
+
+## `PageSchemaAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L603"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PageSchemaAdmin(
    app: 'AdminApp'
 )
@@ -257,7 +347,10 @@ PageSchemaAdmin(
 **Methods:**
 
 
-### .has_page_permission
+
+### `.has_page_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L614"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_page_permission(
    request: Request
@@ -265,13 +358,19 @@ PageSchemaAdmin(
 ```
 
 
-### .get_page_schema
+
+### `.get_page_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L617"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema()
 ```
 
 
-### .get_group_schema
+
+### `.get_group_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L628"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_group_schema()
 ```
@@ -280,8 +379,11 @@ PageSchemaAdmin(
 ----
 
 
-## LinkAdmin
-```python 
+
+## `LinkAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L640"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 LinkAdmin()
 ```
 
@@ -291,7 +393,10 @@ LinkAdmin()
 **Methods:**
 
 
-### .get_page_schema
+
+### `.get_page_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L643"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema()
 ```
@@ -300,8 +405,11 @@ LinkAdmin()
 ----
 
 
-## IframeAdmin
-```python 
+
+## `IframeAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L650"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 IframeAdmin()
 ```
 
@@ -311,7 +419,10 @@ IframeAdmin()
 **Methods:**
 
 
-### .get_page_schema
+
+### `.get_page_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L654"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema()
 ```
@@ -320,8 +431,11 @@ IframeAdmin()
 ----
 
 
-## RouterAdmin
-```python 
+
+## `RouterAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L666"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 RouterAdmin(
    app: 'AdminApp'
 )
@@ -333,13 +447,19 @@ RouterAdmin(
 **Methods:**
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L672"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
 
 
-### .router_path
+
+### `.router_path`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L676"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_path()
 ```
@@ -348,8 +468,11 @@ RouterAdmin(
 ----
 
 
-## PageAdmin
-```python 
+
+## `PageAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L682"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PageAdmin(
    app: 'AdminApp'
 )
@@ -363,7 +486,10 @@ msa_ui页面管理
 **Methods:**
 
 
-### .page_permission_depend
+
+### `.page_permission_depend`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L697"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .page_permission_depend(
    request: Request
@@ -371,7 +497,10 @@ msa_ui页面管理
 ```
 
 
-### .error_no_page_permission
+
+### `.error_no_page_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L700"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .error_no_page_permission(
    request: Request
@@ -379,7 +508,10 @@ msa_ui页面管理
 ```
 
 
-### .get_page
+
+### `.get_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L709"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page(
    request: Request
@@ -387,13 +519,19 @@ msa_ui页面管理
 ```
 
 
-### .get_page_schema
+
+### `.get_page_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L712"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema()
 ```
 
 
-### .page_parser
+
+### `.page_parser`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L722"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .page_parser(
    request: Request, page: Page
@@ -401,13 +539,19 @@ msa_ui页面管理
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L739"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
 
 
-### .route_page
+
+### `.route_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L761"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_page()
 ```
@@ -416,8 +560,11 @@ msa_ui页面管理
 ----
 
 
-## TemplateAdmin
-```python 
+
+## `TemplateAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L768"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TemplateAdmin(
    app: 'AdminApp'
 )
@@ -431,7 +578,10 @@ Jinja2渲染模板管理
 **Methods:**
 
 
-### .page_parser
+
+### `.page_parser`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L780"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .page_parser(
    request: Request, page: Dict[str, Any]
@@ -439,7 +589,10 @@ Jinja2渲染模板管理
 ```
 
 
-### .get_page
+
+### `.get_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L784"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page(
    request: Request
@@ -450,8 +603,11 @@ Jinja2渲染模板管理
 ----
 
 
-## BaseFormAdmin
-```python 
+
+## `BaseFormAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L788"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseFormAdmin(
    app: 'AdminApp'
 )
@@ -463,7 +619,10 @@ BaseFormAdmin(
 **Methods:**
 
 
-### .get_page
+
+### `.get_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L804"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page(
    request: Request
@@ -471,7 +630,10 @@ BaseFormAdmin(
 ```
 
 
-### .get_form_item
+
+### `.get_form_item`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L809"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_form_item(
    request: Request, modelfield: ModelField
@@ -479,7 +641,10 @@ BaseFormAdmin(
 ```
 
 
-### .get_form
+
+### `.get_form`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L816"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_form(
    request: Request
@@ -487,7 +652,10 @@ BaseFormAdmin(
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L829"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
@@ -496,8 +664,11 @@ BaseFormAdmin(
 ----
 
 
-## FormAdmin
-```python 
+
+## `FormAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L850"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 FormAdmin()
 ```
 
@@ -509,13 +680,19 @@ FormAdmin()
 **Methods:**
 
 
-### .route_submit
+
+### `.route_submit`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L854"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_submit()
 ```
 
 
-### .handle
+
+### `.handle`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L862"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .handle(
    request: Request, data: BaseModel, **kwargs
@@ -523,7 +700,10 @@ FormAdmin()
 ```
 
 
-### .get_init_data
+
+### `.get_init_data`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L865"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_init_data(
    request: Request, **kwargs
@@ -531,7 +711,10 @@ FormAdmin()
 ```
 
 
-### .route_init
+
+### `.route_init`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L869"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_init()
 ```
@@ -540,8 +723,11 @@ FormAdmin()
 ----
 
 
-## ModelFormAdmin
-```python 
+
+## `ModelFormAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L876"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ModelFormAdmin(
    app: 'AdminApp'
 )
@@ -554,8 +740,11 @@ todo Read and update a model resource
 ----
 
 
-## ModelAdmin
-```python 
+
+## `ModelAdmin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L884"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ModelAdmin(
    app: 'AdminApp', model = None
 )
@@ -569,19 +758,28 @@ ModelAdmin(
 **Methods:**
 
 
-### .router_prefix
+
+### `.router_prefix`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L894"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_prefix()
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L899"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
 
 
-### .get_page
+
+### `.get_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L906"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page(
    request: Request
@@ -589,7 +787,10 @@ ModelAdmin(
 ```
 
 
-### .has_list_permission
+
+### `.has_list_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L911"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_list_permission(
    request: Request, paginator: MSACRUDPaginator, filters: BaseModel = None,
@@ -598,7 +799,10 @@ ModelAdmin(
 ```
 
 
-### .has_create_permission
+
+### `.has_create_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L920"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_create_permission(
    request: Request, data: BaseModel, **kwargs
@@ -606,7 +810,10 @@ ModelAdmin(
 ```
 
 
-### .has_read_permission
+
+### `.has_read_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L928"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_read_permission(
    request: Request, item_id: List[str], **kwargs
@@ -614,7 +821,10 @@ ModelAdmin(
 ```
 
 
-### .has_update_permission
+
+### `.has_update_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L936"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_update_permission(
    request: Request, item_id: List[str], data: BaseModel, **kwargs
@@ -622,7 +832,10 @@ ModelAdmin(
 ```
 
 
-### .has_delete_permission
+
+### `.has_delete_permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L945"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_delete_permission(
    request: Request, item_id: List[str], **kwargs
@@ -633,8 +846,11 @@ ModelAdmin(
 ----
 
 
-## BaseModelAction
-```python 
+
+## `BaseModelAction`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L954"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseModelAction(
    admin: 'ModelAdmin'
 )
@@ -646,7 +862,10 @@ BaseModelAction(
 **Methods:**
 
 
-### .fetch_item_scalars
+
+### `.fetch_item_scalars`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L962"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .fetch_item_scalars(
    item_id: List[str]
@@ -654,7 +873,10 @@ BaseModelAction(
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L966"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
@@ -663,8 +885,11 @@ BaseModelAction(
 ----
 
 
-## ModelAction
-```python 
+
+## `ModelAction`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L970"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 ModelAction(
    admin: 'ModelAdmin'
 )
@@ -676,7 +901,10 @@ ModelAction(
 **Methods:**
 
 
-### .get_action
+
+### `.get_action`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L979"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_action(
    request: Request, **kwargs
@@ -684,7 +912,10 @@ ModelAction(
 ```
 
 
-### .handle
+
+### `.handle`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L995"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .handle(
    request: Request, item_id: List[str], data: Optional[BaseModel], **kwargs
@@ -692,7 +923,10 @@ ModelAction(
 ```
 
 
-### .route_submit
+
+### `.route_submit`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1005"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_submit()
 ```
@@ -701,8 +935,11 @@ ModelAction(
 ----
 
 
-## AdminGroup
-```python 
+
+## `AdminGroup`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1021"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 AdminGroup(
    app: 'AdminApp'
 )
@@ -714,13 +951,19 @@ AdminGroup(
 **Methods:**
 
 
-### .unique_id
+
+### `.unique_id`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1028"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .unique_id()
 ```
 
 
-### .append_child
+
+### `.append_child`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1034"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .append_child(
    child: _PageSchemaAdminT, group_schema: PageSchema = None
@@ -728,7 +971,10 @@ AdminGroup(
 ```
 
 
-### .get_page_schema_children
+
+### `.get_page_schema_children`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1050"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema_children(
    request: Request
@@ -736,7 +982,10 @@ AdminGroup(
 ```
 
 
-### .get_page_schema_child
+
+### `.get_page_schema_child`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1068"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema_child(
    unique_id: str
@@ -747,8 +996,11 @@ AdminGroup(
 ----
 
 
-## AdminApp
-```python 
+
+## `AdminApp`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1082"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 AdminApp(
    app: 'AdminApp', msa_app: MSAApp
 )
@@ -762,13 +1014,19 @@ AdminApp(
 **Methods:**
 
 
-### .router_prefix
+
+### `.router_prefix`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1118"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_prefix()
 ```
 
 
-### .get_admin_or_create
+
+### `.get_admin_or_create`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1121"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_admin_or_create(
    admin_cls: Type[_BaseAdminT], register: bool = True
@@ -776,13 +1034,19 @@ AdminApp(
 ```
 
 
-### .register_router
+
+### `.register_router`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1146"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_router()
 ```
 
 
-### .register_admin
+
+### `.register_admin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1167"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .register_admin(
    *admin_cls: Type[_BaseAdminT]
@@ -790,7 +1054,10 @@ AdminApp(
 ```
 
 
-### .unregister_admin
+
+### `.unregister_admin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1171"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .unregister_admin(
    *admin_cls: Type[BaseAdmin]
@@ -798,13 +1065,19 @@ AdminApp(
 ```
 
 
-### .get_page_schema
+
+### `.get_page_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1174"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page_schema()
 ```
 
 
-### .get_page
+
+### `.get_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1179"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_page(
    request: Request
@@ -815,8 +1088,11 @@ AdminApp(
 ----
 
 
-## BaseAdminSite
-```python 
+
+## `BaseAdminSite`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1213"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseAdminSite(
    msa_app: MSAApp
 )
@@ -828,13 +1104,19 @@ BaseAdminSite(
 **Methods:**
 
 
-### .router_path
+
+### `.router_path`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1231"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_path()
 ```
 
 
-### .mount_app
+
+### `.mount_app`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/admin.py/#L1234"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .mount_app(
    msa_app: MSAApp, name: str = 'admin'

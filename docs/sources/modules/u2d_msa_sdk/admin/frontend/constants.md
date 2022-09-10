@@ -1,8 +1,11 @@
 #
 
 
-## LevelEnum
-```python 
+
+## `LevelEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L4"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 LevelEnum()
 ```
 
@@ -13,8 +16,11 @@ LevelEnum()
 ----
 
 
-## SizeEnum
-```python 
+
+## `SizeEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L18"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SizeEnum()
 ```
 
@@ -25,8 +31,11 @@ SizeEnum()
 ----
 
 
-## DisplayModeEnum
-```python 
+
+## `DisplayModeEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L28"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 DisplayModeEnum()
 ```
 
@@ -37,8 +46,11 @@ DisplayModeEnum()
 ----
 
 
-## LabelEnum
-```python 
+
+## `LabelEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L35"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 LabelEnum()
 ```
 
@@ -49,8 +61,11 @@ LabelEnum()
 ----
 
 
-## StatusEnum
-```python 
+
+## `StatusEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L45"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 StatusEnum()
 ```
 
@@ -61,8 +76,11 @@ StatusEnum()
 ----
 
 
-## TabsModeEnum
-```python 
+
+## `TabsModeEnum`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/admin/frontend/constants.py/#L54"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 TabsModeEnum()
 ```
 

@@ -1,8 +1,11 @@
 #
 
 
-## MSASQLModelFieldParser
-```python 
+
+## `MSASQLModelFieldParser`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L22"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSASQLModelFieldParser(
    default_model: Type[SQLModel]
 )
@@ -14,7 +17,10 @@ MSASQLModelFieldParser(
 **Methods:**
 
 
-### .get_modelfield
+
+### `.get_modelfield`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L29"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_modelfield(
    field: Union[ModelField, SQLModelField], deepcopy: bool = False
@@ -24,7 +30,10 @@ MSASQLModelFieldParser(
 ---
 pydantic ModelField
 
-### .get_column
+
+### `.get_column`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L51"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_column(
    field: SQLModelField
@@ -34,7 +43,10 @@ pydantic ModelField
 ---
 sqlalchemy Column
 
-### .get_alias
+
+### `.get_alias`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L59"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_alias(
    field: Union[Column, SQLModelField, Label]
@@ -42,7 +54,10 @@ sqlalchemy Column
 ```
 
 
-### .get_name
+
+### `.get_name`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L74"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_name(
    field: InstrumentedAttribute
@@ -50,7 +65,10 @@ sqlalchemy Column
 ```
 
 
-### .get_row_keys
+
+### `.get_row_keys`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L79"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_row_keys(
    row: Row
@@ -60,7 +78,10 @@ sqlalchemy Column
 ---
 sqlalchemy row keys
 
-### .get_select_keys
+
+### `.get_select_keys`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L83"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_select_keys(
    stmt: Select
@@ -70,7 +91,10 @@ sqlalchemy row keys
 ---
 sqlalchemy select keys
 
-### .conv_row_to_dict
+
+### `.conv_row_to_dict`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L87"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .conv_row_to_dict(
    rows: Union[Row, List[Row]]
@@ -80,7 +104,10 @@ sqlalchemy select keys
 ---
 sqlalchemy row to dict
 
-### .get_sqlmodel_insfield
+
+### `.get_sqlmodel_insfield`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L99"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_sqlmodel_insfield(
    model: Type[SQLModel]
@@ -88,7 +115,10 @@ sqlalchemy row to dict
 ```
 
 
-### .get_insfield
+
+### `.get_insfield`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L103"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_insfield(
    field: SQLModelField
@@ -96,7 +126,10 @@ sqlalchemy row to dict
 ```
 
 
-### .filter_insfield
+
+### `.filter_insfield`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L111"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .filter_insfield(
    fields: Iterable[Union[SQLModelListField, Any]], save_class: Tuple[type] = None
@@ -107,7 +140,10 @@ sqlalchemy row to dict
 ----
 
 
-### get_python_type_parse
+
+## get_python_type_parse
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/db/crud/parser.py/#L126"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_python_type_parse(
    field: Union[InstrumentedAttribute, Column]

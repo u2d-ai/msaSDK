@@ -2,12 +2,11 @@ site_name: MSA SDK - Documentation
 
 sources_dir: docs/sources
 templates: docs/templates
-
+docstring_template: docs/docstring_template.txt
 
 # Repository
 repo_name: U2D_MSA_SDK
-repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
-version: 0.0.7
+custom_repo: https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7
 edit_uri: ""
 # Copyright
 copyright: Stefan Welcker, 2022, stefan@u2d.ai

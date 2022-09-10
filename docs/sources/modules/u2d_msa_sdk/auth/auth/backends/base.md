@@ -1,8 +1,11 @@
 #
 
 
-## BaseTokenStore
-```python 
+
+## `BaseTokenStore`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/backends/base.py/#L8"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseTokenStore(
    expire_seconds: Optional[int] = 60*60*24*3,
    TokenDataSchema: _TokenDataSchemaT = None
@@ -15,7 +18,10 @@ BaseTokenStore(
 **Methods:**
 
 
-### .read_token
+
+### `.read_token`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/backends/base.py/#L19"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .read_token(
    token: Optional[str]
@@ -23,7 +29,10 @@ BaseTokenStore(
 ```
 
 
-### .write_token
+
+### `.write_token`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/backends/base.py/#L22"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .write_token(
    token_data: Union[_TokenDataSchemaT, dict]
@@ -31,7 +40,10 @@ BaseTokenStore(
 ```
 
 
-### .destroy_token
+
+### `.destroy_token`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/backends/base.py/#L25"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .destroy_token(
    token: str

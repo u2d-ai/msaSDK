@@ -1,8 +1,11 @@
 #
 
 
-## PkMixin
-```python 
+
+## `PkMixin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L17"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PkMixin()
 ```
 
@@ -11,8 +14,11 @@ PkMixin()
 ----
 
 
-## CreateTimeMixin
-```python 
+
+## `CreateTimeMixin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L21"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 CreateTimeMixin()
 ```
 
@@ -21,8 +27,11 @@ CreateTimeMixin()
 ----
 
 
-## UsernameMixin
-```python 
+
+## `UsernameMixin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L25"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 UsernameMixin()
 ```
 
@@ -31,8 +40,11 @@ UsernameMixin()
 ----
 
 
-## PasswordStr
-```python 
+
+## `PasswordStr`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L32"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PasswordStr()
 ```
 
@@ -41,8 +53,11 @@ PasswordStr()
 ----
 
 
-## PasswordMixin
-```python 
+
+## `PasswordMixin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L36"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 PasswordMixin()
 ```
 
@@ -51,8 +66,11 @@ PasswordMixin()
 ----
 
 
-## EmailMixin
-```python 
+
+## `EmailMixin`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L44"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 EmailMixin()
 ```
 
@@ -61,8 +79,11 @@ EmailMixin()
 ----
 
 
-## UserRoleLink
-```python 
+
+## `UserRoleLink`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L53"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 UserRoleLink()
 ```
 
@@ -71,8 +92,11 @@ UserRoleLink()
 ----
 
 
-## UserGroupLink
-```python 
+
+## `UserGroupLink`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L63"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 UserGroupLink()
 ```
 
@@ -81,8 +105,11 @@ UserGroupLink()
 ----
 
 
-## GroupRoleLink
-```python 
+
+## `GroupRoleLink`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L73"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 GroupRoleLink()
 ```
 
@@ -91,8 +118,11 @@ GroupRoleLink()
 ----
 
 
-## RolePermissionLink
-```python 
+
+## `RolePermissionLink`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L83"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 RolePermissionLink()
 ```
 
@@ -101,8 +131,11 @@ RolePermissionLink()
 ----
 
 
-## BaseUser
-```python 
+
+## `BaseUser`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L93"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseUser()
 ```
 
@@ -112,25 +145,37 @@ BaseUser()
 **Methods:**
 
 
-### .is_authenticated
+
+### `.is_authenticated`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L111"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .is_authenticated()
 ```
 
 
-### .display_name
+
+### `.display_name`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L115"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .display_name()
 ```
 
 
-### .identity
+
+### `.identity`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L119"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .identity()
 ```
 
 
-### .has_requires
+
+### `.has_requires`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L175"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .has_requires(
    session: Session, *, roles: Union[str, Sequence[str]] = None, groups: Union[str,
@@ -156,8 +201,11 @@ BaseUser()
 ----
 
 
-## User
-```python 
+
+## `User`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L207"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 User()
 ```
 
@@ -166,8 +214,11 @@ User()
 ----
 
 
-## BaseRBAC
-```python 
+
+## `BaseRBAC`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L214"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseRBAC()
 ```
 
@@ -176,8 +227,11 @@ BaseRBAC()
 ----
 
 
-## Role
-```python 
+
+## `Role`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L224"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Role()
 ```
 
@@ -188,8 +242,11 @@ Role()
 ----
 
 
-## BaseGroup
-```python 
+
+## `BaseGroup`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L231"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 BaseGroup()
 ```
 
@@ -198,8 +255,11 @@ BaseGroup()
 ----
 
 
-## Group
-```python 
+
+## `Group`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L236"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Group()
 ```
 
@@ -210,8 +270,11 @@ Group()
 ----
 
 
-## Permission
-```python 
+
+## `Permission`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/models.py/#L241"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Permission()
 ```
 

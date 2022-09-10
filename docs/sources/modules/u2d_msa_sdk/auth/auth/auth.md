@@ -1,8 +1,11 @@
 #
 
 
-## AuthBackend
-```python 
+
+## `AuthBackend`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L36"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 AuthBackend(
    auth: 'Auth', token_store: BaseTokenStore
 )
@@ -14,7 +17,10 @@ AuthBackend(
 **Methods:**
 
 
-### .get_user_token
+
+### `.get_user_token`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L43"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_user_token(
    request: Request
@@ -22,7 +28,10 @@ AuthBackend(
 ```
 
 
-### .authenticate
+
+### `.authenticate`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L50"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .authenticate(
    request: Request
@@ -30,7 +39,10 @@ AuthBackend(
 ```
 
 
-### .attach_middleware
+
+### `.attach_middleware`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L53"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .attach_middleware(
    app: FastAPI
@@ -41,8 +53,11 @@ AuthBackend(
 ----
 
 
-## Auth
-```python 
+
+## `Auth`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L57"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 Auth(
    db: Union[AsyncDatabase, Database], token_store: BaseTokenStore = None,
    user_model: Type[_UserModelT] = User,
@@ -56,7 +71,10 @@ Auth(
 **Methods:**
 
 
-### .authenticate_user
+
+### `.authenticate_user`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L75"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .authenticate_user(
    username: str, password: Union[str, SecretStr]
@@ -64,13 +82,19 @@ Auth(
 ```
 
 
-### .get_current_user
+
+### `.get_current_user`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L85"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_current_user()
 ```
 
 
-### .requires
+
+### `.requires`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L104"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .requires(
    roles: Union[str, Sequence[str]] = None, groups: Union[str, Sequence[str]] = None,
@@ -80,7 +104,10 @@ Auth(
 ```
 
 
-### .create_role_user
+
+### `.create_role_user`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L228"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .create_role_user(
    role_key: str = 'admin'
@@ -91,8 +118,11 @@ Auth(
 ----
 
 
-## AuthRouter
-```python 
+
+## `AuthRouter`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L236"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 AuthRouter(
    auth: Auth = None
 )
@@ -104,25 +134,37 @@ AuthRouter(
 **Methods:**
 
 
-### .router_path
+
+### `.router_path`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L269"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .router_path()
 ```
 
 
-### .route_userinfo
+
+### `.route_userinfo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L273"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_userinfo()
 ```
 
 
-### .route_logout
+
+### `.route_logout`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L281"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_logout()
 ```
 
 
-### .route_gettoken
+
+### `.route_gettoken`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/auth/auth/auth.py/#L294"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .route_gettoken()
 ```

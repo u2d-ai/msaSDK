@@ -1,8 +1,11 @@
 #
 
 
-## SDUPageImage
-```python 
+
+## `SDUPageImage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L29"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUPageImage()
 ```
 
@@ -11,8 +14,11 @@ SDUPageImage()
 ----
 
 
-## SDUEmail
-```python 
+
+## `SDUEmail`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L43"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUEmail()
 ```
 
@@ -21,8 +27,11 @@ SDUEmail()
 ----
 
 
-## SDULanguage
-```python 
+
+## `SDULanguage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L65"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDULanguage()
 ```
 
@@ -31,8 +40,11 @@ SDULanguage()
 ----
 
 
-## SDUStatistic
-```python 
+
+## `SDUStatistic`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L79"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUStatistic()
 ```
 
@@ -41,8 +53,11 @@ SDUStatistic()
 ----
 
 
-## SDUSentence
-```python 
+
+## `SDUSentence`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L109"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUSentence()
 ```
 
@@ -51,8 +66,11 @@ SDUSentence()
 ----
 
 
-## SDUPDFElement
-```python 
+
+## `SDUPDFElement`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L120"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUPDFElement()
 ```
 
@@ -61,8 +79,11 @@ SDUPDFElement()
 ----
 
 
-## SDUParagraph
-```python 
+
+## `SDUParagraph`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L131"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUParagraph()
 ```
 
@@ -72,25 +93,37 @@ SDUParagraph()
 **Methods:**
 
 
-### .hasText
+
+### `.hasText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L147"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .hasText()
 ```
 
 
-### .getText
+
+### `.getText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L150"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getText()
 ```
 
 
-### .getTextNoLF
+
+### `.getTextNoLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L153"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextNoLF()
 ```
 
 
-### .getTextLF
+
+### `.getTextLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L159"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextLF()
 ```
@@ -99,8 +132,11 @@ SDUParagraph()
 ----
 
 
-## SDUText
-```python 
+
+## `SDUText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L166"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUText()
 ```
 
@@ -109,8 +145,11 @@ SDUText()
 ----
 
 
-## SDUPage
-```python 
+
+## `SDUPage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L178"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUPage()
 ```
 
@@ -120,37 +159,55 @@ SDUPage()
 **Methods:**
 
 
-### .hasText
+
+### `.hasText`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L188"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .hasText()
 ```
 
 
-### .getTextDefault
+
+### `.getTextDefault`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L191"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextDefault()
 ```
 
 
-### .getTextNoLF
+
+### `.getTextNoLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L194"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextNoLF()
 ```
 
 
-### .getTextNoLF_EN
+
+### `.getTextNoLF_EN`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L201"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextNoLF_EN()
 ```
 
 
-### .getTextNoLF_Paragraph
+
+### `.getTextNoLF_Paragraph`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L208"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextNoLF_Paragraph()
 ```
 
 
-### .getTextLF
+
+### `.getTextLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L216"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextLF(
    space_before_lf: bool = False
@@ -158,7 +215,10 @@ SDUPage()
 ```
 
 
-### .getTextLF_Paragraph
+
+### `.getTextLF_Paragraph`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L226"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextLF_Paragraph(
    space_before_lf: bool = False
@@ -166,43 +226,64 @@ SDUPage()
 ```
 
 
-### .getAllSentencesTextListLF
+
+### `.getAllSentencesTextListLF`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L237"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getAllSentencesTextListLF()
 ```
 
 
-### .getTextForNLP
+
+### `.getTextForNLP`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L249"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextForNLP()
 ```
 
 
-### .getTextForDisplay
+
+### `.getTextForDisplay`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L260"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getTextForDisplay()
 ```
 
 
-### .getAllSentencesTextList
+
+### `.getAllSentencesTextList`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L278"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getAllSentencesTextList()
 ```
 
 
-### .getAllSentencesTextListNoTableAndLists
+
+### `.getAllSentencesTextListNoTableAndLists`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L290"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getAllSentencesTextListNoTableAndLists()
 ```
 
 
-### .getAllSentencesTextList_en
+
+### `.getAllSentencesTextList_en`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L321"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getAllSentencesTextList_en()
 ```
 
 
-### .setInput
+
+### `.setInput`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L333"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .setInput(
    inputText: str
@@ -213,8 +294,11 @@ SDUPage()
 ----
 
 
-## SDUVersion
-```python 
+
+## `SDUVersion`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L337"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUVersion()
 ```
 
@@ -223,8 +307,11 @@ SDUVersion()
 ----
 
 
-## SDULearnset
-```python 
+
+## `SDULearnset`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L345"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDULearnset()
 ```
 
@@ -234,7 +321,10 @@ SDULearnset()
 **Methods:**
 
 
-### .set_version
+
+### `.set_version`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L355"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .set_version(
    version: str
@@ -242,7 +332,10 @@ SDULearnset()
 ```
 
 
-### .reset
+
+### `.reset`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L358"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .reset()
 ```
@@ -251,8 +344,11 @@ SDULearnset()
 ----
 
 
-## SDUData
-```python 
+
+## `SDUData`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L370"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUData()
 ```
 
@@ -262,7 +358,10 @@ SDUData()
 **Methods:**
 
 
-### .addPagePreProcessing
+
+### `.addPagePreProcessing`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L382"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .addPagePreProcessing(
    pagepre: SDUPage
@@ -270,13 +369,19 @@ SDUData()
 ```
 
 
-### .escaped
+
+### `.escaped`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L388"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .escaped()
 ```
 
 
-### .sanitized
+
+### `.sanitized`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L391"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .sanitized()
 ```
@@ -285,8 +390,11 @@ SDUData()
 ----
 
 
-## SDUBBox
-```python 
+
+## `SDUBBox`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L395"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUBBox()
 ```
 
@@ -295,8 +403,11 @@ SDUBBox()
 ----
 
 
-## SDUElement
-```python 
+
+## `SDUElement`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L405"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUElement()
 ```
 
@@ -305,8 +416,11 @@ SDUElement()
 ----
 
 
-## SDUAttachment
-```python 
+
+## `SDUAttachment`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L414"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUAttachment()
 ```
 
@@ -315,8 +429,11 @@ SDUAttachment()
 ----
 
 
-## SDUDimensions
-```python 
+
+## `SDUDimensions`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L432"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUDimensions()
 ```
 
@@ -325,8 +442,11 @@ SDUDimensions()
 ----
 
 
-## SDUFonts
-```python 
+
+## `SDUFonts`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L444"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUFonts()
 ```
 
@@ -335,8 +455,11 @@ SDUFonts()
 ----
 
 
-## SDULayout
-```python 
+
+## `SDULayout`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L455"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDULayout()
 ```
 
@@ -345,8 +468,11 @@ SDULayout()
 ----
 
 
-## SDUContent
-```python 
+
+## `SDUContent`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L477"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 SDUContent()
 ```
 
@@ -355,7 +481,10 @@ SDUContent()
 ----
 
 
-### getCRLF
+
+## getCRLF
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L11"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getCRLF()
 ```
@@ -364,7 +493,10 @@ SDUContent()
 ----
 
 
-### getSentenceSeperator
+
+## getSentenceSeperator
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L17"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getSentenceSeperator()
 ```
@@ -373,7 +505,10 @@ SDUContent()
 ----
 
 
-### getCRParagraph
+
+## getCRParagraph
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/models/sdu.py/#L23"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getCRParagraph()
 ```

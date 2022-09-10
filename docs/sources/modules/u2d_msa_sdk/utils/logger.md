@@ -1,8 +1,11 @@
 #
 
 
-## InterceptHandler
-```python 
+
+## `InterceptHandler`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/logger.py/#L14"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 InterceptHandler()
 ```
 
@@ -15,7 +18,10 @@ See https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-wi
 **Methods:**
 
 
-### .emit
+
+### `.emit`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/logger.py/#L20"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .emit(
    record: logging.LogRecord
@@ -26,7 +32,10 @@ See https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-wi
 ----
 
 
-### format_record
+
+## format_record
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/logger.py/#L38"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .format_record(
    record: dict
@@ -49,7 +58,10 @@ Works with logging if loguru handler it.
 ----
 
 
-### init_logging
+
+## init_logging
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/utils/logger.py/#L62"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .init_logging()
 ```

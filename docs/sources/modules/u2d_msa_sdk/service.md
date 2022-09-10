@@ -1,8 +1,11 @@
 #
 
 
-## MSATimerStatus
-```python 
+
+## `MSATimerStatus`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L68"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSATimerStatus()
 ```
 
@@ -13,8 +16,11 @@ MSATimerStatus()
 ----
 
 
-## MSASchedulerStatus
-```python 
+
+## `MSASchedulerStatus`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L77"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSASchedulerStatus()
 ```
 
@@ -25,8 +31,11 @@ MSASchedulerStatus()
 ----
 
 
-## MSAServiceStatus
-```python 
+
+## `MSAServiceStatus`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L86"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSAServiceStatus()
 ```
 
@@ -37,8 +46,11 @@ MSAServiceStatus()
 ----
 
 
-## MSAOpenAPIInfo
-```python 
+
+## `MSAOpenAPIInfo`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L95"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSAOpenAPIInfo()
 ```
 
@@ -49,8 +61,11 @@ MSAOpenAPIInfo()
 ----
 
 
-## MSAApp
-```python 
+
+## `MSAApp`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L135"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
+```python
 MSAApp(
    settings: MSAServiceDefinition, timers: MSATimers = None,
    sql_models: List[SQLModel] = None, auto_mount_site: bool = True, *args, **kwargs
@@ -116,7 +131,10 @@ to use the function.
 **Methods:**
 
 
-### .startup_event
+
+### `.startup_event`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L418"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .startup_event()
 ```
@@ -125,19 +143,28 @@ to use the function.
 :return:
 :rtype:
 
-### .mount_site
+
+### `.mount_site`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L461"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .mount_site()
 ```
 
 
-### .shutdown_event
+
+### `.shutdown_event`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L468"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .shutdown_event()
 ```
 
 
-### .get_healthcheck
+
+### `.get_healthcheck`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L509"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_healthcheck(
    request: Request
@@ -147,7 +174,10 @@ to use the function.
 ---
 Get Healthcheck Status
 
-### .get_scheduler_status
+
+### `.get_scheduler_status`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L525"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_scheduler_status(
    request: Request
@@ -157,7 +187,10 @@ Get Healthcheck Status
 ---
 Get Service Status Info
 
-### .get_services_status
+
+### `.get_services_status`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L550"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_services_status(
    request: Request
@@ -167,7 +200,10 @@ Get Service Status Info
 ---
 Get Service Status Info
 
-### .get_services_definition
+
+### `.get_services_definition`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L568"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_services_definition(
    request: Request
@@ -177,7 +213,10 @@ Get Service Status Info
 ---
 Get Service Definition Info
 
-### .get_services_settings
+
+### `.get_services_settings`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L575"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_services_settings(
    request: Request
@@ -187,7 +226,10 @@ Get Service Definition Info
 ---
 Get Service OpenAPI Schema
 
-### .get_services_openapi_schema
+
+### `.get_services_openapi_schema`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L596"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_services_openapi_schema(
    request: Request
@@ -197,7 +239,10 @@ Get Service OpenAPI Schema
 ---
 Get Service OpenAPI Schema
 
-### .get_services_openapi_info
+
+### `.get_services_openapi_info`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L617"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .get_services_openapi_info(
    request: Request
@@ -207,7 +252,10 @@ Get Service OpenAPI Schema
 ---
 Get Service OpenAPI Info
 
-### .validation_exception_handler
+
+### `.validation_exception_handler`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L634"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .validation_exception_handler(
    request: Request, exc: RequestValidationError
@@ -215,7 +263,10 @@ Get Service OpenAPI Info
 ```
 
 
-### .msa_exception_handler_disabled
+
+### `.msa_exception_handler_disabled`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L641"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .msa_exception_handler_disabled(
    request: Request, exc: HTTPException
@@ -231,7 +282,10 @@ Handles all HTTPExceptions if Disabled with JSON Response.
 :return:
 :rtype:
 
-### .msa_exception_handler
+
+### `.msa_exception_handler`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L664"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .msa_exception_handler(
    request: Request, exc: HTTPException
@@ -247,7 +301,10 @@ Handles all HTTPExceptions if enabled with HTML Response or forward error if the
 :return:
 :rtype:
 
-### .index_page
+
+### `.index_page`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L690"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .index_page(
    request: Request
@@ -257,7 +314,10 @@ Handles all HTTPExceptions if enabled with HTML Response or forward error if the
 ---
 Get Service Index.html Page
 
-### .testpage
+
+### `.testpage`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L700"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .testpage(
    request: Request
@@ -270,7 +330,10 @@ Only works if pages is enabled in MSAServiceDefinition
 :param request:
 :return:
 
-### .monitor
+
+### `.monitor`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L712"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .monitor(
    request: Request
@@ -283,7 +346,10 @@ Only works if pages is enabled in MSAServiceDefinition
 :param request:
 :return:
 
-### .profiler
+
+### `.profiler`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L725"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .profiler(
    request: Request
@@ -296,7 +362,10 @@ Only works if pages is enabled in MSAServiceDefinition
 :param request:
 :return:
 
-### .monitor_inline
+
+### `.monitor_inline`
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L736"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .monitor_inline(
    request: Request
@@ -312,7 +381,10 @@ Only works if pages is enabled in MSAServiceDefinition
 ----
 
 
-### getSecretKey
+
+## getSecretKey
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L105"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getSecretKey()
 ```
@@ -324,7 +396,10 @@ Get Secret Key for Token creation from OS Environment Variable **SECRET_KEY_TOKE
 ----
 
 
-### getSecretKeySessions
+
+## getSecretKeySessions
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L115"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getSecretKeySessions()
 ```
@@ -336,7 +411,10 @@ Get Secret Key for Session Middleware from OS Environment Variable **SECRET_KEY_
 ----
 
 
-### getSecretKeyCSRF
+
+## getSecretKeyCSRF
+<p align="right" style="margin-top:-20px;margin-bottom:-15px;"><a href="https://github.com/swelcker/U2D_MSA_SDK/tree/0.0.7/u2d_msa_sdk/service.py/#L125"><img src="https://img.shields.io/badge/-source-cccccc?style=flat&logo=github"></a></p>
+
 ```python
 .getSecretKeyCSRF()
 ```
