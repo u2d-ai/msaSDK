@@ -141,6 +141,7 @@ async def shutdown():
 
 - `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
 
+
 ## How to create the documentation
 Run the following commands (ONLY when you added a lot to the overall structure, OVERRIDES docs/source!!!):
 
@@ -148,10 +149,14 @@ Run the following commands (ONLY when you added a lot to the overall structure, 
 
 This will autofill the mkdocs.yaml and mkgendocs.yaml file.
 
-    gendocs --config mkgendocs.yml
+    That's what you use to update the md files after changes: gendocs --config mkgendocs.yml
 
 This command takes our mkgendocs file, and generates our markdown files! Note: you may need to create the docs folder in your root directory.
 
 We can now test and view our documentation using:
 
     mkdocs serve
+
+Build static Site:
+
+    mkdocs build
