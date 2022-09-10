@@ -13,7 +13,7 @@
 
 ------
 ## Features
-- **Build connected distributed applications faster**: Ready for Distributed Application Runtime ([Dapr](https://dapr.io/)).
+- **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/).
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
 - **High efficiency**: Perfect code type hints. Higher code reusability.
