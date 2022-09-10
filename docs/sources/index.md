@@ -5,12 +5,15 @@
     <em>MSA SDK - FastAPI based Microservice Architecture Development Kit</em>
 </p>
 <p align="center">
-    Welcome to MSA SDK's documentation!
+    To build PoC's, MVP's, API's with CRUD and Dashboards fast and consistent.
+</p>
+<p align="center">
+    Build on top of FastAPI, SQLModel, SQLAlchemy, Amis and many other bullet proofed libraries.
 </p>
 
 ------
 ## Features
-- **Build connected distributed applications faster**: Ready for Distributed Application Runtime (Dapr).
+- **Build connected distributed applications faster**: Ready for Distributed Application Runtime ([Dapr](https://dapr.io/)).
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
 - **High efficiency**: Perfect code type hints. Higher code reusability.
