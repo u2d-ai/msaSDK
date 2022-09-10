@@ -1,9 +1,13 @@
 site_name: MSA SDK - Documentation
 
+sources_dir: docs/sources
+templates: docs/templates
+
 
 # Repository
 repo_name: U2D_MSA_SDK
 repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
+version: 0.0.7
 edit_uri: ""
 # Copyright
 copyright: Stefan Welcker, 2022, stefan@u2d.ai
@@ -336,7 +340,6 @@ pages:
       - Status
       - Tasks
       - Wizard
-
   - page: "modules/u2d_msa_sdk/admin/utils/choices.md"
     source: "u2d_msa_sdk/admin/utils/choices.py"
     classes:
@@ -440,6 +443,17 @@ pages:
     source: "u2d_msa_sdk/utils/fonts.py"
     functions:
       - findSystemFonts
+
+  - page: "modules/u2d_msa_sdk/utils/example_google_doc_style.md"
+    source: "u2d_msa_sdk/utils/example_google_doc_style.py"
+    classes:
+      - ExampleError
+      - ExampleClass
+    functions:
+      - function_with_types_in_docstring
+      - function_with_pep484_type_annotations
+      - module_level_function
+      - example_generator
 
   - page: "modules/u2d_msa_sdk/utils/fileupload.md"
     source: "u2d_msa_sdk/utils/fileupload.py"

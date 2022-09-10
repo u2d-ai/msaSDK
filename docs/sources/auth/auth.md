@@ -292,18 +292,18 @@ site = MyAuthAdminSite(settings, auth = auth)
 
 #### Login Screen
 - Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
-![Login](../../../docs/images/msa_auth_login.png)
+![Login](../../images/msa_auth_login.png)
 
 #### Home Screen with System Info
 - Open `http://127.0.0.1:8090/admin/` in your browser:
-![Home](../../../docs/images/msa_auth_home.png)
+![Home](../../images/msa_auth_home.png)
 
 #### CRUD of SQLModels Screen
-![CRUD](../../../docs/images/msa_auth_crud_model.png)
+![CRUD](../../images/msa_auth_crud_model.png)
 
 #### OpenAPI Interactive Documentation (Swagger) Screen
 - Open `http://127.0.0.1:8090/admin/docs` in your browser:
-![OpenAPI](../../../docs/images/msa_auth_openapi.png)
+![OpenAPI](../../images/msa_auth_openapi.png)
 
 ## License Agreement
 

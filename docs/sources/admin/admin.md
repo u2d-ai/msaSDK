@@ -130,18 +130,18 @@ async def shutdown():
 
 #### Home Screen with System Info
 - Open `http://127.0.0.1:8090/admin/` in your browser:
-![Home](../../../docs/images/msa_admin_home.png)
+![Home](../../images/msa_admin_home.png)
 
 #### CRUD of SQLModels Screen
-![CRUD](../../../docs/images/msa_admin_crud.png)
+![CRUD](../../images/msa_admin_crud.png)
 
 #### OpenAPI Interactive Documentation (Swagger) Screen
 - Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
-![OpenAPI](../../../docs/images/msa_admin_openapi.png)
+![OpenAPI](../../images/msa_admin_openapi.png)
 
 #### Profiler Screen
 - Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
-![OpenAPI](../../../docs/images/msa_admin_profiler.png)
+![OpenAPI](../../images/msa_admin_profiler.png)
 
 ## License Agreement
 

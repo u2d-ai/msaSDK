@@ -1,14 +1,17 @@
 site_name: MSA SDK - Documentation
 
+docs_dir: docs/sources
+templates_dir: templates
+
 
 # Repository
 repo_name: U2D_MSA_SDK
 repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
 edit_uri: ""
+
 # Copyright
 copyright: Stefan Welcker, 2022, stefan@u2d.ai
 
-docs_dir: "docs/sources"
 
 plugins:
   - search
@@ -50,8 +53,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-  logo: './images/msa_logo_big.png'
-  favicon: './images/favicon.png'
+  logo: '../images/msa_logo_big.png'
+  favicon: '../images/favicon.png'
   features:
     - navigation.tabs
     - navigation.tabs.sticky
@@ -128,3 +131,4 @@ nav:
         - scheduler: modules/u2d_msa_sdk/utils/scheduler.md
         - sysinfo: modules/u2d_msa_sdk/utils/sysinfo.md
         - token: modules/u2d_msa_sdk/utils/token.md
+        - google_doc_example: modules/u2d_msa_sdk/utils/example_google_doc_style.md

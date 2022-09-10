@@ -133,37 +133,44 @@ def getSecretKeyCSRF() -> str:
 
 
 class MSAApp(MSAFastAPI):
-    """
-    Creates an application MSA SDK instance.
+    """Creates an application MSA SDK instance.
 
-    **Parameters:**
+    Note:
+        Do not include the `self` parameter in the ``Args`` section.
 
-    * **settings** - MSAServiceDefinition (Must be provided), instance of a service definition with all settings
-    * **timers** - MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
-    * **sql_models** - List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
-    * **auto_mount_site** - Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
+    Args:
+        settings: MSAServiceDefinition (Must be provided), instance of a service definition with all settings
+        timers: MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
+        sql_models: List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
+        auto_mount_site: Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
+        debug: Boolean indicating if debug tracebacks should be returned on errors.
+        routes: A list of routes to serve incoming HTTP and WebSocket requests.
+        middleware: A list of middleware to run for every request. A starlette application will always automatically include two middleware classes. `ServerErrorMiddleware` is added as the very outermost middleware, to handle any uncaught errors occurring anywhere in the entire stack. `ExceptionMiddleware` is added as the very innermost middleware, to deal with handled exception cases occurring in the routing or endpoints.
+        exception_handlers: A mapping of either integer status codes, or exception class types onto callables which handle the exceptions. Exception handler callables should be of the form `handler(request, exc) -> response` and may be be either standard functions, or async functions.
+        on_startup: A list of callables to run on application startup. Startup handler callables do not take any arguments, and may be be either standard functions, or async functions.
+        on_shutdown: A list of callables to run on application shutdown. Shutdown handler callables do not take any arguments, and may be be either standard functions, or async functions.
 
-    **Inherited Parameters: used as *args, **kwargs**
+    Returns:
+        MSAApp: MSAApp Instance.
 
-    * **debug** - Boolean indicating if debug tracebacks should be returned on errors.
-    * **routes** - A list of routes to serve incoming HTTP and WebSocket requests.
-    * **middleware** - A list of middleware to run for every request. A starlette
-    application will always automatically include two middleware classes.
-    `ServerErrorMiddleware` is added as the very outermost middleware, to handle
-    any uncaught errors occurring anywhere in the entire stack.
-    `ExceptionMiddleware` is added as the very innermost middleware, to deal
-    with handled exception cases occurring in the routing or endpoints.
-    * **exception_handlers** - A mapping of either integer status codes,
-    or exception class types onto callables which handle the exceptions.
-    Exception handler callables should be of the form
-    `handler(request, exc) -> response` and may be be either standard functions, or
-    async functions.
-    * **on_startup** - A list of callables to run on application startup.
-    Startup handler callables do not take any arguments, and may be be either
-    standard functions, or async functions.
-    * **on_shutdown** - A list of callables to run on application shutdown.
-    Shutdown handler callables do not take any arguments, and may be be either
-    standard functions, or async functions.
+    Attributes:
+        msg (str): Human readable string describing the exception.
+        code (int): Exception error code.
+
+    Raises:
+        AttributeError: The ``Raises`` section is a list of all exceptions
+            that are relevant to the interface.
+        ValueError: If `param2` is equal to `param1`.
+
+    Yields:
+        int: The next number in the range of 0 to `n` - 1.
+
+    Examples:
+        Examples should be written in doctest format, and should illustrate how
+        to use the function.
+
+        >>> print([i for i in example_generator(4)])
+        [0, 1, 2, 3]
     """
     def __init__(
             self,

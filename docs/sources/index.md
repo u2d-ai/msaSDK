@@ -1,4 +1,4 @@
-![Logo](../images/msa_logo_big.png)
+![Logo](./docs/images/msa_logo_big.png)
 
 ------
 <p align="center">
@@ -12,8 +12,9 @@
 </p>
 
 ------
+
 ## Features
-- **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/).
+- **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/)..
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
 - **High efficiency**: Perfect code type hints. Higher code reusability.
@@ -26,9 +27,17 @@
 - **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
   interfaces.
 
+## Dependencies
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [SQLModel](https://sqlmodel.tiangolo.com/)
+  combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
+  their features .
+- [Amis](https://baidu.gitee.io/amis): Vue Frontend
+
 ### Usage example is in the app module \_\_init\_\_.py
 
-``` {.python caption="Usage example"}
+```python
 # -*- encoding: utf-8 -*-
 """
 Copyright (c) 2022 - U2D.ai / S.Welcker
@@ -104,4 +113,54 @@ async def shutdown():
 ```
 
 # Typical Run Log
-![Typical Log Run](../images/msa_sdk_run.png)
+![Typical Log Run](docs/images/msa_sdk_run.png)
+
+## Interface Preview
+
+
+#### Home Screen with System Info
+- Open `http://127.0.0.1:8090/admin/` in your browser:
+![Home](docs/images/msa_admin_home.png)
+
+#### CRUD of SQLModels Screen
+![CRUD](docs/images/msa_admin_crud.png)
+
+#### Login Screen
+- Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
+![Login](docs/images/msa_auth_login.png)
+- 
+#### OpenAPI Interactive Documentation (Swagger) Screen
+- Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
+![OpenAPI](docs/images/msa_admin_openapi.png)
+
+#### Profiler Screen
+- Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
+![OpenAPI](docs/images/msa_admin_profiler.png)
+
+## License Agreement
+
+- `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
+
+
+## How to create the documentation
+### Create all docs completly new, normaly only run first time :
+!!! Run command ONLY when you added a lot to the overall structure, OVERRIDES docs/source !!!:
+
+    python automate_mkdocs.py
+
+This will autofill the mkdocs.yaml and mkgendocs.yaml file.
+
+
+### That's what you run to update the md files after changes:
+
+    gendocs --config mkgendocs.yml
+
+This command takes our mkgendocs file, and generates our markdown files! Note: you may need to create the docs folder in your root directory.
+
+We can now test and view our documentation using:
+
+    mkdocs serve
+
+Build static Site:
+
+    mkdocs build
