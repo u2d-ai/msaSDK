@@ -143,13 +143,17 @@ async def shutdown():
 
 
 ## How to create the documentation
-Run the following commands (ONLY when you added a lot to the overall structure, OVERRIDES docs/source!!!):
+### Create all docs completly new, normaly only run first time :
+!!! Run command ONLY when you added a lot to the overall structure, OVERRIDES docs/source !!!:
 
     python automate_mkdocs.py
 
 This will autofill the mkdocs.yaml and mkgendocs.yaml file.
 
-    That's what you use to update the md files after changes: gendocs --config mkgendocs.yml
+
+### That's what you run to update the md files after changes:
+
+    gendocs --config mkgendocs.yml
 
 This command takes our mkgendocs file, and generates our markdown files! Note: you may need to create the docs folder in your root directory.
 
