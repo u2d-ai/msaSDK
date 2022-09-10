@@ -60,24 +60,6 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 @app.on_event("startup")
 async def startup():
     app.logger.info("MSA SDK Own Startup Event")
-    """
-        @app.site.register_admin
-        class UserLoginFormAdmin(FormAdmin):
-            page_schema = 'UserLoginForm'
-            # 配置表单信息, 可省略
-            form = Form(title='User Login', submitText='Login')
-    
-            # 创建表单数据模型
-            class schema(BaseModel):
-                username: str = Field(..., title='Username', min_length=3, max_length=30)
-                password: str = Field(..., title='Password')
-    
-            # 处理表单提交数据
-            async def handle(self, request: Request, data: BaseModel, **kwargs) -> MSACRUDOut[Any]:
-                if data.username == 'u2dadmin' and data.password == 'u2dadmin':
-                    return MSACRUDOut(msg='Loged in!', data={'token': 'xxxxxx'})
-                return MSACRUDOut(status=-1, msg='Error Login!')
-    """
     #app.mount_site()
 
 

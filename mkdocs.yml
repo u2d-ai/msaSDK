@@ -1,7 +1,6 @@
 site_name: MSA SDK - Documentation
 
 docs_dir: docs/sources
-templates_dir: templates
 
 
 # Repository
@@ -15,6 +14,22 @@ copyright: Stefan Welcker, 2022, stefan@u2d.ai
 
 plugins:
   - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - section-index
+  - mkdocstrings:
+      watch:
+        - u2d_msa_sdk
+      default_handler: python
+      handlers:
+        python:
+          paths: [u2d_msa_sdk]
+          options:
+            show_source: false
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -64,71 +79,4 @@ nav:
   - Sites:
     - Admin: admin/admin.md
     - Auth Admin: auth/auth.md
-  - Modules:
-    - u2d_msa_sdk:
-      - admin:
-        - admin: modules/u2d_msa_sdk/admin/admin.md
-        - frontend:
-          - components: modules/u2d_msa_sdk/admin/frontend/components.md
-          - constants: modules/u2d_msa_sdk/admin/frontend/constants.md
-          - types: modules/u2d_msa_sdk/admin/frontend/types.md
-          - utils: modules/u2d_msa_sdk/admin/frontend/utils.md
-        - parser: modules/u2d_msa_sdk/admin/parser.md
-        - site: modules/u2d_msa_sdk/admin/site.md
-        - utils:
-          - choices: modules/u2d_msa_sdk/admin/utils/choices.md
-          - fields: modules/u2d_msa_sdk/admin/utils/fields.md
-          - translation: modules/u2d_msa_sdk/admin/utils/translation.md
-      - auth:
-        - admin: modules/u2d_msa_sdk/auth/admin.md
-        - app: modules/u2d_msa_sdk/auth/app.md
-        - auth:
-          - auth: modules/u2d_msa_sdk/auth/auth/auth.md
-          - backends:
-            - base: modules/u2d_msa_sdk/auth/auth/backends/base.md
-            - db: modules/u2d_msa_sdk/auth/auth/backends/db.md
-            - jwt: modules/u2d_msa_sdk/auth/auth/backends/jwt.md
-            - redis: modules/u2d_msa_sdk/auth/auth/backends/redis.md
-          - models: modules/u2d_msa_sdk/auth/auth/models.md
-          - schemas: modules/u2d_msa_sdk/auth/auth/schemas.md
-        - site: modules/u2d_msa_sdk/auth/site.md
-      - db:
-        - crud:
-          - _sqlmodel: modules/u2d_msa_sdk/db/crud/_sqlmodel.md
-          - base: modules/u2d_msa_sdk/db/crud/base.md
-          - parser: modules/u2d_msa_sdk/db/crud/parser.md
-          - schema: modules/u2d_msa_sdk/db/crud/schema.md
-          - utils: modules/u2d_msa_sdk/db/crud/utils.md
-      - models:
-        - files: modules/u2d_msa_sdk/models/files.md
-        - health: modules/u2d_msa_sdk/models/health.md
-        - sdu: modules/u2d_msa_sdk/models/sdu.md
-        - service: modules/u2d_msa_sdk/models/service.md
-        - wdc: modules/u2d_msa_sdk/models/wdc.md
-        - wfl: modules/u2d_msa_sdk/models/wfl.md
-      - msaapi: modules/u2d_msa_sdk/msaapi.md
-      - router:
-        - system: modules/u2d_msa_sdk/router/system.md
-      - security: modules/u2d_msa_sdk/security.md
-      - server:
-        - srv_gunicorn: modules/u2d_msa_sdk/server/srv_gunicorn.md
-        - srv_uvicorn: modules/u2d_msa_sdk/server/srv_uvicorn.md
-      - service: modules/u2d_msa_sdk/service.md
-      - services:
-        - wdc: modules/u2d_msa_sdk/services/wdc.md
-      - session: modules/u2d_msa_sdk/session.md
-      - userprogress: modules/u2d_msa_sdk/userprogress.md
-      - utils:
-        - email: modules/u2d_msa_sdk/utils/email.md
-        - errorhandling: modules/u2d_msa_sdk/utils/errorhandling.md
-        - fileupload: modules/u2d_msa_sdk/utils/fileupload.md
-        - fileutils: modules/u2d_msa_sdk/utils/fileutils.md
-        - fonts: modules/u2d_msa_sdk/utils/fonts.md
-        - healthcheck: modules/u2d_msa_sdk/utils/healthcheck.md
-        - htmlutils: modules/u2d_msa_sdk/utils/htmlutils.md
-        - logger: modules/u2d_msa_sdk/utils/logger.md
-        - profiler: modules/u2d_msa_sdk/utils/profiler.md
-        - scheduler: modules/u2d_msa_sdk/utils/scheduler.md
-        - sysinfo: modules/u2d_msa_sdk/utils/sysinfo.md
-        - token: modules/u2d_msa_sdk/utils/token.md
-        - google_doc_example: modules/u2d_msa_sdk/utils/example_google_doc_style.md
+  - Code Reference: reference/

@@ -63,3 +63,11 @@ pandas-profiling>=3.2.0 # Generate profile report for pandas DataFrame
 Jinja2~=3.1.2
 matplotlib~=3.5.3
 python-magic~=0.4.27
+
+# documentation
+mkdocs
+mkdocstrings[python]
+mkdocs-material
+mkdocs-gen-files
+mkdocs-literate-nav
+mkdocs-section-index
