@@ -51,7 +51,7 @@ modules, and `MSAApp` as the core SDK part.
 ## Simple Example
 
 
-``` {.python caption="Usage example"}
+```python
 # -*- encoding: utf-8 -*-
 """
 Copyright (c) 2022 - U2D.ai / S.Welcker
