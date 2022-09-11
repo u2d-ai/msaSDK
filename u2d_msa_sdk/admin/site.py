@@ -14,8 +14,8 @@ from u2d_msa_sdk.db.crud.schema import MSACRUDOut
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
 from .utils.translation import i18n as _
-from ..service import MSAApp
-from ..utils.sysinfo import get_sysinfo
+from u2d_msa_sdk.service import MSAApp
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo
 
 
 class DocsAdmin(IframeAdmin):

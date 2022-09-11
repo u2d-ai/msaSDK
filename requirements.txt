@@ -65,9 +65,13 @@ matplotlib~=3.5.3
 python-magic~=0.4.27
 
 # documentation
+black
 mkdocs
+mkdocstrings
+mkdocstrings-python
 mkdocstrings[python]
 mkdocs-material
 mkdocs-gen-files
 mkdocs-literate-nav
 mkdocs-section-index
+mkdocs-git-revision-date-localized-plugin

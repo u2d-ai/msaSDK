@@ -1,11 +1,10 @@
 site_name: MSA SDK - Documentation
-
-docs_dir: docs/sources
-
+docs_dir: docs
 
 # Repository
-repo_name: U2D_MSA_SDK
+
 repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
+repo_name: swelcker/U2D_MSA_SDK
 edit_uri: ""
 
 # Copyright
@@ -13,7 +12,18 @@ copyright: Stefan Welcker, 2022, stefan@u2d.ai
 
 
 plugins:
-  - search
+  - search:
+      lang: en
+  - git-revision-date-localized:
+      type: date
+      custom_format: "%d. %B %Y"
+      timezone: Europe/Amsterdam
+      locale: en
+      fallback_to_build_date: true
+      enable_creation_date: true
+      exclude:
+        - index.md
+      enabled: true
   - gen-files:
       scripts:
         - docs/gen_ref_pages.py
@@ -30,26 +40,57 @@ plugins:
           paths: [u2d_msa_sdk]
           options:
             show_source: false
+            separate_signature: true
+            show_submodules: true
+            docstring_section_style: spacy
+            show_root_heading: false
+            show_root_members_full_path: false
+            show_object_full_path: false
+            show_category_heading: true
+            show_if_no_docstring: true
+            annotations_path: source
+            show_signature_annotations: true
+            heading_level: 2
+
+
 
 markdown_extensions:
+  - toc:
+      permalink: true
   - pymdownx.highlight:
+      auto_title: false
       anchor_linenums: true
-      linenums: true
+      linenums: false
+  - pymdownx.caret
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.smartsymbols
   - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.tabbed:
       alternate_style: true
 
 theme:
-  name: 'material'
+  name: material
+  language: en
   custom_dir: 'docs'
   icon:
     repo: fontawesome/brands/github
   palette:
-
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -74,9 +115,32 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - instant
+    - header.autohide
 nav:
-  - Home: index.md
-  - Sites:
-    - Admin: admin/admin.md
-    - Auth Admin: auth/auth.md
+  - Home:
+    - index.md
+    - history-design-future.md
+    - used_tools.md
+  - User Guides:
+    - guides/index.md
+    - guides/first-steps.md
+    - Security:
+      - guides/security/index.md
+      - guides/security/first-steps.md
+      - guides/security/get-current-user.md
+      - guides/security/simple-oauth2.md
+      - guides/security/oauth2-jwt.md
+    - guides/middleware.md
+    - guides/cors.md
+    - guides/sql-databases.md
+    - guides/bigger-applications.md
+    - guides/background-tasks.md
+    - guides/metadata.md
+    - guides/static-files.md
+  - Dasboards:
+    - Admin: sites/admin.md
+    - Auth Admin: sites/auth.md
+  - Examples:
+    - App: examples/example_app.md
   - Code Reference: reference/
+  - Release notes: release-notes.md

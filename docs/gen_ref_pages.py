@@ -30,6 +30,7 @@ for path in sorted(Path("u2d_msa_sdk").rglob("*.py")):
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
+        print("Create Virtual MD Doc for:", full_doc_path, "Set the ident to:", ident, )
         fd.write(f"::: {ident}")
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)

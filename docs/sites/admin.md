@@ -1,20 +1,24 @@
-![Logo](./docs/images/msa_logo_big.png)
+# Admin Site
 
-------
+<h2 align="center">
+  MSA SDK - Admin Site
+</h2>
 <p align="center">
-    <em>MSA SDK - FastAPI based Microservice Architecture Development Kit</em>
-</p>
-<p align="center">
-    To build PoC's, MVP's, API's with CRUD and Dashboards fast and consistent.
-</p>
-<p align="center">
-    Build on top of FastAPI, SQLModel, SQLAlchemy, Amis and many other bullet proofed libraries.
+    <em>Admin Site is an efficient and easily extensible MSAApp (FastAPI) admin framework.</em><br/>
+    <em>Inspired by Django-admin, and for a fast track through PoC's, MVP's to Production.</em>
 </p>
 
-------
+---
+
+`MSA SDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `u2d_msa_sdk` & `fastapi` & `amis` , and
+build with standard Python type hints. The original intention of the development is to improve the application ecology and
+to quickly generate a visual dashboard for API's and web application. It was build to support very quick PoC's, MVP's 
+in AI Applications. It can be extended with Auth and Login for an MVP Phase with the Auth Module by just define a setting to True. 
+
+---
 
 ## Features
-- **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/)..
+- **Build connected distributed applications faster**: Ready for Distributed Application Runtime (Dapr).
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
 - **High efficiency**: Perfect code type hints. Higher code reusability.
@@ -35,7 +39,17 @@
   their features .
 - [Amis](https://baidu.gitee.io/amis): Vue Frontend
 
-### Usage example is in the app module \_\_init\_\_.py
+## Composition
+
+`MSA SDK - Admin` consists of three core modules, of which, `amis`, `crud`, which can be used as separate
+modules, and `MSAApp` as the core SDK part.
+
+- `amis`: Based on the `pydantic` data model building library of `baidu amis`. To generate/parse data rapidly.
+- `crud`: Based on `FastAPI` & `SQLModel`. To quickly build Create, Read, Update, Delete common API interfaces.
+- `admin`: Inspired by `Django-Admin`. Combine `amis` with `crud`. To quickly build Web Admin dashboard .
+
+## Simple Example
+
 
 ```python
 # -*- encoding: utf-8 -*-
@@ -87,7 +101,7 @@ my_timers: MSATimers = MSATimers()
 my_timers.create_timer(MSATimerEnum.every_minute, test_timer_min)
 my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 
-# Create the main app instance, like the FastAPI but provide a Setting Definition Instance
+# Create the main app instance, like FastAPI but provide a Setting Definition Instance
 # Optional the Classes of your SQLModels
 # Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup Event Handler
 # Optional the MSATimers instance
@@ -100,11 +114,9 @@ app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 # Optional use startup event
-# Mount the Admin Site here if enabled and the auto mount option was False
 @app.on_event("startup")
 async def startup():
     app.logger.info("MSA SDK Own Startup Event")
-    #app.mount_site()
 
 # Optional use shutdown event
 @app.on_event("shutdown")
@@ -112,55 +124,27 @@ async def shutdown():
     app.logger.info("MSA SDK Own Shutdown Event")
 ```
 
-# Typical Run Log
-![Typical Log Run](./docs/images/msa_sdk_run.png)
 
 ## Interface Preview
 
 
 #### Home Screen with System Info
 - Open `http://127.0.0.1:8090/admin/` in your browser:
-![Home](./docs/images/msa_admin_home.png)
+![Home](../images/msa_admin_home.png)
 
 #### CRUD of SQLModels Screen
-![CRUD](./docs/images/msa_admin_crud.png)
+![CRUD](../images/msa_admin_crud.png)
 
-#### Login Screen
-- Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
-![Login](./docs/images/msa_auth_login.png)
-- 
 #### OpenAPI Interactive Documentation (Swagger) Screen
 - Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
-![OpenAPI](./docs/images/msa_admin_openapi.png)
+![OpenAPI](../images/msa_admin_openapi.png)
 
 #### Profiler Screen
 - Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
-![OpenAPI](./docs/images/msa_admin_profiler.png)
+![OpenAPI](../images/msa_admin_profiler.png)
 
 ## License Agreement
 
 - `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
 
 
-## How to create the documentation
-### Create all docs completly new, normaly only run first time :
-!!! Run command ONLY when you added a lot to the overall structure, OVERRIDES docs/source !!!:
-
-    python automate_mkdocs.py
-
-This will autofill the mkdocs.yaml and mkgendocs.yaml file.
-
-
-### That's what you run to update the md files after changes:
-
-    gendocs --config mkgendocs.yml
-
-This command takes our mkgendocs file, and generates our markdown files! Note: you may need to create the docs folder in your root directory.
-
-We can now test and view our documentation using:
-
-    mkdocs serve
-
-Build static Site:
-
-    mkdocs build

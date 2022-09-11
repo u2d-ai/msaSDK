@@ -1,35 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Example Google style docstrings.
+"""Main Service Module for MSAApp.
 
-This module demonstrates documentation as specified by the `Google Python
-Style Guide`_. Docstrings may extend over multiple lines. Sections are created
-with a section header and a colon followed by a block of indented text.
-
-Example:
-    Examples can be given using either the ``Example`` or ``Examples``
-    sections. Sections support any reStructuredText formatting, including
-    literal blocks::
-
-        $ python example_google.py
-
-Section breaks are created by resuming unindented text. Section breaks
-are also implicitly created anytime a new section starts.
-
-Attributes:
-    module_level_variable1 (int): Module level variables may be documented in
-        either the ``Attributes`` section of the module docstring, or in an
-        inline docstring immediately following the variable.
-
-        Either form is acceptable, but the two should not be mixed. Choose
-        one convention to document module level variables and be consistent
-        with it.
-
-Todo:
-    * For module TODOs
-    * You have to also use ``sphinx.ext.todo`` extension
-
-.. _Google Python Style Guide:
-   http://google.github.io/styleguide/pyguide.html
+Initialize with a MSAServiceDefintion Instance to control the features and functions of the MSAApp.
 
 """
 __version__ = '0.0.3'
@@ -95,35 +67,46 @@ if __name__ == '__main__':
     pass
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+"""Security Context for Password Helper"""
 password_helper = PasswordHelper(security_context)
+"""Password Helper Instance"""
 security = getMSASecurity()
+"""MSASecurity instance"""
 
 
 class MSATimerStatus(BaseModel):
-    """
-    **MSATimerStatus** Pydantic Response Class
+    """**MSATimerStatus** Pydantic Response Class
     """
     mode: Optional[str] = None
+    """Timer Mode."""
     func: Optional[str] = None
+    """Timer Handler Function."""
     mark_HH_MM: Optional[str] = None
+    """ Mark for Schedule"""
 
 
 class MSASchedulerStatus(BaseModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
-    name: Optional[str] = "None"
+    name: Optional[str] = "MSA SDK Service"
+    """Service Name."""
     timers: Optional[List[MSATimerStatus]] = []
+    """Optional MSATimerStatus List"""
     message: Optional[str] = "None"
+    """Optional Message Text"""
 
 
 class MSAServiceStatus(BaseModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
-    name: Optional[str] = "None"
+    name: Optional[str] = "MSA SDK Service"
+    """Service Name."""
     healthy: Optional[str] = "None"
+    """Health status"""
     message: Optional[str] = "None"
+    """Optional Message Text"""
 
 
 class MSAOpenAPIInfo(BaseModel):
@@ -131,15 +114,22 @@ class MSAOpenAPIInfo(BaseModel):
     **MSAOpenAPIInfo** Pydantic Response Class
     """
     name: str = "MSA SDK Service"
+    """Service Name."""
     version: str = "0.0.0"
+    """API Version."""
     url: str = "/openapi.json"
+    """OpenAPI URL."""
     tags: Optional[List[str]] = None
+    """OpenAPI Tags."""
 
 
 def getSecretKey():
     """
     Get Secret Key for Token creation from OS Environment Variable **SECRET_KEY_TOKEN**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_TOKEN.
+
     """
     ret_key: str = os.getenv("SECRET_KEY_TOKEN",
                              "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
@@ -149,7 +139,10 @@ def getSecretKey():
 def getSecretKeySessions():
     """
     Get Secret Key for Session Middleware from OS Environment Variable **SECRET_KEY_SESSIONS**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_SESSIONS.
+
     """
     ret_key: str = os.getenv("SECRET_KEY_SESSIONS",
                              "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)")
@@ -159,7 +152,10 @@ def getSecretKeySessions():
 def getSecretKeyCSRF() -> str:
     """
     Get Secret Key for CSRF Middleware from OS Environment Variable **SECRET_KEY_CSRF**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_CSRF.
+
     """
     ret_key: str = os.getenv("SECRET_KEY_CSRF",
                              "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s")
@@ -170,6 +166,11 @@ class MSAApp(MSAFastAPI):
     """Creates an application MSA SDK instance.
 
     Note:
+        As with FastApi the MSAApp provides two events:
+        ``startup``: A list of callables to run on application startup. Startup handler callables do not take any arguments, and may be be either standard functions, or async functions.
+        ``shutdown``: A list of callables to run on application shutdown. Shutdown handler callables do not take any arguments, and may be be either standard functions, or async functions.
+        Those are also used internally, which are triggered before the external events.
+
         Do not include the `self` parameter in the ``Args`` section.
 
     Args:
@@ -181,30 +182,25 @@ class MSAApp(MSAFastAPI):
         routes: A list of routes to serve incoming HTTP and WebSocket requests.
         middleware: A list of middleware to run for every request. A starlette application will always automatically include two middleware classes. `ServerErrorMiddleware` is added as the very outermost middleware, to handle any uncaught errors occurring anywhere in the entire stack. `ExceptionMiddleware` is added as the very innermost middleware, to deal with handled exception cases occurring in the routing or endpoints.
         exception_handlers: A mapping of either integer status codes, or exception class types onto callables which handle the exceptions. Exception handler callables should be of the form `handler(request, exc) -> response` and may be be either standard functions, or async functions.
-        on_startup: A list of callables to run on application startup. Startup handler callables do not take any arguments, and may be be either standard functions, or async functions.
-        on_shutdown: A list of callables to run on application shutdown. Shutdown handler callables do not take any arguments, and may be be either standard functions, or async functions.
 
     Returns:
         MSAApp: MSAApp Instance.
 
     Attributes:
-        msg (str): Human readable string describing the exception.
-        code (int): Exception error code.
+        logger: loguru logger instance
+        auto_mount_site: bool auto_mount_site
+        settings: MSAServiceDefinition settings instance.
+        timers: MSATimers = timers
+        healthdefinition: MSAHealthDefinition settings.healthdefinition
+        limiter: Limiter = None
+        db_engine: AsyncEngine = Db Engine instance
+        sql_models: List[SQLModel] = sql_models
+        sql_cruds: List[MSASQLModelCrud] = []
+        scheduler: MSAScheduler = None
+        site: AdminSite Admin/Auth Site instance.
+        scheduler_task: The Task instance that runs the Scheduler in the Background
+        ROOTPATH: str os.path.join(os.path.dirname(__file__))
 
-    Raises:
-        AttributeError: The ``Raises`` section is a list of all exceptions
-            that are relevant to the interface.
-        ValueError: If `param2` is equal to `param1`.
-
-    Yields:
-        int: The next number in the range of 0 to `n` - 1.
-
-    Examples:
-        Examples should be written in doctest format, and should illustrate how
-        to use the function.
-
-        >>> print([i for i in example_generator(4)])
-        [0, 1, 2, 3]
     """
     def __init__(
             self,

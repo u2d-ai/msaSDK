@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+"""Provides System Information about devices, OS etc."""
 __version__ = '0.0.3'
-
+"""str: Module Version"""
 import datetime
 import decimal
 import os
@@ -17,6 +18,7 @@ from u2d_msa_sdk.utils.errorhandling import getMSABaseExceptionHandler
 
 
 class MSAGPUInfo(BaseModel):
+    """Pydantic GPU Info Model."""
     id: Optional[int]
     name: Optional[str]
     load: Optional[str]
@@ -28,6 +30,7 @@ class MSAGPUInfo(BaseModel):
 
 
 class MSADiskIO(BaseModel):
+    """Pydantic Disk IO Info Model."""
     read_count: Optional[int]
     write_count: Optional[int]
     read_bytes: Optional[int]
@@ -40,6 +43,7 @@ class MSADiskIO(BaseModel):
 
 
 class MSANetworkIO(BaseModel):
+    """Pydantic Network IO Info Model."""
     bytes_sent: Optional[int]
     bytes_recv: Optional[int]
     packets_sent: Optional[int]
@@ -51,6 +55,7 @@ class MSANetworkIO(BaseModel):
 
 
 class MSANetworkConnection(BaseModel):
+    """Pydantic Network Connection Info Model."""
     index: Optional[int]
     file_descriptor: Optional[int]
     family: Optional[int]
@@ -62,6 +67,7 @@ class MSANetworkConnection(BaseModel):
 
 
 class MSANetworkAdapter(BaseModel):
+    """Pydantic Network Adapter Info Model."""
     family: Optional[int]
     address: Optional[str]
     netmask: Optional[str]
@@ -70,23 +76,27 @@ class MSANetworkAdapter(BaseModel):
 
 
 class MSANetworkAdapters(BaseModel):
+    """Pydantic Network Adapters List Model."""
     name: str = ""
     adapters: List[MSANetworkAdapter] = []
 
 
 class MSANetworkStat(BaseModel):
+    """Pydantic Network Stats Info Model."""
     isup: Optional[bool]
     duplex: Optional[int]
     speed: Optional[int]
     mtu: Optional[int]
 
 
-class NetworkStats(BaseModel):
+class MSANetworkStats(BaseModel):
+    """Pydantic Network Stats List Info Model."""
     name: str = ""
     adapters: List[MSANetworkStat] = []
 
 
 class MSATemperature(BaseModel):
+    """Pydantic Temperature Info Model."""
     label: Optional[str]
     current: Optional[float]
     high: Optional[float]
@@ -94,17 +104,20 @@ class MSATemperature(BaseModel):
 
 
 class MSATemperatures(BaseModel):
+    """Pydantic Temperatures List Model."""
     device: str = ""
     temps: List[MSATemperature] = []
 
 
 class MSACPUFrequency(BaseModel):
+    """Pydantic CPU Frequency Info Model."""
     current: Optional[float]
     min: Optional[int]
     max: Optional[int]
 
 
 class MSACPUTimes(BaseModel):
+    """Pydantic CPU Timings Info Model."""
     user: Optional[float]
     nice: Optional[int]
     system: Optional[float]
@@ -118,6 +131,7 @@ class MSACPUTimes(BaseModel):
 
 
 class MSACPUStats(BaseModel):
+    """Pydantic CPU Stats Info Model."""
     ctx_switches: Optional[int]
     interrupts: Optional[int]
     soft_interrupts: Optional[int]
@@ -125,6 +139,7 @@ class MSACPUStats(BaseModel):
 
 
 class MSAMemoryUsage(BaseModel):
+    """Pydantic Memory Usage Info Model."""
     total: Optional[float]
     available: Optional[float]
     used: Optional[float]
@@ -137,6 +152,7 @@ class MSAMemoryUsage(BaseModel):
 
 
 class MSASwap(BaseModel):
+    """Pydantic Swapfile Info Model."""
     total: Optional[float]
     used: Optional[float]
     free: Optional[float]
@@ -144,6 +160,7 @@ class MSASwap(BaseModel):
 
 
 class MSASystemInfo(BaseModel):
+    """Pydantic System Info Model."""
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -164,7 +181,7 @@ class MSASystemInfo(BaseModel):
     Network_IO: Optional[MSANetworkIO]
     Network_Connections: Optional[List[MSANetworkConnection]]
     Network_Adapters: Optional[List[MSANetworkAdapters]]
-    Network_Stats: Optional[List[NetworkStats]]
+    Network_Stats: Optional[List[MSANetworkStats]]
     Temperatures: Optional[List[MSATemperatures]]
     CPU_Affinity: Optional[int]
     CPU_Frequency: Optional[MSACPUFrequency]
@@ -182,6 +199,7 @@ class MSASystemInfo(BaseModel):
 
 
 class MSASystemGPUInfo(BaseModel):
+    """Pydantic System GPU Info Model."""
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -294,7 +312,7 @@ def get_cpu_freq() -> MSACPUFrequency:
 def get_cpu_times() -> MSACPUTimes:
     cti: MSACPUTimes = MSACPUTimes()
     cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, \
-        cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
+    cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
     return cti
 
 
@@ -307,14 +325,14 @@ def get_cpu_stats() -> MSACPUStats:
 def get_disk_io() -> MSADiskIO:
     dio: MSADiskIO = MSADiskIO()
     dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
-        dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
+    dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
     return dio
 
 
 def get_network_io() -> MSANetworkIO:
     nio: MSANetworkIO = MSANetworkIO()
     nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, \
-        nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
+    nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
     return nio
 
 
@@ -354,11 +372,11 @@ def get_temperatures() -> List[MSATemperatures]:
     return ret
 
 
-def get_network_stats() -> List[NetworkStats]:
-    ret: List[NetworkStats] = []
+def get_network_stats() -> List[MSANetworkStats]:
+    ret: List[MSANetworkStats] = []
     net_stats: Dict = psutil.net_if_stats()
     for key, entry in net_stats.items():
-        ns: NetworkStats = NetworkStats()
+        ns: MSANetworkStats = MSANetworkStats()
         ns.name = key
         ns_entry: MSANetworkStat = MSANetworkStat()
         ns_entry.isup = entry[0]
@@ -399,17 +417,30 @@ def get_swap() -> MSASwap:
     return sw
 
 
-def get_load_average():
+def get_load_average() -> tuple[float, float, float]:
+    """Returns the CPU load average in tuple[1min, 5min, 15min].
+
+    Returns:
+        1min: total usage
+        5min: largest process usage
+        15min: name of the largest process
+
+    """
     return [x / psutil.cpu_count() * 100 for x in psutil.getloadavg()]
 
 
-def get_cpu_usage(user=None, ignore_self=False):
-    """
-    Returns the total CPU usage for all available cores.
-    :param user: If given, returns only the total CPU usage of all processes
-      for the given user.
-    :param ignore_self: If ``True`` the process that runs this script will
-      be ignored.
+def get_cpu_usage(user: str = None, ignore_self: bool = False) -> tuple[int, int, str]:
+    """Returns the total CPU usage for all available cores.
+
+        Args:
+            user: If given, returns only the total CPU usage of all processes for the given user.
+            ignore_self: If ``True`` the process that runs this script will be ignored.
+
+        Returns:
+            total: total usage
+            largest_process: largest process usage
+            largest_process_name: name of the largest process
+
     """
     pid = os.getpid()
     cmd = "ps aux"
@@ -431,80 +462,83 @@ def get_cpu_usage(user=None, ignore_self=False):
 
 
 def get_sysinfo() -> MSASystemInfo:
+    """Get MSASystemInfo
+    Returns:
+        system_info: Pydantic System Info Model.
+
     """
-    Get MSASystemInfo
-    """
-    si: MSASystemInfo = MSASystemInfo()
+    system_info: MSASystemInfo = MSASystemInfo()
     try:
-        si.OS_Name = os.uname().sysname
-        si.Node_Name = os.uname().nodename
-        si.Host_Name = get_hostname()
-        si.OS_Release = os.uname().release
-        si.OS_Version = os.uname().version
-        si.HW_Identifier = os.uname().machine
-        si.CPU_Physical = psutil.cpu_count(logical=False)
-        si.CPU_Logical = os.cpu_count()
-        si.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
-        si.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
-        si.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-        si.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
+        system_info.OS_Name = os.uname().sysname
+        system_info.Node_Name = os.uname().nodename
+        system_info.Host_Name = get_hostname()
+        system_info.OS_Release = os.uname().release
+        system_info.OS_Version = os.uname().version
+        system_info.HW_Identifier = os.uname().machine
+        system_info.CPU_Physical = psutil.cpu_count(logical=False)
+        system_info.CPU_Logical = os.cpu_count()
+        system_info.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
+        system_info.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
+        system_info.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+        system_info.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
             "%Y-%m-%d %H:%M:%S")
-        si.Runtime_Exe = psutil.Process().exe()
-        si.Runtime_Cmd = psutil.Process().cmdline()
-        si.PID = psutil.Process().pid
-        si.CPU_Current = psutil.Process().cpu_num()
-        si.Disk_IO = get_disk_io()
-        si.Network_IO = get_network_io()
-        si.CPU_Times = get_cpu_times()
-        si.CPU_Stats = get_cpu_stats()
-        si.CPU_Frequency = get_cpu_freq()
-        si.CPU_Affinity = len(psutil.Process().cpu_affinity())
-        si.Memory_Usage = get_memory_usage()
-        si.CPU_LoadAvg = get_load_average()
-        si.CPU_Usage_Total, si.CPU_Usage_Process, si.CPU_Usage_Name = get_cpu_usage()
-        si.Runtime_Status = psutil.Process().status()
-        si.Network_Adapters = get_network_adapters()
-        si.Temperatures = get_temperatures()
-        si.Network_Connections = get_network_connections()
-        si.Swap = get_swap()
-        si.Network_Stats = get_network_stats()
-        si.IP_Address = socket.gethostbyname(socket.gethostname())
-        si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+        system_info.Runtime_Exe = psutil.Process().exe()
+        system_info.Runtime_Cmd = psutil.Process().cmdline()
+        system_info.PID = psutil.Process().pid
+        system_info.CPU_Current = psutil.Process().cpu_num()
+        system_info.Disk_IO = get_disk_io()
+        system_info.Network_IO = get_network_io()
+        system_info.CPU_Times = get_cpu_times()
+        system_info.CPU_Stats = get_cpu_stats()
+        system_info.CPU_Frequency = get_cpu_freq()
+        system_info.CPU_Affinity = len(psutil.Process().cpu_affinity())
+        system_info.Memory_Usage = get_memory_usage()
+        system_info.CPU_LoadAvg = get_load_average()
+        system_info.CPU_Usage_Total, system_info.CPU_Usage_Process, system_info.CPU_Usage_Name = get_cpu_usage()
+        system_info.Runtime_Status = psutil.Process().status()
+        system_info.Network_Adapters = get_network_adapters()
+        system_info.Temperatures = get_temperatures()
+        system_info.Network_Connections = get_network_connections()
+        system_info.Swap = get_swap()
+        system_info.Network_Stats = get_network_stats()
+        system_info.IP_Address = socket.gethostbyname(socket.gethostname())
+        system_info.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
 
-    return si
+    return system_info
 
 
 def get_sysgpuinfo() -> MSASystemGPUInfo:
+    """Get MSASystemGPUInfo
+    Returns:
+        system_gpu_info: Pydantic System GPU Info Model.
     """
-    Get MSASystemGPUInfo
-    """
-    si: MSASystemGPUInfo = MSASystemGPUInfo()
+    system_gpu_info: MSASystemGPUInfo = MSASystemGPUInfo()
     try:
-        si.OS_Name = os.uname().sysname
-        si.Node_Name = os.uname().nodename
-        si.Host_Name = get_hostname()
-        si.OS_Release = os.uname().release
-        si.OS_Version = os.uname().version
-        si.HW_Identifier = os.uname().machine
-        si.CPU_Physical = psutil.cpu_count(logical=False)
-        si.CPU_Logical = os.cpu_count()
-        si.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
-        si.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
-        si.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-        si.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
+        system_gpu_info.OS_Name = os.uname().sysname
+        system_gpu_info.Node_Name = os.uname().nodename
+        system_gpu_info.Host_Name = get_hostname()
+        system_gpu_info.OS_Release = os.uname().release
+        system_gpu_info.OS_Version = os.uname().version
+        system_gpu_info.HW_Identifier = os.uname().machine
+        system_gpu_info.CPU_Physical = psutil.cpu_count(logical=False)
+        system_gpu_info.CPU_Logical = os.cpu_count()
+        system_gpu_info.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
+        system_gpu_info.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
+        system_gpu_info.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+        system_gpu_info.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
             "%Y-%m-%d %H:%M:%S")
-        si.Runtime_Exe = psutil.Process().exe()
-        si.Runtime_Cmd = psutil.Process().cmdline()
-        si.Runtime_Status = psutil.Process().status()
-        si.PID = psutil.Process().pid
-        si.GPUs = get_gpus()
-        si.IP_Address = socket.gethostbyname(socket.gethostname())
-        si.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+        system_gpu_info.Runtime_Exe = psutil.Process().exe()
+        system_gpu_info.Runtime_Cmd = psutil.Process().cmdline()
+        system_gpu_info.Runtime_Status = psutil.Process().status()
+        system_gpu_info.PID = psutil.Process().pid
+        system_gpu_info.GPUs = get_gpus()
+        system_gpu_info.IP_Address = socket.gethostbyname(socket.gethostname())
+        system_gpu_info.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System GPU Information:")
 
-    return si
+    return system_gpu_info

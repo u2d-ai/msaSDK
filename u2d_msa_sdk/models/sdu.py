@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.0.3'
 
+"""Module for the Semantic Document Understanding - Content"""
+__version__ = '0.0.3'
+"""str: Module Version"""
 import html
 import os
 from typing import Optional, List, Dict, Tuple
@@ -9,38 +11,50 @@ from u2d_msa_sdk.utils.htmlutils import sanitize
 
 
 def getCRLF() -> str:
-    # CR_LF
+    """ get's the OS Environment Variable for ``CR_LF``.
+         Default: ``\\n``
+    """
     ret: str = os.getenv("CR_LF", "\n")
     return ret
 
 
 def getSentenceSeperator() -> str:
-    # SENTENCE_SEPARATOR
+    """ get's the OS Environment Variable for ``SENTENCE_SEPARATOR``.
+         Default: `` `` (Space/Blank)
+    """
     ret: str = os.getenv("SENTENCE_SEPARATOR", " ")
     return ret
 
 
 def getCRParagraph() -> str:
     # CR_PARAGRAPH
+    """ get's the OS Environment Variable for ``CR_PARAGRAPH``.
+         Default: ``\\n\\n``
+    """
     ret: str = os.getenv("CR_PARAGRAPH", "\n\n")
     return ret
 
 
 class SDUPageImage(BaseModel):
-    id: int = -1
-    filepath_name: str = ""
-    height: float = 0.
-    width: float = 0.
-    dpi: float = 0.
-    format: str = ""
-    mode: str = ""
-    layout: List = []
+    """Page Image Pydantic Model.
+
+        Storing the information about the Image representation of a Page.
+    """
+    id: int = -1  # ID = Page Index.
+    filepath_name: str = ""  # Filepath to the image on filesystem storage.
+    height: float = 0.  # Image Height.
+    width: float = 0.  # Image Width.
+    dpi: float = 0.  # Picture DPI Resolution.
+    format: str = ""  # Image Format (png, jpg etc.).
+    mode: str = ""  # Image Mode.
+    layout: List = []  # Image Layout Information."""
 
     class Config:
         orm_mode = False
 
 
 class SDUEmail(BaseModel):
+    """Parsed EMail Pydantic Model."""
     msg_id: str = ""
     msg_from: str = ""
     msg_to: str = ""
@@ -49,7 +63,7 @@ class SDUEmail(BaseModel):
     msg_subject: str = ""
     msg_sent_date: str = ""
     msg_body: str = ""
-    seg_body: str = ""
+    seg_body: str = ""  # Segmented Body (Signature, etc.)
     seg_sign: str = ""
     msg_sender_ip: str = ""
     msg_to_domains: str = ""
@@ -63,20 +77,22 @@ class SDUEmail(BaseModel):
 
 
 class SDULanguage(BaseModel):
-    code: str = 'unknown'
-    lang: str = 'unknown'
-    reliable: bool = False
-    proportion: int = -1
-    bytes: int = -1
-    confidence: float = -1
-    winner: Optional[str] = None
-    details: Optional[Tuple] = tuple()
+    """Detected Language Pydantic Model."""
+    code: str = 'unknown'  # Short de, en etc.
+    lang: str = 'unknown'  # Language name like german.
+    reliable: bool = False  # is the detected result reliable.
+    proportion: int = -1  # Proportion of the text in this language.
+    bytes: int = -1  # Bytes of the text in this language.
+    confidence: float = -1  # Confidence from 0.01 to 1.0.
+    winner: Optional[str] = None  # Selected overall Winner
+    details: Optional[Tuple] = tuple()  # Details of the top 3 detected languages.
 
     class Config:
         orm_mode = False
 
 
 class SDUStatistic(BaseModel):
+    """Text Statistics Pydantic Model."""
     avg_character_per_word: float = 0
     avg_letter_per_word: float = 0
     avg_sentence_length: float = 0
@@ -253,7 +269,7 @@ class SDUPage(BaseModel):
             txt = ""
             for sen in par.sentences:
                 txt += sen.text.replace("\n", "") + "\n\n"
-            if len(txt)>1:
+            if len(txt) > 1:
                 ret.append(txt)
         return ret
 
@@ -261,7 +277,7 @@ class SDUPage(BaseModel):
         ret = ""
         for par in self.text.paragraphs:
             txt: str
-            if par.semantic_type.__contains__("list") :
+            if par.semantic_type.__contains__("list"):
                 txt = par.getText()
                 ret += txt + getCRLF()
             else:
@@ -272,7 +288,7 @@ class SDUPage(BaseModel):
                     ret += txt + getCRParagraph()
                 else:
                     ret += txt + getCRLF()
-        ret = ret.replace(getCRParagraph()+getCRLF(), getCRParagraph())
+        ret = ret.replace(getCRParagraph() + getCRLF(), getCRParagraph())
         return ret
 
     def getAllSentencesTextList(self):

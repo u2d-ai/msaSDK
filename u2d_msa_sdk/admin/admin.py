@@ -9,11 +9,10 @@ from pydantic import BaseModel
 from pydantic.fields import ModelField
 from pydantic.utils import deep_update
 from sqlalchemy import delete, Column, Table, insert
-from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 from sqlalchemy.orm import InstrumentedAttribute, RelationshipProperty
 from sqlalchemy.util import md5_hex
-from sqlalchemy_database import Database, AsyncDatabase
+from sqlalchemy_database import AsyncDatabase
 from sqlmodel import SQLModel, select
 from starlette import status
 from starlette.responses import HTMLResponse, JSONResponse, Response
@@ -31,8 +30,8 @@ from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, SchemaNod
 from .parser import MSAUIParser
 from .utils.functools import cached_property
 from .utils.translation import i18n as _
-from ..auth.auth import Auth
-from ..service import MSAApp
+from u2d_msa_sdk.auth.auth import Auth
+from u2d_msa_sdk.service import MSAApp
 
 try:
     from typing import Literal

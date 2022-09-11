@@ -4,7 +4,6 @@ Copyright (c) 2022 - U2D.ai / S.Welcker
 ```python
 Example Usage of MSAApp
 Copyright (c) 2022 - U2D.ai / S.Welcker
-"""
 __version__ = "0.0.1"
 
 from typing import Optional
