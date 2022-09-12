@@ -61,13 +61,13 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup Event")
+    app.logger.info("MSA SDK Own Startup MSAUIEvent")
     #app.mount_site()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown Event")
+    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
 
 
 if __name__ == '__main__':

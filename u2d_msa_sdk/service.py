@@ -403,10 +403,10 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Excluded Pagination Engine")
 
         if self.settings.templates or self.settings.pages:
-            self.logger.info("Init Jinja Template Engine")
+            self.logger.info("Init Jinja MSAUITemplate Engine")
             self.templates = Jinja2Templates(directory=self.settings.templates_dir)
         else:
-            self.logger.info("Excluded Jinja Template Engine")
+            self.logger.info("Excluded Jinja MSAUITemplate Engine")
 
         if self.settings.pages:
             self.logger.info("Add Pages Router")
@@ -451,7 +451,7 @@ class MSAApp(MSAFastAPI):
         :return:
         :rtype:
         """
-        self.logger.info("MSA SDK Internal Startup Event")
+        self.logger.info("MSA SDK Internal Startup MSAUIEvent")
 
         if self.settings.db:
             async with self.db_engine.begin() as conn:
@@ -496,7 +496,7 @@ class MSAApp(MSAFastAPI):
             self.logger.error("Can't Mount Admin Site - Not initialized or enabled")
 
     async def shutdown_event(self) -> None:
-        self.logger.info("MSA SDK Internal Shutdown Event")
+        self.logger.info("MSA SDK Internal Shutdown MSAUIEvent")
         if self.settings.scheduler and self.timers:
             self.logger.info("Stop Scheduler Timers: " + str(len(self.timers.timer_jobs)))
             await self.scheduler.stop_timers()

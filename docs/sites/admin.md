@@ -103,7 +103,7 @@ my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 
 # Create the main app instance, like FastAPI but provide a Setting Definition Instance
 # Optional the Classes of your SQLModels
-# Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup Event Handler
+# Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup MSAUIEvent Handler
 # Optional the MSATimers instance
 app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
              sql_models=[TestArticle, TestCategory],
@@ -116,12 +116,12 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup Event")
+    app.logger.info("MSA SDK Own Startup MSAUIEvent")
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown Event")
+    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
 ```
 
 

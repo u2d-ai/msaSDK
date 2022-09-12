@@ -1,3 +1,4 @@
+# General Dependencies
 aiomultiprocess>=0.9.0 # running a full AsyncIO event loop on each child process
 aiofiles>=0.8.0 # handling local disk files in asyncio applications
 aiosqlite>=0.17.0 # asyncio bridge to the standard sqlite3 module
@@ -11,6 +12,7 @@ dapr>=1.7.0 # Dapr is a portable, serverless, event-driven runtime that makes it
 dapr-ext-grpc>=1.7.0 # gRPC extension for Dapr.
 dapr-ext-fastapi>=1.7.0 # Dapr is a portable, serverless, event-driven runtime
 dynaconf>=3.1.9 # The dynamic configurator for your Python Project
+# FastAPI related Dependencies
 fastapi[all]>=0.80.0 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
 fastapi_utils>=0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
 fastapi_sessions>=0.3.2 # add session authentication to your FastAPI project
@@ -18,9 +20,11 @@ pyinstrument>=4.3.0 # pyinstrument to check service performance.
 fastapi-users[sqlalchemy,oauth]>=10.1.5 # Ready-to-use and customizable users management for FastAPI
 fastapi-pagination>=0.10.0 # library that provides pagination feature
 gunicorn~=20.1.0
+# Other Dependencies
+httpx>=0.23.0 # The next generation HTTP client.
 JPype1==1.4.0 # A Python to Java bridge.
 loguru>=0.6.0 # Python logging made (stupidly) simple
-lxml==4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
+lxml>=4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
 multidict==6.0.2 # Multidict is dict-like collection of key-value pairs where key might be occurred more than once in the container.
 msgpack-asgi==1.1.0 # Drop-in MessagePack support for ASGI applications and frameworks
 parsedatetime>=2.6 # Parse human-readable date/time text.
@@ -34,44 +38,46 @@ python_dateutil>=2.8.2 # Extensions to the standard Python datetime module
 python-dotenv==0.20.0 # reads key-value pairs from a .env file and can set them as environment variables.
 python-jose[cryptography]==3.3.0 # SON Web Signature (JWS), JSON Web Encryption (JWE), JSON Web Key (JWK), and JSON Web Algorithms (JWA)
 regex==2022.3.2 # Alternative regular expression module, to replace re.
-httpx>=0.23.0 # The next generation HTTP client.
 setuptools==65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 slowapi>=0.1.6 # A rate limiting extension for Starlette and Fastapi
+# Starlette related Dependencies
 sse_starlette>=1.1.6 # Server Sent Events for Starlette and FastAPI
 starlette~=0.19.1
 Starlette-WTF==0.4.3
 starlette-context>=0.3.4 # Access context in Starlette
 starception>=0.4.0 # Beautiful debugging page for Starlette apps.
-strawberry-graphql==0.126.2 #A library for creating GraphQL APIs
-strawberry-graphql[fastapi]==0.126.2 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
-sqlmodel>=0.0.6 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
-sqlalchemy[asyncio]>=1.4.40 # Database Abstraction Library
+# GraphQL related Dependencies
+strawberry-graphql>=0.126.2 #A library for creating GraphQL APIs
+strawberry-graphql[fastapi]>=0.126.2 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
+# SQL/DB related Dependencies
+sqlmodel>=0.0.8 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
+sqlalchemy[asyncio]>=1.4.41 # Database Abstraction Library
 sqlalchemy_database>=0.0.7 # SQLAlchemy-Database provides shortcut functions to common database operations for SQLAlchemy ORM
+# Uvicorn related Dependencies
 uvicorn~=0.17.6
 uvloop>=0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
-# dependencies
-pytz
-gputil~=1.4.0
-orjson
-python-multipart
+# General Dependencies
 fonttools>=4.22.0 # Tools to manipulate font files
-numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
-pillow>=6.2.0 # Python Imaging Library (Fork)
-pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
-pandas-profiling>=3.2.0 # Generate profile report for pandas DataFrame
+gputil~=1.4.0
 Jinja2~=3.1.2
 matplotlib~=3.5.3
+numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
+orjson>=3.8.0
+pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
+pandas-profiling>=3.2.0 # Generate profile report for pandas DataFrame
+pillow>=6.2.0 # Python Imaging Library (Fork)
 python-magic~=0.4.27
+python-multipart>=0.0.5
+pytz>=2022.2.1
 
-# documentation
-black
-mkdocs
-mkdocstrings
-mkdocstrings-python
-mkdocstrings[python]
-mkdocs-material
-mkdocs-gen-files
-mkdocs-literate-nav
-mkdocs-section-index
-mkdocs-git-revision-date-localized-plugin
+# Documentation related Libraries
+black>=22.8.0
+mkdocs>=1.3.1
+mkdocstrings>=0.19.0
+mkdocstrings-python>=0.7.1
+mkdocs-material>=8.4.3
+mkdocs-gen-files>=0.4.0
+mkdocs-literate-nav>=0.4.1
+mkdocs-section-index>=0.3.4
+mkdocs-git-revision-date-localized-plugin>=1.1.0

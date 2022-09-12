@@ -116,11 +116,16 @@ theme:
     - navigation.tabs.sticky
     - instant
     - header.autohide
+
+extra_css:
+  - css/mkdocstrings.css
+
 nav:
   - Home:
     - index.md
     - history-design-future.md
     - used_tools.md
+    - Libraries: requirements.md
   - User Guides:
     - guides/index.md
     - guides/first-steps.md

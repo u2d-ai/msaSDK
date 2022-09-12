@@ -37,7 +37,7 @@ settings.debug = True
 settings.site_auth = True
 
 # Create the main app instance, like FastAPI but provide a Setting Definition Instance
-# Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup Event Handler
+# Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup MSAUIEvent Handler
 app = MSAApp(settings=settings, auto_mount_site=True,
              contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
@@ -48,12 +48,12 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup Event")
+    app.logger.info("MSA SDK Own Startup MSAUIEvent")
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown Event")
+    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
 ```
 
 ## Validation Method

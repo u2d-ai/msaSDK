@@ -96,7 +96,7 @@ class MSAServiceDefinition(APISettings):
     templates: bool = True
     """Enable the internal Templates and mount the directory."""
     templates_dir: List[str] = ["msatemplates", "msatemplates/errors"]
-    """Set the List of Directories for the Template Engine to look for the requested template."""
+    """Set the List of Directories for the MSAUITemplate Engine to look for the requested template."""
     timing: bool = False
     """Enables Timing Middleware, reports timing data at the granularity of individual endpoint calls."""
     limiter: bool = False

@@ -10,17 +10,17 @@ from .constants import (
     TabsModeEnum,
 )
 from .types import (
-    Expression,
-    Template,
-    SchemaNode,
-    OptionsNode,
+    MSAUIExpression,
+    MSAUITemplate,
+    MSAUISchemaNode,
+    MSAOptionsNode,
     MSABaseUIModel,
     MSABaseUIApiOut,
     MSAUINode,
     MSAUIAPI,
     MSA_UI_API,
-    Tpl,
-    Event,
+    MSAUITpl,
+    MSAUIEvent,
 )
 
 modules = glob.glob(join(dirname(__file__), "*.py"))

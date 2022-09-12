@@ -24,9 +24,9 @@ from u2d_msa_sdk.db.crud.parser import MSASQLModelFieldParser, SQLModelField, SQ
 from u2d_msa_sdk.db.crud.schema import MSACRUDEnum, MSACRUDPaginator, MSACRUDOut
 from u2d_msa_sdk.db.crud.utils import parser_item_id, schema_create_by_schema, parser_str_set_list
 from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
-    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
+    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, MSAUITpl, InputExcel, InputTable
 from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
-from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, SchemaNode
+from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, MSAUISchemaNode
 from .parser import MSAUIParser
 from .utils.functools import cached_property
 from .utils.translation import i18n as _
@@ -369,7 +369,7 @@ class BaseModelAdmin(MSASQLModelCrud):
             request: Request,
             modelfield: ModelField,
             is_filter: bool = False
-    ) -> Union[Service, SchemaNode, None]:
+    ) -> Union[Service, MSAUISchemaNode, None]:
         column = self.parser.get_column(modelfield.alias)
         if column is None:
             return None
@@ -397,7 +397,7 @@ class BaseModelAdmin(MSASQLModelCrud):
             request: Request,
             modelfield: ModelField,
             action: MSACRUDEnum
-    ) -> Union[FormItem, SchemaNode, None]:
+    ) -> Union[FormItem, MSAUISchemaNode, None]:
         is_filter = action == MSACRUDEnum.list
         set_default = action == MSACRUDEnum.create
         return (
@@ -809,7 +809,7 @@ class BaseFormAdmin(PageAdmin):
             self,
             request: Request,
             modelfield: ModelField
-    ) -> Union[FormItem, SchemaNode]:
+    ) -> Union[FormItem, MSAUISchemaNode]:
         return MSAUIParser(modelfield).as_form_item(set_default=True)
 
     async def get_form(self, request: Request) -> Form:
@@ -1183,7 +1183,7 @@ class AdminApp(PageAdmin, AdminGroup):
     async def _get_page_as_app(self, request: Request) -> App:
         app = App()
         app.brandName = self.site.settings.site_title
-        app.header = Tpl(
+        app.header = MSAUITpl(
             className='w-full',
             tpl='<div class="flex justify-between"><div></div>'
                 f'<div><a href="{u2d_msa_sdk.admin.__url__}" target="_blank" '
