@@ -58,15 +58,15 @@ uvicorn~=0.17.6
 uvloop>=0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
-fonttools>=4.22.0 # Tools to manipulate font files
+fonttools>=4.37.1 # Tools to manipulate font files
 gputil~=1.4.0
 Jinja2~=3.1.2
 matplotlib~=3.5.3
-numpy>=1.17 # NumPy is the fundamental package for array computing with Python.
+numpy>=1.23.3 # NumPy is the fundamental package for array computing with Python.
 orjson>=3.8.0
-pandas>=0.25.3 # Powerful data structures for data analysis, time series, and statistics
-pandas-profiling>=3.2.0 # Generate profile report for pandas DataFrame
-pillow>=6.2.0 # Python Imaging Library (Fork)
+pandas>=1.4.4 # Powerful data structures for data analysis, time series, and statistics
+pandas-profiling>=3.3.0 # Generate profile report for pandas DataFrame
+pillow>=9.2.0 # Python Imaging Library (Fork)
 python-magic~=0.4.27
 python-multipart>=0.0.5
 pytz>=2022.2.1
