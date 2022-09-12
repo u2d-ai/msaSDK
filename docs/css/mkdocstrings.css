@@ -3,7 +3,11 @@ div.doc-contents:not(.first) {
   padding-left: 25px;
   border-left: .05rem solid var(--md-typeset-table-color);
 }
-
+.md-grid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 81rem;
+}
 /* Mark external links as such. */
 a.autorefs-external::after {
   /* https://primer.style/octicons/arrow-up-right-24 */

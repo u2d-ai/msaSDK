@@ -4,8 +4,7 @@
 Initialize with a MSAServiceDefintion Instance to control the features and functions of the MSAApp.
 
 """
-__version__ = '0.0.3'
-""" str: Module Version"""
+
 
 import asyncio
 import os
@@ -26,7 +25,6 @@ from loguru import logger
 from msgpack_asgi import MessagePackMiddleware
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
-from pydantic import BaseModel
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -62,6 +60,8 @@ from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSAScheduler
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 
+__version__ = '0.0.3'
+""" str: Module Version"""
 
 if __name__ == '__main__':
     pass
@@ -74,7 +74,7 @@ security = getMSASecurity()
 """MSASecurity instance"""
 
 
-class MSATimerStatus(BaseModel):
+class MSATimerStatus(SQLModel):
     """**MSATimerStatus** Pydantic Response Class
     """
     mode: Optional[str] = None
@@ -85,7 +85,7 @@ class MSATimerStatus(BaseModel):
     """ Mark for Schedule"""
 
 
-class MSASchedulerStatus(BaseModel):
+class MSASchedulerStatus(SQLModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
@@ -97,7 +97,7 @@ class MSASchedulerStatus(BaseModel):
     """Optional Message Text"""
 
 
-class MSAServiceStatus(BaseModel):
+class MSAServiceStatus(SQLModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
@@ -109,7 +109,7 @@ class MSAServiceStatus(BaseModel):
     """Optional Message Text"""
 
 
-class MSAOpenAPIInfo(BaseModel):
+class MSAOpenAPIInfo(SQLModel):
     """
     **MSAOpenAPIInfo** Pydantic Response Class
     """
@@ -202,6 +202,7 @@ class MSAApp(MSAFastAPI):
         ROOTPATH: str os.path.join(os.path.dirname(__file__))
 
     """
+
     def __init__(
             self,
             settings: MSAServiceDefinition,
@@ -507,7 +508,6 @@ class MSAApp(MSAFastAPI):
                 except Exception as ex:
                     self.logger.error(f"scheduler_task cancel failed")
                     pass
-
 
             self.logger.info("End Scheduler")
             self.scheduler_task = None

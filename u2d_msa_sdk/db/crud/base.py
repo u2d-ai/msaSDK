@@ -15,6 +15,7 @@ from .utils import schema_create_by_schema, paginator_factory
 
 
 class MSARouterMixin:
+    """Register Router"""
     router: APIRouter = None
     router_prefix: Optional[str] = None
     router_permission_depend: Callable = None
@@ -36,14 +37,32 @@ class MSARouterMixin:
 
 
 class MSABaseCrud(MSARouterMixin):
+    """Register Router Base Class
+        Note:
+            Database tables have and can only have one self-adding primary key.
+
+    """
     schema_model: Type[BaseModel] = None
+    """Current model protocol"""
     schema_list: Type[BaseModel] = None
+    """Batch query data return protocol, default: self.schema_model"""
     schema_filter: Type[BaseModel] = None
+    """Batch query data filter submission protocol, default: self.schema_model"""
     schema_create: Type[BaseModel] = None
+    """Create data submission protocol, default: self.schema_model"""
     schema_read: Type[BaseModel] = None
+    """Read data return protocol, default: self.schema_model"""
     schema_update: Type[BaseModel] = None
+    """Update data submission protocol, default: self.schema_model"""
     pk_name: str = 'id'
+    """Current model primary key string, default: id.
+    
+        Note: 
+            Database tables have and can only have one self-adding primary key. 
+        
+    """
     list_per_page_max: int = None
+    """Maximum number of data per page to read in batches. Default: None, no limit."""
 
     def __init__(
             self,
@@ -78,6 +97,7 @@ class MSABaseCrud(MSARouterMixin):
             depends_update: List[Depends] = None,
             depends_delete: List[Depends] = None
     ) -> "MSABaseCrud":
+        """Register Crud routing."""
         self.schema_list = schema_list or self._create_schema_list()
         self.schema_filter = schema_filter or self._create_schema_filter()
         self.schema_create = schema_create or self._create_schema_create()
@@ -156,22 +176,27 @@ class MSABaseCrud(MSARouterMixin):
 
     @property
     def route_list(self) -> Callable[..., Any]:
+        """Batch read routing functions. Support for synchronous/asynchronous functions."""
         raise NotImplementedError
 
     @property
     def route_read(self) -> Callable[..., Any]:
+        """Single/batch read routing functions. Support for synchronous/asynchronous functions."""
         raise NotImplementedError
 
     @property
     def route_create(self) -> Callable[..., Any]:
+        """Single/batch creation of routing functions. Support for synchronous/asynchronous functions."""
         raise NotImplementedError
 
     @property
     def route_update(self) -> Callable[..., Any]:
+        """Single/batch update routing functions. Support for synchronous/asynchronous functions."""
         raise NotImplementedError
 
     @property
     def route_delete(self) -> Callable[..., Any]:
+        """Single/batch delete routing functions. Support for synchronous/asynchronous functions."""
         raise NotImplementedError
 
     async def has_list_permission(
@@ -181,6 +206,7 @@ class MSABaseCrud(MSARouterMixin):
             filters: Optional[BaseModel],
             **kwargs
     ) -> bool:
+        """Check for bulk query permission."""
         return True
 
     async def has_create_permission(
@@ -189,6 +215,7 @@ class MSABaseCrud(MSARouterMixin):
             obj: Optional[BaseModel],
             **kwargs
     ) -> bool:
+        """Check for single create permission."""
         return True
 
     async def has_read_permission(
@@ -197,6 +224,7 @@ class MSABaseCrud(MSARouterMixin):
             item_id: Optional[List[str]],
             **kwargs
     ) -> bool:
+        """Check for single read permission."""
         return True
 
     async def has_update_permission(
@@ -206,6 +234,7 @@ class MSABaseCrud(MSARouterMixin):
             obj: Optional[BaseModel],
             **kwargs
     ) -> bool:
+        """Check for single update permission."""
         return True
 
     async def has_delete_permission(
@@ -214,6 +243,7 @@ class MSABaseCrud(MSARouterMixin):
             item_id: Optional[List[str]],
             **kwargs
     ) -> bool:
+        """Check for single delete permission."""
         return True
 
     def error_data_handle(self, request: Request):

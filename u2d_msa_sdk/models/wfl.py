@@ -2,10 +2,11 @@
 __version__ = '0.0.3'
 
 from typing import List
-from pydantic import BaseModel
+
+from sqlmodel import SQLModel
 
 
-class WFLModule(BaseModel):
+class WFLModule(SQLModel):
     id: int = -1
     short: str = ""
     name: str = ""
@@ -16,7 +17,7 @@ class WFLModule(BaseModel):
         orm_mode = False
 
 
-class WFLNodeType(BaseModel):
+class WFLNodeType(SQLModel):
     id: int = -1
     short: str = ""
     name: str = ""

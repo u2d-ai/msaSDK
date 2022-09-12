@@ -3,10 +3,10 @@ __version__ = '0.0.3'
 
 import html
 from typing import List, Tuple, Optional, Dict
-from pydantic import BaseModel
+from sqlmodel import SQLModel
 
 
-class WDCPosition(BaseModel):  # Used for entity
+class WDCPosition(SQLModel):  # Used for entity
     id: int = 0
     pageid: int = -1
     paraid: int = -1  #
@@ -15,7 +15,7 @@ class WDCPosition(BaseModel):  # Used for entity
     e: int = -1
 
 
-class WDCWord(BaseModel):
+class WDCWord(SQLModel):
     id: int = -1
     text: str = ""
     lemma: str = ""
@@ -29,7 +29,7 @@ class WDCWord(BaseModel):
     role: str = ""
 
 
-class WDCToken(BaseModel):
+class WDCToken(SQLModel):
     id: int = -1
     position: WDCPosition = WDCPosition()
     nwords: int = 0
@@ -46,7 +46,7 @@ class WDCToken(BaseModel):
             self.nwords = len(self.words)
 
 
-class WDCTriple(BaseModel):
+class WDCTriple(SQLModel):
     id: int = -1
     position: WDCPosition = WDCPosition()
     score: float = 0.0
@@ -57,7 +57,7 @@ class WDCTriple(BaseModel):
     perspective: Dict = {}
 
 
-class WDCItem(BaseModel):
+class WDCItem(SQLModel):
     id: int = -1
     score: float = 0.0
     text: str = ""
@@ -66,7 +66,7 @@ class WDCItem(BaseModel):
     pos_text: List[str] = []
 
 
-class WDCMeaning(BaseModel):  # Used for entity
+class WDCMeaning(SQLModel):  # Used for entity
     id: int = -1
     positions: List[WDCPosition] = []
     description: str = ""
@@ -125,37 +125,28 @@ class WDCMeaning(BaseModel):  # Used for entity
 
         # similar
         lst = syn.similar_tos()
-        for entry in lst:
-            self.similar.append(entry.name())
+        self.similar = [entry.name() for entry in lst]
         # hypernyms
         lst = syn.hypernyms()
-        for entry in lst:
-            self.hypernyms.append(entry.name())
+        self.hypernyms = [entry.name() for entry in lst]
         # hyponyms
         lst = syn.hyponyms()
-        for entry in lst:
-            self.hyponyms.append(entry.name())
+        self.hyponyms = [entry.name() for entry in lst]
         # holonyms
         lst = syn.part_holonyms()
-        for entry in lst:
-            self.holonyms.append(entry.name())
+        self.holonyms = [entry.name() for entry in lst]
         # meronyms
         lst = syn.part_meronyms()
-        for entry in lst:
-            self.meronyms.append(entry.name())
+        self.meronyms = [entry.name() for entry in lst]
         # entailments
         lst = syn.entailments()
-        for entry in lst:
-            self.entailments.append(entry.name())
+        self.entailments = [entry.name() for entry in lst]
         # sees
         lst = syn.also_sees()
-        for entry in lst:
-            self.sees.append(entry.name())
+        self.sees = [entry.name() for entry in lst]
         # domains
         lst = syn.topic_domains()
-        for entry in lst:
-            if entry.name() not in self.domains:
-                self.domains.append(entry.name())
+        self.domains = [entry.name() for entry in lst if entry.name() not in self.domains]
         # root
         rn = syn.root_hypernyms()
         if len(rn) > 0:
@@ -208,39 +199,29 @@ class WDCMeaning(BaseModel):  # Used for entity
 
             # hypernyms
             lst = syn.get_related("hypernym")
-            for nentry in lst:
-                if len(nentry.lemmas()) > 0:
-                    self.hypernyms.append(nentry.lemmas()[0])
-                elif len(nentry.words()) > 0:
-                    self.hypernyms.append(nentry.words()[0].lemma())
+            self.hypernyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
+            self.hypernyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+
             # hyponyms
             lst = syn.get_related("hyponym")
-            for nentry in lst:
-                if len(nentry.lemmas()) > 0:
-                    self.hyponyms.append(nentry.lemmas()[0])
-                elif len(nentry.words()) > 0:
-                    self.hyponyms.append(nentry.words()[0].lemma())
+            self.hyponyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
+            self.hyponyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+
             # holonyms
             lst = syn.get_related("holo_member")
-            for nentry in lst:
-                if len(nentry.lemmas()) > 0:
-                    self.holonyms.append(nentry.lemmas()[0])
-                elif len(nentry.words()) > 0:
-                    self.holonyms.append(nentry.words()[0].lemma())
+            self.holonyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
+            self.holonyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+
             # meronyms
             lst = syn.get_related("mero_member")
-            for nentry in lst:
-                if len(nentry.lemmas()) > 0:
-                    self.meronyms.append(nentry.lemmas()[0])
-                elif len(nentry.words()) > 0:
-                    self.meronyms.append(nentry.words()[0].lemma())
+            self.meronyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
+            self.meronyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+
             # entailments
             lst = syn.get_related("entails")
-            for nentry in lst:
-                if len(nentry.lemmas()) > 0:
-                    self.entailments.append(nentry.lemmas()[0])
-                elif len(nentry.words()) > 0:
-                    self.entailments.append(nentry.words()[0].lemma())
+            self.entailments.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
+            self.entailments.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+
             # root
             rn = syn.hypernyms()
             if len(rn) > 0:
@@ -406,7 +387,7 @@ class WDCMeaning(BaseModel):  # Used for entity
         return ret
 
 
-class WDCSpan(BaseModel):  # Used for entity
+class WDCSpan(SQLModel):  # Used for entity
     id: int = -1
     text: str = ""
     ntokens: int = 0
@@ -426,7 +407,7 @@ class WDCSpan(BaseModel):  # Used for entity
                 pos.id = xi
 
 
-class WDCMLEntry(BaseModel):
+class WDCMLEntry(SQLModel):
     id: int = -1  #
     text: str = ""  #
     text_en: str = ""  #
@@ -469,7 +450,7 @@ class WDCMLEntry(BaseModel):
             self.meanings.append(meaning)
 
 
-class WDCSentence(BaseModel):
+class WDCSentence(SQLModel):
     id: int = -1  #
     text: str = ""  #
     text_en: str = ""  #
@@ -518,7 +499,7 @@ class WDCSentence(BaseModel):
             triple.id = self.ntriples - 1
 
 
-class WDCParagraph(BaseModel):
+class WDCParagraph(SQLModel):
     id: int = -1
     content: str = ""
     semantic: str = ""
@@ -552,7 +533,7 @@ class WDCParagraph(BaseModel):
         return ret
 
 
-class WDCPage(BaseModel):
+class WDCPage(SQLModel):
     id: int = -1
     content: str = ""
     nparagraphs: int = 0
@@ -567,7 +548,7 @@ class WDCPage(BaseModel):
             self.nparagraphs = len(self.paragraphs)
 
 
-class WDCMLDocument(BaseModel):
+class WDCMLDocument(SQLModel):
     content: str = ""
     nentries: int = 0
     targetsList: List = []
@@ -626,7 +607,7 @@ class WDCMLDocument(BaseModel):
             self.nentries = len(self.entries)
 
 
-class WDCDocument(BaseModel):
+class WDCDocument(SQLModel):
     content: str = ""
     npages: int = 0  #
     nparagraphs: int = 0

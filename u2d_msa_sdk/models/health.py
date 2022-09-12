@@ -2,15 +2,17 @@
 """ Healthcheck Pydantic Models
 """
 from typing import Optional
-from pydantic import BaseModel
 
 __version__ = '0.0.3'
+
+from sqlmodel import SQLModel
+
 """ str: Module Version"""
 module_var: str = "" # Module var
 """ str: Module Vars """
 
 
-class MSAHealthDefinition(BaseModel):
+class MSAHealthDefinition(SQLModel):
     """ Health Service Definition
 
     """
@@ -22,7 +24,7 @@ class MSAHealthDefinition(BaseModel):
     """ Is the healtcheck enabled True/False"""
 
 
-class MSAHealthMessage(BaseModel):
+class MSAHealthMessage(SQLModel):
     """ Health Pydantic Response Service Message """
     healthy: bool = False
     message: Optional[str]

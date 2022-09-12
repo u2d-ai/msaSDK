@@ -37,7 +37,7 @@ in AI Applications. It can be extended with Auth and Login for an MVP Phase with
 - [SQLModel](https://sqlmodel.tiangolo.com/)
   combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
   their features .
-- [Amis](https://baidu.gitee.io/amis): Vue Frontend
+- [Amis](https://baidu.gitee.io/amis): Vue.js / React - JSON based Frontend
 
 ## Composition
 

@@ -5,12 +5,14 @@
 """
 
 __version__ = '0.0.3'
+
+from sqlmodel import SQLModel
+
 """str: Module Version"""
-from typing import Dict, List, Optional
-from pydantic import BaseModel
+from typing import Optional
 
 
-class MSAFile(BaseModel):
+class MSAFile(SQLModel):
     """ MSAFile Model, used for File Import/Upload."""
     filename: Optional[str] = None
     """Internal Safe Name of the file."""

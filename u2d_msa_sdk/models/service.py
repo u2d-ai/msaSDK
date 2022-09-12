@@ -5,12 +5,13 @@ from functools import lru_cache
 from typing import Dict, List, Optional
 
 from fastapi_utils.api_settings import APISettings
-from pydantic import validator, root_validator
+from pydantic import validator
+from sqlmodel import SQLModel
 
 from u2d_msa_sdk.models.health import MSAHealthDefinition
 
 
-class MSAServiceDefinition(APISettings):
+class MSAServiceDefinition(APISettings, SQLModel):
     """
     MSAApp Settings (Service Definitions)
 
@@ -34,8 +35,6 @@ class MSAServiceDefinition(APISettings):
     port: int = 8090
     """Port which the service binds to."""
     tags: List[str] = []
-    """Tags for the OpenAPI. """
-    metadata: Optional[Dict]
     """Optional Metadata: Use this to carry some variables through the service instance."""
     allow_origins: List[str] = ["*"]
     """CORSMiddleware. List[str]. List of allowed origins (as strings) or all of them with the wildcard ``*`` ."""
@@ -144,7 +143,7 @@ class MSAServiceDefinition(APISettings):
 def get_msa_app_settings() -> MSAServiceDefinition:
     """
     This function returns a cached instance of the MSAServiceDefinition object.
-
-    Caching is used to prevent re-reading the environment every time the API settings are used in an endpoint.
+    Note:
+        Caching is used to prevent re-reading the environment every time the API settings are used in an endpoint.
     """
     return MSAServiceDefinition()

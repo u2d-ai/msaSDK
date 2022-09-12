@@ -81,3 +81,4 @@ mkdocs-gen-files>=0.4.0
 mkdocs-literate-nav>=0.4.1
 mkdocs-section-index>=0.3.4
 mkdocs-git-revision-date-localized-plugin>=1.1.0
+Pygments>=2.13.0 # generic syntax highlighter

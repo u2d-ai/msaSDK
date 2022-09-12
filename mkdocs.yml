@@ -55,13 +55,22 @@ plugins:
 
 
 markdown_extensions:
+  - admonition
   - toc:
       permalink: true
   - pymdownx.highlight:
       auto_title: false
       anchor_linenums: true
       linenums: false
+      pygments_lang_class: true
   - pymdownx.caret
+  - pymdownx.betterem:
+  - attr_list
+  - def_list
+  - tables
+  - abbr
+  - footnotes
+  - md_in_html
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
@@ -116,6 +125,7 @@ theme:
     - navigation.tabs.sticky
     - instant
     - header.autohide
+    - content.code.annotate
 
 extra_css:
   - css/mkdocstrings.css
@@ -142,7 +152,7 @@ nav:
     - guides/background-tasks.md
     - guides/metadata.md
     - guides/static-files.md
-  - Dasboards:
+  - Sites:
     - Admin: sites/admin.md
     - Auth Admin: sites/auth.md
   - Examples:

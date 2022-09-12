@@ -213,8 +213,8 @@ async def checkIfFileIsArchive(file: UploadFile):
     list_extensions = []
     for entry in archive_unpack_formats:
         subl = entry[1]
-        for sub_ntry in subl:
-            list_extensions.append(sub_ntry)
+        list_extensions.extend([sub_ntry for sub_ntry in subl])
+
     filename, file_extension = os.path.splitext(file.filename)
     if file_extension in list_extensions:
         return True

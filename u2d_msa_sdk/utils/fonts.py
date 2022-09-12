@@ -3,18 +3,23 @@ __version__ = '0.0.3'
 
 import os
 import sys
+from typing import List
 
 from matplotlib.font_manager import get_fontext_synonyms, MSUserFontDirectories, win32InstalledFonts, \
     X11FontDirectories, OSXFontDirectories, win32FontDirectory, get_fontconfig_fonts, list_fonts
 
 
-async def findSystemFonts(fontpaths=None, fontext='ttf'):
+async def findSystemFonts(fontpaths=None, fontext='ttf') -> List[str]:
     """
-    Search for fonts in the specified font paths.  If no paths are
-    given, will use a standard set of system paths, as well as the
+    Search for fonts in the specified font paths.
+
+    If no paths are given, will use a standard set of system paths, as well as the
     list of fonts tracked by fontconfig if fontconfig is installed and
     available.  A list of TrueType fonts are returned by default with
     AFM fonts as an option.
+
+    Returns:
+        ret: List[str] of fname of fontfiles in path
     """
     fontfiles = set()
     fontexts = get_fontext_synonyms(fontext)
@@ -36,4 +41,5 @@ async def findSystemFonts(fontpaths=None, fontext='ttf'):
     for path in fontpaths:
         fontfiles.update(map(os.path.abspath, list_fonts(path, fontexts)))
 
-    return [fname for fname in fontfiles if os.path.exists(fname)]
+    ret: List[str] = [fname for fname in fontfiles if os.path.exists(fname)]
+    return ret

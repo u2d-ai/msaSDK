@@ -44,6 +44,11 @@ class MSASecurity:
 
 @lru_cache()
 def getMSASecurity() -> MSASecurity:
+    """
+    This function returns a cached instance of the MSASecurity object.
+    Note:
+        Caching is used to prevent re-reading the environment every time the MSASecurity is used.
+    """
     return MSASecurity()
 
 

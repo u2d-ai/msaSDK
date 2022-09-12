@@ -43,12 +43,35 @@ sql_operator_map: Dict[str, str] = {
 
 
 class MSASQLModelSelector:
+    """SQLModel Selector
+
+    Args:
+        model: The SQLModel to use
+        fields: List of the SQlModelListFields
+    """
     model: Type[SQLModel] = None
+    """The current SQLModel ORM model, must be set."""
     fields: List[SQLModelListField] = []
+    """Query field list.
+    
+    Support SQLModel model fields, SQLModel model, current model database table field names
+    Support current model fields, and other model fields.
+    Default: self.model
+    """
     exclude: List[SQLModelListField] = []
+    """Excluded fields list. A list of fields to exclude from the current model.
+    
+    Supports current SQLModel model fields, current model database table field names
+    Default: []
+    """
     ordering: List[Union[SQLModelListField, UnaryExpression]] = []
+    """List of fields sorted by selector.
+    Default: []
+    """
     link_models: Dict[str, Tuple[Type[Table], Column, Column]] = {}
+    """Dictionary of link models. More complex, detailed parsing to be done."""
     pk_name: str = 'id'
+    """Current model primary key string, default: id."""
 
     def __init__(
             self,

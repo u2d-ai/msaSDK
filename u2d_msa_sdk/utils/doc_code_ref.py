@@ -1,6 +1,4 @@
 """Generate the code reference pages and navigation."""
-
-"""Generate the code reference pages and navigation."""
 import os.path
 import pickle
 from os.path import exists
@@ -11,7 +9,7 @@ import mkdocs_gen_files
 
 
 def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference",
-                                          ref_md_file: str = "SUMMARY.md",
+                                          ref_md_file: str = "reference.md",
                                           virtual_requirements_nav_path: str = "requirements",
                                           req_md_file: str = "requirements.md",
                                           source_path: str = "u2d_msa_sdk",
@@ -136,7 +134,3 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
     if not sub_process_result_file_exists or sub_process_result_file_needs_update:
         with open(pkl_info_file, 'wb') as f:
             pickle.dump(sub_process_result, f)
-
-
-generate_code_reference_documentation()
-

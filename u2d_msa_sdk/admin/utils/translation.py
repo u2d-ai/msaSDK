@@ -12,6 +12,11 @@ class I18N:
         self._language: str = self.set_language()
 
     def load_translations(self, translations: Dict[str, GNUTranslations]):
+        """Load the GNUTranslations.
+
+        Args:
+            translations: the dict with the GNU Translations
+        """
         for language, trans in translations.items():
             if language in self._locales:
                 self._locales[language].add(trans)
@@ -19,10 +24,15 @@ class I18N:
                 self._locales[language] = {trans}
 
     def set_language(self, language: str = None) -> str:
-        """
-        设置i18n本地化语言.如果为空,则依次尝试读取环境变量`LANGUAGE`/`LANG`,系统默认语言.
-        :param language: 尝试设置的语言
-        :return: 设置成功后的语言
+        """Set the i18n localization language.
+
+        If it is empty, try to read the environment variable `LANGUAGE`/`LANG`, the system default language, in turn.
+
+        Args:
+            language: the language to try to set
+
+        Returns:
+            the language after the successful setting
         """
         language = language or os.getenv('LANGUAGE') or os.getenv('LANG') or locale.getdefaultlocale()[0]
         self._language = 'zh_CN' if language.lower().startswith('zh') else 'en_US'
@@ -33,6 +43,11 @@ class I18N:
 
     @lru_cache()
     def gettext(self, value: str, language: str = None) -> str:
+        """
+        This function returns a cached instance of the translated str object.
+        Note:
+            Caching is used to prevent re-reading the environment every time the translated str object is used.
+        """
         language = language or self._language
         if language in self._locales:
             for trans in self._locales[language]:
