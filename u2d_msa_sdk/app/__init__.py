@@ -2,7 +2,7 @@
 """
 Copyright (c) 2022 - U2D.ai / S.Welcker
 """
-__version__ = "0.0.8"
+__version__ = "0.1.0"
 
 from typing import Optional
 
