@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 # Parse version number from pyglet/__init__.py:
-with open('u2d_msa_sdk/__init__.py') as f:
+with open('msaSDK/__init__.py') as f:
     info = {}
     for line in f:
         if line.startswith('version'):
@@ -12,12 +12,12 @@ with open('u2d_msa_sdk/__init__.py') as f:
 
 
 setup_info = dict(
-    name='u2d_msa_sdk',
+    name='msaSDK',
     version=info['version'],
     author='Stefan Welcker',
     author_email='stefan@u2d.ai',
     url='https://github.com/swelcker/U2D_MSA_SDK',
-    download_url='http://pypi.python.org/pypi/u2d_msa_sdk',
+    download_url='http://pypi.python.org/pypi/msaSDK',
     project_urls={
         'Documentation': 'http://msa.u2d.ai/',
         'Source': 'https://github.com/swelcker/U2D_MSA_SDK',
@@ -50,7 +50,7 @@ setup_info = dict(
     ],
 
     # Package info
-    packages=['u2d_msa_sdk'] + ['u2d_msa_sdk.' + pkg for pkg in find_packages('u2d_msa_sdk')],
+    packages=['msaSDK'] + ['msaSDK.' + pkg for pkg in find_packages('msaSDK')],
 
     # Add _ prefix to the names of temporary build dirs
     options={'build': {'build_base': '_build'}, },

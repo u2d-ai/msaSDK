@@ -10,7 +10,7 @@
 
 ---
 
-`MSA SDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `u2d_msa_sdk` & `fastapi` & `amis` , and
+`MSA SDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `msaSDK` & `fastapi` & `amis` , and
 build with standard Python type hints. The original intention of the development is to improve the application ecology and
 to quickly generate a visual dashboard for API's and web application. It was build to support very quick PoC's, MVP's 
 in AI Applications. It can be extended with Auth and Login for an MVP Phase with the Auth Module by just define a setting to True. 
@@ -50,7 +50,6 @@ modules, and `MSAApp` as the core SDK part.
 
 ## Simple Example
 
-
 ```python
 # -*- encoding: utf-8 -*-
 """
@@ -60,34 +59,39 @@ __version__ = "0.0.1"
 
 from typing import Optional
 from sqlmodel import SQLModel
-from u2d_msa_sdk.admin.utils.fields import Field
-from u2d_msa_sdk.models.service import get_msa_app_settings
-from u2d_msa_sdk.service import MSAApp
-from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
+from msaSDK.admin.utils.fields import Field
+from msaSDK.models.service import get_msa_app_settings
+from msaSDK.service import MSAApp
+from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
+
 
 # example async function to be executed by a timer
 async def test_timer_min():
-    app.logger.info("MSA SDK Test Timer Async Every Minute")
+  app.logger.info("MSA SDK Test Timer Async Every Minute")
+
 
 # example sync/blocking function to be executed by a timer
 def test_timer_five_sec():
-    app.logger.info("MSA SDK Test Timer Sync 5 Second")
+  app.logger.info("MSA SDK Test Timer Sync 5 Second")
+
 
 # SQLModel class to be used for auto API CRUD and/or Admin Site Web UI
 class TestArticle(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
-    title: str = Field(title='ArticleTitle', max_length=200)
-    description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
-    status: bool = Field(None, title='status')
-    content: str = Field(title='ArticleContent')
+  id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
+  title: str = Field(title='ArticleTitle', max_length=200)
+  description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
+  status: bool = Field(None, title='status')
+  content: str = Field(title='ArticleContent')
+
 
 # SQLModel class to be used for auto API CRUD and/or Admin Site Web UI
 class TestCategory(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
-    title: str = Field(title='ArticleTitle', max_length=200)
-    description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
-    status: bool = Field(None, title='status')
-    content: str = Field(title='ArticleContent')
+  id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
+  title: str = Field(title='ArticleTitle', max_length=200)
+  description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
+  status: bool = Field(None, title='status')
+  content: str = Field(title='ArticleContent')
+
 
 # get the MSA app setting, clear the cache, set some settings
 get_msa_app_settings.cache_clear()
@@ -113,15 +117,17 @@ app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
 # use the internal logger of app
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
+
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup MSAUIEvent")
+  app.logger.info("MSA SDK Own Startup MSAUIEvent")
+
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
+  app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
 ```
 
 
