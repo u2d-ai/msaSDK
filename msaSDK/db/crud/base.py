@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
-
 from typing import Any, Callable, List, Type, Union, Optional
 
 from fastapi import APIRouter, Depends

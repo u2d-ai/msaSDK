@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
-
 from typing import Any, Optional
-
 from lxml.html.clean import Cleaner
 
 

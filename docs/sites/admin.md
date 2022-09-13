@@ -1,7 +1,7 @@
 # Admin Site
 
 <h2 align="center">
-  MSA SDK - Admin Site
+  msaSDK - Admin Site
 </h2>
 <p align="center">
     <em>Admin Site is an efficient and easily extensible MSAApp (FastAPI) admin framework.</em><br/>
@@ -10,7 +10,7 @@
 
 ---
 
-`MSA SDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `msaSDK` & `fastapi` & `amis` , and
+`msaSDK - Admin Site` is an efficient `Python 3.7+` based framework on top of `msaSDK` & `fastapi` & `amis` , and
 build with standard Python type hints. The original intention of the development is to improve the application ecology and
 to quickly generate a visual dashboard for API's and web application. It was build to support very quick PoC's, MVP's 
 in AI Applications. It can be extended with Auth and Login for an MVP Phase with the Auth Module by just define a setting to True. 
@@ -25,7 +25,7 @@ in AI Applications. It can be extended with Auth and Login for an MVP Phase with
 - **Support asynchronous and synchronous hybrid writing**: `ORM`  is based on`SQLModel` & `Sqlalchemy`. Freely customize
   database type. Asynchronous mode. Strong scalability.
 - **Front-end separation**: The front-end is rendered by `Amis`, the back-end interface is automatically generated
-  by `MSA SDK - Admin`. The interface is reusable.
+  by `msaSDK - Admin`. The interface is reusable.
 - **Strong scalability**: The background page supports `Amis` pages and ordinary `html` pages. Easily customize the
   interface freely.
 - **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
@@ -41,7 +41,7 @@ in AI Applications. It can be extended with Auth and Login for an MVP Phase with
 
 ## Composition
 
-`MSA SDK - Admin` consists of three core modules, of which, `amis`, `crud`, which can be used as separate
+`msaSDK - Admin` consists of three core modules, of which, `amis`, `crud`, which can be used as separate
 modules, and `MSAApp` as the core SDK part.
 
 - `amis`: Based on the `pydantic` data model building library of `baidu amis`. To generate/parse data rapidly.
@@ -67,12 +67,12 @@ from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
 
 # example async function to be executed by a timer
 async def test_timer_min():
-  app.logger.info("MSA SDK Test Timer Async Every Minute")
+  app.logger.info("msaSDK Test Timer Async Every Minute")
 
 
 # example sync/blocking function to be executed by a timer
 def test_timer_five_sec():
-  app.logger.info("MSA SDK Test Timer Sync 5 Second")
+  app.logger.info("msaSDK Test Timer Sync 5 Second")
 
 
 # SQLModel class to be used for auto API CRUD and/or Admin Site Web UI
@@ -111,7 +111,7 @@ my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 # Optional the MSATimers instance
 app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
              sql_models=[TestArticle, TestCategory],
-             contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
+             contact={"name": "msaSDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
 # use the internal logger of app
@@ -121,13 +121,13 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
-  app.logger.info("MSA SDK Own Startup MSAUIEvent")
+  app.logger.info("msaSDK Own Startup MSAUIEvent")
 
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-  app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
+  app.logger.info("msaSDK Own Shutdown MSAUIEvent")
 ```
 
 
@@ -151,6 +151,6 @@ async def shutdown():
 
 ## License Agreement
 
-- `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
+- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about msaSDK - Auth Admin in the display interface.
 
 

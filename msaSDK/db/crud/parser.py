@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
-
 import datetime
 from functools import lru_cache
 from typing import Union, Optional, Type, List, Dict, Any, Iterable, Tuple, Callable
@@ -97,7 +95,7 @@ class MSASQLModelFieldParser:
         return data
 
     def get_sqlmodel_insfield(self, model: Type[SQLModel]) -> List[InstrumentedAttribute]:
-        # 不包括 relationship 字段
+        """Excluding the relationship field"""
         return [model.__dict__[field_name] for field_name in model.__fields__]
 
     def get_insfield(self, field: SQLModelField) -> Optional[InstrumentedAttribute]:
@@ -124,8 +122,8 @@ class MSASQLModelFieldParser:
 
 @lru_cache()
 def get_python_type_parse(field: Union[InstrumentedAttribute, Column]) -> Callable:
-    """
-    This function returns a cached instance of the Python Type Callable object.
+    """This function returns a cached instance of the Python Type Callable object.
+
     Note:
         Caching is used to prevent re-reading the environment every time the object is used.
     """

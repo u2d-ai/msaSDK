@@ -1,12 +1,12 @@
 # Auth Admin Site
 
 <h2 align="center">
-  MSA SDK Auth
+  msaSDK Auth
 </h2>
 
 ---
 <p align="center">
-    <em>MSA SDK Auth.</em><br/>
+    <em>msaSDK Auth.</em><br/>
     <em>Auth Site that extends the Admin Site Web UI with Login/Auth for the API's.</em>
 </p>
 
@@ -39,7 +39,7 @@ settings.site_auth = True
 # Create the main app instance, like FastAPI but provide a Setting Definition Instance
 # Define if the optional Admin Site gets mounted automatically, if False you need to Mount in your own Startup MSAUIEvent Handler
 app = MSAApp(settings=settings, auto_mount_site=True,
-             contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
+             contact={"name": "msaSDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
 # use the internal logger of app
@@ -49,13 +49,13 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup MSAUIEvent")
+    app.logger.info("msaSDK Own Startup MSAUIEvent")
 
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
+    app.logger.info("msaSDK Own Shutdown MSAUIEvent")
 ```
 
 ## Validation Method
@@ -312,5 +312,5 @@ site = MyAuthAdminSite(settings, auth = auth)
 
 ## License Agreement
 
-- `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
+- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about msaSDK - Auth Admin in the display interface.
 

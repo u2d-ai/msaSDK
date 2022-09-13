@@ -20,7 +20,7 @@ from starlette.responses import Response
 
 def attach_page_head(page: Page) -> Page:
     page.body = [Html(
-        html=f'<div style="display: flex; justify-content: center; align-items: center; margin: 96px 0px 8px;"><img src="/msastatic/img/msa_logo_big.png" alt="logo" style="margin-right: 8px; width: 160px;"></div><div style="display: flex; justify-content: center; align-items: center; margin: 10px 0px 8px;font-size: 32px; font-weight: bold;">Login</div><div style="width: 100%; text-align: center; color: rgba(0, 0, 0, 0.45); margin-bottom: 40px;">{_("MSA SDK Admin - Login")}</div>'
+        html=f'<div style="display: flex; justify-content: center; align-items: center; margin: 96px 0px 8px;"><img src="/msastatic/img/msa_logo_big.png" alt="logo" style="margin-right: 8px; width: 160px;"></div><div style="display: flex; justify-content: center; align-items: center; margin: 10px 0px 8px;font-size: 32px; font-weight: bold;">Login</div><div style="width: 100%; text-align: center; color: rgba(0, 0, 0, 0.45); margin-bottom: 40px;">{_("msaSDK Admin - Login")}</div>'
     ),
         Grid(
             columns=[{"body": [page.body], "lg": 2, "md": 4, "valign": "middle"}],
@@ -31,6 +31,7 @@ def attach_page_head(page: Page) -> Page:
 
 
 class UserLoginFormAdmin(FormAdmin, ABC):
+    """The default User Login Form from the AuthAdminSite"""
     page = Page(title=_('User Login'))
     page_path = '/login'
     page_parser_mode = 'html'
@@ -114,6 +115,7 @@ class UserLoginFormAdmin(FormAdmin, ABC):
 
 
 class UserRegFormAdmin(FormAdmin, ABC):
+    """The default User Registration Form from the AuthAdminSite"""
     user_model: Type[BaseUser] = User
     page = Page(title=_('User Register'))
     page_path = '/reg'
@@ -200,6 +202,7 @@ class UserRegFormAdmin(FormAdmin, ABC):
 
 
 class UserInfoFormAdmin(FormAdmin):
+    """The default User Info Form from the AuthAdminSite"""
     page_schema = None
     group_schema = None
     user_model: Type[BaseUser] = User
@@ -238,6 +241,7 @@ class UserInfoFormAdmin(FormAdmin):
 
 
 class UserAdmin(ModelAdmin):
+    """The User Admin object from the AuthAdminSite"""
     group_schema = None
     page_schema = PageSchema(label=_('User'), icon='fa fa-user')
     model: Type[BaseUser] = None
@@ -259,6 +263,7 @@ class UserAdmin(ModelAdmin):
 
 
 class RoleAdmin(ModelAdmin):
+    """Admin Role object"""
     group_schema = None
     page_schema = PageSchema(label=_('Role'), icon='fa fa-group')
     model = Role
@@ -267,6 +272,7 @@ class RoleAdmin(ModelAdmin):
 
 
 class GroupAdmin(ModelAdmin):
+    """Admin Group object"""
     group_schema = None
     page_schema = PageSchema(label=_('Group'), icon='fa fa-group')
     model = Group
@@ -275,6 +281,7 @@ class GroupAdmin(ModelAdmin):
 
 
 class PermissionAdmin(ModelAdmin):
+    """Admin Permission object"""
     group_schema = None
     page_schema = PageSchema(label=_('Permission'), icon='fa fa-lock')
     model = Permission

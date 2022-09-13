@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Healthcheck Pydantic Models
+
 """
 from typing import Optional
 
-__version__ = '0.1.1'
 
 from sqlmodel import SQLModel
 

@@ -1209,15 +1209,15 @@ class AdminApp(PageAdmin, AdminGroup):
         app.header = MSAUITpl(
             className='w-full',
             tpl='<div class="flex justify-between"><div></div>'
-                f'<div><a href="{msaSDK.admin.__url__}" target="_blank" '
+                f'<div><a href="{msaSDK.__url__}" target="_blank" '
                 'title="Copyright"><i class="fa fa-github fa-2x"></i></a></div></div>'
         )
 
         app.footer = '<div class="p-2 text-center bg-light">' + self.site.settings.site_copyright + \
-                     f' <a href="{msaSDK.admin.__url__}" target="_blank" ' \
+                     f' <a href="{msaSDK.__url__}" target="_blank" ' \
                      'class="link-secondary">msa-sdk-admin</a> ' \
-                     f'<a target="_blank" href="{msaSDK.admin.__url__}" ' \
-                     f'class="link-secondary" rel="noopener">v{msaSDK.admin.__version__}</a></div> '
+                     f'<a target="_blank" href="{msaSDK.__url__}" ' \
+                     f'class="link-secondary" rel="noopener">v{msaSDK.__version__}</a></div> '
 
         children = await self.get_page_schema_children(request)
         app.pages = [{'children': children}] if children else []

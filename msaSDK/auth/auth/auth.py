@@ -51,7 +51,8 @@ class AuthBackend(AuthenticationBackend, Generic[_UserModelT]):
         return self.auth, await self.auth.get_current_user(request)
 
     def attach_middleware(self, app: FastAPI):
-        app.add_middleware(AuthenticationMiddleware, backend=self)  # 添加auth中间件
+        """Add auth middleware"""
+        app.add_middleware(AuthenticationMiddleware, backend=self)
 
 
 class Auth(Generic[_UserModelT]):
@@ -77,7 +78,7 @@ class Auth(Generic[_UserModelT]):
         if user:
             pwd = password.get_secret_value() if isinstance(password, SecretStr) else password
             pwd2 = user.password.get_secret_value() if isinstance(user.password, SecretStr) else user.password
-            if self.pwd_context.verify(pwd, pwd2):  # 用户存在 且 密码验证通过
+            if self.pwd_context.verify(pwd, pwd2):  # User exists and password validation passes
                 return user
         return None
 
@@ -87,7 +88,7 @@ class Auth(Generic[_UserModelT]):
                 request: Request,
                 session: Union[Session, AsyncSession, None] = Depends(self.db.session_generator)
         ) -> Optional[_UserModelT]:
-            if request.scope.get('auth'):  # 防止重复授权
+            if request.scope.get('auth'):  # Prevent duplicate authorizations
                 return request.scope.get('user')
             request.scope["auth"], request.scope["user"] = self, None
             token = self.backend.get_user_token(request)

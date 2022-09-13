@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
+
 
 import datetime
 import re
@@ -187,10 +187,10 @@ class MSASQLModelSelector:
 
 class MSASQLModelCrud(MSABaseCrud, MSASQLModelSelector):
     engine: Union[Engine, AsyncEngine] = None
-    create_fields: List[SQLModelField] = []  # 新增数据字段
-    readonly_fields: List[SQLModelListField] = []  # 只读字段
-    update_fields: List[SQLModelListField] = []  # 可编辑字段
-    list_filter: List[SQLModelListField] = []  # 需要查询的字段
+    create_fields: List[SQLModelField] = []  # Add new data fields
+    readonly_fields: List[SQLModelListField] = []  # Read-only fields
+    update_fields: List[SQLModelListField] = []  # Editable fields
+    list_filter: List[SQLModelListField] = []  # Fields to query
 
     def __init__(
             self,

@@ -4,7 +4,7 @@ __all__ = ['MSAChoices', 'MSAIntegerChoices', 'MSATextChoices']
 
 
 class MSAChoicesMeta(enum.EnumMeta):
-    """A metaclass for creating a enum choices."""
+    """A metaclass for creating enum choices."""
 
     def __new__(metacls, classname, bases, classdict, **kwds):
         labels = []

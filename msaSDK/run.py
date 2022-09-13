@@ -7,5 +7,5 @@ from loguru import logger
 if __name__ == '__main__':
     import main
 
-    logger.info("Starting MSA SDK Services...")
+    logger.info("Starting msaSDK Services...")
     main.run()

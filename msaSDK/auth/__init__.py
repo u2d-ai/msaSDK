@@ -5,8 +5,6 @@ import os
 
 from msaSDK.admin.utils.translation import i18n
 
-__version__ = '0.1.1'
-__url__ = "https://github.com/swelcker/U2D_MSA_SDK"
 modules = glob.glob(join(dirname(__file__), "*.py"))
 __all__ = [basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
 

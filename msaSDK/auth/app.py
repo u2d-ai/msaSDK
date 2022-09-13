@@ -24,6 +24,16 @@ class UserAuthApp(AdminApp, AuthRouter):
     PermissionAdmin: Type[ModelAdmin] = PermissionAdmin
 
     def __init__(self, app: "AdminApp", msa_app=None):
+        """User Auth App
+
+            Note:
+                The app parameter for the Auth App is normaly provided by the AuthAdminSite Class.
+                This class shouldn't be instantiated directly.
+
+            Args:
+                app: The admin app instance
+                msa_app: The MSAApp instance [Optional]
+        """
         self.msa_app = msa_app
         AdminApp.__init__(self, app, msa_app)
         AuthRouter.__init__(self)
@@ -53,5 +63,13 @@ class UserAuthApp(AdminApp, AuthRouter):
         )
 
     async def has_page_permission(self, request: Request) -> bool:
+        """check the page permission for the request
+
+            Args:
+                request: the request object
+
+            Returns: True or False
+
+        """
         return (await super().has_page_permission(request)
                 and await request.auth.requires(roles='admin', response=False)(request))

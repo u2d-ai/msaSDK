@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
 
 from fastapi import APIRouter
 from starlette.requests import Request
@@ -49,9 +48,9 @@ def system_test_error(request: Request) -> TypeError:
         request: HTTP Request.
 
     Raises:
-        TypeError: TypeError('MSA SDK System Test error...')
+        TypeError: TypeError('msaSDK System Test error...')
 
 
 
     """
-    raise TypeError('MSA SDK System Test error...')
+    raise TypeError('msaSDK System Test error...')

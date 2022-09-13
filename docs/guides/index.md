@@ -1,6 +1,6 @@
 # Tutorial - User Guide - Intro
 
-This tutorial shows you how to use **MSA SDK** with most of its features, step by step.
+This tutorial shows you how to use **msaSDK** with most of its features, step by step.
 
 Each section gradually builds on the previous ones, but it's structured to separate topics, so that you can go directly to any specific one to solve your specific API needs.
 
@@ -34,7 +34,7 @@ Using it in your editor is what really shows you the benefits of FastAPI, seeing
 
 ---
 
-## Install MSA SDK
+## Install msaSDK
 
 The first step is to install FastAPI.
 

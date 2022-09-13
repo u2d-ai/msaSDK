@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
-
 from functools import lru_cache
 from typing import Dict, List, Optional
 
@@ -26,7 +24,7 @@ class MSAServiceDefinition(APISettings, SQLModel):
     Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
     to the config, they should have the correct types.
     """
-    name: str = "MSA SDK Service"
+    name: str = "msaSDK Service"
     """Service Name, also used as Title."""
     version: str = "0.0.0"
     """Version of the Service."""
