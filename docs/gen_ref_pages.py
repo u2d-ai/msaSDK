@@ -69,7 +69,7 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
             from subprocess import PIPE, run
 
             with mkdocs_gen_files.open(req_md_file, "w") as fd:
-                fd.write(f"# {source_path.replace('_', '').upper()} - Included Libraries\n***\n\n")
+                fd.write(f"# {source_path.replace('_', ' ').upper()} - Included Libraries\n***\n\n")
                 # Python 3.x only
                 for line in req_txt.splitlines():
                     line = line.strip()
@@ -89,13 +89,14 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
                         str(parts_front).split("=")[0].replace(">", "").replace("<", "").replace("~", "").split("[")[0]
                         version: str = ""
                         if len(str(parts_front).split("=")) > 1:
-                            version: str = str(parts_front).split("=")[1].replace(">", "").replace("<", "").replace("~",
-                                                                                                                    "").strip()
+                            version: str = str(parts_front).split("=")[1].replace(">", "")\
+                                .replace("<", "").replace("~","").strip()
                             version_link: str = f"[![PyPI version fury.io](https://badge.fury.io/py/{package}.svg)](https://pypi.org/project/{package}/{version}/)"
                             condition: str = parts_front.replace(package, "")  # .replace(version, "")
                             if condition.__contains__("]"):
                                 condition = condition.split("]")[1]
-                            fd.write(f"### **{package}** ``{condition}`` {version_link}\n")
+                            fd.write(f"### **{package}** ``{condition}``\n\n")
+                            fd.write(f"{version_link}\n\n")
                         else:
                             fd.write(f"### **{package}**\n")
 

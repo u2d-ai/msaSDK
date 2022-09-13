@@ -1,79 +1,70 @@
 # History, Design and Future
 
-Some time ago, <a href="https://github.com/tiangolo/fastapi/issues/3#issuecomment-454956920" class="external-link" target="_blank">a **FastAPI** user asked</a>:
+Why the heck should we need an SDK on top of FastAPI, you may think or ask yourself.
 
-> What’s the history of this project? It seems to have come from nowhere to awesome in a few weeks [...]
+> What’s the reason for this project? [...]
 
-Here's a little bit of that history.
+Here's a story of the reasons which drive me to build this.
 
-## Alternatives
+## Background
 
-I have been creating APIs with complex requirements for several years (Machine Learning, distributed systems, asynchronous jobs, NoSQL databases, etc), leading several teams of developers.
+I have been creating Software Applications, Solutions and APIs with complex requirements for decades (Mainly for AI Systems based on ML/DL and NLP/NLU, in distributed systems, asynchronous, with NoSQL and SQL databases), leading several Software companies and Development Teams.
 
-As part of that, I needed to investigate, test and use many alternatives.
+As part of that, we always had to build Showcases, PoC's, MVP's and finally a Production Version.
 
-The history of **FastAPI** is in great part the history of its predecessors.
+While we used for decades Java with the Eclipse Vert.x library, since 2018 we fell in love with Python for AI Use Cases and replaced java with Python3.
 
-As said in the section [Alternatives](alternatives.md){.internal-link target=_blank}:
+As the development stack and architecture shifted 100% to RestAPI, we stumbled over **FastAPI** and tiangolo's work. Hies ideas and concepts was a match made in heaven.
 
-<blockquote markdown="1">
+The history of **FastAPI** is in great part similar to our history with Python and is now our core Framework.
 
-**FastAPI** wouldn't exist if not for the previous work of others.
+We were only missing some major feature and functions we had with Vert.x, there was still a big hole in our new stack.
 
-There have been many tools created before that have helped inspire its creation.
+Then we found **dapr** and a final Vert.x replacement that even fits better our needs now with docker, kubernetes etc.
 
-I have been avoiding the creation of a new framework for several years. First I tried to solve all the features covered by **FastAPI** using many different frameworks, plug-ins, and tools.
+Our customers run on Azure, AWS, Google etc., basically they all run on private cloud but more and more need native cloud solutions.
 
-But at some point, there was no other option than creating something that provided all these features, taking the best ideas from previous tools, and combining them in the best way possible, using language features that weren't even available before (Python 3.6+ type hints).
 
-</blockquote>
+## Micro Services Architecture with Hybrid AI and a kind of Hybrid Service Oriented Architecture
 
-## Investigation
+In the past we usually did build monolitic solutions with an RestAPI endpoint.
 
-By using all the previous alternatives I had the chance to learn from all of them, take ideas, and combine them in the best way I could find for myself and the teams of developers I have worked with.
+Today, we use a Micro Service Architecture to provide a SOA layer. This added new challenges and risks. With all those 100's of services and the freedom of the developer building them, the security issues were increasing.
 
-For example, it was clear that ideally it should be based on standard Python type hints.
+So we used a Boilerplate approach to ensure we always use the same stack of tools and libraries, but as we all know today this doesn't really solve the problem on the long run.
 
-Also, the best approach was to use already existing standards.
+Also the UI challange wasn't solved using Data Analyst Tools like Dash, Streamlit etc. for PoC's they were not efficient enough to give the customer the right impression of possible UI's etc., esp. for a final solution impression.
 
-So, before even starting to code **FastAPI**, I spent several months studying the specs for OpenAPI, JSON Schema, OAuth2, etc. Understanding their relationship, overlap, and differences.
+So there was and is a need to build some sophisticated modern Web UI to showcase even a simple API feature set, we developers are fine with OpenAPI/Swagger but customers mostly are not.
+
+You mostly also have some structured data in SQL type of DB's, with a need for some CRUD UI's and a document oriented DB like MongoDB to store Model structures.
+
+Also for FastAPI we always have the same need for Middleware, Profiling etc.
+
+If you create many PoC's, MVP's and finally the Services, you repeat a lot of things over and over again, sounds like a old know fact but get's repeated with any new technology coming along.
+
 
 ## Design
+The design approach was very pragmatic, leave out the AI based libraries and condense to an SDK which holds what we use and need in 80% of our API's and Micro Services.
 
-Then I spent some time designing the developer "API" I wanted to have as a user (as a developer using FastAPI).
+So we just made a list of what the minimum stuff is we want:
 
-I tested several ideas in the most popular Python editors: PyCharm, VS Code, Jedi based editors.
+* Pure Python 3 with as much as possible Type hints., no java bridges etc.
+* **dapr** as our distributed runtime
+* Well for sure **FastAPI** with Pydantic, orjson, Jinja2 Template Engine, gunicorn, uvicorn and uvloop
+* Starlette extensions and Middleware
+* SQLModel with SQLAlchemy
+* The major aio libraries: aiomultiprocess, aiofiles, aiosqlite, aioredis etc.
+* Loguru for logging
+* The usual datatype parsers for xml, html, dates etc.
+* pandas, numpy, pillow, matplotlib... the usual stuff
+* For the UI we wanted a python lib to create React/Vue.js UI's, so we decided to use Amis
+* mkdocs with mkdocstrings and the mkdocs-material template for our documentation needs, esp. the automation of code reference documentation
 
-By the last <a href="https://www.jetbrains.com/research/python-developers-survey-2018/#development-tools" class="external-link" target="_blank">Python Developer Survey</a>, that covers about 80% of the users.
+So we collected all the stuff from past projects, did some major re-factoring (we needed to ensure that when we overload or forked stuff that we won't have name conflicts).
 
-It means that **FastAPI** was specifically tested with the editors used by 80% of the Python developers. And as most of the other editors tend to work similarly, all its benefits should work for virtually all editors.
 
-That way I could find the best ways to reduce code duplication as much as possible, to have completion everywhere, type and error checks, etc.
+### Finally...
+Beside the need we had for our own work, we decided to also give back to the community as we heavily use open source and community help aswell.
 
-All in a way that provided the best development experience for all the developers.
-
-## Requirements
-
-After testing several alternatives, I decided that I was going to use <a href="https://pydantic-docs.helpmanual.io/" class="external-link" target="_blank">**Pydantic**</a> for its advantages.
-
-Then I contributed to it, to make it fully compliant with JSON Schema, to support different ways to define constraint declarations, and to improve editor support (type checks, autocompletion) based on the tests in several editors.
-
-During the development, I also contributed to <a href="https://www.starlette.io/" class="external-link" target="_blank">**Starlette**</a>, the other key requirement.
-
-## Development
-
-By the time I started creating **FastAPI** itself, most of the pieces were already in place, the design was defined, the requirements and tools were ready, and the knowledge about the standards and specifications was clear and fresh.
-
-## Future
-
-By this point, it's already clear that **FastAPI** with its ideas is being useful for many people.
-
-It is being chosen over previous alternatives for suiting many use cases better.
-
-Many developers and teams already depend on **FastAPI** for their projects (including me and my team).
-
-But still, there are many improvements and features to come.
-
-**FastAPI** has a great future ahead.
-
-And [your help](help-fastapi.md){.internal-link target=_blank} is greatly appreciated.
+There is also a tiny hope that some of you may find this helpfull and maybe even want to contribute and join us, yes that is an invitation...

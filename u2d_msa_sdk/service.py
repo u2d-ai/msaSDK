@@ -131,9 +131,9 @@ def getSecretKey():
         key: The SECRET_KEY_TOKEN.
 
     """
-    ret_key: str = os.getenv("SECRET_KEY_TOKEN",
+    key: str = os.getenv("SECRET_KEY_TOKEN",
                              "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
-    return ret_key
+    return key
 
 
 def getSecretKeySessions():
@@ -144,9 +144,9 @@ def getSecretKeySessions():
         key: The SECRET_KEY_SESSIONS.
 
     """
-    ret_key: str = os.getenv("SECRET_KEY_SESSIONS",
+    key: str = os.getenv("SECRET_KEY_SESSIONS",
                              "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)")
-    return ret_key
+    return key
 
 
 def getSecretKeyCSRF() -> str:
@@ -157,9 +157,9 @@ def getSecretKeyCSRF() -> str:
         key: The SECRET_KEY_CSRF.
 
     """
-    ret_key: str = os.getenv("SECRET_KEY_CSRF",
+    key: str = os.getenv("SECRET_KEY_CSRF",
                              "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s")
-    return ret_key
+    return key
 
 
 class MSAApp(MSAFastAPI):
@@ -178,13 +178,6 @@ class MSAApp(MSAFastAPI):
         timers: MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
         sql_models: List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
         auto_mount_site: Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
-        debug: Boolean indicating if debug tracebacks should be returned on errors.
-        routes: A list of routes to serve incoming HTTP and WebSocket requests.
-        middleware: A list of middleware to run for every request. A starlette application will always automatically include two middleware classes. `ServerErrorMiddleware` is added as the very outermost middleware, to handle any uncaught errors occurring anywhere in the entire stack. `ExceptionMiddleware` is added as the very innermost middleware, to deal with handled exception cases occurring in the routing or endpoints.
-        exception_handlers: A mapping of either integer status codes, or exception class types onto callables which handle the exceptions. Exception handler callables should be of the form `handler(request, exc) -> response` and may be be either standard functions, or async functions.
-
-    Returns:
-        MSAApp: MSAApp Instance.
 
     Attributes:
         logger: loguru logger instance

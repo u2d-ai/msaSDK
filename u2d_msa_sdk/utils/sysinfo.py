@@ -291,7 +291,7 @@ class MSASystemGPUInfo(SQLModel):
     Runtime_Status: str = ""
 
 
-def get_hostname():
+def get_hostname() -> str:
     """Get socket.gethostname()
 
         Returns:

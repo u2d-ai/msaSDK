@@ -13,6 +13,8 @@
 
 ------
 
+**Documentation**: <a href="http://msa.u2d.ai/" target="_blank">http://msa.u2d.ai/</a>
+
 ## Features
 - **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/)..
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
@@ -143,19 +145,11 @@ async def shutdown():
 
 
 ## How to create the documentation
-### Create all docs completly new, normaly only run first time :
-!!! Run command ONLY when you added a lot to the overall structure, OVERRIDES docs/source !!!:
 
-    python automate_mkdocs.py
+We use mkdocs and mkdocsstring. The code reference and nav entry get's created virtually by the triggered python script /docs/gen_ref_pages.py while ``mkdocs`` ``serve`` or ``build`` is executed.
 
-This will autofill the mkdocs.yaml and mkgendocs.yaml file.
-
-
-### That's what you run to update the md files after changes:
-
-    gendocs --config mkgendocs.yml
-
-This command takes our mkgendocs file, and generates our markdown files! Note: you may need to create the docs folder in your root directory.
+### Requirements Install for the PDF creation option:
+PDF Export is using mainly weasyprint, if you get some errors here pls. check there documentation. Installation is part of the MSA SDK, so this should be fine.
 
 We can now test and view our documentation using:
 

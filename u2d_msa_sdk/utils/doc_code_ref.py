@@ -1,4 +1,6 @@
 """Generate the code reference pages and navigation."""
+
+"""Generate the code reference pages and navigation."""
 import os.path
 import pickle
 from os.path import exists
@@ -9,7 +11,7 @@ import mkdocs_gen_files
 
 
 def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference",
-                                          ref_md_file: str = "reference.md",
+                                          ref_md_file: str = "SUMMARY.md",
                                           virtual_requirements_nav_path: str = "requirements",
                                           req_md_file: str = "requirements.md",
                                           source_path: str = "u2d_msa_sdk",
@@ -22,6 +24,10 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
     """Generates the virtual mkdocs md files and adds them to the navigation.
 
     Scans the requirement file and gets pip show info for each package and stores it to a pickle file.
+
+        Copy this to your project and use in mkdocs.yml with the mkdocs-gen-files plugin to execute the script.
+        Ensure to call the function at the end, add generate_code_reference_documentation() at the end of your file.
+
     """
     nav = mkdocs_gen_files.Nav()
 
@@ -67,7 +73,7 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
             from subprocess import PIPE, run
 
             with mkdocs_gen_files.open(req_md_file, "w") as fd:
-                fd.write(f"# {source_path.replace('_', '').upper()} - Included Libraries\n***\n\n")
+                fd.write(f"# {source_path.replace('_', ' ').upper()} - Included Libraries\n***\n\n")
                 # Python 3.x only
                 for line in req_txt.splitlines():
                     line = line.strip()
@@ -87,13 +93,14 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
                         str(parts_front).split("=")[0].replace(">", "").replace("<", "").replace("~", "").split("[")[0]
                         version: str = ""
                         if len(str(parts_front).split("=")) > 1:
-                            version: str = str(parts_front).split("=")[1].replace(">", "").replace("<", "").replace("~",
-                                                                                                                    "").strip()
+                            version: str = str(parts_front).split("=")[1].replace(">", "")\
+                                .replace("<", "").replace("~","").strip()
                             version_link: str = f"[![PyPI version fury.io](https://badge.fury.io/py/{package}.svg)](https://pypi.org/project/{package}/{version}/)"
                             condition: str = parts_front.replace(package, "")  # .replace(version, "")
                             if condition.__contains__("]"):
                                 condition = condition.split("]")[1]
-                            fd.write(f"### **{package}** ``{condition}`` {version_link}\n")
+                            fd.write(f"### **{package}** ``{condition}``\n\n")
+                            fd.write(f"{version_link}\n\n")
                         else:
                             fd.write(f"### **{package}**\n")
 
@@ -134,3 +141,6 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
     if not sub_process_result_file_exists or sub_process_result_file_needs_update:
         with open(pkl_info_file, 'wb') as f:
             pickle.dump(sub_process_result, f)
+
+
+

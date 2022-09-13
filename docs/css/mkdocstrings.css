@@ -1,3 +1,21 @@
+@page {
+    size: a4 portrait;
+    margin: 25mm 15mm 25mm 15mm;
+    counter-increment: page;
+    font-family: "Montserrat","Roboto",Montserrat,Roboto,sans-serif;
+    font-size: 12px;
+    white-space: pre;
+    color: grey;
+    @top-left {
+        content: '© 2022 u2d.ai';
+    }
+    @top-center {
+        content: string(chapter);
+    }
+    @bottom-right {
+        content: 'Page ' counter(page);
+    }
+}
 /* Indentation. */
 div.doc-contents:not(.first) {
   padding-left: 25px;

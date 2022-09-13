@@ -3,7 +3,7 @@ __version__ = '0.0.3'
 
 import time
 import codecs
-from typing import Optional
+from typing import Optional, Dict
 
 from pyinstrument import Profiler
 
@@ -31,7 +31,7 @@ class MSAProfilerMiddleware:
         profiler_interval: float = 0.0001,
         profiler_output_type: str = "html",
         track_each_request: bool = True,
-        **profiler_kwargs
+        **profiler_kwargs: Dict
     ):
         self.app = app
         """Linked/Mounted MSAApp Instance"""
