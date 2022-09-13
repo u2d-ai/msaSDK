@@ -2703,6 +2703,48 @@
 </code></pre></div>
 
   <div class="doc doc-contents ">
+  
+      <p>User Auth App</p>
+
+<details class="note">
+  <summary>Note</summary>
+  <p>The app parameter for the Auth App is normaly provided by the AuthAdminSite Class.
+This class shouldn't be instantiated directly.</p>
+</details>
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>app</code></td>
+          <td class="doc-param-details">
+            <p>The admin app instance</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="msaSDK.admin.AdminApp">AdminApp</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>msa_app</code></td>
+          <td class="doc-param-details">
+            <p>The MSAApp instance [Optional]</p>
+            <p>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -2725,6 +2767,31 @@
 </code></pre></div>
 
   <div class="doc doc-contents ">
+  
+      <p>check the page permission for the request</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>request</code></td>
+          <td class="doc-param-details">
+            <p>the request object</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="starlette.requests.Request">Request</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 

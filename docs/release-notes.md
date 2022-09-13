@@ -2,11 +2,11 @@
 
 ## Latest Changes
 
-* Added mkdocs features and prep for first public release
+* Finalized comments and docstring in admin, auth, crud
 
-## 0.0.8
+## 0.1.2
 
-This is the first public release
+This is the first public release of msaSDK, former releases are all stages of development and internal releases
 
 ### Features
 
