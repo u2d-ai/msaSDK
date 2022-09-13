@@ -15,7 +15,7 @@ from sqlmodel import SQLModel
 
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 """str: Module Version"""
 
 
