@@ -42,8 +42,8 @@ class TestCategory(SQLModel, table=True):
 
 get_msa_app_settings.cache_clear()
 settings = get_msa_app_settings()
-settings.title = "SPK.ai - MSA/SDK MVP"
-settings.version = "SPK.0.0.1"
+settings.title = "u2d.ai - MSA/SDK MVP"
+settings.version = "0.0.1"
 settings.debug = True
 
 my_timers: MSATimers = MSATimers()

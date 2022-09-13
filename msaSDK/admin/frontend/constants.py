@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class LevelEnum(str, Enum):
-    """按钮等级"""
+    """Button Level"""
     primary = 'primary'
     secondary = 'secondary'
     info = 'info'
@@ -16,7 +16,7 @@ class LevelEnum(str, Enum):
 
 
 class SizeEnum(str, Enum):
-    """窗口尺寸"""
+    """Window size"""
     xs = 'xs'
     sm = 'sm'
     md = 'md'
@@ -26,14 +26,17 @@ class SizeEnum(str, Enum):
 
 
 class DisplayModeEnum(str, Enum):
-    """表单展示模式"""
-    normal = 'normal'  # 常规模式
-    horizontal = 'horizontal'  # 水平模式
-    inline = 'inline'  # 内联模式
+    """Form display mode"""
+    normal = 'normal'
+    """General mode"""
+    horizontal = 'horizontal'
+    """Horizontal Mode"""
+    inline = 'inline'
+    """Inline mode"""
 
 
 class LabelEnum(str, Enum):
-    """标签样式"""
+    """Label Style"""
     primary = 'primary'
     success = 'success'
     warning = 'warning'
@@ -43,16 +46,16 @@ class LabelEnum(str, Enum):
 
 
 class StatusEnum(str, Enum):
-    """默认状态"""
-    success = 'success'  # 成功
+    """Default State"""
+    success = 'success'
     fail = 'fail'  # 失败
-    pending = 'pending'  # 运行中
-    queue = 'queue'  # 排队中
-    schedule = 'schedule'  # 调度中
+    pending = 'pending'
+    queue = 'queue'
+    schedule = 'schedule'
 
 
 class TabsModeEnum(str, Enum):
-    """选项卡模式"""
+    """Tab Mode"""
     line = "line"
     card = "card"
     radio = "radio"
