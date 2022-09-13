@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 from enum import Enum
 from typing import Optional, Type, List, Set, Union, Iterable, Dict, Any

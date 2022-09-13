@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 import asyncio
 from datetime import datetime
@@ -8,7 +8,7 @@ from queue import Queue
 from time import time
 
 import pytz
-from loguru import logger, Logger
+from loguru import logger
 from pydantic import typing
 from starlette.concurrency import run_in_threadpool
 
@@ -55,7 +55,7 @@ class MSATimers:
             MSATimerEnum.schedule: [],  # (function, 'HH:MM')
         }
 
-    def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM: str =None):
+    def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM: str = None):
 
         """ Create a Timer
 
@@ -119,7 +119,7 @@ class MSATimers:
 
 class MSAScheduler:
     def __init__(self, jobs: dict, local_time_zone: str = 'UTC', poll_millis: float = 1000, debug: bool = False,
-                 parent_logger: Logger = None):
+                 parent_logger=None):
         """ MSAScheduler object runs timers
 
         Standard Polling is 1 second
