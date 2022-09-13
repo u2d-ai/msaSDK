@@ -16,7 +16,7 @@ setup_info = dict(
     version=info['version'],
     author='Stefan Welcker',
     author_email='stefan@u2d.ai',
-    url='http://msa.u2d.ai/',
+    url='https://github.com/swelcker/U2D_MSA_SDK',
     download_url='http://pypi.python.org/pypi/u2d_msa_sdk',
     project_urls={
         'Documentation': 'http://msa.u2d.ai/',
