@@ -70,7 +70,7 @@ class HomeAdmin(PageAdmin):
             ),
             Divider(),
             Property(
-                title='MSA SDK',
+                title='msaSDK',
                 column=4,
                 items=[
                     Property.Item(label='System', content=platform.system()),

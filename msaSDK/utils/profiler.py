@@ -87,6 +87,6 @@ class MSAProfilerMiddleware:
             if html_name is None:
                 html_name = "./msatemplates/profiler.html"
             html_code = self._profiler.output_html(**self._profiler_kwargs) # HTMLRenderer().render(session=self._profiler.last_session)
-            html_code = html_code.replace("pyinstrument", "MSA SDK Profiler").replace("Pyinstrument", "MSA SDK Profiler")
+            html_code = html_code.replace("pyinstrument", "msaSDK Profiler").replace("Pyinstrument", "msaSDK Profiler")
             with codecs.open(html_name, "w", "utf-8") as f:
                 f.write(html_code)

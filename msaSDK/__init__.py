@@ -1,7 +1,7 @@
 # !/usr/bin/env python3  Line 1
 # -*- coding: utf-8 -*- Line 2
 # ----------------------------------------------------------------------------
-# FastAPI MSA SDK, shared SDK for multiple Micro Services Platform/Systems
+# FastAPI msaSDK, shared SDK for multiple Micro Services Platform/Systems
 #
 # Created By  : Stefan Welcker/U2D.ai
 # Created Date: 23.08.2022

@@ -89,7 +89,7 @@ class MSASchedulerStatus(SQLModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
-    name: Optional[str] = "MSA SDK Service"
+    name: Optional[str] = "msaSDK Service"
     """Service Name."""
     timers: Optional[List[MSATimerStatus]] = []
     """Optional MSATimerStatus List"""
@@ -101,7 +101,7 @@ class MSAServiceStatus(SQLModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
-    name: Optional[str] = "MSA SDK Service"
+    name: Optional[str] = "msaSDK Service"
     """Service Name."""
     healthy: Optional[str] = "None"
     """Health status"""
@@ -113,7 +113,7 @@ class MSAOpenAPIInfo(SQLModel):
     """
     **MSAOpenAPIInfo** Pydantic Response Class
     """
-    name: str = "MSA SDK Service"
+    name: str = "msaSDK Service"
     """Service Name."""
     version: str = "0.0.0"
     """API Version."""
@@ -163,7 +163,7 @@ def getSecretKeyCSRF() -> str:
 
 
 class MSAApp(MSAFastAPI):
-    """Creates an application MSA SDK instance.
+    """Creates an application msaSDK instance.
 
     Note:
         As with FastApi the MSAApp provides two events:
@@ -445,7 +445,7 @@ class MSAApp(MSAFastAPI):
         :return:
         :rtype:
         """
-        self.logger.info("MSA SDK Internal Startup MSAUIEvent")
+        self.logger.info("msaSDK Internal Startup MSAUIEvent")
 
         if self.settings.db:
             async with self.db_engine.begin() as conn:
@@ -490,7 +490,7 @@ class MSAApp(MSAFastAPI):
             self.logger.error("Can't Mount Admin Site - Not initialized or enabled")
 
     async def shutdown_event(self) -> None:
-        self.logger.info("MSA SDK Internal Shutdown MSAUIEvent")
+        self.logger.info("msaSDK Internal Shutdown MSAUIEvent")
         if self.settings.scheduler and self.timers:
             self.logger.info("Stop Scheduler Timers: " + str(len(self.timers.timer_jobs)))
             await self.scheduler.stop_timers()

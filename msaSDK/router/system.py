@@ -49,9 +49,9 @@ def system_test_error(request: Request) -> TypeError:
         request: HTTP Request.
 
     Raises:
-        TypeError: TypeError('MSA SDK System Test error...')
+        TypeError: TypeError('msaSDK System Test error...')
 
 
 
     """
-    raise TypeError('MSA SDK System Test error...')
+    raise TypeError('msaSDK System Test error...')

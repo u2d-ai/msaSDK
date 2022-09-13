@@ -1,10 +1,10 @@
 # Inspiration and Used Tools
 
-What inspired to build **MSA SDK**, how it came to life and why i use an SDK in Micro Service Architectures.
+What inspired to build **msaSDK**, how it came to life and why i use an SDK in Micro Service Architectures.
 
 ## Intro
 
-**MSA SDK** wouldn't exist if not for the previous work of others, esp. **FastAPI** and **Dapr**.
+**msaSDK** wouldn't exist if not for the previous work of others, esp. **FastAPI** and **Dapr**.
 
 There have been many tools created before that have helped inspire its creation.
 
@@ -16,12 +16,12 @@ So i fell in love with FastAPI, Pydantic, Tyype hints and then SQLModel a while 
 
 As i work in AI and mainly only build AI based automation solutions, i also added the Document Models which i typically need to process document content through AI systems.
 
-The MSA SDK basically covers my toolbox which i use for any microservice and API, the bottom line layer. As i am not a 'real' programmer and tend to believe i just play with building blocks and maybe develop some glue between them, i decided to also make it Open Source.
+The msaSDK basically covers my toolbox which i use for any microservice and API, the bottom line layer. As i am not a 'real' programmer and tend to believe i just play with building blocks and maybe develop some glue between them, i decided to also make it Open Source.
 
 Hope this helps or even inspire some people on how to use those awsome Open Source packages in real world applications.
 
 
-## Used by **MSA SDK** beside **FastAPI** and **Dapr**
+## Used by **msaSDK** beside **FastAPI** and **Dapr**
 
 ### <a href="https://pydantic-docs.helpmanual.io/" class="external-link" target="_blank">Pydantic</a>
 
@@ -81,7 +81,7 @@ Uvicorn is a lightning-fast ASGI server, built on uvloop and httptools.
 
 It is not a web framework, but a server. For example, it doesn't provide tools for routing by paths. That's something that a framework (like Starlette or FastAPI) would provide on top.
 
-It is the recommended server for Starlette, FastAPI and you guessed it **MSA SDK**.
+It is the recommended server for Starlette, FastAPI and you guessed it **msaSDK**.
 
 !!! check "**FastAPI** recommends it as"
     The main web server to run **FastAPI** applications.

@@ -2,7 +2,7 @@
 
 ------
 <p align="center">
-    <em>MSA SDK - FastAPI based Microservice Architecture Development Kit</em>
+    <em>msaSDK - FastAPI based Microservice Architecture Development Kit</em>
 </p>
 <p align="center">
     To build PoC's, MVP's, API's with CRUD and Dashboards fast and consistent.
@@ -23,7 +23,7 @@
 - **Support asynchronous and synchronous hybrid writing**: `ORM`  is based on`SQLModel` & `Sqlalchemy`. Freely customize
   database type. Asynchronous mode. Strong scalability.
 - **Front-end separation**: The front-end is rendered by `Amis`, the back-end interface is automatically generated
-  by `MSA SDK - Admin`. The interface is reusable.
+  by `msaSDK - Admin`. The interface is reusable.
 - **Strong scalability**: The background page supports `Amis` pages and ordinary `html` pages. Easily customize the
   interface freely.
 - **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
@@ -56,12 +56,12 @@ from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
 
 # example async function to be executed by a timer
 async def test_timer_min():
-  app.logger.info("MSA SDK Test Timer Async Every Minute")
+  app.logger.info("msaSDK Test Timer Async Every Minute")
 
 
 # example sync/blocking function to be executed by a timer
 def test_timer_five_sec():
-  app.logger.info("MSA SDK Test Timer Sync 5 Second")
+  app.logger.info("msaSDK Test Timer Sync 5 Second")
 
 
 # SQLModel class to be used for auto API CRUD and/or Admin Site Web UI
@@ -100,7 +100,7 @@ my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
 # Optional the MSATimers instance
 app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
              sql_models=[TestArticle, TestCategory],
-             contact={"name": "MSA SDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
+             contact={"name": "msaSDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
 # use the internal logger of app
@@ -111,14 +111,14 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 # Mount the Admin Site here if enabled and the auto mount option was False
 @app.on_event("startup")
 async def startup():
-  app.logger.info("MSA SDK Own Startup MSAUIEvent")
+  app.logger.info("msaSDK Own Startup MSAUIEvent")
   # app.mount_site()
 
 
 # Optional use shutdown event
 @app.on_event("shutdown")
 async def shutdown():
-  app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
+  app.logger.info("msaSDK Own Shutdown MSAUIEvent")
 ```
 
 # Typical Run Log
@@ -148,7 +148,7 @@ async def shutdown():
 
 ## License Agreement
 
-- `MSA SDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about MSA SDK - Auth Admin in the display interface.
+- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about msaSDK - Auth Admin in the display interface.
 
 
 ## How to create the documentation
@@ -156,7 +156,7 @@ async def shutdown():
 We use mkdocs and mkdocsstring. The code reference and nav entry get's created virtually by the triggered python script /docs/gen_ref_pages.py while ``mkdocs`` ``serve`` or ``build`` is executed.
 
 ### Requirements Install for the PDF creation option:
-PDF Export is using mainly weasyprint, if you get some errors here pls. check there documentation. Installation is part of the MSA SDK, so this should be fine.
+PDF Export is using mainly weasyprint, if you get some errors here pls. check there documentation. Installation is part of the msaSDK, so this should be fine.
 
 We can now test and view our documentation using:
 
