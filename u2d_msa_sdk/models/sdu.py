@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Module for the Semantic Document Understanding - Content"""
-__version__ = '0.0.3'
+__version__ = '0.0.8'
 
 from sqlmodel import SQLModel
 
