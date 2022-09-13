@@ -12,11 +12,7 @@ from typing import Dict, List, Optional
 import GPUtil
 import psutil
 from sqlmodel import SQLModel
-
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
-
-__version__ = '0.1.1'
-"""str: Module Version"""
 
 
 class MSAGPUInfo(SQLModel):

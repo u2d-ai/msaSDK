@@ -15,7 +15,7 @@ __version__ = version
 __maintainer__ = "Stefan Welcker"
 __email__ = "stefan@u2d,.ai"
 __status__ = "Beta"
-
+__url__ = "https://github.com/swelcker/U2D_MSA_SDK"
 
 from os.path import dirname, basename, isfile, join
 import glob

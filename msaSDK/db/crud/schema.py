@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
 
 from enum import Enum
 from typing import Dict, TypeVar, Optional, Generic, List, Any, Union

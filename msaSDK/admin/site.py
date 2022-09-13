@@ -9,13 +9,13 @@ from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 
-from msaSDK import admin
+import msaSDK
 from msaSDK.db.crud.schema import MSACRUDOut
+from msaSDK.service import MSAApp
+from msaSDK.utils.sysinfo import get_sysinfo
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
 from .utils.translation import i18n as _
-from msaSDK.service import MSAApp
-from msaSDK.utils.sysinfo import get_sysinfo
 
 
 class DocsAdmin(IframeAdmin):
@@ -75,7 +75,7 @@ class HomeAdmin(PageAdmin):
                 items=[
                     Property.Item(label='System', content=platform.system()),
                     Property.Item(label='Python', content=platform.python_version()),
-                    Property.Item(label='Version', content=admin.__version__),
+                    Property.Item(label='Version', content=msaSDK.__version__),
                     Property.Item(label='License', content='MIT'),
                 ]
             ),

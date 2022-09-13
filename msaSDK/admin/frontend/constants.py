@@ -48,7 +48,7 @@ class LabelEnum(str, Enum):
 class StatusEnum(str, Enum):
     """Default State"""
     success = 'success'
-    fail = 'fail'  # 失败
+    failure = 'failure'
     pending = 'pending'
     queue = 'queue'
     schedule = 'schedule'

@@ -4,8 +4,6 @@
 
 """
 
-__version__ = '0.1.1'
-
 from sqlmodel import SQLModel
 
 """str: Module Version"""

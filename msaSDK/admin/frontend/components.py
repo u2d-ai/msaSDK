@@ -1129,143 +1129,143 @@ class ConditionBuilder(FormItem):
         step: float = None
         """ step length """
 
-        class Date(Field):
-            """date"""
-            type: str = 'date'
-            defaultValue: str = None
-            """ default value """
-            format: str = None
-            """ default "YYYY-MM-DD" value format """
-            inputFormat: str = None
-            """ Default "YYYY-MM-DD" date format for display. """
+    class Date(Field):
+        """date"""
+        type: str = 'date'
+        defaultValue: str = None
+        """ default value """
+        format: str = None
+        """ default "YYYY-MM-DD" value format """
+        inputFormat: str = None
+        """ Default "YYYY-MM-DD" date format for display. """
 
-        class Datetime(Date):
-            """datetime"""
-            type: str = 'datetime'
-            timeFormat: str = None
-            """ Default "HH:mm" time format, determines which input boxes are available. """
+    class Datetime(Date):
+        """datetime"""
+        type: str = 'datetime'
+        timeFormat: str = None
+        """ Default "HH:mm" time format, determines which input boxes are available. """
 
-        class Time(Date):
-            """time"""
-            type: str = 'datetime'
+    class Time(Date):
+        """time"""
+        type: str = 'datetime'
 
-        class Select(Field):
-            """Dropdown selection"""
-            type: str = 'select'
-            options: MSAOptionsNode = None
-            """ list of options, Array<{label: string, value: any}> """
-            source: MSA_UI_API = None
-            """ Dynamic options, please configure api. """
-            searchable: bool = None
-            """ If or not searchable """
-            autoComplete: MSA_UI_API = None
-            """ AutoComplete will be called after each new input, and will return updated options according to the interface. """
+    class Select(Field):
+        """Dropdown selection"""
+        type: str = 'select'
+        options: MSAOptionsNode = None
+        """ list of options, Array<{label: string, value: any}> """
+        source: MSA_UI_API = None
+        """ Dynamic options, please configure api. """
+        searchable: bool = None
+        """ If or not searchable """
+        autoComplete: MSA_UI_API = None
+        """ AutoComplete will be called after each new input, and will return updated options according to the interface. """
 
-        type: str = 'condition-builder'
-        fields: List[
-            Field] = None
-        """ is an array type, each member represents an optional field, supports multiple layers, configuration example """
-        className: str = None
-        """ outer dom class name """
-        fieldClassName: str = None
-        """ The class name of the input field """
-        source: str = None
-        """ pull configuration items via remote """
+    type: str = 'condition-builder'
+    fields: List[
+        Field] = None
+    """ is an array type, each member represents an optional field, supports multiple layers, configuration example """
+    className: str = None
+    """ outer dom class name """
+    fieldClassName: str = None
+    """ The class name of the input field """
+    source: str = None
+    """ pull configuration items via remote """
 
-    class Editor(FormItem):
-        """Code Editor"""
-        type: str = 'editor'
-        language: str = None
-        """ "javascript" # Language highlighted by the editor, supported by the ${xxx} variable bat, c, coffeescript, cpp, csharp, css, dockerfile, fsharp, go, handlebars, html, ini, java 
-        javascript, json, less, lua, markdown, msdax, objective-c, php, plaintext, postiats, powershell,  pug, python, r, razor, ruby, sb, scss, shell, sol, sql, swift, typescript, vb, xml, yaml """
-        size: str = None
-        """ "md" # editor height, can be md, lg, xl, xxl """
-        allowFullscreen: bool = None
-        """ False # switch to show full screen mode or not """
-        options: dict = None
-        """ other configurations of monaco editor, such as whether to display line numbers, etc., please refer to here, but can not set readOnly, read-only mode need to use disabled: true """
+class Editor(FormItem):
+    """Code Editor"""
+    type: str = 'editor'
+    language: str = None
+    """ "javascript" # Language highlighted by the editor, supported by the ${xxx} variable bat, c, coffeescript, cpp, csharp, css, dockerfile, fsharp, go, handlebars, html, ini, java 
+    javascript, json, less, lua, markdown, msdax, objective-c, php, plaintext, postiats, powershell,  pug, python, r, razor, ruby, sb, scss, shell, sol, sql, swift, typescript, vb, xml, yaml """
+    size: str = None
+    """ "md" # editor height, can be md, lg, xl, xxl """
+    allowFullscreen: bool = None
+    """ False # switch to show full screen mode or not """
+    options: dict = None
+    """ other configurations of monaco editor, such as whether to display line numbers, etc., please refer to here, but can not set readOnly, read-only mode need to use disabled: true """
 
-    class Markdown(MSAUINode):
-        """Markdown rendering"""
-        type: str = 'markdown'
-        name: str = None
-        """ Field name, specifying the key of the form item when it is submitted """
-        value: Union[int, str] = None
-        """ The value of the field """
-        className: str = None
-        """ The outermost class name of the form """
-        src: MSA_UI_API = None
-        """ External address """
-        options: dict = None
-        """ html, whether html tags are supported, default false; linkify, whether to automatically recognize links, default is true; breaks, whether carriage return is line feed, default false """
+class Markdown(MSAUINode):
+    """Markdown rendering"""
+    type: str = 'markdown'
+    name: str = None
+    """ Field name, specifying the key of the form item when it is submitted """
+    value: Union[int, str] = None
+    """ The value of the field """
+    className: str = None
+    """ The outermost class name of the form """
+    src: MSA_UI_API = None
+    """ External address """
+    options: dict = None
+    """ html, whether html tags are supported, default false; linkify, whether to automatically recognize links, default is true; breaks, whether carriage return is line feed, default false """
 
-    class InputFile(FormItem):
-        """FileUpload"""
-        type: str = 'input-file'
-        receiver: MSA_UI_API = None
-        """ Upload file interface """
-        accept: str = None
-        """ "text/plain" # Only plain text is supported by default, to support other types, please configure this attribute to have the file suffix .xxx """
-        asBase64: bool = None
-        """ False # Assign the file as base64 to the current component """
-        asBlob: bool = None
-        """ False # Assign the file to the current component in binary form """
-        maxSize: int = None
-        """ No limit by default, when set, files larger than this value will not be allowed to be uploaded. The unit is B """
-        maxLength: int = None
-        """ No limit by default, when set, only the specified number of files will be allowed to be uploaded at a time. """
-        multiple: bool = None
-        """ False # Whether to select multiple. """
-        joinValues: bool = None
-        """ True # Splice values """
-        extractValue: bool = None
-        """ False # Extract the value """
-        delimiter: str = None
-        """ "," # Splice character """
-        autoUpload: bool = None
-        """ True # Automatically start uploading after no selection """
-        hideUploadButton: bool = None
-        """ False # Hide the upload button """
-        stateTextMap: dict = None
-        """ Upload state text, Default: {init: '', pending: 'Waiting for upload', uploading: 'Uploading', error: 'Upload error', uploaded: 'Uploaded',ready: ''} """
-        fileField: str = None
-        """ "file" # You can ignore this attribute if you don't want to store it yourself. """
-        nameField: str = None
-        """ "name" # Which field the interface returns to identify the file name """
-        valueField: str = None
-        """ "value" # Which field is used to identify the value of the file """
-        urlField: str = None
-        """ "url" # The field name of the file download address. """
-        btnLabel: str = None
-        """ The text of the upload button """
-        downloadUrl: Union[str, bool] = None
-        """ Version 1.1.6 starts to support post:http://xxx.com/${value} this way,
-        The default display of the file path will support direct download, you can support adding a prefix such as: http://xx.dom/filename= , if you do not want this, you can set the current configuration item to false. """
-        useChunk: bool = None
-        """ The server where msa_ui is hosted restricts the file upload size to 10M, so msa_ui will automatically change to chunk upload mode when the user selects a large file. """
-        chunkSize: int = None
-        """ 5 * 1024 * 1024 # chunk size """
-        startChunkApi: MSA_UI_API = None
-        """ startChunkApi """
-        chunkApi: MSA_UI_API = None
-        """ chunkApi """
-        finishChunkApi: MSA_UI_API = None
-        """ finishChunkApi """
-        autoFill: Dict[
-            str, str] = None
-        """ After a successful upload, you can configure autoFill to populate a form item with the values returned by the upload interface (not supported under non-form for now) """
+class InputFile(FormItem):
+    """FileUpload"""
+    type: str = 'input-file'
+    receiver: MSA_UI_API = None
+    """ Upload file interface """
+    accept: str = None
+    """ "text/plain" # Only plain text is supported by default, to support other types, please configure this attribute to have the file suffix .xxx """
+    asBase64: bool = None
+    """ False # Assign the file as base64 to the current component """
+    asBlob: bool = None
+    """ False # Assign the file to the current component in binary form """
+    maxSize: int = None
+    """ No limit by default, when set, files larger than this value will not be allowed to be uploaded. The unit is B """
+    maxLength: int = None
+    """ No limit by default, when set, only the specified number of files will be allowed to be uploaded at a time. """
+    multiple: bool = None
+    """ False # Whether to select multiple. """
+    joinValues: bool = None
+    """ True # Splice values """
+    extractValue: bool = None
+    """ False # Extract the value """
+    delimiter: str = None
+    """ "," # Splice character """
+    autoUpload: bool = None
+    """ True # Automatically start uploading after no selection """
+    hideUploadButton: bool = None
+    """ False # Hide the upload button """
+    stateTextMap: dict = None
+    """ Upload state text, Default: {init: '', pending: 'Waiting for upload', uploading: 'Uploading', error: 'Upload error', uploaded: 'Uploaded',ready: ''} """
+    fileField: str = None
+    """ "file" # You can ignore this attribute if you don't want to store it yourself. """
+    nameField: str = None
+    """ "name" # Which field the interface returns to identify the file name """
+    valueField: str = None
+    """ "value" # Which field is used to identify the value of the file """
+    urlField: str = None
+    """ "url" # The field name of the file download address. """
+    btnLabel: str = None
+    """ The text of the upload button """
+    downloadUrl: Union[str, bool] = None
+    """ Version 1.1.6 starts to support post:http://xxx.com/${value} this way,
+    The default display of the file path will support direct download, you can support adding a prefix such as: http://xx.dom/filename= , if you do not want this, you can set the current configuration item to false. """
+    useChunk: bool = None
+    """ The server where msa_ui is hosted restricts the file upload size to 10M, so msa_ui will automatically change to chunk upload mode when the user selects a large file. """
+    chunkSize: int = None
+    """ 5 * 1024 * 1024 # chunk size """
+    startChunkApi: MSA_UI_API = None
+    """ startChunkApi """
+    chunkApi: MSA_UI_API = None
+    """ chunkApi """
+    finishChunkApi: MSA_UI_API = None
+    """ finishChunkApi """
+    autoFill: Dict[
+        str, str] = None
+    """ After a successful upload, you can configure autoFill to populate a form item with the values returned by the upload interface (not supported under non-form for now) """
 
-    class InputExcel(FormItem):
-        """Parse Excel"""
-        type: str = 'input-excel'
-        allSheets: bool = None
-        """ False # whether to parse all sheets """
-        parseMode: str = None
-        """ 'array' or 'object' parse mode """
-        includeEmpty: bool = None
-        """ True # whether to include null values """
-        plainText: bool = None
-        """ True # Whether to parse as plain text """
+class InputExcel(FormItem):
+    """Parse Excel"""
+    type: str = 'input-excel'
+    allSheets: bool = None
+    """ False # whether to parse all sheets """
+    parseMode: str = None
+    """ 'array' or 'object' parse mode """
+    includeEmpty: bool = None
+    """ True # whether to include null values """
+    plainText: bool = None
+    """ True # Whether to parse as plain text """
 
 
 class InputTable(FormItem):
@@ -1823,9 +1823,8 @@ class InputDatetimeRange(InputTimeRange):
     type: str = 'input-datetime-range'
     ranges: Union[
         str, List[str]] = None
-    """ "yesterday,7daysago,prevweek,thismonth,prevmonth,prevquarter" Date range shortcut. """
-  
-    """ optional: today,yesterday,1dayago,7daysago,30daysago,90daysago,prevweek,thismonth,thisquarter,prevmonth,prevquarter """
+    """ "yesterday,7daysago,prevweek,thismonth,prevmonth,prevquarter" Date range shortcut. 
+        optional: today,yesterday,1dayago,7daysago,30daysago,90daysago,prevweek,thismonth,thisquarter,prevmonth,prevquarter """
     minDate: str = None
     """ Limit the minimum date and time, use the same as limit range """
     maxDate: str = None
@@ -1874,9 +1873,8 @@ class Transfer(FormItem):
     sortable: bool = None
     """ False # Results can be sorted by dragging and dropping """
     selectMode: str = None
-    """ "list" # Optional: list, table, tree, cascaded, associated. respectively: list form, table form, tree selection form, tree selection form """
-  
-    """ cascade selection form, associated selection form (the difference with cascade selection is that cascade is infinite, while associated is only one level, and the left side of associated can be a tree). """
+    """ "list" # Optional: list, table, tree, cascaded, associated. respectively: list form, table form, tree selection form, tree selection form 
+    cascade selection form, associated selection form (the difference with cascade selection is that cascade is infinite, while associated is only one level, and the left side of associated can be a tree). """
     searchResultMode: str = None
     """ If not set will use the value of selectMode, can be configured separately, refer to selectMode, determine the search results display form. """
     columns: List[
@@ -2223,9 +2221,7 @@ class CRUD(MSAUINode):
 class TableColumn(MSAUINode):
     """columnConfiguration"""
     type: str = None
-    """ Literal['text','audio','image','link','tpl','mapping','carousel','date', """
-  
-    """ 'progress','status','switch','list','json','operation'] """
+    """ Literal['text','audio','image','link','tpl','mapping','carousel','date', 'progress','status','switch','list','json','operation'] """
     label: MSAUITemplate = None
     """ the text content of the table header """
     name: str = None
@@ -2263,12 +2259,12 @@ class ColumnOperation(TableColumn):
 
 
 class ColumnImage(Image, TableColumn):
-    """ImageColumn"""
+    """Image Column"""
     pass
 
 
 class ColumnImages(Images, TableColumn):
-    """ImageColumn"""
+    """Image collection Column"""
     pass
 
 
@@ -2324,9 +2320,8 @@ class Table(MSAUINode):
     """ Content area adaptive height"""
     footable: Union[
         bool, dict] = None
-    """ When there are too many columns, there is no way to display all the content, so you can let some of the information displayed at the bottom, which allows users to expand to see the details."""
-  
-    """ The configuration is very simple, just turn on the footable property and add a breakpoint property to * for the columns you want to display at the bottom."""
+    """ When there are too many columns, there is no way to display all the content, so you can let some of the information displayed at the bottom, which allows users to expand to see the details.
+    The configuration is very simple, just turn on the footable property and add a breakpoint property to * for the columns you want to display at the bottom."""
 
 
 class Chart(MSAUINode):
@@ -2738,9 +2733,7 @@ class Tasks(MSAUINode):
     retryBtnClassName: str = None
     """ "btn-sm btn-danger" # Configure the container retry button className"""
     statusLabelMap: List[str] = None
-    """ Configuration of the class name corresponding to the status display"""
-  
-    """ ["label-warning", "label-info", "label-success", "label-danger", "label-default", "label-danger"] """
+    """ Configuration of the class name corresponding to the status display ["label-warning", "label-info", "label-success", "label-danger", "label-default", "label-danger"] """
     statusTextMap: List[
         str] = None
     """ "["Not Started", "Ready", "In Progress", "Error", "Completed", "Error"]" # Status display corresponding to the text display configuration"""
@@ -2796,9 +2789,8 @@ class Wizard(MSAUINode):
     redirect: MSAUITemplate = None
     """ "3000" # Jump after the operation."""
     target: str = None
-    """ "False" # You can submit the data to another component instead of saving it yourself. Please fill in the name value set by the target component."""
-  
-    """ If you fill in window, the data will be synced to the address bar, and the component that depends on the data will be refreshed automatically."""
+    """ "False" # You can submit the data to another component instead of saving it yourself. Please fill in the name value set by the target component.
+    If you fill in window, the data will be synced to the address bar, and the component that depends on the data will be refreshed automatically."""
     steps: List[Step] = None
     """ Array to configure step information"""
     startStep: int = None

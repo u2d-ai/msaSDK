@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
-
 import os
 import sys
 from typing import List

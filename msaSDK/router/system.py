@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1.1'
 
 from fastapi import APIRouter
 from starlette.requests import Request

@@ -60,11 +60,6 @@ from msaSDK.utils.profiler import MSAProfilerMiddleware
 from msaSDK.utils.scheduler import MSATimers, MSAScheduler
 from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo
 
-__version__ = '0.1.1'
-""" str: Module Version"""
-
-if __name__ == '__main__':
-    pass
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 """Security Context for Password Helper"""

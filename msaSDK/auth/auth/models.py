@@ -139,23 +139,25 @@ class BaseUser(PkMixin, UsernameMixin, PasswordMixin, EmailMixin, CreateTimeMixi
 
     def _exists_roles(self, roles: List[str]) -> Exists:
         """
-        检查用户是否属于指定用户角色,或属于包含指定用户角色的用户组
+        Check if the user belongs to the specified user role, or to a user group that contains the specified user role
+
         Args:
             roles:
 
         Returns:
-
+            Exists
         """
         return self._exists_role(Role.key.in_(roles))
 
     def _exists_groups(self, groups: List[str]) -> Exists:
         """
-        检查用户是否属于指定用户组
+        Check if the user belongs to the specified user group
+
         Args:
             groups:
 
         Returns:
-
+            Exists
         """
         group_ids = select(Group.id).join(
             UserGroupLink, (UserGroupLink.user_id == self.id) & (UserGroupLink.group_id == Group.id)
@@ -164,12 +166,13 @@ class BaseUser(PkMixin, UsernameMixin, PasswordMixin, EmailMixin, CreateTimeMixi
 
     def _exists_permissions(self, permissions: List[str]) -> Exists:
         """
-        检查用户是否属于拥有指定权限的用户角色
+        Check if the user belongs to the user role with the specified privileges
+
         Args:
             permissions:
 
         Returns:
-
+            Exists
         """
         role_ids = select(RolePermissionLink.role_id).join(
             Permission, Permission.key.in_(permissions) & (Permission.id == RolePermissionLink.permission_id)
@@ -185,15 +188,16 @@ class BaseUser(PkMixin, UsernameMixin, PasswordMixin, EmailMixin, CreateTimeMixi
             permissions: Union[str, Sequence[str]] = None,
     ) -> bool:
         """
-        检查用户是否属于拥有指定的RBAC权限
+        Check if the user has the specified RBAC privileges
+
         Args:
-            session: sqlalchemy `Session`;异步`AsyncSession`,请使用`run_sync`方法.
-            roles: 角色列表
-            groups: 用户组列表
-            permissions: 权限列表
+            session: sqlalchemy `Session`; asynchronous `AsyncSession`, please use `run_sync` method.
+            roles: list of roles
+            groups: list of user groups
+            permissions: list of permissions
 
         Returns:
-            检测成功返回`True`
+            Return `True` for successful detection.
         """
         stmt = select(1)
         if groups:
@@ -226,7 +230,7 @@ class BaseRBAC(PkMixin):
 
 
 class Role(BaseRBAC, table=True):
-    """角色"""
+    """Roles"""
     __tablename__ = 'auth_role'
     groups: List["Group"] = Relationship(back_populates="roles", link_model=GroupRoleLink)
     permissions: List["Permission"] = Relationship(back_populates="roles", link_model=RolePermissionLink)
@@ -238,11 +242,11 @@ class BaseGroup(BaseRBAC):
 
 
 class Group(BaseGroup, table=True):
-    """用户组"""
+    """Group"""
     roles: List["Role"] = Relationship(back_populates="groups", link_model=GroupRoleLink)
 
 
 class Permission(BaseRBAC, table=True):
-    """权限"""
+    """Permisson"""
     __tablename__ = 'auth_permission'
     roles: List["Role"] = Relationship(back_populates="permissions", link_model=RolePermissionLink)
