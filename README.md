@@ -3,17 +3,22 @@
 ------
 <p align="center">
     <em>msaSDK - FastAPI based Microservice Architecture Development Kit</em>
-</p>
-<p align="center">
     To build PoC's, MVP's, API's with CRUD and Dashboards fast and consistent.
-</p>
-<p align="center">
     Build on top of FastAPI, SQLModel, SQLAlchemy, Amis and many other bullet proofed libraries.
+<br>
+  <a href="https://pypi.org/project/msaSDK" target="_blank">
+      <img src="https://img.shields.io/pypi/v/msaSDK?color=%2334D058&label=pypi%20package" alt="Package version">
+  </a>
+  <a href="https://pypi.org/project/msaSDK" target="_blank">
+      <img src="https://img.shields.io/pypi/pyversions/msaSDK.svg?color=%2334D058" alt="Supported Python versions">
+  </a>
 </p>
 
 ------
 
 **Documentation**: <a href="http://msa.u2d.ai/" target="_blank">http://msa.u2d.ai/</a>
+
+------
 
 ## Features
 - **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/)..
