@@ -2,7 +2,7 @@ Metadata-Version: 2.1
 Name: u2d-msa-sdk
 Version: 0.0.8
 Summary: FastAPI based Microservice Architecture Development Kit
-Home-page: http://msa.u2d.ai/
+Home-page: https://github.com/swelcker/U2D_MSA_SDK
 Download-URL: http://pypi.python.org/pypi/u2d_msa_sdk
 Author: Stefan Welcker
 Author-email: stefan@u2d.ai

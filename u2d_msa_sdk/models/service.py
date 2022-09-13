@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.0.8'
+__version__ = '0.1.0'
 
 from functools import lru_cache
 from typing import Dict, List, Optional
