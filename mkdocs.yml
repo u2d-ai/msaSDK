@@ -38,11 +38,11 @@ plugins:
   - section-index
   - mkdocstrings:
       watch:
-        - u2d_msa_sdk
+        - msaSDK
       default_handler: python
       handlers:
         python:
-          paths: [u2d_msa_sdk]
+          paths: [msaSDK]
           options:
             show_source: false
             separate_signature: true

@@ -25,8 +25,8 @@ Copyright (c) 2022 - U2D.ai / S.Welcker
 """
 __version__ = "0.0.1"
 
-from u2d_msa_sdk.models.service import get_msa_app_settings
-from u2d_msa_sdk.service import MSAApp
+from msaSDK.models.service import get_msa_app_settings
+from msaSDK.service import MSAApp
 
 # get the MSA app setting, clear the cache, set some settings
 get_msa_app_settings.cache_clear()
@@ -45,10 +45,12 @@ app = MSAApp(settings=settings, auto_mount_site=True,
 # use the internal logger of app
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 
+
 # Optional use startup event
 @app.on_event("startup")
 async def startup():
     app.logger.info("MSA SDK Own Startup MSAUIEvent")
+
 
 # Optional use shutdown event
 @app.on_event("shutdown")
@@ -113,10 +115,11 @@ def vip_roles_and_article_update(request: Request):
 ```python
 from fastapi import Depends
 from typing import Tuple
-from u2d_msa_sdk.auth import Auth
-from u2d_msa_sdk.auth.models import User
+from msaSDK.auth import Auth
+from msaSDK.auth.models import User
 
-app = MSAApp ...
+app = MSAApp...
+
 
 @app.get("/auth/admin_roles_depend_1")
 def admin_roles(user: User = Depends(app.auth.get_current_user)):
@@ -153,11 +156,12 @@ auth.backend.attach_middleware(app)
 - Recommended scenarios: Non-routed methods
 
 ```python
-from u2d_msa_sdk.auth.models import User
+from msaSDK.auth.models import User
+
 
 async def get_request_user(request: Request) -> Optional[User]:
     # user= await auth.get_current_user(request)
-    if await auth.requires('admin', response = False)(request):
+    if await auth.requires('admin', response=False)(request):
         return request.user
     else:
         return None
@@ -171,22 +175,21 @@ async def get_request_user(request: Request) -> Optional[User]:
 ### JwtTokenStore
 
 ```python
-from u2d_msa_sdk.auth.backends.jwt import JwtTokenStore
+from msaSDK.auth.backends.jwt import JwtTokenStore
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy_database import AsyncDatabase
 
-
-engine = create_async_engine(url = 'sqlite+aiosqlite:///amisadmin.db', future = True)
+engine = create_async_engine(url='sqlite+aiosqlite:///amisadmin.db', future=True)
 
 auth = Auth(
-    db = AsyncDatabase(engine),
-    token_store = JwtTokenStore(secret_key = '09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7')
+    db=AsyncDatabase(engine),
+    token_store=JwtTokenStore(secret_key='09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7')
 )
 
 # Auth Admin Site
 site = AuthAdminSite(
-    settings = Settings(database_url_async = 'sqlite+aiosqlite:///amisadmin.db'),
-    auth = auth
+    settings=Settings(database_url_async='sqlite+aiosqlite:///amisadmin.db'),
+    auth=auth
 )
 
 ```
@@ -195,11 +198,11 @@ site = AuthAdminSite(
 
 ```python
 
-from u2d_msa_sdk.auth.backends.db import DbTokenStore
+from msaSDK.auth.backends.db import DbTokenStore
 
 auth = Auth(
-    db = AsyncDatabase(engine),
-    token_store = DbTokenStore(db = AsyncDatabase(engine))
+    db=AsyncDatabase(engine),
+    token_store=DbTokenStore(db=AsyncDatabase(engine))
 )
 ```
 
@@ -207,12 +210,12 @@ auth = Auth(
 
 ```python
 # Creating auth objects with `RedisTokenStore`
-from u2d_msa_sdk.auth.backends.redis import RedisTokenStore
+from msaSDK.auth.backends.redis import RedisTokenStore
 from aioredis import Redis
 
 auth = Auth(
-    db = AsyncDatabase(engine),
-    token_store = RedisTokenStore(redis = Redis.from_url('redis://localhost?db=0'))
+    db=AsyncDatabase(engine),
+    token_store=RedisTokenStore(redis=Redis.from_url('redis://localhost?db=0'))
 )
 ```
 
@@ -237,16 +240,18 @@ flowchart LR
 ```python
 from datetime import date
 
-from u2d_msa_sdk.admin.models.fields import Field
-from u2d_msa_sdk.auth.models import BaseUser
+from msaSDK.admin.models.fields import Field
+from msaSDK.auth.models import BaseUser
+
 
 # Customize the `User` model, inherit from `BaseUser`.
-class MyUser(BaseUser, table = True):
-    birthday: date = Field(None, title = "Date of Birth")
-    location: str = Field(None, title = "Location")
+class MyUser(BaseUser, table=True):
+    birthday: date = Field(None, title="Date of Birth")
+    location: str = Field(None, title="Location")
+
 
 # Create auth objects using a custom `User` model
-auth = Auth(db = AsyncDatabase(engine), user_model = MyUser)
+auth = Auth(db=AsyncDatabase(engine), user_model=MyUser)
 ```
 
 ### Extending the `Role`,`Group`,`Permission` model

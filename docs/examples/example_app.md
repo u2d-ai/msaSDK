@@ -9,10 +9,10 @@ from typing import Optional
 
 from sqlmodel import SQLModel
 
-from u2d_msa_sdk.admin.utils.fields import Field
-from u2d_msa_sdk.models.service import get_msa_app_settings
-from u2d_msa_sdk.service import MSAApp
-from u2d_msa_sdk.utils.scheduler import MSATimers, MSATimerEnum
+from msaSDK.admin.utils.fields import Field
+from msaSDK.models.service import get_msa_app_settings
+from msaSDK.service import MSAApp
+from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
 
 
 async def test_timer_min():
