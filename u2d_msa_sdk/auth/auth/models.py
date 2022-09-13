@@ -52,6 +52,7 @@ class EmailMixin(SQLModel):
 
 class UserRoleLink(SQLModel, table=True):
     __tablename__ = 'auth_user_roles'
+    __table_args__ = {'extend_existing': True}
     user_id: Optional[int] = Field(
         default=None, foreign_key="auth_user.id", primary_key=True, nullable=False
     )
@@ -62,6 +63,7 @@ class UserRoleLink(SQLModel, table=True):
 
 class UserGroupLink(SQLModel, table=True):
     __tablename__ = 'auth_user_groups'
+    __table_args__ = {'extend_existing': True}
     user_id: Optional[int] = Field(
         default=None, foreign_key="auth_user.id", primary_key=True, nullable=False
     )
@@ -72,6 +74,7 @@ class UserGroupLink(SQLModel, table=True):
 
 class GroupRoleLink(SQLModel, table=True):
     __tablename__ = 'auth_group_roles'
+    __table_args__ = {'extend_existing': True}
     group_id: Optional[int] = Field(
         default=None, foreign_key="auth_group.id", primary_key=True, nullable=False
     )
@@ -82,6 +85,7 @@ class GroupRoleLink(SQLModel, table=True):
 
 class RolePermissionLink(SQLModel, table=True):
     __tablename__ = 'auth_role_permissions'
+    __table_args__ = {'extend_existing': True}
     role_id: Optional[int] = Field(
         default=None, foreign_key="auth_role.id", primary_key=True, nullable=False
     )

@@ -34,10 +34,7 @@ async def getResultDependencies(doc: WDCDocument):
 
         for para in page.paragraphs:
             for seno in para.sentences:
-                res: Dict = {"pageid": page.id, "paraid": para.id, "senid": seno.id}
-                deps = []
-                for dep in seno.dependencies:
-                    deps.append(dep)
+                deps: List = [dep for dep in seno.dependencies]
                 res: Dict = {"pageid": page.id, "paraid": para.id, "senid": seno.id, "sentence": seno.text,
                              "deps": deps}
                 ret.append(res)
@@ -352,10 +349,9 @@ async def createNewMLDoc(data: dict, langcode: str = "en",
     key: str
     targetsList = optionTargetFields.split(",")
     trainList = optionTrainFields.split(",")
-    for entry in targetsList:
-        newdoc.targetsList.append(entry.strip())
-    for entry in trainList:
-        newdoc.trainList.append(entry.strip())
+
+    newdoc.targetsList = [entry.strip() for entry in targetsList]
+    newdoc.trainList = [entry.strip() for entry in trainList]
 
     for sheet_key, sheet_value in data.items():
         data = json.loads(sheet_value)

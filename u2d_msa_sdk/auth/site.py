@@ -9,7 +9,7 @@ from u2d_msa_sdk.admin.site import AdminSite
 from u2d_msa_sdk.admin.utils.translation import i18n as _
 from u2d_msa_sdk.auth.app import UserAuthApp
 from u2d_msa_sdk.auth.auth import Auth
-from ..service import MSAApp
+from u2d_msa_sdk.service import MSAApp
 
 
 class AuthAdminSite(AdminSite):

@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.0.3'
+"""Main Service Module for MSAApp.
+
+Initialize with a MSAServiceDefintion Instance to control the features and functions of the MSAApp.
+
+"""
+
 
 import asyncio
 import os
@@ -20,7 +25,6 @@ from loguru import logger
 from msgpack_asgi import MessagePackMiddleware
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
-from pydantic import BaseModel
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -56,115 +60,142 @@ from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSAScheduler
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 
+__version__ = '0.0.3'
+""" str: Module Version"""
 
 if __name__ == '__main__':
     pass
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+"""Security Context for Password Helper"""
 password_helper = PasswordHelper(security_context)
+"""Password Helper Instance"""
 security = getMSASecurity()
+"""MSASecurity instance"""
 
 
-class MSATimerStatus(BaseModel):
-    """
-    **MSATimerStatus** Pydantic Response Class
+class MSATimerStatus(SQLModel):
+    """**MSATimerStatus** Pydantic Response Class
     """
     mode: Optional[str] = None
+    """Timer Mode."""
     func: Optional[str] = None
+    """Timer Handler Function."""
     mark_HH_MM: Optional[str] = None
+    """ Mark for Schedule"""
 
 
-class MSASchedulerStatus(BaseModel):
+class MSASchedulerStatus(SQLModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
-    name: Optional[str] = "None"
+    name: Optional[str] = "MSA SDK Service"
+    """Service Name."""
     timers: Optional[List[MSATimerStatus]] = []
+    """Optional MSATimerStatus List"""
     message: Optional[str] = "None"
+    """Optional Message Text"""
 
 
-class MSAServiceStatus(BaseModel):
+class MSAServiceStatus(SQLModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
-    name: Optional[str] = "None"
+    name: Optional[str] = "MSA SDK Service"
+    """Service Name."""
     healthy: Optional[str] = "None"
+    """Health status"""
     message: Optional[str] = "None"
+    """Optional Message Text"""
 
 
-class MSAOpenAPIInfo(BaseModel):
+class MSAOpenAPIInfo(SQLModel):
     """
     **MSAOpenAPIInfo** Pydantic Response Class
     """
     name: str = "MSA SDK Service"
+    """Service Name."""
     version: str = "0.0.0"
+    """API Version."""
     url: str = "/openapi.json"
+    """OpenAPI URL."""
     tags: Optional[List[str]] = None
+    """OpenAPI Tags."""
 
 
 def getSecretKey():
     """
     Get Secret Key for Token creation from OS Environment Variable **SECRET_KEY_TOKEN**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_TOKEN.
+
     """
-    ret_key: str = os.getenv("SECRET_KEY_TOKEN",
+    key: str = os.getenv("SECRET_KEY_TOKEN",
                              "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
-    return ret_key
+    return key
 
 
 def getSecretKeySessions():
     """
     Get Secret Key for Session Middleware from OS Environment Variable **SECRET_KEY_SESSIONS**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_SESSIONS.
+
     """
-    ret_key: str = os.getenv("SECRET_KEY_SESSIONS",
+    key: str = os.getenv("SECRET_KEY_SESSIONS",
                              "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)")
-    return ret_key
+    return key
 
 
 def getSecretKeyCSRF() -> str:
     """
     Get Secret Key for CSRF Middleware from OS Environment Variable **SECRET_KEY_CSRF**
-    :return: key as str
+
+    Returns:
+        key: The SECRET_KEY_CSRF.
+
     """
-    ret_key: str = os.getenv("SECRET_KEY_CSRF",
+    key: str = os.getenv("SECRET_KEY_CSRF",
                              "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s")
-    return ret_key
+    return key
 
 
 class MSAApp(MSAFastAPI):
+    """Creates an application MSA SDK instance.
+
+    Note:
+        As with FastApi the MSAApp provides two events:
+        ``startup``: A list of callables to run on application startup. Startup handler callables do not take any arguments, and may be be either standard functions, or async functions.
+        ``shutdown``: A list of callables to run on application shutdown. Shutdown handler callables do not take any arguments, and may be be either standard functions, or async functions.
+        Those are also used internally, which are triggered before the external events.
+
+        Do not include the `self` parameter in the ``Args`` section.
+
+    Args:
+        settings: MSAServiceDefinition (Must be provided), instance of a service definition with all settings
+        timers: MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
+        sql_models: List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
+        auto_mount_site: Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
+
+    Attributes:
+        logger: loguru logger instance
+        auto_mount_site: bool auto_mount_site
+        settings: MSAServiceDefinition settings instance.
+        timers: MSATimers = timers
+        healthdefinition: MSAHealthDefinition settings.healthdefinition
+        limiter: Limiter = None
+        db_engine: AsyncEngine = Db Engine instance
+        sql_models: List[SQLModel] = sql_models
+        sql_cruds: List[MSASQLModelCrud] = []
+        scheduler: MSAScheduler = None
+        site: AdminSite Admin/Auth Site instance.
+        scheduler_task: The Task instance that runs the Scheduler in the Background
+        ROOTPATH: str os.path.join(os.path.dirname(__file__))
+
     """
-    Creates an application MSA SDK instance.
 
-    **Parameters:**
-
-    * **settings** - MSAServiceDefinition (Must be provided), instance of a service definition with all settings
-    * **timers** - MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
-    * **sql_models** - List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
-    * **auto_mount_site** - Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
-
-    **Inherited Parameters: used as *args, **kwargs**
-
-    * **debug** - Boolean indicating if debug tracebacks should be returned on errors.
-    * **routes** - A list of routes to serve incoming HTTP and WebSocket requests.
-    * **middleware** - A list of middleware to run for every request. A starlette
-    application will always automatically include two middleware classes.
-    `ServerErrorMiddleware` is added as the very outermost middleware, to handle
-    any uncaught errors occurring anywhere in the entire stack.
-    `ExceptionMiddleware` is added as the very innermost middleware, to deal
-    with handled exception cases occurring in the routing or endpoints.
-    * **exception_handlers** - A mapping of either integer status codes,
-    or exception class types onto callables which handle the exceptions.
-    Exception handler callables should be of the form
-    `handler(request, exc) -> response` and may be be either standard functions, or
-    async functions.
-    * **on_startup** - A list of callables to run on application startup.
-    Startup handler callables do not take any arguments, and may be be either
-    standard functions, or async functions.
-    * **on_shutdown** - A list of callables to run on application shutdown.
-    Shutdown handler callables do not take any arguments, and may be be either
-    standard functions, or async functions.
-    """
     def __init__(
             self,
             settings: MSAServiceDefinition,
@@ -366,14 +397,14 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Excluded Pagination Engine")
 
         if self.settings.templates or self.settings.pages:
-            self.logger.info("Init Jinja Template Engine")
+            self.logger.info("Init Jinja MSAUITemplate Engine")
             self.templates = Jinja2Templates(directory=self.settings.templates_dir)
         else:
-            self.logger.info("Excluded Jinja Template Engine")
+            self.logger.info("Excluded Jinja MSAUITemplate Engine")
 
         if self.settings.pages:
             self.logger.info("Add Pages Router")
-            self.add_api_route("/profiler", self.profiler, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route(self.settings.profiler_url, self.profiler, tags=["pages"], response_class=HTMLResponse)
             self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
             if not self.settings.site:
                 self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
@@ -414,7 +445,7 @@ class MSAApp(MSAFastAPI):
         :return:
         :rtype:
         """
-        self.logger.info("MSA SDK Internal Startup Event")
+        self.logger.info("MSA SDK Internal Startup MSAUIEvent")
 
         if self.settings.db:
             async with self.db_engine.begin() as conn:
@@ -459,7 +490,7 @@ class MSAApp(MSAFastAPI):
             self.logger.error("Can't Mount Admin Site - Not initialized or enabled")
 
     async def shutdown_event(self) -> None:
-        self.logger.info("MSA SDK Internal Shutdown Event")
+        self.logger.info("MSA SDK Internal Shutdown MSAUIEvent")
         if self.settings.scheduler and self.timers:
             self.logger.info("Stop Scheduler Timers: " + str(len(self.timers.timer_jobs)))
             await self.scheduler.stop_timers()
@@ -470,7 +501,6 @@ class MSAApp(MSAFastAPI):
                 except Exception as ex:
                     self.logger.error(f"scheduler_task cancel failed")
                     pass
-
 
             self.logger.info("End Scheduler")
             self.scheduler_task = None

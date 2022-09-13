@@ -18,9 +18,15 @@ class MSASendEmail:
         self.password: str = smtp_password
         self.timeout: int = timeout
         self.testmode: bool = testmode
+        """Testmode True doesnt send the email out through SMTP Server"""
 
     async def send_email(self, from_email: str, to_email: str, subject: str, body: str, jinja_template_path_html: str = ""):
-        """Send an email."""
+        """Send an email.
+
+            Raises:
+                TypeError: Error: MSASendEmail: HTML Templatefile ... not exists
+                TypeError: Error: MSASendEmail: SMTP Server Login failed for User
+        """
         msg = MIMEMultipart("alternative")
         # me == the sender's email address
         # you == the recipient's email address

@@ -12,7 +12,7 @@ from u2d_msa_sdk.admin.utils.translation import i18n as _
 
 
 class MSAUIParser:
-
+    """MSA UI Core Model Parser"""
     def __init__(self, modelfield: ModelField):
         self.modelfield = modelfield  # read only
 
@@ -177,5 +177,6 @@ class MSAUIParser:
 
 
 def cyclic_generator(iterable: Iterable):
+    """Yield Iterable"""
     while True:
         yield from iterable

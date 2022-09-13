@@ -4,7 +4,7 @@ from typing import Union, List, Optional, Any, Dict
 from pydantic import Field
 
 from .constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
-from .types import MSA_UI_API, Expression, MSAUINode, SchemaNode, Template, MSABaseUIModel, OptionsNode, Tpl
+from .types import MSA_UI_API, MSAUIExpression, MSAUINode, MSAUISchemaNode, MSAUITemplate, MSABaseUIModel, MSAOptionsNode, MSAUITpl
 from .utils import msa_ui_templates
 
 try:
@@ -16,9 +16,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class Html(MSAUINode):
-    """Html"""
+    """Html Node"""
     type: str = "html"  # 指定为 html 组件
-    html: str  # html  当需要获取数据域中变量时，使用 Tpl 。
+    html: str  # html  当需要获取数据域中变量时，使用 MSAUITpl 。
 
 
 class Icon(MSAUINode):
@@ -50,7 +50,7 @@ class Badge(MSAUINode):
     className: str = None  # 外层 dom 的类名
     animation: bool = None  # 角标是否显示动画
     style: dict = None  # 角标的自定义样式
-    visibleOn: Expression = None  # 控制角标的显示隐藏
+    visibleOn: MSAUIExpression = None  # 控制角标的显示隐藏
 
 
 class Page(MSAUINode):
@@ -58,15 +58,15 @@ class Page(MSAUINode):
     __default_template_path__: str = f'{BASE_DIR}/templates/page.html'
 
     type: str = "page"  # 指定为 Page 组件
-    title: SchemaNode = None  # 页面标题
-    subTitle: SchemaNode = None  # 页面副标题
+    title: MSAUISchemaNode = None  # 页面标题
+    subTitle: MSAUISchemaNode = None  # 页面副标题
     remark: "Remark" = None  # 标题附近会出现一个提示图标，鼠标放上去会提示该内容。
-    aside: SchemaNode = None  # 往页面的边栏区域加内容
+    aside: MSAUISchemaNode = None  # 往页面的边栏区域加内容
     asideResizor: bool = None  # 页面的边栏区域宽度是否可调整
     asideMinWidth: int = None  # 页面边栏区域的最小宽度
     asideMaxWidth: int = None  # 页面边栏区域的最大宽度
-    toolbar: SchemaNode = None  # 往页面的右上角加内容，需要注意的是，当有 title 时，该区域在右上角，没有时该区域在顶部
-    body: SchemaNode = None  # 往页面的内容区域加内容
+    toolbar: MSAUISchemaNode = None  # 往页面的右上角加内容，需要注意的是，当有 title 时，该区域在右上角，没有时该区域在顶部
+    body: MSAUISchemaNode = None  # 往页面的内容区域加内容
     className: str = None  # 外层 dom 类名
     cssVars: dict = None  # 自定义 CSS 变量，请参考样式
     toolbarClassName: str = None  # "v-middle wrapper text-right bg-light b-b"  # Toolbar dom 类名
@@ -75,10 +75,10 @@ class Page(MSAUINode):
     headerClassName: str = None  # "bg-light b-b wrapper"  # Header 区域 dom 类名
     initApi: MSA_UI_API = None  # Page 用来获取初始数据的 api。返回的数据可以整个 page 级别使用。
     initFetch: bool = None  # True  # 是否起始拉取 initApi
-    initFetchOn: Expression = None  # 是否起始拉取 initApi, 通过表达式配置
+    initFetchOn: MSAUIExpression = None  # 是否起始拉取 initApi, 通过表达式配置
     interval: int = None  # 刷新时间(最小 1000)
     silentPolling: bool = None  # False  # 配置刷新时是否显示加载动画
-    stopAutoRefreshWhen: Expression = None  # 通过表达式来配置停止刷新的条件
+    stopAutoRefreshWhen: MSAUIExpression = None  # 通过表达式来配置停止刷新的条件
     regions: List[str] = None
 
     def msa_ui_html(
@@ -111,7 +111,7 @@ class Flex(MSAUINode):
     justify: str = None  # "start", "flex-start", "center", "end", "flex-end", "space-around", "space-between", "space-evenly"
     alignItems: str = None  # "stretch", "start", "flex-start", "flex-end", "end", "center", "baseline"
     style: dict = None  # 自定义样式
-    items: List[SchemaNode] = None  #
+    items: List[MSAUISchemaNode] = None  #
 
 
 class Grid(MSAUINode):
@@ -123,14 +123,14 @@ class Grid(MSAUINode):
         md: int = None  # "auto"   # 宽度占比： 1 - 12
         lg: int = None  # "auto"   # 宽度占比： 1 - 12
         valign: str = None  # 'top'|'middle'|'bottom'|'between = None # 当前列内容的垂直对齐
-        body: List[SchemaNode] = None  #
+        body: List[MSAUISchemaNode] = None  #
 
     type: str = "grid"  # 指定为 Grid 渲染器
     className: str = None  # 外层 Dom 的类名
     gap: str = None  # 'xs'|'sm'|'base'|'none'|'md'|'lg = None # 水平间距
     valign: str = None  # 'top'|'middle'|'bottom'|'between = None # 垂直对齐方式
     align: str = None  # 'left'|'right'|'between'|'center = None # 水平对齐方式
-    columns: List[SchemaNode] = None  #
+    columns: List[MSAUISchemaNode] = None  #
 
 
 class Panel(MSAUINode):
@@ -140,10 +140,10 @@ class Panel(MSAUINode):
     footerClassName: str = None  # "panel-footer bg-light lter wrapper"  # footer 区域的类名
     actionsClassName: str = None  # "panel-footer"  # actions 区域的类名
     bodyClassName: str = None  # "panel-body"  # body 区域的类名
-    title: SchemaNode = None  # 标题
-    header: SchemaNode = None  # 头部容器
-    body: SchemaNode = None  # 内容容器
-    footer: SchemaNode = None  # 底部容器
+    title: MSAUISchemaNode = None  # 标题
+    header: MSAUISchemaNode = None  # 头部容器
+    body: MSAUISchemaNode = None  # 内容容器
+    footer: MSAUISchemaNode = None  # 底部容器
     affixFooter: bool = None  # 是否固定底部容器
     actions: List["Action"] = None  # 按钮区域
 
@@ -153,7 +153,7 @@ class Tabs(MSAUINode):
     class Item(MSAUINode):
         title: str = None  # Tab 标题
         icon: Union[str, Icon] = None  # Tab 的图标
-        tab: SchemaNode = None  # 内容区
+        tab: MSAUISchemaNode = None  # 内容区
         hash: str = None  # 设置以后将跟 url 的 hash 对应
         reload: bool = None  # 设置以后内容每次都会重新渲染，对于 crud 的重新拉取很有用
         unmountOnExit: bool = None  # 每次退出都会销毁当前 tab 栏内容
@@ -168,7 +168,7 @@ class Tabs(MSAUINode):
     tabsClassName: str = None  # Tabs Dom 的类名
     tabs: List[Item] = None  # tabs 内容
     source: str = None  # tabs 关联数据，关联后可以重复生成选项卡
-    toolbar: SchemaNode = None  # tabs 中的工具栏
+    toolbar: MSAUISchemaNode = None  # tabs 中的工具栏
     toolbarClassName: str = None  # tabs 中工具栏的类名
     mountOnEnter: bool = None  # False  # 只有在点中 tab 的时候才渲染
     unmountOnExit: bool = None  # False  # 切换 tab 的时候销毁
@@ -187,13 +187,13 @@ class Tabs(MSAUINode):
 class Portlet(Tabs):
 
     class Item(Tabs.Item):
-        toolbar: SchemaNode = None  # tabs 中的工具栏，随 tab 切换而变化
+        toolbar: MSAUISchemaNode = None  # tabs 中的工具栏，随 tab 切换而变化
 
     type: str = "portlet"  # 指定为 Portlet 渲染器
     contentClassName: str = None  # Tabs content Dom 的类名
     tabs: List[Item] = None  # tabs 内容
     style: Union[str, dict] = None  # 自定义样式
-    description: Template = None  # 标题右侧信息
+    description: MSAUITemplate = None  # 标题右侧信息
     hideHeader: bool = None  # False  # 隐藏头部
     divider: bool = None  # False  # 去掉分隔线
 
@@ -219,7 +219,7 @@ class Action(MSAUINode):
     activeLevel: str = None  # 按钮高亮时的样式，配置支持同level。
     activeClassName: str = None  # 给按钮高亮添加类名。 "is-active"
     block: bool = None  # 用display:"block"来显示按钮。
-    confirmText: Template = None  # 当设置后，操作在开始前会询问用户。可用 ${xxx} 取值。
+    confirmText: MSAUITemplate = None  # 当设置后，操作在开始前会询问用户。可用 ${xxx} 取值。
     reload: str = None  # 指定此次操作完后，需要刷新的目标组件名字（组件的name值，自己配置的），多个请用 , 号隔开。
     tooltip: str = None  # 鼠标停留时弹出该段文字，也可以配置对象类型：字段为title和content。可用 ${xxx} 取值。
     disabledTip: str = None  # 被禁用后鼠标停留时弹出该段文字，也可以配置对象类型：字段为title和content。可用 ${xxx} 取值。
@@ -239,22 +239,22 @@ class ActionType:
     class Ajax(Action):
         actionType: str = 'ajax'  # 点击后显示一个弹出框
         api: MSA_UI_API = None  # 请求地址，参考 api 格式说明。
-        redirect: Template = None  # 指定当前请求结束后跳转的路径，可用 ${xxx} 取值。
+        redirect: MSAUITemplate = None  # 指定当前请求结束后跳转的路径，可用 ${xxx} 取值。
         feedback: "Dialog" = None  # 如果 ajax 类型的，当 ajax 返回正常后，还能接着弹出一个 dialog 做其他交互。返回的数据可用于这个 dialog 中。格式可参考Dialog
         messages: dict = None  # success：ajax 操作成功后提示，可以不指定，不指定时以 api 返回为准。failed：ajax 操作失败提示。
 
     class Dialog(Action):
         actionType: str = 'dialog'  # 点击后显示一个弹出框
-        dialog: Union["Dialog", "Service", SchemaNode]  # 指定弹框内容，格式可参考Dialog
+        dialog: Union["Dialog", "Service", MSAUISchemaNode]  # 指定弹框内容，格式可参考Dialog
         nextCondition: bool = None  # 可以用来设置下一条数据的条件，默认为 true。
 
     class Drawer(Action):
         actionType: str = 'drawer'  # 点击后显示一个侧边栏
-        drawer: Union["Drawer", "Service", SchemaNode]  # 指定弹框内容，格式可参考Drawer
+        drawer: Union["Drawer", "Service", MSAUISchemaNode]  # 指定弹框内容，格式可参考Drawer
 
     class Copy(Action):
         actionType: str = 'copy'  # 复制一段内容到粘贴板
-        content: Template  # 指定复制的内容。可用 ${xxx} 取值。
+        content: MSAUITemplate  # 指定复制的内容。可用 ${xxx} 取值。
         copyFormat: str = None  # 可以通过 copyFormat 设置复制的格式，默认是文本 text/html
 
     class Url(Action):
@@ -351,7 +351,7 @@ class Service(MSAUINode):
     name: str = None  # 节点 名称
     data: dict = None  #
     className: str = None  # 外层 Dom 的类名
-    body: SchemaNode = None  # 内容容器
+    body: MSAUISchemaNode = None  # 内容容器
     api: MSA_UI_API = None  # 初始化数据域接口地址
     ws: str = None  # WebScocket 地址
     dataProvider: str = None  # 数据获取函数
@@ -363,7 +363,7 @@ class Service(MSAUINode):
     # messages.fetchFailed: str = "初始化失败"  # 接口请求失败时 toast 提示文字
     interval: int = None  # 轮询时间间隔(最低 3000)
     silentPolling: bool = None  # False  # 配置轮询时是否显示加载动画
-    stopAutoRefreshWhen: Expression = None  # 配置停止轮询的条件
+    stopAutoRefreshWhen: MSAUIExpression = None  # 配置停止轮询的条件
 
 
 class Nav(MSAUINode):
@@ -371,13 +371,13 @@ class Nav(MSAUINode):
 
     class Link(MSAUINode):
         label: str = None  # 名称
-        to: Template = None  # 链接地址
+        to: MSAUITemplate = None  # 链接地址
         target: str = None  # "链接关系"  #
         icon: str = None  # 图标
         children: List["Link"] = None  # 子链接
         unfolded: bool = None  # 初始是否展开
         active: bool = None  # 是否高亮
-        activeOn: Expression = None  # 是否高亮的条件，留空将自动分析链接地址
+        activeOn: MSAUIExpression = None  # 是否高亮的条件，留空将自动分析链接地址
         defer: bool = None  # 标记是否为懒加载项
         deferApi: MSA_UI_API = None  # 可以不配置，如果配置优先级更高
 
@@ -386,7 +386,7 @@ class Nav(MSAUINode):
     stacked: bool = True  # 设置成 false 可以以 tabs 的形式展示
     source: MSA_UI_API = None  # 可以通过变量或 MSA_UI_API 接口动态创建导航
     deferApi: MSA_UI_API = None  # 用来延时加载选项详情的接口，可以不配置，不配置公用 source 接口。
-    itemActions: SchemaNode = None  # 更多操作相关配置
+    itemActions: MSAUISchemaNode = None  # 更多操作相关配置
     draggable: bool = None  # 是否支持拖拽排序
     dragOnSameLevel: bool = None  # 仅允许同层级内拖拽
     saveOrderApi: MSA_UI_API = None  # 保存排序的 api
@@ -401,7 +401,7 @@ class AnchorNav(MSAUINode):
         label: str = None  # 名称
         title: str = None  # 区域 标题
         href: str = None  # 区域 标识
-        body: SchemaNode = None  # 区域 内容区
+        body: MSAUISchemaNode = None  # 区域 内容区
         className: str = None  # "bg-white b-l b-r b-b wrapper-md"  # 区域成员 样式
 
     type: str = "anchor-nav"  # 指定为 AnchorNav 渲染器
@@ -450,21 +450,21 @@ class FormItem(MSAUINode):
     inputClassName: str = None  # 表单控制器类名
     labelClassName: str = None  # label 的类名
     name: str = None  # 字段名，指定该表单项提交时的 key
-    label: Template = None  # 表单项标签  模板或false
+    label: MSAUITemplate = None  # 表单项标签  模板或false
     value: Union[int, str] = None  # 字段的值
     labelRemark: "Remark" = None  # 表单项标签描述
-    description: Template = None  # 表单项描述
+    description: MSAUITemplate = None  # 表单项描述
     placeholder: str = None  # 表单项描述
     inline: bool = None  # 是否为 内联 模式
     submitOnChange: bool = None  # 是否该表单项值发生变化时就提交当前表单。
     disabled: bool = None  # 当前表单项是否是禁用状态
-    disabledOn: Expression = None  # 当前表单项是否禁用的条件
-    visible: Expression = None  # 当前表单项是否禁用的条件
-    visibleOn: Expression = None  # 当前表单项是否禁用的条件
+    disabledOn: MSAUIExpression = None  # 当前表单项是否禁用的条件
+    visible: MSAUIExpression = None  # 当前表单项是否禁用的条件
+    visibleOn: MSAUIExpression = None  # 当前表单项是否禁用的条件
     required: bool = None  # 是否为必填。
-    requiredOn: Expression = None  # 过表达式来配置当前表单项是否为必填。
-    validations: Union[Validation, Expression] = None  # 表单项值格式验证，支持设置多个，多个规则用英文逗号隔开。
-    validateApi: Expression = None  # 表单校验接口
+    requiredOn: MSAUIExpression = None  # 过表达式来配置当前表单项是否为必填。
+    validations: Union[Validation, MSAUIExpression] = None  # 表单项值格式验证，支持设置多个，多个规则用英文逗号隔开。
+    validateApi: MSAUIExpression = None  # 表单校验接口
     copyable: Union[bool, dict] = None  # 是否可复制  boolean 或 {icon: string, content:string}
 
 
@@ -485,7 +485,7 @@ class Form(MSAUINode):
     title: Optional[str] = None  # Form 的标题
     submitText: Optional[str] = None  # "提交"  # 默认的提交按钮名称，如果设置成空，则可以把默认按钮去掉。
     className: str = None  # 外层 Dom 的类名
-    body: List[Union[FormItem, SchemaNode]] = None  # Form 表单项集合
+    body: List[Union[FormItem, MSAUISchemaNode]] = None  # Form 表单项集合
     actions: List["Action"] = None  # Form 提交按钮，成员为 Action
     actionsClassName: str = None  # actions 的类名
     messages: Messages = None  # 消息提示覆写，默认消息读取的是 MSA_UI_API 返回的消息，但是在此可以覆写它。
@@ -593,7 +593,7 @@ class ChartRadios(Radios):
 class Checkboxes(FormItem):
     """复选框"""
     type: str = 'checkboxes'
-    options: OptionsNode = None  # 选项组
+    options: MSAOptionsNode = None  # 选项组
     source: MSA_UI_API = None  # 动态选项组
     delimiter: str = None  # ","  # 拼接符
     labelField: str = None  # "label"  # 选项标签字段
@@ -709,7 +709,7 @@ class ConditionBuilder(FormItem):
     class Select(Field):
         """下拉选择"""
         type: str = 'select'
-        options: OptionsNode = None  # 选项列表，Array<{label: string, value: any}>
+        options: MSAOptionsNode = None  # 选项列表，Array<{label: string, value: any}>
         source: MSA_UI_API = None  # 动态选项，请配置 api。
         searchable: bool = None  # 是否可以搜索
         autoComplete: MSA_UI_API = None  # 自动提示补全，每次输入新内容后，将调用接口，根据接口返回更新选项。
@@ -887,8 +887,8 @@ class LocationPicker(FormItem):
 class InputNumber(FormItem):
     """数字输入框"""
     type: str = 'input-number'
-    min: Union[int, Template] = None  # 最小值
-    max: Union[int, Template] = None  # 最大值
+    min: Union[int, MSAUITemplate] = None  # 最小值
+    max: Union[int, MSAUITemplate] = None  # 最大值
     step: int = None  # 步长
     precision: int = None  # 精度，即小数点后几位
     showSteps: bool = None  # True  # 是否显示上下点击按钮
@@ -901,7 +901,7 @@ class Picker(FormItem):
     """列表选择器"""
     type: str = 'picker'  # 列表选取，在功能上和 Select 类似，但它能显示更复杂的信息。
     size: Union[str, SizeEnum] = None  # 支持: xs、sm、md、lg、xl、 full
-    options: OptionsNode = None  # 选项组
+    options: MSAOptionsNode = None  # 选项组
     source: MSA_UI_API = None  # 动态选项组
     multiple: bool = None  # 是否为多选。
     delimiter: bool = None  # False # 拼接符
@@ -911,7 +911,7 @@ class Picker(FormItem):
     extractValue: bool = None  # False # 提取值
     autoFill: dict = None  # 自动填充
     modalMode: Literal["dialog", "drawer"] = None  # "dialog" # 设置 dialog 或者 drawer，用来配置弹出方式。
-    pickerSchema: Union["CRUD", SchemaNode] = None  # "{mode: 'list', listItem: {title: '${label}'}}"
+    pickerSchema: Union["CRUD", MSAUISchemaNode] = None  # "{mode: 'list', listItem: {title: '${label}'}}"
     # 即用 List 类型的渲染，来展示列表信息。更多配置参考 CRUD
     embed: bool = None  # False # 是否使用内嵌模式
 
@@ -952,7 +952,7 @@ class InputText(FormItem):
     valueField: str = None  # 选项值字段 "value"
     joinValues: bool = None  # True  # 拼接值
     extractValue: bool = None  # 提取值
-    addOn: SchemaNode = None  # 输入框附加组件，比如附带一个提示文字，或者附带一个提交按钮。
+    addOn: MSAUISchemaNode = None  # 输入框附加组件，比如附带一个提示文字，或者附带一个提交按钮。
     trimContents: bool = None  # 是否去除首尾空白文本。
     creatable: bool = None  # 是否可以创建，默认为可以，除非设置为 false 即只能选择选项中的值
     clearable: bool = None  # 是否可清除
@@ -984,7 +984,7 @@ class InputRichText(FormItem):
 class Select(FormItem):
     """下拉框"""
     type: str = 'select'
-    options: OptionsNode = None  # 选项组
+    options: MSAOptionsNode = None  # 选项组
     source: MSA_UI_API = None  # 动态选项组
     autoComplete: MSA_UI_API = None  # 自动提示补全
     delimiter: Union[bool, str] = None  # False  # 拼接符
@@ -1101,7 +1101,7 @@ class InputDate(FormItem):
     schedules: Union[list, str] = None  # 日历中展示日程，可设置静态数据或从上下文中取数据，className参考背景色
     scheduleClassNames: List[str] = None  # "['bg-warning','bg-danger','bg-success','bg-info','bg-secondary']"
     # 日历中展示日程的颜色，参考背景色
-    scheduleAction: SchemaNode = None  # 自定义日程展示
+    scheduleAction: MSAUISchemaNode = None  # 自定义日程展示
     largeMode: bool = None  # False  # 放大模式
 
 
@@ -1141,7 +1141,7 @@ class InputMonthRange(InputDateRange):
 class Transfer(FormItem):
     """穿梭器"""
     type: Literal['transfer', 'transfer-picker', 'tabs-transfer', 'tabs-transfer-picker'] = 'transfer'
-    options: OptionsNode = None  # 选项组
+    options: MSAOptionsNode = None  # 选项组
     source: MSA_UI_API = None  # 动态选项组
     delimiter: str = None  # "False"  # 拼接符
     joinValues: bool = None  # True  # 拼接值
@@ -1159,8 +1159,8 @@ class Transfer(FormItem):
     leftOptions: List[dict] = None  # 当展示形式为 associated 时用来配置左边的选项集。
     leftMode: str = None  # 当展示形式为 associated 时用来配置左边的选择形式，支持 list 或者 tree。默认为 list。
     rightMode: str = None  # 当展示形式为 associated 时用来配置右边的选择形式，可选：list、table、tree、chained。
-    menuTpl: SchemaNode = None  # 用来自定义选项展示
-    valueTpl: SchemaNode = None  # 用来自定义值的展示
+    menuTpl: MSAUISchemaNode = None  # 用来自定义选项展示
+    valueTpl: MSAUISchemaNode = None  # 用来自定义值的展示
 
 
 class TransferPicker(Transfer):
@@ -1181,7 +1181,7 @@ class TabsTransferPicker(Transfer):
 class InputTree(FormItem):
     """树形选择框"""
     type: str = 'input-tree'
-    options: OptionsNode = None  # 选项组
+    options: MSAOptionsNode = None  # 选项组
     source: MSA_UI_API = None  # 动态选项组
     autoComplete: MSA_UI_API = None  # 自动提示补全
     multiple: bool = None  # False  # 是否多选
@@ -1239,7 +1239,7 @@ class Image(MSAUINode):
     placeholder: str = None  # 占位文本
     defaultImage: str = None  # 无数据时显示的图片
     src: str = None  # 缩略图地址
-    href: Template = None  # 外部链接地址
+    href: MSAUITemplate = None  # 外部链接地址
     originalSrc: str = None  # 原图地址
     enlargeAble: bool = None  # 支持放大预览
     enlargeTitle: str = None  # 放大预览的标题
@@ -1310,7 +1310,7 @@ class CRUD(MSAUINode):
     loadDataOnce: bool = None  # 是否一次性加载所有数据（前端分页）
     loadDataOnceFetchOnFilter: bool = None  # True  # 在开启 loadDataOnce 时，filter 时是否去重新请求 api
     source: str = None  # 数据映射接口返回某字段的值，不设置会默认使用接口返回的${items}或者${rows}，也可以设置成上层数据源的内容
-    filter: Union[SchemaNode, Form] = None  # 设置过滤器，当该表单提交后，会把数据带给当前 mode 刷新列表。
+    filter: Union[MSAUISchemaNode, Form] = None  # 设置过滤器，当该表单提交后，会把数据带给当前 mode 刷新列表。
     filterTogglable: bool = None  # False  # 是否可显隐过滤器
     filterDefaultVisible: bool = None  # True  # 设置过滤器默认是否可见。
     initFetch: bool = None  # True  # 是否初始化的时候拉取数据, 只针对有 filter 的情况, 没有 filter 初始都会拉取数据
@@ -1353,15 +1353,15 @@ class TableColumn(MSAUINode):
     """列配置"""
     type: str = None  # Literal['text','audio','image','link','tpl','mapping','carousel','date',
     # 'progress','status','switch','list','json','operation']
-    label: Template = None  # 表头文本内容
+    label: MSAUITemplate = None  # 表头文本内容
     name: str = None  # 通过名称关联数据
-    tpl: Template = None  # 模板
+    tpl: MSAUITemplate = None  # 模板
     fixed: str = None  # 是否固定当前列 left|right|none
     popOver: Union[bool, dict] = None  # 弹出框
     quickEdit: Union[bool, dict] = None  # 快速编辑
     copyable: Union[bool, dict] = None  # 是否可复制  boolean 或 {icon: string, content:string}
     sortable: bool = None  # False  # 是否可排序
-    searchable: Union[bool, SchemaNode] = None  # False  # 是否可快速搜索  boolean|Schema
+    searchable: Union[bool, MSAUISchemaNode] = None  # False  # 是否可快速搜索  boolean|Schema
     width: Union[str, int] = None  # 列宽
     remark: Remark = None  # 提示信息
     breakpoint: str = None  # *,ls
@@ -1370,7 +1370,7 @@ class TableColumn(MSAUINode):
 class ColumnOperation(TableColumn):
     """操作列"""
     type: str = 'operation'
-    label: Template = None  # "操作"
+    label: MSAUITemplate = None  # "操作"
     toggled: bool = None  # True
     buttons: List[Union[Action, MSAUINode]] = None
 
@@ -1399,14 +1399,14 @@ class Table(MSAUINode):
     headerClassName: str = None  # "Action.md-table-header"  # 顶部外层 CSS 类名
     footerClassName: str = None  # "Action.md-table-footer"  # 底部外层 CSS 类名
     toolbarClassName: str = None  # "Action.md-table-toolbar"  # 工具栏 CSS 类名
-    columns: List[Union[TableColumn, SchemaNode]] = None  # 用来设置列信息
+    columns: List[Union[TableColumn, MSAUISchemaNode]] = None  # 用来设置列信息
     combineNum: int = None  # 自动合并单元格
     itemActions: List[Action] = None  # 悬浮行操作按钮组
-    itemCheckableOn: Expression = None  # 配置当前行是否可勾选的条件，要用 表达式
-    itemDraggableOn: Expression = None  # 配置当前行是否可拖拽的条件，要用 表达式
+    itemCheckableOn: MSAUIExpression = None  # 配置当前行是否可勾选的条件，要用 表达式
+    itemDraggableOn: MSAUIExpression = None  # 配置当前行是否可拖拽的条件，要用 表达式
     checkOnItemClick: bool = None  # False  # 点击数据行是否可以勾选当前行
     rowClassName: str = None  # 给行添加 CSS 类名
-    rowClassNameExpr: Template = None  # 通过模板给行添加 CSS 类名
+    rowClassNameExpr: MSAUITemplate = None  # 通过模板给行添加 CSS 类名
     prefixRow: list = None  # 顶部总结行
     affixRow: list = None  # 底部总结行
     itemBadge: "Badge" = None  # 行角标配置
@@ -1419,7 +1419,7 @@ class Chart(MSAUINode):
     """图表: https://echarts.apache.org/zh/option.html#title"""
     type: str = "chart"  # 指定为 chart 渲染器
     className: str = None  # 外层 Dom 的类名
-    body: SchemaNode = None  # 内容容器
+    body: MSAUISchemaNode = None  # 内容容器
     api: MSA_UI_API = None  # 配置项接口地址
     source: dict = None  # 通过数据映射获取数据链中变量值作为配置
     initFetch: bool = None  # 组件初始化时，是否请求接口
@@ -1494,11 +1494,11 @@ class Property(MSAUINode):
     """属性表"""
 
     class Item(MSAUINode):
-        label: Template = None  # 属性名
-        content: Template = None  # 属性值
+        label: MSAUITemplate = None  # 属性名
+        content: MSAUITemplate = None  # 属性值
         span: int = None  # 属性值跨几列
-        visibleOn: Expression = None  # 显示表达式
-        hiddenOn: Expression = None  # 隐藏表达式
+        visibleOn: MSAUIExpression = None  # 显示表达式
+        hiddenOn: MSAUIExpression = None  # 隐藏表达式
 
     type: str = 'property'
     className: str = None  # 外层 dom 的类名
@@ -1508,7 +1508,7 @@ class Property(MSAUINode):
     column: int = None  # 3  # 每行几列
     mode: str = None  # 'table'  # 显示模式，目前只有 'table' 和 'simple'
     separator: str = None  # ','  # 'simple' 模式下属性名和值之间的分隔符
-    source: Template = None  # 数据源
+    source: MSAUITemplate = None  # 数据源
     title: str = None  # 标题
     items: List[Item] = None  # 数据项
 
@@ -1516,7 +1516,7 @@ class Property(MSAUINode):
 class QRCode(MSAUINode):
     """二维码"""
     type: str = "qr-code"  # 指定为 QRCode 渲染器
-    value: Template  # 扫描二维码后显示的文本，如果要显示某个页面请输入完整 url（"http://..."或"https://..."开头），支持使用 模板
+    value: MSAUITemplate  # 扫描二维码后显示的文本，如果要显示某个页面请输入完整 url（"http://..."或"https://..."开头），支持使用 模板
     className: str = None  # 外层 Dom 的类名
     qrcodeClassName: str = None  # 二维码 SVG 的类名
     codeSize: int = None  # 128  # 二维码的宽高大小
@@ -1543,7 +1543,7 @@ class Alert(MSAUINode):
     type: str = "alert"  # 指定为 alert 渲染器
     className: str = None  # 外层 Dom 的类名
     level: str = None  # "info"  # 级别，可以是：info、success、warning 或者 danger
-    body: SchemaNode = None  # 显示内容
+    body: MSAUISchemaNode = None  # 显示内容
     showCloseButton: bool = None  # False  # 是否显示关闭按钮
     closeButtonClassName: str = None  # 关闭按钮的 CSS 类名
     showIcon: bool = None  # False  # 是否显示 icon
@@ -1554,8 +1554,8 @@ class Alert(MSAUINode):
 class Dialog(MSAUINode):
     """对话框"""
     type: str = "dialog"  # 指定为 Dialog 渲染器
-    title: SchemaNode = None  # 弹出层标题
-    body: SchemaNode = None  # 往 Dialog 内容区加内容
+    title: MSAUISchemaNode = None  # 弹出层标题
+    body: MSAUISchemaNode = None  # 往 Dialog 内容区加内容
     size: Union[str, SizeEnum] = None  # 指定 dialog 大小，支持: xs、sm、md、lg、xl、full
     bodyClassName: str = None  # "modal-body"  # Dialog body 区域的样式类名
     closeOnEsc: bool = None  # False  # 是否支持按 Esc 关闭 Dialog
@@ -1569,8 +1569,8 @@ class Dialog(MSAUINode):
 class Drawer(MSAUINode):
     """抽屉"""
     type: str = "drawer"  # "drawer" 指定为 Drawer 渲染器
-    title: SchemaNode = None  # 弹出层标题
-    body: SchemaNode = None  # 往 Drawer 内容区加内容
+    title: MSAUISchemaNode = None  # 弹出层标题
+    body: MSAUISchemaNode = None  # 往 Drawer 内容区加内容
     size: Union[str, SizeEnum] = None  # 指定 Drawer 大小，支持: xs、sm、md、lg
     position: str = None  # 'left'  # 位置
     bodyClassName: str = None  # "modal-body"  # Drawer body 区域的样式类名
@@ -1677,7 +1677,7 @@ class Wizard(MSAUINode):
         api: MSA_UI_API = None  # 当前步骤保存接口，可以不配置。
         initApi: MSA_UI_API = None  # 当前步骤数据初始化接口。
         initFetch: bool = None  # 当前步骤数据初始化接口是否初始拉取。
-        initFetchOn: Expression = None  # 当前步骤数据初始化接口是否初始拉取，用表达式来决定。
+        initFetchOn: MSAUIExpression = None  # 当前步骤数据初始化接口是否初始拉取，用表达式来决定。
         body: List[FormItem] = None  # 当前步骤的表单项集合，请参考 FormItem。
 
     type: str = "wizard"  # 指定为 Wizard 组件
@@ -1685,7 +1685,7 @@ class Wizard(MSAUINode):
     api: MSA_UI_API = None  # 最后一步保存的接口。
     initApi: MSA_UI_API = None  # 初始化数据接口
     initFetch: MSA_UI_API = None  # 初始是否拉取数据。
-    initFetchOn: Expression = None  # 初始是否拉取数据，通过表达式来配置
+    initFetchOn: MSAUIExpression = None  # 初始是否拉取数据，通过表达式来配置
     actionPrevLabel: str = None  # "上一步"  # 上一步按钮文本
     actionNextLabel: str = None  # "下一步"  # 下一步按钮文本
     actionNextSaveLabel: str = None  # "保存并下一步"  # 保存并下一步按钮文本
@@ -1693,7 +1693,7 @@ class Wizard(MSAUINode):
     className: str = None  # 外层 CSS 类名
     actionClassName: str = None  # "btn-sm btn-default"  # 按钮 CSS 类名
     reload: str = None  # 操作完后刷新目标对象。请填写目标组件设置的 name 值，如果填写为 window 则让当前页面整体刷新。
-    redirect: Template = None  # "3000"  # 操作完后跳转。
+    redirect: MSAUITemplate = None  # "3000"  # 操作完后跳转。
     target: str = None  # "False"  # 可以把数据提交给别的组件而不是自己保存。请填写目标组件设置的 name 值，
     # 如果填写为 window 则把数据同步到地址栏上，同时依赖这些数据的组件会自动重新刷新。
     steps: List[Step] = None  # 数组，配置步骤信息
@@ -1706,7 +1706,7 @@ ActionType.Dialog.update_forward_refs()
 ActionType.Drawer.update_forward_refs()
 TableCRUD.update_forward_refs()
 Form.update_forward_refs()
-Tpl.update_forward_refs()
+MSAUITpl.update_forward_refs()
 InputText.update_forward_refs()
 InputNumber.update_forward_refs()
 Picker.update_forward_refs()

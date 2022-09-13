@@ -6,12 +6,13 @@ from sqlalchemy import Column, String, delete, insert
 from sqlalchemy_database import AsyncDatabase, Database
 from sqlmodel import Field, select
 
-from ..backends.base import BaseTokenStore, _TokenDataSchemaT
+from .base import BaseTokenStore, _TokenDataSchemaT
 from ..models import PkMixin, CreateTimeMixin
 
 
 class TokenStoreModel(PkMixin, CreateTimeMixin, table=True):
     __tablename__ = 'auth_token'
+    __table_args__ = {'extend_existing': True}
     token: str = Field(..., max_length=48, sa_column=Column(String(48), unique=True, index=True, nullable=False))
     data: str = Field(default='')
 

@@ -1,9 +1,0 @@
-#
-
-
-## MSAFastAPI
-```python 
-MSAFastAPI()
-```
-
-

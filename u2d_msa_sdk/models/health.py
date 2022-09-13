@@ -1,18 +1,31 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.0.3'
-
+""" Healthcheck Pydantic Models
+"""
 from typing import Optional
 
-from pydantic import BaseModel
+__version__ = '0.0.3'
+
+from sqlmodel import SQLModel
+
+""" str: Module Version"""
+module_var: str = "" # Module var
+""" str: Module Vars """
 
 
-class MSAHealthDefinition(BaseModel):
+class MSAHealthDefinition(SQLModel):
+    """ Health Service Definition
+
+    """
     path: str = "/healthcheck"
+    """ Path in URL for the API"""
     interval: Optional[int] = 60
+    """ Interval the Healtchcheck Thread sleeps and checks"""
     enabled: bool = True
+    """ Is the healtcheck enabled True/False"""
 
 
-class MSAHealthMessage(BaseModel):
+class MSAHealthMessage(SQLModel):
+    """ Health Pydantic Response Service Message """
     healthy: bool = False
     message: Optional[str]
     error: Optional[str]

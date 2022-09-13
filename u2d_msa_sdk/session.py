@@ -3,13 +3,13 @@ __version__ = '0.0.3'
 
 import os
 
-from pydantic import BaseModel
 from fastapi import HTTPException
 from uuid import UUID, uuid4
 
 from fastapi_sessions.backends.implementations import InMemoryBackend
 from fastapi_sessions.session_verifier import SessionVerifier
 from fastapi_sessions.frontends.implementations import SessionCookie, CookieParameters
+from sqlmodel import SQLModel
 
 if __name__ == '__main__':
     pass
@@ -36,7 +36,7 @@ cookie = SessionCookie(
 )
 
 
-class SessionData(BaseModel):
+class SessionData(SQLModel):
     email: str
     settings: dict = {}
     input: str = ""

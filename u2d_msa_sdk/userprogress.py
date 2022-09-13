@@ -57,4 +57,9 @@ class MSAUserProgress():
 
 @lru_cache()
 def getMSAUserProgress() -> MSAUserProgress:
+    """
+    This function returns a cached instance of the MSAUserProgress object.
+    Note:
+        Caching is used to prevent re-reading the environment every time the MSAUserProgress is used.
+    """
     return MSAUserProgress()

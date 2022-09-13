@@ -14,11 +14,12 @@ from u2d_msa_sdk.db.crud.schema import MSACRUDOut
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
 from .utils.translation import i18n as _
-from ..service import MSAApp
-from ..utils.sysinfo import get_sysinfo
+from u2d_msa_sdk.service import MSAApp
+from u2d_msa_sdk.utils.sysinfo import get_sysinfo
 
 
 class DocsAdmin(IframeAdmin):
+    """Admin Page for the OpenAPI Documentation as a IFrame"""
     group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
     page_schema = PageSchema(label='OpenAPI', icon='fa fa-book')
 
@@ -28,6 +29,7 @@ class DocsAdmin(IframeAdmin):
 
 
 class ReDocsAdmin(IframeAdmin):
+    """Admin Page for the ReDoc Documentation as a IFrame"""
     group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
     page_schema = PageSchema(label='Redocs', icon='fa fa-book')
 
@@ -37,6 +39,7 @@ class ReDocsAdmin(IframeAdmin):
 
 
 class ProfilerAdmin(IframeAdmin):
+    """Admin Page for the Profiler Result HTML as a IFrame"""
     group_schema = None
     page_schema = PageSchema(label='Profiler', icon='fa fa-microchip', sort=-110)
 
@@ -46,6 +49,7 @@ class ProfilerAdmin(IframeAdmin):
 
 
 class HomeAdmin(PageAdmin):
+    """Admin Home Page"""
     group_schema = None
     page_schema = PageSchema(label=_('Home'), icon='fa fa-home', url='/home', isDefaultPage=True, sort=100)
     page_path = '/home'
@@ -103,11 +107,14 @@ class HomeAdmin(PageAdmin):
 
 
 class FileAdmin(RouterAdmin):
+    """Admin API Router for General FileUpload"""
     # todo perfect: Limit file size/suffixes/content_type
     file_directory: str = 'upload'
+    """str: 'upload' (Default)"""
     file_path: str = '/upload'
     file_max_size: int = 2 * 1024 * 1024
     router_prefix = '/file'
+    """API route prefix for URL"""
 
     def __init__(self, app: "AdminApp"):
         super().__init__(app)
@@ -119,12 +126,13 @@ class FileAdmin(RouterAdmin):
         return os.path.join(time.strftime("%Y%m"), filename)
 
     def mount_staticfile(self) -> str:
+        """Mount upload file_directory as StaticFiles Directory"""
         os.path.exists(self.file_directory) or os.makedirs(self.file_directory)
         self.app.site.msa_app.mount(self.file_path, StaticFiles(directory=self.file_directory), self.file_directory)
         return self.app.site.router_path + self.file_path
 
     def register_router(self):
-
+        """Register the upload function as API Router"""
         @self.router.post(self.file_path, response_model=MSACRUDOut[self.UploadOutSchema])
         async def file_upload(file: UploadFile = File(...)):
             filename = self.get_filename(file)
@@ -145,12 +153,13 @@ class FileAdmin(RouterAdmin):
                 return MSACRUDOut(status=-1, msg=str(e))
 
     class UploadOutSchema(BaseModel):
+        """Upload Pydantic Response Model"""
         filename: str = None
         url: str = None
 
 
 class AdminSite(BaseAdminSite):
-
+    """Admin Site, registers all defined Pages for the UI and the Routers"""
     def __init__(self, msa_app: MSAApp):
         super().__init__(msa_app)
         self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, ProfilerAdmin, FileAdmin)

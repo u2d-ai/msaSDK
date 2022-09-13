@@ -9,11 +9,10 @@ from pydantic import BaseModel
 from pydantic.fields import ModelField
 from pydantic.utils import deep_update
 from sqlalchemy import delete, Column, Table, insert
-from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 from sqlalchemy.orm import InstrumentedAttribute, RelationshipProperty
 from sqlalchemy.util import md5_hex
-from sqlalchemy_database import Database, AsyncDatabase
+from sqlalchemy_database import AsyncDatabase
 from sqlmodel import SQLModel, select
 from starlette import status
 from starlette.responses import HTMLResponse, JSONResponse, Response
@@ -25,14 +24,14 @@ from u2d_msa_sdk.db.crud.parser import MSASQLModelFieldParser, SQLModelField, SQ
 from u2d_msa_sdk.db.crud.schema import MSACRUDEnum, MSACRUDPaginator, MSACRUDOut
 from u2d_msa_sdk.db.crud.utils import parser_item_id, schema_create_by_schema, parser_str_set_list
 from .frontend.components import Page, TableCRUD, Action, ActionType, Dialog, Form, FormItem, Picker, \
-    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, Tpl, InputExcel, InputTable
+    Remark, Service, Iframe, PageSchema, TableColumn, ColumnOperation, App, MSAUITpl, InputExcel, InputTable
 from .frontend.constants import LevelEnum, DisplayModeEnum, SizeEnum, TabsModeEnum
-from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, SchemaNode
+from .frontend.types import MSABaseUIApiOut, MSABaseUIModel, MSAUIAPI, MSAUISchemaNode
 from .parser import MSAUIParser
 from .utils.functools import cached_property
 from .utils.translation import i18n as _
-from ..auth.auth import Auth
-from ..service import MSAApp
+from u2d_msa_sdk.auth.auth import Auth
+from u2d_msa_sdk.service import MSAApp
 
 try:
     from typing import Literal
@@ -45,6 +44,7 @@ _BaseModel = NewType('_BaseModel', BaseModel)
 
 
 class LinkModelForm:
+    """Link Model to Form"""
     link_model: Table
 
     def __init__(
@@ -80,7 +80,7 @@ class LinkModelForm:
         link_key = None
         item_key = None
         for key in table.foreign_keys:
-            if key.column.table != pk_admin.model.__table__:  # 获取关联第三方表
+            if key.column.table != pk_admin.model.__table__:  # Get associated third-party tables
                 admin = pk_admin.app.site.get_model_admin(key.column.table.name)
                 link_key = key
             else:
@@ -245,12 +245,18 @@ class LinkModelForm:
 
 
 class BaseModelAdmin(MSASQLModelCrud):
-    list_display: List[Union[SQLModelListField, TableColumn]] = []  # 需要显示的字段
-    list_per_page: int = 10  # 每页数据量
-    link_model_fields: List[InstrumentedAttribute] = []  # 内联字段
+    list_display: List[Union[SQLModelListField, TableColumn]] = []
+    """Fields to be displayed"""
+    list_per_page: int = 10
+    """Data volume per page"""
+    link_model_fields: List[InstrumentedAttribute] = []
+    """Inline Fields"""
     link_model_forms: List[LinkModelForm] = []
-    bulk_update_fields: List[Union[SQLModelListField, FormItem]] = []  # 批量编辑字段
-    search_fields: List[SQLModelField] = []  # 模糊搜索字段
+    """Inline Forms"""
+    bulk_update_fields: List[Union[SQLModelListField, FormItem]] = []
+    """Batch Edit Fields"""
+    search_fields: List[SQLModelField] = []
+    """Fuzzy search fields"""
 
     def __init__(self, app: "AdminApp", model=None):
         if model:
@@ -370,7 +376,7 @@ class BaseModelAdmin(MSASQLModelCrud):
             request: Request,
             modelfield: ModelField,
             is_filter: bool = False
-    ) -> Union[Service, SchemaNode, None]:
+    ) -> Union[Service, MSAUISchemaNode, None]:
         column = self.parser.get_column(modelfield.alias)
         if column is None:
             return None
@@ -398,7 +404,7 @@ class BaseModelAdmin(MSASQLModelCrud):
             request: Request,
             modelfield: ModelField,
             action: MSACRUDEnum
-    ) -> Union[FormItem, SchemaNode, None]:
+    ) -> Union[FormItem, MSAUISchemaNode, None]:
         is_filter = action == MSACRUDEnum.list
         set_default = action == MSACRUDEnum.create
         return (
@@ -507,7 +513,7 @@ class BaseModelAdmin(MSASQLModelCrud):
     async def get_update_action(self, request: Request, bulk: bool = False) -> Optional[Action]:
         if not await self.has_update_permission(request, None, None):
             return None
-        # 开启批量编辑
+        # Enable batch editing
         if not bulk:
             return ActionType.Dialog(
                 icon='fa fa-pencil',
@@ -615,6 +621,10 @@ class PageSchemaAdmin(BaseAdmin):
         return self.app is self or await self.app.has_page_permission(request)
 
     def get_page_schema(self) -> Optional[PageSchema]:
+        """
+            Raises:
+                TypeError:  TypeError(_StandardError)
+        """
         if self.page_schema:
             if isinstance(self.page_schema, str):
                 self.page_schema = PageSchema(label=self.page_schema)
@@ -626,6 +636,10 @@ class PageSchemaAdmin(BaseAdmin):
         return self.page_schema
 
     def get_group_schema(self) -> Optional[PageSchema]:
+        """
+            Raises:
+                TypeError:  TypeError(_StandardError)
+        """
         if self.group_schema:
             if isinstance(self.group_schema, str):
                 self.group_schema = PageSchema(label=self.group_schema)
@@ -638,6 +652,7 @@ class PageSchemaAdmin(BaseAdmin):
 
 
 class LinkAdmin(PageSchemaAdmin):
+    """Management Links"""
     link: str = ''
 
     def get_page_schema(self) -> Optional[PageSchema]:
@@ -664,7 +679,7 @@ class IframeAdmin(PageSchemaAdmin):
 
 
 class RouterAdmin(BaseAdmin, MSARouterMixin):
-
+    """Management Router"""
     def __init__(self, app: "AdminApp"):
         BaseAdmin.__init__(self, app)
         MSARouterMixin.__init__(self)
@@ -680,7 +695,7 @@ class RouterAdmin(BaseAdmin, MSARouterMixin):
 
 
 class PageAdmin(PageSchemaAdmin, RouterAdmin):
-    """msa_ui页面管理"""
+    """msa_ui page management"""
     page: Page = None
     page_path: Optional[str] = None
     page_parser_mode: Literal["json", "html"] = 'json'
@@ -766,7 +781,7 @@ class PageAdmin(PageSchemaAdmin, RouterAdmin):
 
 
 class TemplateAdmin(PageAdmin):
-    """Jinja2渲染模板管理"""
+    """Jinja2-Rendering Template Management"""
     page: Dict[str, Any] = {}
     page_parser_mode = 'html'
     templates: Jinja2Templates = None
@@ -810,7 +825,7 @@ class BaseFormAdmin(PageAdmin):
             self,
             request: Request,
             modelfield: ModelField
-    ) -> Union[FormItem, SchemaNode]:
+    ) -> Union[FormItem, MSAUISchemaNode]:
         return MSAUIParser(modelfield).as_form_item(set_default=True)
 
     async def get_form(self, request: Request) -> Form:
@@ -848,7 +863,7 @@ class BaseFormAdmin(PageAdmin):
 
 
 class FormAdmin(BaseFormAdmin):
-    """表单管理"""
+    """Form Management"""
 
     @property
     def route_submit(self):
@@ -882,7 +897,7 @@ class ModelFormAdmin(FormAdmin, MSASQLModelSelector, ABC):
 
 
 class ModelAdmin(BaseModelAdmin, PageAdmin):
-    """模型管理"""
+    """Model Management"""
     page_path: str = ''
     bind_model: bool = True
 
@@ -952,6 +967,7 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
 
 
 class BaseModelAction:
+    """Base Model Action"""
     admin: "ModelAdmin" = None
     action: Action = None
 
@@ -968,6 +984,7 @@ class BaseModelAction:
 
 
 class ModelAction(BaseFormAdmin, BaseModelAction):
+    """Form and Model Actions"""
     schema: Type[BaseModel] = None
     action: ActionType.Dialog = None
 
@@ -1019,7 +1036,7 @@ class ModelAction(BaseFormAdmin, BaseModelAction):
 
 
 class AdminGroup(PageSchemaAdmin):
-
+    """Management Applications Group"""
     def __init__(self, app: "AdminApp") -> None:
         super().__init__(app)
         self._children: List[_PageSchemaAdminT] = []
@@ -1080,7 +1097,7 @@ class AdminGroup(PageSchemaAdmin):
 
 
 class AdminApp(PageAdmin, AdminGroup):
-    """管理应用"""
+    """Management Applications"""
     engine: AsyncEngine = None
     page_path = '/'
     tabs_mode: TabsModeEnum = None
@@ -1154,6 +1171,11 @@ class AdminApp(PageAdmin, AdminGroup):
 
     @lru_cache()
     def get_model_admin(self, table_name: str) -> Optional[ModelAdmin]:
+        """
+        This function returns a cached instance of the ModelAdmin object.
+        Note:
+            Caching is used to prevent re-reading the environment every time the ModelAdmin object is used.
+        """
         for admin_cls, admin in self._registered.items():
             if issubclass(admin_cls,
                           ModelAdmin) and admin_cls.bind_model and admin_cls.model.__tablename__ == table_name:
@@ -1184,7 +1206,7 @@ class AdminApp(PageAdmin, AdminGroup):
     async def _get_page_as_app(self, request: Request) -> App:
         app = App()
         app.brandName = self.site.settings.site_title
-        app.header = Tpl(
+        app.header = MSAUITpl(
             className='w-full',
             tpl='<div class="flex justify-between"><div></div>'
                 f'<div><a href="{u2d_msa_sdk.admin.__url__}" target="_blank" '

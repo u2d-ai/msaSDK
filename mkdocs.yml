@@ -1,32 +1,110 @@
 site_name: MSA SDK - Documentation
-
+docs_dir: docs
+site_dir: docs_dist_site
 
 # Repository
-repo_name: U2D_MSA_SDK
+
 repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
+repo_name: swelcker/U2D_MSA_SDK
 edit_uri: ""
+
 # Copyright
 copyright: Stefan Welcker, 2022, stefan@u2d.ai
 
-docs_dir: "docs/sources"
 
 plugins:
-  - search
+  - search:
+      lang: en
+  - page-to-pdf:
+      displayHeaderFooter: true
+      headerTemplate: "<div style='width:100%;text-align:left;position:relative;top:5mm;left:14mm;font-size:2mm;color:grey;'><span class='title'></span> - (c) 2022 u2d.ai</div>"
+      footerTemplate: "<div style='width:100%;text-align:right;position:relative;top:-10px;right:35px;font-size:2mm;color:grey;'>Page: <span class='pageNumber'></span> of <span class='totalPages'></span></div>"
+  - git-revision-date-localized:
+      type: date
+      custom_format: "%d. %B %Y"
+      timezone: Europe/Amsterdam
+      locale: en
+      fallback_to_build_date: true
+      enable_creation_date: true
+      exclude:
+        - index.md
+      enabled: true
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - section-index
+  - mkdocstrings:
+      watch:
+        - u2d_msa_sdk
+      default_handler: python
+      handlers:
+        python:
+          paths: [u2d_msa_sdk]
+          options:
+            show_source: false
+            separate_signature: true
+            show_submodules: true
+            docstring_section_style: spacy
+            show_root_heading: false
+            show_root_members_full_path: false
+            show_object_full_path: false
+            show_category_heading: true
+            show_if_no_docstring: true
+            annotations_path: source
+            show_signature_annotations: true
+            heading_level: 2
+
+
 
 markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
   - pymdownx.highlight:
+      auto_title: false
       anchor_linenums: true
-      auto_title: true
-      linenums: true
+      linenums: false
+      pygments_lang_class: true
+  - pymdownx.caret
+  - pymdownx.betterem:
+  - attr_list
+  - def_list
+  - tables
+  - abbr
+  - footnotes
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
 
 theme:
-  name: 'material'
+  name: material
+  language: en
   custom_dir: 'docs'
+  icon:
+    repo: fontawesome/brands/github
   palette:
-
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -45,81 +123,44 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-  logo: './images/msa_logo_big.png'
-  favicon: './images/favicon.png'
+  logo: '../images/msa_logo_big.png'
+  favicon: '../images/favicon.png'
   features:
     - navigation.tabs
     - navigation.tabs.sticky
     - instant
+    - header.autohide
+    - content.code.annotate
+
+extra_css:
+  - css/mkdocstrings.css
+
 nav:
-  - Home: index.md
+  - Home:
+    - index.md
+    - history-design-future.md
+    - used_tools.md
+    - Libraries: requirements.md
+  - User Guides:
+    - guides/index.md
+    - guides/first-steps.md
+    - Security:
+      - guides/security/index.md
+      - guides/security/first-steps.md
+      - guides/security/get-current-user.md
+      - guides/security/simple-oauth2.md
+      - guides/security/oauth2-jwt.md
+    - guides/middleware.md
+    - guides/cors.md
+    - guides/sql-databases.md
+    - guides/bigger-applications.md
+    - guides/background-tasks.md
+    - guides/metadata.md
+    - guides/static-files.md
   - Sites:
-    - Admin: auth/auth.md
-    - Auth Admin: auth/auth.md
-  - Modules:
-    - u2d_msa_sdk:
-      - admin:
-        - admin: modules/u2d_msa_sdk/admin/admin.md
-        - frontend:
-          - components: modules/u2d_msa_sdk/admin/frontend/components.md
-          - constants: modules/u2d_msa_sdk/admin/frontend/constants.md
-          - types: modules/u2d_msa_sdk/admin/frontend/types.md
-          - utils: modules/u2d_msa_sdk/admin/frontend/utils.md
-        - parser: modules/u2d_msa_sdk/admin/parser.md
-        - site: modules/u2d_msa_sdk/admin/site.md
-        - utils:
-          - choices: modules/u2d_msa_sdk/admin/utils/choices.md
-          - fields: modules/u2d_msa_sdk/admin/utils/fields.md
-          - translation: modules/u2d_msa_sdk/admin/utils/translation.md
-      - auth:
-        - admin: modules/u2d_msa_sdk/auth/admin.md
-        - app: modules/u2d_msa_sdk/auth/app.md
-        - auth:
-          - auth: modules/u2d_msa_sdk/auth/auth/auth.md
-          - backends:
-            - base: modules/u2d_msa_sdk/auth/auth/backends/base.md
-            - db: modules/u2d_msa_sdk/auth/auth/backends/db.md
-            - jwt: modules/u2d_msa_sdk/auth/auth/backends/jwt.md
-            - redis: modules/u2d_msa_sdk/auth/auth/backends/redis.md
-          - models: modules/u2d_msa_sdk/auth/auth/models.md
-          - schemas: modules/u2d_msa_sdk/auth/auth/schemas.md
-        - site: modules/u2d_msa_sdk/auth/site.md
-      - db:
-        - crud:
-          - _sqlmodel: modules/u2d_msa_sdk/db/crud/_sqlmodel.md
-          - base: modules/u2d_msa_sdk/db/crud/base.md
-          - parser: modules/u2d_msa_sdk/db/crud/parser.md
-          - schema: modules/u2d_msa_sdk/db/crud/schema.md
-          - utils: modules/u2d_msa_sdk/db/crud/utils.md
-      - models:
-        - files: modules/u2d_msa_sdk/models/files.md
-        - health: modules/u2d_msa_sdk/models/health.md
-        - sdu: modules/u2d_msa_sdk/models/sdu.md
-        - service: modules/u2d_msa_sdk/models/service.md
-        - wdc: modules/u2d_msa_sdk/models/wdc.md
-        - wfl: modules/u2d_msa_sdk/models/wfl.md
-      - msaapi: modules/u2d_msa_sdk/msaapi.md
-      - router:
-        - system: modules/u2d_msa_sdk/router/system.md
-      - security: modules/u2d_msa_sdk/security.md
-      - server:
-        - srv_gunicorn: modules/u2d_msa_sdk/server/srv_gunicorn.md
-        - srv_uvicorn: modules/u2d_msa_sdk/server/srv_uvicorn.md
-      - service: modules/u2d_msa_sdk/service.md
-      - services:
-        - wdc: modules/u2d_msa_sdk/services/wdc.md
-      - session: modules/u2d_msa_sdk/session.md
-      - userprogress: modules/u2d_msa_sdk/userprogress.md
-      - utils:
-        - email: modules/u2d_msa_sdk/utils/email.md
-        - errorhandling: modules/u2d_msa_sdk/utils/errorhandling.md
-        - fileupload: modules/u2d_msa_sdk/utils/fileupload.md
-        - fileutils: modules/u2d_msa_sdk/utils/fileutils.md
-        - fonts: modules/u2d_msa_sdk/utils/fonts.md
-        - healthcheck: modules/u2d_msa_sdk/utils/healthcheck.md
-        - htmlutils: modules/u2d_msa_sdk/utils/htmlutils.md
-        - logger: modules/u2d_msa_sdk/utils/logger.md
-        - profiler: modules/u2d_msa_sdk/utils/profiler.md
-        - scheduler: modules/u2d_msa_sdk/utils/scheduler.md
-        - sysinfo: modules/u2d_msa_sdk/utils/sysinfo.md
-        - token: modules/u2d_msa_sdk/utils/token.md
+    - Admin: sites/admin.md
+    - Auth Admin: sites/auth.md
+  - Examples:
+    - App: examples/example_app.md
+  - Code Reference: reference/
+  - Release notes: release-notes.md

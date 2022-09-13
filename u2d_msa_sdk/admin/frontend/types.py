@@ -7,13 +7,14 @@ try:
 except ImportError:
     import json
 
-Expression = str
-Template = Union[str, "Tpl"]
-SchemaNode = Union[Template, "MSAUINode", List["MSAUINode"], Dict[str, Any], List[Dict[str, Any]]]
-OptionsNode = Union[List[Dict[str, Any]], List[str]]
+MSAUIExpression = str
+MSAUITemplate = Union[str, "MSAUITpl"]
+MSAUISchemaNode = Union[MSAUITemplate, "MSAUINode", List["MSAUINode"], Dict[str, Any], List[Dict[str, Any]]]
+MSAOptionsNode = Union[List[Dict[str, Any]], List[str]]
 
 
 class MSABaseUIModel(BaseModel):
+    """Core Pydantic Base UI Model."""
     class Config:
         extra = Extra.allow
         json_loads = json.loads
@@ -35,62 +36,107 @@ class MSABaseUIModel(BaseModel):
 
 
 class MSABaseUIApiOut(MSABaseUIModel):
-    """api接口输出数据格式"""
+    """MSA UI Api interface output data model"""
     status: int = 0
     msg: str = ''
     data: dict = None
 
 
 class MSAUINode(MSABaseUIModel):
-    """组件配置"""
-    type: str = None  # 组件类型
-    visible: bool = None  # 显示
-    hidden: bool = None  # 隐藏
-    visibleOn: Expression = None  # 条件显示
-    hiddenOn: Expression = None  # 条件显示
+    """UI Node Component Configuration"""
+    type: str = None
+    """Component Type"""
+    visible: bool = None
+    """Enable Visible/Show"""
+    hidden: bool = None
+    """Hide this node"""
+    visibleOn: MSAUIExpression = None
+    """Condition for Visibility"""
+    hiddenOn: MSAUIExpression = None
+    """Condition for Hiding"""
     id: str = None
+    """ID of the Node"""
     name: str = None
+    """Name of the Node"""
     onEvent: dict = None
+    """On MSAUIEvent Handler"""
 
 
 class MSAUIAPI(MSABaseUIModel):
-    url: Template  # 当前接口 Api 地址
-    method: str = None  # 'GET'  # 请求方式 持：get、post、put、delete
-    data: Union[str, dict] = None  # 请求的数据体,支持数据映射
-    dataType: str = None  # 默认为 json 可以配置成 form 或者 form-data。
-    # 当 data 中包含文件时，自动会采用 form-data（multipart/form-data） 格式。
-    # 当配置为 form 时为 application/x-www-form-urlencoded 格式。
-    qsOptions: Union[str, dict] = None  # 当 dataType 为 form 或者 form-data 的时候有用。
-    # 具体参数请参考这里，默认设置为: { arrayFormat: 'indices', encodeValuesOnly: true }
-    headers: Dict[str, Any] = None  # 请求的头部信息
-    sendOn: Expression = None  # 配置请求条件
-    cache: int = None  # 设置cache来设置缓存时间，单位是毫秒，在设置的缓存时间内，同样的请求将不会重复发起，而是会获取缓存好的请求响应数据。
-    requestAdaptor: str = None  # 发送适配器 , msa_ui 的 API 配置，如果无法配置出你想要的请求结构，那么可以配置requestAdaptor发送适配器
-    responseData: Dict[str, Any] = None  # 如果接口返回的数据结构不符合预期，可以通过配置 responseData来修改，同样支持数据映射，
-    # 可用来映射的数据为接口的实际数据（接口返回的 data 部分），额外加 api 变量。
-    # 其中 api.query 为接口发送的 query 参数，api.body 为接口发送的内容体原始数据。
-    replaceData: bool = None  # 返回的数据是否替换掉当前的数据，默认为 false，即：追加，设置成 true 就是完全替换。
-    adaptor: str = None  # 接收适配器, 如果接口返回不符合要求，可以通过配置一个适配器来处理成 msa_ui 需要的。
-    # 同样支持 Function 或者 字符串函数体格式
-    responseType: str = None  # 返回类型 ,如果是下载需要设置为 'blob'
-    autoRefresh: bool = None  # 配置是否需要自动刷新接口。
-    trackExpression: str = None  # 配置跟踪变量表达式,当开启自动刷新的时候，默认是 api 的 url 来自动跟踪变量变化的。
-    # 如果你希望监控 url 外的变量，请配置 traceExpression。
+    """ Core MSA UI API"""
+    url: MSAUITemplate
+    """Current interface Api address"""
+    method: str = None
+    """``GET`` holds request method (get, post, put, delete)"""
+    data: Union[str, dict] = None
+    """Data body of the request, supports data mapping"""
+    dataType: str = None
+    """Default is json can be configured as form or form-data.
+    
+    When the data contains a file, the form-data (multipart/form-data) format is automatically used.
+    The application/x-www-form-urlencoded format when configured as form.
+    """
+    qsOptions: Union[str, dict] = None
+    """Useful when dataType is form or form-data.
+    
+    Specific parameters, set by default to: { arrayFormat: 'indices', encodeValuesOnly: true }
+    """
+    headers: Dict[str, Any] = None
+    """The requested headers"""
+    sendOn: MSAUIExpression = None
+    """Configure the request conditions"""
+    cache: int = None
+    """Set cache to set the cache time in milliseconds, within the set cache time, the same request will not be repeatedly initiated, but will get the cached request response data.
+    """
+    requestAdaptor: str = None
+    """send adapter , msa_ui's API configuration, if you can not configure the request structure you want, then you can configure the requestAdaptor send adapter"""
+    responseData: Dict[str, Any] = None
+    """ If the data structure returned by the interface does not meet expectations, you can modify it by configuring responseData, which also supports data mapping.
+    The data available for mapping is the actual data of the interface (the data part returned by the interface), with additional api variables.
+    where api.query is the query parameter sent by the interface, and api.body is the raw data of the content body sent by the interface.
+    """
+    replaceData: bool = None
+    """Whether the returned data replaces the current data, the default is false, i.e., append, set to true is a complete replacement."""
+    adaptor: str = None
+    """Receive adapter, if the interface does not meet the requirements, you can configure an adapter to handle it as msa_ui needs.
+    Also supports Function or string function styles
+    """
+    responseType: str = None
+    """Return type, if it is a download it needs to be set to ``blob``"""
+    autoRefresh: bool = None
+    """Configure whether the interface needs to be automatically refreshed."""
+    trackExpression: str = None
+    """Configure track variable expression, when autoRefresh is enabled, the default is the url of the api to automatically track variable changes.
+    If you want to monitor variables outside of the url, configure traceExpression.
+    """
 
 
 MSA_UI_API = Union[str, MSAUIAPI, dict]
 
 
-class Tpl(MSAUINode):
-    type: str = "tpl"  # 指定为 Tpl 组件
-    tpl: str  # 配置模板
-    className: str = None  # 外层 Dom 的类名
+class MSAUITpl(MSAUINode):
+    """MSAUITpl component"""
+    type: str = "tpl"
+    """Specify as MSAUITpl component"""
+    tpl: str
+    """Configuration template"""
+    className: str = None
+    """Class name of the outer Dom"""
 
 
-class Event(MSABaseUIModel):
-    actionType: str = None  # 动作名称
-    args: dict = None  # 动作参数{key:value}，支持数据映射
-    preventDefault: Union[bool, Expression] = None  # "False"  # 阻止事件默认行为，> 1.10.0 及以上版本支持表达式
-    stopPropagation: Union[bool, Expression] = None  # "False"  # 停止后续动作执行，> 1.10.0 及以上版本支持表达式
-    expression: Union[bool, Expression] = None  # 执行条件，不设置表示默认执行
-    outputVar: str = None  # 输出数据变量名
+class MSAUIEvent(MSABaseUIModel):
+    """MSA UI Event Pydantic Model"""
+    actionType: str = None
+    """Action name"""
+    args: dict = None
+    """Action parameter {key:value}, supports data mapping"""
+    preventDefault: Union[
+        bool, MSAUIExpression] = None
+    """False = prevent event default behavior"""
+    stopPropagation: Union[
+        bool, MSAUIExpression] = None
+    """False = Stop the execution of subsequent actions"""
+    expression: Union[bool, MSAUIExpression] = None
+    """Execution condition, not set means default execution"""
+    outputVar: str = None
+    """Output data variable name"""

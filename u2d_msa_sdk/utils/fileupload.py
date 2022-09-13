@@ -40,17 +40,25 @@ def secure_filename(filename: str) -> str:
     for maximum portability.
     On windows systems the function also makes sure that the file is not
     named after one of the special device files.
-    >>> secure_filename("My cool movie.mov")
-    'My_cool_movie.mov'
-    >>> secure_filename("../../../etc/passwd")
-    'etc_passwd'
-    >>> secure_filename('i contain cool \xfcml\xe4uts.txt')
-    'i_contain_cool_umlauts.txt'
+
+    Example:
+        ```Python
+        secure_filename("My cool movie.mov")
+        'My_cool_movie.mov'
+        secure_filename("../../../etc/passwd")
+        'etc_passwd'
+        secure_filename('i contain cool \xfcml\xe4uts.txt')
+        'i_contain_cool_umlauts.txt'
+        ```
+
     The function might return an empty filename.  It's your responsibility
     to ensure that the filename is unique and that you abort or
     generate a random filename if the function returned an empty one.
     .. versionadded:: 0.5
-    :param filename: the filename to secure
+
+    Args:
+        filename: the filename to secure
+
     """
     filename = unicodedata.normalize("NFKD", filename)
     filename = filename.encode("ascii", "ignore").decode("ascii")
@@ -111,6 +119,17 @@ def nameGen(uid, file):
 
 
 class FileUpload:
+    """FileUpload Class
+
+    Args:
+        filesize: int, size in bytes
+        root_path: str = dirname of the file
+        uploads_dir: str = "data/uploads", where to store the file
+        not_allow_extensions: Optional[List[str]] = None, exclude file extensions from upload ability
+        max_size: int = 150000000, max allowed filesize in bytes for upload
+        createUIDSubFolders: bool = False, if enabled the system creates Subfolders by the UID
+
+    """
     def __init__(
             self,
             filesize: int,
@@ -135,6 +154,13 @@ class FileUpload:
         self.fullpath = ""
 
     async def save_file(self, filename: str, ufile: UploadFile):
+        """Save the file
+
+        Args:
+            filename: the name of the file it should be saved uner
+            ufile: UploadFile instance of the file to save
+
+        """
         targetfolder = os.path.join(self.root_path, self.uploads_dir)
         try:
             os.makedirs(targetfolder, exist_ok=True)
@@ -158,6 +184,12 @@ class FileUpload:
         return str(filename)
 
     async def upload(self, file: UploadFile):
+        """upload the file
+
+        Args:
+            file: The UploadFile instance of the file for upload.
+
+        """
         self.name = file.filename
         self.content_type = file.content_type
 
@@ -175,6 +207,13 @@ class FileUpload:
 
 
 class FileDelete:
+    """File Delete Class
+
+    Args:
+        uid: str , the GUID of the file
+        root_path: str, dirname of the file
+        uploads_dir: str, the folder the file was uploaded to.
+    """
     def __init__(
             self,
             uid: str,
@@ -208,20 +247,31 @@ class FileDelete:
 
 
 async def checkIfFileIsArchive(file: UploadFile):
+    """Check if File is an Archive like zip or tar"""
     if not file:
         return False
     list_extensions = []
     for entry in archive_unpack_formats:
         subl = entry[1]
-        for sub_ntry in subl:
-            list_extensions.append(sub_ntry)
+        list_extensions.extend([sub_ntry for sub_ntry in subl])
+
     filename, file_extension = os.path.splitext(file.filename)
     if file_extension in list_extensions:
         return True
     return False
 
 
-async def createMSAFile(file: UploadFile, up: FileUpload):
+async def createMSAFile(file: UploadFile, up: FileUpload) -> MSAFile:
+    """Create an MSAFile Instance for the provided file
+
+    Args:
+        file: is the UploadFile
+        up: is the FileUpload Instance
+
+    Returns:
+        mf: New MSAFile instance.
+
+    """
     result = await up.upload(file)
     mf: MSAFile = MSAFile()
     mf.uid = up.uid
@@ -233,7 +283,17 @@ async def createMSAFile(file: UploadFile, up: FileUpload):
     return mf  # .copy()
 
 
-async def createMSAFileFromUnpacked(filepath: str, processuid: str):
+async def createMSAFileFromUnpacked(filepath: str, processuid: str) -> MSAFile:
+    """Create an MSAFile Instance for a file from an archive, and keep them under one group by the processuid
+
+    Args:
+        filepath: str of the file path
+        processuid: str of the group process id (GUID)
+
+    Returns:
+        mf: New MSAFile instance.
+
+    """
     mf: MSAFile = MSAFile()
     mf.uid = processuid
     mf.filename = filepath

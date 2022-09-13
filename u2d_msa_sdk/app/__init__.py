@@ -23,6 +23,7 @@ def test_timer_five_sec():
 
 
 class TestArticle(SQLModel, table=True):
+    __table_args__ = {'extend_existing': True}
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     title: str = Field(title='ArticleTitle', max_length=200)
     description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
@@ -31,6 +32,7 @@ class TestArticle(SQLModel, table=True):
 
 
 class TestCategory(SQLModel, table=True):
+    __table_args__ = {'extend_existing': True}
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     title: str = Field(title='ArticleTitle', max_length=200)
     description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
@@ -59,31 +61,13 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 
 @app.on_event("startup")
 async def startup():
-    app.logger.info("MSA SDK Own Startup Event")
-    """
-        @app.site.register_admin
-        class UserLoginFormAdmin(FormAdmin):
-            page_schema = 'UserLoginForm'
-            # 配置表单信息, 可省略
-            form = Form(title='User Login', submitText='Login')
-    
-            # 创建表单数据模型
-            class schema(BaseModel):
-                username: str = Field(..., title='Username', min_length=3, max_length=30)
-                password: str = Field(..., title='Password')
-    
-            # 处理表单提交数据
-            async def handle(self, request: Request, data: BaseModel, **kwargs) -> MSACRUDOut[Any]:
-                if data.username == 'u2dadmin' and data.password == 'u2dadmin':
-                    return MSACRUDOut(msg='Loged in!', data={'token': 'xxxxxx'})
-                return MSACRUDOut(status=-1, msg='Error Login!')
-    """
+    app.logger.info("MSA SDK Own Startup MSAUIEvent")
     #app.mount_site()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    app.logger.info("MSA SDK Own Shutdown Event")
+    app.logger.info("MSA SDK Own Shutdown MSAUIEvent")
 
 
 if __name__ == '__main__':

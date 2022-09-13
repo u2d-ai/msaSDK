@@ -8,12 +8,13 @@ from queue import Queue
 from time import time
 
 import pytz
-from loguru import logger
+from loguru import logger, Logger
 from pydantic import typing
 from starlette.concurrency import run_in_threadpool
 
 
 class MSATimerEnum(str, Enum):
+    """Enum for the different timer Types"""
     every_poll = 'every poll'
     every_second = 'every second'
     on_the_5_second = 'on the 5 second'
@@ -32,14 +33,13 @@ class MSATimers:
         Class to create dictionary of timers for use in MSAScheduler.
     """
 
-
     def __init__(self):
-        '''
+        """
         self.timer_jobs is the primary resource in MSATimers
         This is filled by MSATimers
         It is then accessed by the source
         and served to MSAScheduler
-        '''
+        """
         #### timer job lists
         self.timer_jobs = {
             MSATimerEnum.every_poll: [],
@@ -55,9 +55,16 @@ class MSATimers:
             MSATimerEnum.schedule: [],  # (function, 'HH:MM')
         }
 
-    def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM=None):
+    def create_timer(self, T_mode: MSATimerEnum, func: typing.Callable, mark_HH_MM: str =None):
 
-        #### validate timer
+        """ Create a Timer
+
+        Args:
+            T_mode: MSATimerEnum
+            func: the call handler for this timer
+            mark_HH_MM: If scheduler type then this is the time for execution.
+
+        """
 
         # is a string
         if not isinstance(T_mode, MSATimerEnum):
@@ -111,22 +118,34 @@ class MSATimers:
 
 
 class MSAScheduler:
-    def __init__(self, jobs, local_time_zone='UTC', poll_millis=1000, debug=False, parent_logger=None):
-        '''MSAScheduler object runs timers
-        Standard Polling is .5 seconds
-        '''
+    def __init__(self, jobs: dict, local_time_zone: str = 'UTC', poll_millis: float = 1000, debug: bool = False,
+                 parent_logger: Logger = None):
+        """ MSAScheduler object runs timers
+
+        Standard Polling is 1 second
+
+        Args:
+            jobs: timer_jobs: dict[MSATimerEnum, list] = {...
+            local_time_zone: str = 'UTC'
+            poll_millis: float = 1000
+            debug: bool = False
+            parent_logger: logger instance to use, if empty it creates a local loguru logger
+        """
+
         # self.jobs are all of the timers
         # it is a dictionary created by the MSATimers class
         self.jobs = jobs
+        """dictionary MSATimers instances"""
         self.debug = debug
+        """Debug mode True/False"""
         self.logger = parent_logger if parent_logger else logger
 
-        self.poll_queue = Queue(maxsize=10)
-        self.seconds_queue = Queue(maxsize=10)
-        self.general_queue = Queue(maxsize=10)
+        self._poll_queue = Queue(maxsize=10)
+        self._seconds_queue = Queue(maxsize=10)
+        self._general_queue = Queue(maxsize=10)
 
         # polling time in milliseconds
-        self.POLL_MILLIS = poll_millis
+        self._POLL_MILLIS = poll_millis
         self.local_time_zone = local_time_zone
         self.enabled: bool = False
         self.is_running: bool = False
@@ -141,16 +160,19 @@ class MSAScheduler:
             await run_in_threadpool(job.__call__)
 
     async def stop_timers(self):
+        """Stop all timers"""
         while self.is_running:
             self.enabled = False
-            await asyncio.sleep(self.POLL_MILLIS / 1000)
+            await asyncio.sleep(self._POLL_MILLIS / 1000)
 
     async def run_timers(self, poll_adjuster=.99, debug=False):
         '''runs timers as follows:
-        Step 1:  run every poll jobs
-        Step 2: load timer queues for next poll
-        Step 3: delay function which runs previous poll queues
-            poll_adjustor allows time for other timing
+
+        * Step 1: run every poll jobs
+        * Step 2: load timer queues for next poll
+        * Step 3: delay function which runs previous poll queues
+
+        poll_adjustor allows time for other timing
         '''
         if debug == True: print('\n\n run_timer with debug=True')
 
@@ -172,7 +194,7 @@ class MSAScheduler:
                 milli = (time() * 1000)
                 last_milli = 0
 
-            if (milli - last_milli) >= self.POLL_MILLIS:
+            if (milli - last_milli) >= self._POLL_MILLIS:
                 HHMMSS = get_time(self.local_time_zone)
 
                 #### polling mark_HH_MMer
@@ -188,78 +210,79 @@ class MSAScheduler:
                 if last_second != HHMMSS[2]:
                     #### Every second jobs ####
                     for job in self.jobs['every second']:
-                        self.seconds_queue.put(job)
+                        self._seconds_queue.put(job)
 
                     last_second = HHMMSS[2]
 
                     #### On second jobs ####
                     if int(HHMMSS[2]) % 5 == 0 or int(HHMMSS[2]) == 0:
                         for job in self.jobs['on the 5 second']:
-                            self.general_queue.put(job)
+                            self._general_queue.put(job)
 
                     if int(HHMMSS[2]) % 15 == 0 or int(HHMMSS[2]) == 0:
                         for job in self.jobs['on the 15 second']:
-                            self.general_queue.put(job)
+                            self._general_queue.put(job)
 
                     if int(HHMMSS[2]) % 30 == 0 or int(HHMMSS[2]) == 0:
                         for job in self.jobs['on the 30 second']:
-                            self.general_queue.put(job)
+                            self._general_queue.put(job)
 
                     #### Minute ####
                     if last_minute != HHMMSS[1]:
                         #### Every minute jobs ####
                         for job in self.jobs['every minute']:
-                            self.general_queue.put(job)
+                            self._general_queue.put(job)
                         last_minute = HHMMSS[1]
 
                         #### On minute jobs ####
                         if int(HHMMSS[1]) % 5 == 0 or int(HHMMSS[1]) == 0:
                             for job in self.jobs['on the 5 minute']:
-                                self.general_queue.put(job)
+                                self._general_queue.put(job)
 
                         if int(HHMMSS[1]) % 15 == 0 or int(HHMMSS[1]) == 0:
                             for job in self.jobs['on the 15 minute']:
-                                self.general_queue.put(job)
+                                self._general_queue.put(job)
 
                         if int(HHMMSS[1]) % 30 == 0 or int(HHMMSS[1]) == 0:
                             for job in self.jobs['on the 30 minute']:
-                                self.general_queue.put(job)
+                                self._general_queue.put(job)
 
                         #### schedule jobs
                         if self.jobs['schedule'] != []:
                             for details in self.jobs['schedule']:
                                 if details[1][:2] == HHMMSS[0] and details[1][-2:] == HHMMSS[1]:
-                                    self.general_queue.put(details[0])
+                                    self._general_queue.put(details[0])
 
                         #### Hour ####
                         if last_hour != HHMMSS[0]:
                             #### Every hour jobs ####
                             for job in self.jobs['every hour']:
-                                self.general_queue.put(job)
+                                self._general_queue.put(job)
                             last_hour = HHMMSS[0]
 
             #### Delay function
             # runs queue jobs while waiting for poll time
             # poll_adjustor must take into account longest poll job
-            while (milli - last_milli) < (poll_adjuster * self.POLL_MILLIS):
+            while (milli - last_milli) < (poll_adjuster * self._POLL_MILLIS):
                 #### run queues
-                if self.seconds_queue.empty() == False:
-                    job = self.seconds_queue.get()
+                if self._seconds_queue.empty() == False:
+                    job = self._seconds_queue.get()
                     # run job
                     await self._run_job(job)
 
                 else:
-                    if self.general_queue.empty() == False:
-                        job = self.general_queue.get()
+                    if self._general_queue.empty() == False:
+                        job = self._general_queue.get()
                         # run job
                         await self._run_job(job)
                     else:
-                        await asyncio.sleep(self.POLL_MILLIS/1000)  # all queues empty
+                        await asyncio.sleep(self._POLL_MILLIS / 1000)  # all queues empty
 
                 #### update milli
                 milli = (time() * 1000) - start_milli
 
         self.is_running = False
+
 
 def get_time_stamp(local_time_zone='UTC', time_format='HMS'):
     now_local = datetime.now(pytz.timezone(local_time_zone))

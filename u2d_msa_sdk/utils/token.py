@@ -6,13 +6,14 @@ from fastapi import Depends, status, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from pydantic import BaseModel
+
+from sqlmodel import SQLModel
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 
 # TokenData schema
-class MSATokenData(BaseModel):
+class MSATokenData(SQLModel):
     id: Optional[str]
 
 
