@@ -60,7 +60,7 @@ from u2d_msa_sdk.utils.profiler import MSAProfilerMiddleware
 from u2d_msa_sdk.utils.scheduler import MSATimers, MSAScheduler
 from u2d_msa_sdk.utils.sysinfo import get_sysinfo, MSASystemInfo
 
-__version__ = '0.0.3'
+__version__ = '0.0.8'
 """ str: Module Version"""
 
 if __name__ == '__main__':
