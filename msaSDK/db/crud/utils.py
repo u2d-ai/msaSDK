@@ -4,11 +4,12 @@ from enum import Enum
 from typing import Optional, Type, List, Set, Union, Iterable, Dict, Any
 
 from fastapi.params import Path
-from pydantic import BaseModel, BaseConfig, Extra
+from pydantic import BaseConfig, Extra
 from pydantic.fields import ModelField
 from pydantic.utils import smart_deepcopy
 
 from .schema import MSACRUDPaginator, MSACRUDSchema
+from ...utils.base_model import MSABaseModel
 
 
 def validator_skip_blank(cls, v, config: BaseConfig, field: ModelField, *args, **kwargs):
@@ -20,14 +21,14 @@ def validator_skip_blank(cls, v, config: BaseConfig, field: ModelField, *args, *
 
 
 def schema_create_by_schema(
-        schema_cls: Type[BaseModel],
+        schema_cls: Type[MSABaseModel],
         schema_name: str,
         *,
         include: Set[str] = None,
         exclude: Set[str] = None,
         set_none: bool = False,
         **kwargs
-) -> Type[BaseModel]:
+) -> Type[MSABaseModel]:
     schema_fields = smart_deepcopy(schema_cls.__dict__['__fields__'])
     exclude = exclude or {}
     include = include or {}
@@ -48,7 +49,7 @@ def schema_create_by_modelfield(
         namespaces: Dict[str, Any] = None,
         extra: Extra = Extra.ignore,
         **kwargs
-) -> Type[BaseModel]:
+) -> Type[MSABaseModel]:
     namespaces = namespaces or {}
     namespaces.update({'__fields__': {}, '__annotations__': {}})
     for modelfield in modelfields:

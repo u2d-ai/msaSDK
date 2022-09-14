@@ -14,7 +14,7 @@ from msaSDK.db.crud.utils import schema_create_by_schema
 from msaSDK.admin.utils.functools import cached_property
 from msaSDK.admin.utils.translation import i18n as _
 from passlib.context import CryptContext
-from pydantic import BaseModel, SecretStr
+from pydantic import SecretStr
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Session
 from sqlalchemy_database import AsyncDatabase, Database
@@ -29,6 +29,7 @@ from .backends.base import BaseTokenStore
 from .backends.db import DbTokenStore
 from .models import BaseUser, User, Role, UserRoleLink
 from .schemas import UserLoginOut
+from ...utils.base_model import MSABaseModel
 
 _UserModelT = TypeVar("_UserModelT", bound=BaseUser)
 
@@ -238,7 +239,7 @@ class AuthRouter(MSARouterMixin):
     auth: Auth = None
     schema_user_login_out: Type[UserLoginOut] = UserLoginOut
     router_prefix = '/auth'
-    schema_user_info: Type[BaseModel] = None
+    schema_user_info: Type[MSABaseModel] = None
 
     def __init__(self, auth: Auth = None):
         self.auth = auth or self.auth

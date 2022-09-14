@@ -2,14 +2,15 @@
 from functools import lru_cache
 from typing import Dict, List, Optional
 
-from fastapi_utils.api_settings import APISettings
+
 from pydantic import validator
 from sqlmodel import SQLModel
 
 from msaSDK.models.health import MSAHealthDefinition
+from msaSDK.utils.settings import MSAAppSettings
 
 
-class MSAServiceDefinition(APISettings, SQLModel):
+class MSAServiceDefinition(MSAAppSettings):
     """
     MSAApp Settings (Service Definitions)
 

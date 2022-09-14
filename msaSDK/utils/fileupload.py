@@ -6,6 +6,7 @@ import unicodedata
 from typing import List, Optional
 from uuid import uuid4
 
+import aiofiles
 import magic
 from fastapi import HTTPException
 from starlette.datastructures import UploadFile
@@ -72,9 +73,9 @@ def secure_filename(filename: str) -> str:
     # have to ensure that the target file is not such a filename.  In
     # this case we prepend an underline
     if (
-        os.name == "nt"
-        and filename
-        and filename.split(".")[0].upper() in _windows_device_files
+            os.name == "nt"
+            and filename
+            and filename.split(".")[0].upper() in _windows_device_files
     ):
         filename = f"_{filename}"
 
@@ -128,6 +129,7 @@ class FileUpload:
         createUIDSubFolders: bool = False, if enabled the system creates Subfolders by the UID
 
     """
+
     def __init__(
             self,
             filesize: int,
@@ -181,12 +183,15 @@ class FileUpload:
         self.magic_type = magic.from_file(filen, mime=True)
         return str(filename)
 
-    async def upload(self, file: UploadFile):
+    async def upload(self, file: UploadFile, chunk_size: int = 1024 * 1024 * 50) -> str:
         """upload the file
 
         Args:
+            chunk_size (): 1024 * 1024 * 50  = 50 megabytes
             file: The UploadFile instance of the file for upload.
 
+        Returns:
+            filename: str complete filename after created safe version
         """
         self.name = file.filename
         self.content_type = file.content_type
@@ -201,7 +206,11 @@ class FileUpload:
                     raise FileExtNotAllowed(
                         f"File ext {ext} is not allowed of {self.not_allow_extensions}"
                     )
-        return await self.save_file(filename, file)
+
+        async with aiofiles.open(filename, "wb") as f:
+            while chunk := await file.read(chunk_size):
+                await f.write(chunk)
+        return filename
 
 
 class FileDelete:
@@ -212,6 +221,7 @@ class FileDelete:
         root_path: str, dirname of the file
         uploads_dir: str, the folder the file was uploaded to.
     """
+
     def __init__(
             self,
             uid: str,
