@@ -7,7 +7,7 @@ from enum import Enum
 from typing import Any, Callable, List, Type, Optional, Union, Dict, Tuple, Pattern
 
 from fastapi import Depends, Body, APIRouter, Query
-from pydantic import Json, BaseModel, Extra
+from pydantic import Json, Extra
 from sqlalchemy import insert, update, delete, func, Table, Column
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -23,6 +23,7 @@ from .base import MSABaseCrud
 from .parser import MSASQLModelFieldParser, SQLModelListField, get_python_type_parse, SQLModelField
 from .schema import MSACRUDOut, MSACRUDListSchema
 from .utils import schema_create_by_modelfield, parser_item_id, parser_str_set_list
+from ...utils.base_model import MSABaseModel
 
 sql_operator_pattern: Pattern = re.compile(r'^\[(=|<=|<|>|>=|!|!=|<>|\*|!\*|~|!~|-)]')
 sql_operator_map: Dict[str, str] = {
@@ -302,7 +303,7 @@ class MSASQLModelCrud(MSABaseCrud, MSASQLModelSelector):
             return self.model.__name__
         return super().schema_name_prefix
 
-    async def on_create_pre(self, request: Request, obj: BaseModel, **kwargs) -> Dict[str, Any]:
+    async def on_create_pre(self, request: Request, obj: MSABaseModel, **kwargs) -> Dict[str, Any]:
         data_dict = obj.dict(by_alias=True)  # exclude=set(self.pk)
         if self.pk_name in data_dict and not data_dict.get(self.pk_name):
             del data_dict[self.pk_name]
@@ -311,7 +312,7 @@ class MSASQLModelCrud(MSABaseCrud, MSASQLModelSelector):
     async def on_update_pre(
             self,
             request: Request,
-            obj: BaseModel,
+            obj: MSABaseModel,
             item_id: Union[List[str], List[int]],
             **kwargs
     ) -> Dict[str, Any]:
@@ -320,7 +321,7 @@ class MSASQLModelCrud(MSABaseCrud, MSASQLModelSelector):
                 if val is not None or self.model.__fields__[key].allow_none}
         return data
 
-    async def on_filter_pre(self, request: Request, obj: BaseModel, **kwargs) -> Dict[str, Any]:
+    async def on_filter_pre(self, request: Request, obj: MSABaseModel, **kwargs) -> Dict[str, Any]:
         return obj and {k: v for k, v in obj.dict(exclude_unset=True, by_alias=True).items() if v is not None}
 
     @property

@@ -32,6 +32,7 @@ from .utils.functools import cached_property
 from .utils.translation import i18n as _
 from msaSDK.auth.auth import Auth
 from msaSDK.service import MSAApp
+from ..utils.base_model import MSABaseModel
 
 try:
     from typing import Literal
@@ -40,7 +41,7 @@ except ImportError:
 
 _BaseAdminT = TypeVar('_BaseAdminT', bound="BaseAdmin")
 _PageSchemaAdminT = TypeVar('_PageSchemaAdminT', bound="PageSchemaAdmin")
-_BaseModel = NewType('_BaseModel', BaseModel)
+_BaseModel = NewType('_BaseModel', MSABaseModel)
 
 
 class LinkModelForm:
@@ -292,7 +293,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         column = MSAUIParser(modelfield).as_table_column()
         if await self.has_update_permission(request, None, None) and modelfield.name in self.schema_update.__fields__:
             item = await self.get_form_item(request, modelfield, action=MSACRUDEnum.update)
-            if isinstance(item, BaseModel):
+            if isinstance(item, MSABaseModel):
                 item = item.dict(exclude_none=True, by_alias=True, exclude={'name', 'label'})
             if isinstance(item, dict):
                 column.quickEdit = item
@@ -801,7 +802,7 @@ class TemplateAdmin(PageAdmin):
 
 
 class BaseFormAdmin(PageAdmin):
-    schema: Type[BaseModel] = None
+    schema: Type[MSABaseModel] = None
     schema_init_out: Type[Any] = Any
     schema_submit_out: Type[Any] = Any
     form: Form = None
@@ -874,7 +875,7 @@ class FormAdmin(BaseFormAdmin):
 
         return route
 
-    async def handle(self, request: Request, data: BaseModel, **kwargs) -> MSACRUDOut[Any]:
+    async def handle(self, request: Request, data: MSABaseModel, **kwargs) -> MSACRUDOut[Any]:
         raise NotImplementedError
 
     async def get_init_data(self, request: Request, **kwargs) -> MSACRUDOut[Any]:
@@ -927,7 +928,7 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
             self,
             request: Request,
             paginator: MSACRUDPaginator,
-            filters: BaseModel = None,  # type self.schema_filter
+            filters: MSABaseModel = None,  # type self.schema_filter
             **kwargs
     ) -> bool:
         return await self.has_page_permission(request)
@@ -935,7 +936,7 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
     async def has_create_permission(
             self,
             request: Request,
-            data: BaseModel,  # type self.schema_create
+            data: MSABaseModel,  # type self.schema_create
             **kwargs
     ) -> bool:
         return await self.has_page_permission(request)
@@ -952,7 +953,7 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
             self,
             request: Request,
             item_id: List[str],
-            data: BaseModel,  # type self.schema_update
+            data: MSABaseModel,  # type self.schema_update
             **kwargs
     ) -> bool:
         return await self.has_page_permission(request)
@@ -975,7 +976,7 @@ class BaseModelAction:
         self.admin = admin
         assert self.admin, 'admin is None'
 
-    async def fetch_item_scalars(self, item_id: List[str]) -> List[BaseModel]:
+    async def fetch_item_scalars(self, item_id: List[str]) -> List[MSABaseModel]:
         stmt = select(self.admin.model).where(self.admin.pk.in_(item_id))
         return await self.admin.db.async_execute(stmt, lambda r: r.scalars().all())
 
@@ -985,7 +986,7 @@ class BaseModelAction:
 
 class ModelAction(BaseFormAdmin, BaseModelAction):
     """Form and Model Actions"""
-    schema: Type[BaseModel] = None
+    schema: Type[MSABaseModel] = None
     action: ActionType.Dialog = None
 
     def __init__(self, admin: "ModelAdmin"):
@@ -1013,7 +1014,7 @@ class ModelAction(BaseFormAdmin, BaseModelAction):
             self,
             request: Request,
             item_id: List[str],
-            data: Optional[BaseModel],
+            data: Optional[MSABaseModel],
             **kwargs
     ) -> MSACRUDOut[Any]:
         return MSACRUDOut(data=data)
@@ -1108,7 +1109,7 @@ class AdminApp(PageAdmin, AdminGroup):
         self.msa_app: MSAApp = msa_app
         self.engine = self.engine or self.app.engine
         if msa_app:
-            self.engine = msa_app.db_engine
+            self.engine = msa_app.sqlite_db_engine
         else:
             self.engine = create_async_engine(self.engine.url, future=True)
         assert self.engine, 'engine is None'
@@ -1242,10 +1243,10 @@ class BaseAdminSite(AdminApp):
         self.settings = msa_app.settings
         self.msa_app = msa_app
         self.router = self.msa_app.router
-        if self.msa_app.db_engine:
-            self.db_engine = self.msa_app.db_engine
-        elif self.settings.db_url:
-            self.db_engine = create_async_engine(self.settings.db_url, echo=self.settings.debug, future=True)
+        if self.msa_app.sqlite_db_engine:
+            self.db_engine = self.msa_app.sqlite_db_engine
+        elif self.settings.sqlite_db_url:
+            self.db_engine = create_async_engine(self.settings.sqlite_db_url, echo=self.settings.debug, future=True)
 
         super().__init__(self, msa_app)
 

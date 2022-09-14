@@ -1,11 +1,12 @@
 from msaSDK.admin.utils.translation import i18n as _
-from pydantic import validator, SecretStr, BaseModel
+from pydantic import validator, SecretStr
 from sqlmodel import Field
 
 from .models import UsernameMixin, PasswordMixin, EmailMixin, BaseUser
+from ...utils.base_model import MSABaseModel
 
 
-class BaseTokenData(BaseModel):
+class BaseTokenData(MSABaseModel):
     """Pydantic Model for TokenData"""
     id: int
     username: str

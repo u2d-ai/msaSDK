@@ -179,7 +179,7 @@ from msaSDK.auth.backends.jwt import JwtTokenStore
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy_database import AsyncDatabase
 
-engine = create_async_engine(url='sqlite+aiosqlite:///amisadmin.db', future=True)
+engine = create_async_engine(url='sqlite+aiosqlite:///amisadmin.sqlite_db', future=True)
 
 auth = Auth(
     db=AsyncDatabase(engine),
@@ -188,7 +188,7 @@ auth = Auth(
 
 # Auth Admin Site
 site = AuthAdminSite(
-    settings=Settings(database_url_async='sqlite+aiosqlite:///amisadmin.db'),
+    settings=Settings(database_url_async='sqlite+aiosqlite:///amisadmin.sqlite_db'),
     auth=auth
 )
 
@@ -215,7 +215,7 @@ from aioredis import Redis
 
 auth = Auth(
     db=AsyncDatabase(engine),
-    token_store=RedisTokenStore(redis=Redis.from_url('redis://localhost?db=0'))
+    token_store=RedisTokenStore(redis=Redis.from_url('redis://localhost?sqlite_db=0'))
 )
 ```
 

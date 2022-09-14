@@ -5,7 +5,6 @@ import uuid
 
 import aiofiles
 from fastapi import UploadFile, File
-from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 
@@ -16,6 +15,7 @@ from msaSDK.utils.sysinfo import get_sysinfo
 from .admin import AdminApp, IframeAdmin, PageAdmin, BaseAdminSite, RouterAdmin
 from .frontend.components import PageSchema, Page, Property, Divider
 from .utils.translation import i18n as _
+from ..utils.base_model import MSABaseModel
 
 
 class DocsAdmin(IframeAdmin):
@@ -112,7 +112,8 @@ class FileAdmin(RouterAdmin):
     file_directory: str = 'upload'
     """str: 'upload' (Default)"""
     file_path: str = '/upload'
-    file_max_size: int = 2 * 1024 * 1024
+    chunk_size: int = 1024 * 1024 * 50  # 50 megabytes
+
     router_prefix = '/file'
     """API route prefix for URL"""
 
@@ -140,11 +141,9 @@ class FileAdmin(RouterAdmin):
             file_dir = os.path.dirname(file_path)
             os.path.exists(file_dir) or os.makedirs(file_dir)
             try:
-                res = await file.read()
-                if self.file_max_size and len(res) > self.file_max_size:
-                    return MSACRUDOut(status=-2, msg='The file size exceeds the limit')
                 async with aiofiles.open(file_path, "wb") as f:
-                    await f.write(res)
+                    while chunk := await file.read(self.chunk_size):
+                        await f.write(chunk)
                 return MSACRUDOut(
                     data=self.UploadOutSchema(filename=filename, url=f'{self.static_path}/{filename}'),
                 )
@@ -152,7 +151,7 @@ class FileAdmin(RouterAdmin):
             except Exception as e:
                 return MSACRUDOut(status=-1, msg=str(e))
 
-    class UploadOutSchema(BaseModel):
+    class UploadOutSchema(MSABaseModel):
         """Upload Pydantic Response Model"""
         filename: str = None
         url: str = None

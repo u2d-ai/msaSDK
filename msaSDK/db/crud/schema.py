@@ -3,8 +3,10 @@
 from enum import Enum
 from typing import Dict, TypeVar, Optional, Generic, List, Any, Union
 
-from pydantic import BaseModel, Extra
+from pydantic import Extra
 from pydantic.generics import GenericModel
+
+from msaSDK.utils.base_model import MSABaseModel
 
 try:
     import ujson as json
@@ -14,7 +16,7 @@ except ImportError:
 _T = TypeVar('_T')
 
 
-class MSACRUDSchema(BaseModel):
+class MSACRUDSchema(MSABaseModel):
     class Config:
         extra = Extra.allow
         json_loads = json.loads

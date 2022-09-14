@@ -1,17 +1,18 @@
 # General Dependencies
 aiomultiprocess~=0.9.0 # running a full AsyncIO event loop on each child process
 aiofiles~=22.1.0 # handling local disk files in asyncio applications
-aiosqlite~=0.17.0 # asyncio bridge to the standard sqlite3 module
-aioredis~=2.0.1 # asyncio (PEP 3156) Redis support
 Babel~=2.10.3 # collection of tools for internationalizing Python applications
 charset_normalizer~=2.1.1 #  read text from an unknown charset encoding
 country_list~=1.0.0 # List of all countries with names and ISO 3166-1 codes in all languages and all data formats
 dateparser~=1.1.1 # Generic parsing of dates in over 200 language locales plus numerous formats in a language agnostic fashion
 date-parser-sari~=0.8.11 # A parser for recognising free-text dates
+dynaconf~=3.1.9 # The dynamic configurator for your Python Project
+
+# Dapr Dependencies
 dapr~=1.7.0 # Dapr is a portable, serverless, event-driven runtime that makes it easy for developers to build resilient, stateless and stateful microservices that run on the cloud and edge
 dapr-ext-grpc~=1.7.0 # gRPC extension for Dapr.
 dapr-ext-fastapi~=1.7.0 # Dapr is a portable, serverless, event-driven runtime
-dynaconf~=3.1.9 # The dynamic configurator for your Python Project
+
 # FastAPI related Dependencies
 fastapi[all]~=0.83.0 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
 fastapi_utils~=0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
@@ -19,7 +20,7 @@ fastapi_sessions~=0.3.2 # add session authentication to your FastAPI project
 pyinstrument~=4.3.0 # pyinstrument to check service performance.
 fastapi-users[sqlalchemy,oauth]~=10.1.5 # Ready-to-use and customizable users management for FastAPI
 fastapi-pagination~=0.10.0 # library that provides pagination feature
-gunicorn~=20.1.0
+
 # Other Dependencies
 httpx~=0.23.0 # The next generation HTTP client.
 JPype1~=1.4.0 # A Python to Java bridge.
@@ -40,36 +41,48 @@ python-jose[cryptography]~=3.3.0 # SON Web Signature (JWS), JSON Web Encryption 
 regex~=2022.3.2 # Alternative regular expression module, to replace re.
 setuptools~=65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 slowapi~=0.1.6 # A rate limiting extension for Starlette and Fastapi
+
+# Scheduler
+rocketry~=2.3.0 # Rocketry is a modern scheduling framework for Python applications
+
 # Starlette related Dependencies
 sse_starlette~=1.1.6 # Server Sent Events for Starlette and FastAPI
-starlette~=0.19.1
-Starlette-WTF~=0.4.3
+starlette~=0.19.1 # Starlette is a lightweight ASGI framework/toolkit, which is ideal for building async web services in Python.
+Starlette-WTF~=0.4.3 # Simple integration of Starlette and WTForms.
 starlette-context~=0.3.4 # Access context in Starlette
 starception~=0.4.0 # Beautiful debugging page for Starlette apps.
+
 # GraphQL related Dependencies
 strawberry-graphql~=0.130.1 #A library for creating GraphQL APIs
 strawberry-graphql[fastapi]~=0.130.1 # Strawberry provides support for FastAPI with a custom APIRouter called GraphQLRouter.
-# SQL/DB related Dependencies
+
+# SQL/No-SQL/DB related Dependencies
+aiosqlite~=0.17.0 # asyncio bridge to the standard sqlite3 module
+aioredis~=2.0.1 # asyncio (PEP 3156) Redis support
 sqlmodel~=0.0.8 # SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 sqlalchemy[asyncio]~=1.4.41 # Database Abstraction Library
 sqlalchemy_database~=0.0.7 # SQLAlchemy-Database provides shortcut functions to common database operations for SQLAlchemy ORM
-# Uvicorn related Dependencies
-uvicorn~=0.17.6
+tinydb~=4.7.0 # TinyDB is a tiny, document oriented database
+
+# Uvicorn/Gunicorn related Dependencies
+gunicorn~=20.1.0 # WSGI HTTP Server for UNIX
+uvicorn~=0.17.6 # The lightning-fast ASGI server.
 uvloop~=0.16.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
 fonttools~=4.37.1 # Tools to manipulate font files
-gputil~=1.4.0
-Jinja2~=3.1.2
-matplotlib~=3.5.3
+gputil~=1.4.0 # Python module for getting the GPU status from NVIDA GPUs using nvidia-smi.
+Jinja2~=3.1.2 # A very fast and expressive template engine.
+matplotlib~=3.5.3 # Python plotting package
 numpy~=1.23.3 # NumPy is the fundamental package for array computing with Python.
-orjson~=3.8.0
+orjson~=3.8.0 # Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy
 pandas~=1.4.4 # Powerful data structures for data analysis, time series, and statistics
 pandas-profiling~=3.3.0 # Generate profile report for pandas DataFrame
 pillow~=9.2.0 # Python Imaging Library (Fork)
-python-magic~=0.4.27
-python-multipart~=0.0.5
-pytz~=2022.2.1
+python-magic~=0.4.27 # File type identification using libmagic
+python-multipart~=0.0.5 # A streaming multipart parser for Python
+pytz~=2022.2.1 # World timezone definitions, modern and historical
+
 
 # Documentation related Libraries
 black~=22.8.0 # Code formatter.

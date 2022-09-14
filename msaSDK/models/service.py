@@ -2,14 +2,15 @@
 from functools import lru_cache
 from typing import Dict, List, Optional
 
-from fastapi_utils.api_settings import APISettings
+
 from pydantic import validator
 from sqlmodel import SQLModel
 
 from msaSDK.models.health import MSAHealthDefinition
+from msaSDK.utils.settings import MSAAppSettings
 
 
-class MSAServiceDefinition(APISettings, SQLModel):
+class MSAServiceDefinition(MSAAppSettings):
     """
     MSAApp Settings (Service Definitions)
 
@@ -100,19 +101,23 @@ class MSAServiceDefinition(APISettings, SQLModel):
     """Enables Rate Limiter (slowapi)."""
     scheduler: bool = True
     "Enables MSA Scheduler Engine."
-    scheduler_poll_millis: int = 1000
-    """Set's Scheduler Poll Minimum."""
-    db: bool = True
+    json_db: bool = True
+    """Enables internal NoSQl/TinyDB DB."""
+    json_db_memory_only: bool = False
+    """JSON DB only in memory, don't store to file/db url"""
+    json_db_url: str = "./msa_sdk.json"
+    """Set's DB URL, compatibility with async and SQLModel/SQLAlchemy is required."""
+    sqlite_db: bool = True
     """Enables internal Asynchron SQLite DB."""
-    db_debug: bool = False
+    sqlite_db_debug: bool = False
     """Enables internal DB Debug output."""
-    db_crud: bool = True
+    sqlite_db_crud: bool = True
     """Enables CRUD API creation of the provided SQLModels."""
-    db_meta_drop: bool = False
+    sqlite_db_meta_drop: bool = False
     """If True, all existing Data and Schemas in internal DB get's deleted at Startup."""
-    db_meta_create: bool = True
+    sqlite_db_meta_create: bool = True
     """Enables internal DB Metadata creation from defined SQLModels at Startup."""
-    db_url: str = "sqlite+aiosqlite:///msa_sdk.db?check_same_thread=True"
+    sqlite_db_url: str = "sqlite+aiosqlite:///msa_sdk.sqlite_db?check_same_thread=True"
     """Set's DB URL, compatibility with async and SQLModel/SQLAlchemy is required."""
     site: bool = True
     """Enables internal Admin Site Dashboard."""

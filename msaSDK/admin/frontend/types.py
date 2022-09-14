@@ -1,6 +1,8 @@
 from typing import Dict, Any, Union, List
 
-from pydantic import BaseModel, Extra
+from pydantic import Extra
+
+from msaSDK.utils.base_model import MSABaseModel
 
 try:
     import ujson as json
@@ -13,7 +15,7 @@ MSAUISchemaNode = Union[MSAUITemplate, "MSAUINode", List["MSAUINode"], Dict[str,
 MSAOptionsNode = Union[List[Dict[str, Any]], List[str]]
 
 
-class MSABaseUIModel(BaseModel):
+class MSABaseUIModel(MSABaseModel):
     """Core Pydantic Base UI Model."""
     class Config:
         extra = Extra.allow

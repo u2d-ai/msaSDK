@@ -2,7 +2,7 @@
 from typing import Any, Callable, List, Type, Union, Optional
 
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel
+
 from sqlalchemy.exc import IntegrityError
 from starlette import status
 from starlette.exceptions import HTTPException
@@ -10,6 +10,7 @@ from starlette.requests import Request
 
 from .schema import MSACRUDOut, MSACRUDListSchema, MSACRUDEnum, MSACRUDPaginator
 from .utils import schema_create_by_schema, paginator_factory
+from ...utils.base_model import MSABaseModel
 
 
 class MSARouterMixin:
@@ -40,17 +41,17 @@ class MSABaseCrud(MSARouterMixin):
             Database tables have and can only have one self-adding primary key.
 
     """
-    schema_model: Type[BaseModel] = None
+    schema_model: Type[MSABaseModel] = None
     """Current model protocol"""
-    schema_list: Type[BaseModel] = None
+    schema_list: Type[MSABaseModel] = None
     """Batch query data return protocol, default: self.schema_model"""
-    schema_filter: Type[BaseModel] = None
+    schema_filter: Type[MSABaseModel] = None
     """Batch query data filter submission protocol, default: self.schema_model"""
-    schema_create: Type[BaseModel] = None
+    schema_create: Type[MSABaseModel] = None
     """Create data submission protocol, default: self.schema_model"""
-    schema_read: Type[BaseModel] = None
+    schema_read: Type[MSABaseModel] = None
     """Read data return protocol, default: self.schema_model"""
-    schema_update: Type[BaseModel] = None
+    schema_update: Type[MSABaseModel] = None
     """Update data submission protocol, default: self.schema_model"""
     pk_name: str = 'id'
     """Current model primary key string, default: id.
@@ -64,7 +65,7 @@ class MSABaseCrud(MSARouterMixin):
 
     def __init__(
             self,
-            schema_model: Type[BaseModel],
+            schema_model: Type[MSABaseModel],
             router: APIRouter = None
     ):
         self.paginator: Type[MSACRUDPaginator] = MSACRUDPaginator
@@ -83,11 +84,11 @@ class MSABaseCrud(MSARouterMixin):
 
     def register_crud(
             self,
-            schema_list: Type[BaseModel] = None,
-            schema_filter: Type[BaseModel] = None,
-            schema_create: Type[BaseModel] = None,
-            schema_read: Type[BaseModel] = None,
-            schema_update: Type[BaseModel] = None,
+            schema_list: Type[MSABaseModel] = None,
+            schema_filter: Type[MSABaseModel] = None,
+            schema_create: Type[MSABaseModel] = None,
+            schema_read: Type[MSABaseModel] = None,
+            schema_update: Type[MSABaseModel] = None,
             list_max_per_page: int = None,
             depends_list: List[Depends] = None,
             depends_read: List[Depends] = None,
@@ -201,7 +202,7 @@ class MSABaseCrud(MSARouterMixin):
             self,
             request: Request,
             paginator: Optional[MSACRUDPaginator],
-            filters: Optional[BaseModel],
+            filters: Optional[MSABaseModel],
             **kwargs
     ) -> bool:
         """Check for bulk query permission."""
@@ -210,7 +211,7 @@ class MSABaseCrud(MSARouterMixin):
     async def has_create_permission(
             self,
             request: Request,
-            obj: Optional[BaseModel],
+            obj: Optional[MSABaseModel],
             **kwargs
     ) -> bool:
         """Check for single create permission."""
@@ -229,7 +230,7 @@ class MSABaseCrud(MSARouterMixin):
             self,
             request: Request,
             item_id: Optional[List[str]],
-            obj: Optional[BaseModel],
+            obj: Optional[MSABaseModel],
             **kwargs
     ) -> bool:
         """Check for single update permission."""

@@ -11,11 +11,13 @@ from msaSDK.admin.utils.translation import i18n as _
 from .auth import Auth
 from .auth.models import BaseUser, User, Group, Permission, Role
 from .auth.schemas import UserLoginOut
-from pydantic import BaseModel
+
 from sqlalchemy import insert, update, select
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
+
+from ..utils.base_model import MSABaseModel
 
 
 def attach_page_head(page: Page) -> Page:
@@ -35,7 +37,7 @@ class UserLoginFormAdmin(FormAdmin, ABC):
     page = Page(title=_('User Login'))
     page_path = '/login'
     page_parser_mode = 'html'
-    schema: Type[BaseModel] = None
+    schema: Type[MSABaseModel] = None
     schema_submit_out: Type[UserLoginOut] = None
     page_schema = None
     page_route_kwargs = {'name': 'login'}
@@ -43,9 +45,9 @@ class UserLoginFormAdmin(FormAdmin, ABC):
     async def handle(
             self,
             request: Request,
-            data: BaseModel,  # self.schema
+            data: MSABaseModel,  # self.schema
             **kwargs
-    ) -> MSACRUDOut[BaseModel]:  # self.schema_submit_out
+    ) -> MSACRUDOut[MSABaseModel]:  # self.schema_submit_out
         if request.user:
             return MSACRUDOut(code=1, msg=_('User logged in!'), data=self.schema_submit_out.parse_obj(request.user))
         user = await request.auth.authenticate_user(username=data.username, password=data.password)  # type:ignore
@@ -120,7 +122,7 @@ class UserRegFormAdmin(FormAdmin, ABC):
     page = Page(title=_('User Register'))
     page_path = '/reg'
     page_parser_mode = 'html'
-    schema: Type[BaseModel] = None
+    schema: Type[MSABaseModel] = None
     schema_submit_out: Type[UserLoginOut] = None
     page_schema = None
     page_route_kwargs = {'name': 'reg'}
@@ -128,9 +130,9 @@ class UserRegFormAdmin(FormAdmin, ABC):
     async def handle(
             self,
             request: Request,
-            data: BaseModel,  # self.schema
+            data: MSABaseModel,  # self.schema
             **kwargs
-    ) -> MSACRUDOut[BaseModel]:  # self.schema_submit_out
+    ) -> MSACRUDOut[MSABaseModel]:  # self.schema_submit_out
         auth: Auth = request.auth
         user = await auth.db.scalar(select(self.user_model).where(self.user_model.username == data.username))
         if user:
@@ -208,7 +210,7 @@ class UserInfoFormAdmin(FormAdmin):
     user_model: Type[BaseUser] = User
     page = Page(title=_('User Profile'))
     page_path = '/userinfo'
-    schema: Type[BaseModel] = None
+    schema: Type[MSABaseModel] = None
     schema_submit_out: Type[BaseUser] = None
     form_init = True
     form = Form(mode=DisplayModeEnum.horizontal)
@@ -231,7 +233,7 @@ class UserInfoFormAdmin(FormAdmin):
         )
         return form
 
-    async def handle(self, request: Request, data: BaseModel, **kwargs) -> MSACRUDOut[Any]:
+    async def handle(self, request: Request, data: MSABaseModel, **kwargs) -> MSACRUDOut[Any]:
         stmt = update(self.user_model).where(self.user_model.username == request.user.username).values(data.dict())
         await self.site.db.async_execute(stmt)
         return MSACRUDOut(data={**request.user.dict(), **data.dict()})

@@ -1,6 +1,4 @@
 """Generate the code reference pages and navigation."""
-
-"""Generate the code reference pages and navigation."""
 import os.path
 import pickle
 from os.path import exists
@@ -8,6 +6,27 @@ from pathlib import Path
 from typing import List
 
 import mkdocs_gen_files
+
+
+def format_pip_result(pip_result, version):
+    req_line_text: str = ""
+    check_version: str = ""
+    check_required: List[str] = []
+    for req_line in pip_result.splitlines():
+        if not req_line.__contains__("Location"):
+            if req_line.__contains__("Version") and not req_line.__contains__(version) and len(
+                    version) > 0:
+                check_version = req_line
+            if req_line.__contains__("Requires:"):
+                temp_req_line = req_line.replace("Requires:", "").strip()
+                if len(temp_req_line) > 0:
+                    tl: List[str] = temp_req_line.split(", ")
+                    if len(tl) > 0:
+                        check_required = tl.copy()
+
+            req_line_text += f"    {req_line}\n"  # keep the spaces !important
+
+    return req_line_text, check_version, check_required
 
 
 def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference",
@@ -24,10 +43,6 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
     """Generates the virtual mkdocs md files and adds them to the navigation.
 
     Scans the requirement file and gets pip show info for each package and stores it to a pickle file.
-
-        Copy this to your project and use in mkdocs.yml with the mkdocs-gen-files plugin to execute the script.
-        Ensure to call the function at the end, add generate_code_reference_documentation() at the end of your file.
-
     """
     nav = mkdocs_gen_files.Nav()
 
@@ -121,26 +136,50 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
                             pip_result = sub_process_result[package]
 
                         if len(pip_result) > 0:
-                            req_line_text: str = ""
-                            check_version: str = ""
-                            for req_line in pip_result.splitlines():
-                                if not req_line.__contains__("Location"):
-                                    if req_line.__contains__("Version") and not req_line.__contains__(version) and len(
-                                            version) > 0:
-                                        check_version = req_line
-
-                                    req_line_text += f"{req_line}\n"
+                            req_line_text: str
+                            check_version: str
+                            check_required: List[str]
+                            req_line_text, check_version, check_required = format_pip_result(pip_result=pip_result,
+                                                                                             version=version)
 
                             if len(check_version) > 0:
                                 fd.write(f"<span style='color:red'> Check {check_version} vs {version}</span>\n")
 
-                            fd.write(f"\n```console\n\n{req_line_text}```\n\n")
+                            fd.write(f"=== \"{package}\"\n")
+                            fd.write(f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
+
+                            for entry in check_required:
+                                if not sub_process_result_file_exists or entry not in sub_process_result.keys():
+                                    sub_process_result_file_needs_update = True
+                                    command = ['pip', 'show', entry]
+                                    print("Collect PIP Infos for package:", entry)
+                                    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+                                    pip_result = result.stdout
+                                    sub_process_result[entry] = pip_result
+                                else:
+                                    pip_result = sub_process_result[entry]
+
+                                if len(pip_result) > 0:
+                                    req_line_text: str
+                                    check_version: str
+                                    check_required: List[str]
+                                    req_line_text, check_version, check_required = format_pip_result(
+                                        pip_result=pip_result,
+                                        version=version)
+
+                                fd.write(f"=== \"rqr: {entry}\"\n")
+                                fd.write(f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
 
         nav[virtual_requirements_nav_path] = req_md_file
         print("Nav:", nav)
     if not sub_process_result_file_exists or sub_process_result_file_needs_update:
         with open(pkl_info_file, 'wb') as f:
             pickle.dump(sub_process_result, f)
+
+
+
+
+
 
 
 
