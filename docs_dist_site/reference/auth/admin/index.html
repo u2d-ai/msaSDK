@@ -410,7 +410,7 @@
   
     <li class="md-nav__item">
       <a href="../../../requirements/" class="md-nav__link">
-        Libraries
+        Used Libraries
       </a>
     </li>
   
@@ -2331,6 +2331,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../utils/base_model/" class="md-nav__link">
+        base_model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../utils/constants/" class="md-nav__link">
         constants
       </a>
@@ -2401,22 +2415,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../utils/fileupload/" class="md-nav__link">
-        fileupload
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../utils/fileutils/" class="md-nav__link">
-        fileutils
+      <a href="../../utils/file/" class="md-nav__link">
+        file
       </a>
     </li>
   
@@ -2501,6 +2501,20 @@
     <li class="md-nav__item">
       <a href="../../utils/scheduler/" class="md-nav__link">
         scheduler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/settings/" class="md-nav__link">
+        settings
       </a>
     </li>
   
@@ -4164,7 +4178,7 @@
   </span>
 
 <a href="#auth.admin.UserInfoFormAdmin.schema" class="headerlink" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSABaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4276,7 +4290,7 @@
 
 <a href="#auth.admin.UserInfoFormAdmin.handle" class="headerlink" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">handle</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MSABaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSACRUDOut</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
 </code></pre></div>
 
@@ -4464,7 +4478,7 @@
   </span>
 
 <a href="#auth.admin.UserLoginFormAdmin.schema" class="headerlink" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSABaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4553,8 +4567,8 @@
 
 <a href="#auth.admin.UserLoginFormAdmin.handle" class="headerlink" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">handle</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSACRUDOut</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MSABaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSACRUDOut</span><span class="p">[</span><span class="n">MSABaseModel</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4785,7 +4799,7 @@
   </span>
 
 <a href="#auth.admin.UserRegFormAdmin.schema" class="headerlink" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSABaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4895,8 +4909,8 @@
 
 <a href="#auth.admin.UserRegFormAdmin.handle" class="headerlink" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">handle</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSACRUDOut</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MSABaseModel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSACRUDOut</span><span class="p">[</span><span class="n">MSABaseModel</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4989,11 +5003,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2022</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2022</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2022</span>
       
     
   </small>

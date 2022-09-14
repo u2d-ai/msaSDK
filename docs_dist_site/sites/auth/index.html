@@ -410,7 +410,7 @@
   
     <li class="md-nav__item">
       <a href="../../requirements/" class="md-nav__link">
-        Libraries
+        Used Libraries
       </a>
     </li>
   
@@ -1785,6 +1785,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/utils/base_model/" class="md-nav__link">
+        base_model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/utils/constants/" class="md-nav__link">
         constants
       </a>
@@ -1855,22 +1869,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/utils/fileupload/" class="md-nav__link">
-        fileupload
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/utils/fileutils/" class="md-nav__link">
-        fileutils
+      <a href="../../reference/utils/file/" class="md-nav__link">
+        file
       </a>
     </li>
   
@@ -1955,6 +1955,20 @@
     <li class="md-nav__item">
       <a href="../../reference/utils/scheduler/" class="md-nav__link">
         scheduler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/utils/settings/" class="md-nav__link">
+        settings
       </a>
     </li>
   
@@ -2386,7 +2400,7 @@
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">sqlalchemy.ext.asyncio</span> <span class="kn">import</span> <span class="n">create_async_engine</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">sqlalchemy_database</span> <span class="kn">import</span> <span class="n">AsyncDatabase</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">create_async_engine</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;sqlite+aiosqlite:///amisadmin.db&#39;</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">create_async_engine</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;sqlite+aiosqlite:///amisadmin.sqlite_db&#39;</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">auth</span> <span class="o">=</span> <span class="n">Auth</span><span class="p">(</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">db</span><span class="o">=</span><span class="n">AsyncDatabase</span><span class="p">(</span><span class="n">engine</span><span class="p">),</span>
@@ -2395,7 +2409,7 @@
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Auth Admin Site</span>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">site</span> <span class="o">=</span> <span class="n">AuthAdminSite</span><span class="p">(</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">settings</span><span class="o">=</span><span class="n">Settings</span><span class="p">(</span><span class="n">database_url_async</span><span class="o">=</span><span class="s1">&#39;sqlite+aiosqlite:///amisadmin.db&#39;</span><span class="p">),</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">settings</span><span class="o">=</span><span class="n">Settings</span><span class="p">(</span><span class="n">database_url_async</span><span class="o">=</span><span class="s1">&#39;sqlite+aiosqlite:///amisadmin.sqlite_db&#39;</span><span class="p">),</span>
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">auth</span><span class="o">=</span><span class="n">auth</span>
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="p">)</span>
 </code></pre></div>
@@ -2414,7 +2428,7 @@
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">auth</span> <span class="o">=</span> <span class="n">Auth</span><span class="p">(</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">db</span><span class="o">=</span><span class="n">AsyncDatabase</span><span class="p">(</span><span class="n">engine</span><span class="p">),</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">token_store</span><span class="o">=</span><span class="n">RedisTokenStore</span><span class="p">(</span><span class="n">redis</span><span class="o">=</span><span class="n">Redis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="s1">&#39;redis://localhost?db=0&#39;</span><span class="p">))</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">token_store</span><span class="o">=</span><span class="n">RedisTokenStore</span><span class="p">(</span><span class="n">redis</span><span class="o">=</span><span class="n">Redis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="s1">&#39;redis://localhost?sqlite_db=0&#39;</span><span class="p">))</span>
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">)</span>
 </code></pre></div>
 <h2 id="rbac-model">RBAC Model<a class="headerlink" href="#rbac-model" title="Permanent link">&para;</a></h2>

@@ -405,7 +405,7 @@
   
     <li class="md-nav__item">
       <a href="../../requirements/" class="md-nav__link">
-        Libraries
+        Used Libraries
       </a>
     </li>
   
@@ -1583,6 +1583,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/utils/base_model/" class="md-nav__link">
+        base_model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/utils/constants/" class="md-nav__link">
         constants
       </a>
@@ -1653,22 +1667,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/utils/fileupload/" class="md-nav__link">
-        fileupload
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/utils/fileutils/" class="md-nav__link">
-        fileutils
+      <a href="../../reference/utils/file/" class="md-nav__link">
+        file
       </a>
     </li>
   
@@ -1753,6 +1753,20 @@
     <li class="md-nav__item">
       <a href="../../reference/utils/scheduler/" class="md-nav__link">
         scheduler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/utils/settings/" class="md-nav__link">
+        settings
       </a>
     </li>
   
@@ -1850,75 +1864,71 @@
 <p>Example Usage of MSAApp
 Copyright &copy; 2022 - U2D.ai / S.Welcker
 <div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Example Usage of MSAApp
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Copyright (c) 2022 - U2D.ai / S.Welcker
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>__version__ = &quot;0.0.1&quot;
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>from typing import Optional
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>from sqlmodel import SQLModel
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>from msaSDK.admin.utils.fields import Field
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>from msaSDK.models.service import get_msa_app_settings
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>from msaSDK.service import MSAApp
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>from typing import Optional, List
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>from sqlmodel import SQLModel
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>from msaSDK.admin.utils.fields import Field
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>from msaSDK.models.service import get_msa_app_settings
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>from msaSDK.service import MSAApp
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>async def test_timer_min():
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    app.logger.info(&quot;msaSDK Test Timer Async Every Minute&quot;)
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>async def test_timer_min():
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    app.logger.info(&quot;msaSDK Test Timer Async Every Minute&quot;)
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>def test_timer_five_sec():
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    app.logger.info(&quot;msaSDK Test Timer Sync 5 Second&quot;)
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>def test_timer_five_sec():
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    app.logger.info(&quot;msaSDK Test Timer Sync 5 Second&quot;)
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>class TestArticle(SQLModel, table=True):
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    title: str = Field(title=&#39;ArticleTitle&#39;, max_length=200)
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    description: Optional[str] = Field(default=&#39;&#39;, title=&#39;ArticleDescription&#39;, max_length=400)
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    status: bool = Field(None, title=&#39;status&#39;)
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    content: str = Field(title=&#39;ArticleContent&#39;)
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>class TestCategory(SQLModel, table=True):
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    title: str = Field(title=&#39;ArticleTitle&#39;, max_length=200)
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    description: Optional[str] = Field(default=&#39;&#39;, title=&#39;ArticleDescription&#39;, max_length=400)
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    status: bool = Field(None, title=&#39;status&#39;)
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    content: str = Field(title=&#39;ArticleContent&#39;)
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>get_msa_app_settings.cache_clear()
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>settings = get_msa_app_settings()
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>settings.title = &quot;SPK.ai - MSA/SDK MVP&quot;
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>settings.version = &quot;SPK.0.0.1&quot;
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>settings.debug = True
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>my_timers: MSATimers = MSATimers()
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>my_timers.create_timer(MSATimerEnum.every_minute, test_timer_min)
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>             sql_models=[TestArticle, TestCategory],
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>             contact={&quot;name&quot;: &quot;msaSDK&quot;, &quot;url&quot;: &quot;http://u2d.ai&quot;, &quot;email&quot;: &quot;stefan@u2d.ai&quot;},
-<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>             license_info={&quot;name&quot;: &quot;MIT&quot;, &quot;url&quot;: &quot;https://opensource.org/licenses/MIT&quot;, })
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>class TestArticle(SQLModel, table=True):
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    __table_args__ = {&#39;extend_existing&#39;: True}
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    title: str = Field(title=&#39;ArticleTitle&#39;, max_length=200)
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    description: Optional[str] = Field(default=&#39;&#39;, title=&#39;ArticleDescription&#39;, max_length=400)
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    status: bool = Field(None, title=&#39;status&#39;)
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    content: str = Field(title=&#39;ArticleContent&#39;)
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>class TestCategory(SQLModel, table=True):
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    __table_args__ = {&#39;extend_existing&#39;: True}
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    title: str = Field(title=&#39;ArticleTitle&#39;, max_length=200)
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    description: Optional[str] = Field(default=&#39;&#39;, title=&#39;ArticleDescription&#39;, max_length=400)
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    status: bool = Field(None, title=&#39;status&#39;)
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    content: str = Field(title=&#39;ArticleContent&#39;)
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>get_msa_app_settings.cache_clear()
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>settings = get_msa_app_settings()
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>settings.title = &quot;u2d.ai - MSA/SDK MVP&quot;
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>settings.version = &quot;0.0.1&quot;
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>settings.debug = True
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>app = MSAApp(settings=settings, auto_mount_site=True,
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>             sql_models=[TestArticle, TestCategory],
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>             contact={&quot;name&quot;: &quot;msaSDK&quot;, &quot;url&quot;: &quot;http://u2d.ai&quot;, &quot;email&quot;: &quot;stefan@u2d.ai&quot;},
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>             license_info={&quot;name&quot;: &quot;MIT&quot;, &quot;url&quot;: &quot;https://opensource.org/licenses/MIT&quot;, })
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>app.scheduler.task(&quot;every 1 min&quot;, func=test_timer_min )
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>app.scheduler.task(&quot;every 5 sec&quot;, func=test_timer_five_sec )
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>app.logger.info(&quot;Initialized &quot; + settings.title + &quot; &quot; + settings.version)
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>app.logger.info(&quot;Initialized &quot; + settings.title + &quot; &quot; + settings.version)
-<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>@app.on_event(&quot;startup&quot;)
-<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>async def startup():
-<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>    app.logger.info(&quot;msaSDK Own Startup MSAUIEvent&quot;)
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>    #app.mount_site()
-<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>@app.on_event(&quot;startup&quot;)
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>async def startup():
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    app.logger.info(&quot;msaSDK Own Startup MSAUIEvent&quot;)
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>    #app.mount_site()
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>@app.on_event(&quot;shutdown&quot;)
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>async def shutdown():
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    app.logger.info(&quot;msaSDK Own Shutdown MSAUIEvent&quot;)
 <a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>@app.on_event(&quot;shutdown&quot;)
-<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>async def shutdown():
-<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>    app.logger.info(&quot;msaSDK Own Shutdown MSAUIEvent&quot;)
-<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>if __name__ == &#39;__main__&#39;:
-<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>    pass
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>if __name__ == &#39;__main__&#39;:
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>    pass
 </code></pre></div></p>
 
   <hr>

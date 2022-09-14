@@ -2,17 +2,13 @@ Example Usage of MSAApp
 Copyright (c) 2022 - U2D.ai / S.Welcker
 ```
 Example Usage of MSAApp
-Copyright (c) 2022 - U2D.ai / S.Welcker
-__version__ = "0.0.1"
-
-from typing import Optional
+from typing import Optional, List
 
 from sqlmodel import SQLModel
 
 from msaSDK.admin.utils.fields import Field
 from msaSDK.models.service import get_msa_app_settings
 from msaSDK.service import MSAApp
-from msaSDK.utils.scheduler import MSATimers, MSATimerEnum
 
 
 async def test_timer_min():
@@ -24,6 +20,7 @@ def test_timer_five_sec():
 
 
 class TestArticle(SQLModel, table=True):
+    __table_args__ = {'extend_existing': True}
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     title: str = Field(title='ArticleTitle', max_length=200)
     description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
@@ -32,6 +29,7 @@ class TestArticle(SQLModel, table=True):
 
 
 class TestCategory(SQLModel, table=True):
+    __table_args__ = {'extend_existing': True}
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     title: str = Field(title='ArticleTitle', max_length=200)
     description: Optional[str] = Field(default='', title='ArticleDescription', max_length=400)
@@ -41,19 +39,17 @@ class TestCategory(SQLModel, table=True):
 
 get_msa_app_settings.cache_clear()
 settings = get_msa_app_settings()
-settings.title = "SPK.ai - MSA/SDK MVP"
-settings.version = "SPK.0.0.1"
+settings.title = "u2d.ai - MSA/SDK MVP"
+settings.version = "0.0.1"
 settings.debug = True
 
-my_timers: MSATimers = MSATimers()
-my_timers.create_timer(MSATimerEnum.every_minute, test_timer_min)
-my_timers.create_timer(MSATimerEnum.on_the_5_second, test_timer_five_sec)
-
-app = MSAApp(settings=settings, timers=my_timers, auto_mount_site=True,
+app = MSAApp(settings=settings, auto_mount_site=True,
              sql_models=[TestArticle, TestCategory],
              contact={"name": "msaSDK", "url": "http://u2d.ai", "email": "stefan@u2d.ai"},
              license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT", })
 
+app.scheduler.task("every 1 min", func=test_timer_min )
+app.scheduler.task("every 5 sec", func=test_timer_five_sec )
 
 app.logger.info("Initialized " + settings.title + " " + settings.version)
 

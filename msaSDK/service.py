@@ -7,10 +7,11 @@ Initialize with a MSAServiceDefintion Instance to control the features and funct
 
 
 import asyncio
+import datetime
 import os
-import time
 from asyncio import Task
-from typing import List, Optional
+from datetime import timedelta
+from typing import List, Optional, Any, Union
 
 import uvloop
 from fastapi import HTTPException
@@ -21,10 +22,11 @@ from fastapi.responses import ORJSONResponse
 from fastapi_pagination import add_pagination
 from fastapi_users.password import PasswordHelper
 from fastapi_utils.timing import add_timing_middleware
-from loguru import logger
+from loguru import logger as logger_gruru
 from msgpack_asgi import MessagePackMiddleware
 from passlib.context import CryptContext
 from prometheus_fastapi_instrumentator import Instrumentator
+from redbird.repos import MemoryRepo
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -34,6 +36,7 @@ from sqlalchemy.orm import DeclarativeMeta
 from sqlmodel import SQLModel
 from starception import StarceptionMiddleware
 from starlette import status
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
@@ -45,8 +48,9 @@ from starlette.templating import Jinja2Templates, _TemplateResponse
 from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
 from starlette_wtf import CSRFProtectMiddleware
-from starlette.exceptions import HTTPException as StarletteHTTPException
 from strawberry import schema
+from tinydb import TinyDB
+from tinydb.storages import MemoryStorage
 
 from msaSDK.db.crud import MSASQLModelCrud
 from msaSDK.models.health import MSAHealthMessage
@@ -57,9 +61,8 @@ from msaSDK.security import getMSASecurity
 from msaSDK.utils import healthcheck as health
 from msaSDK.utils.logger import init_logging
 from msaSDK.utils.profiler import MSAProfilerMiddleware
-from msaSDK.utils.scheduler import MSATimers, MSAScheduler
+from msaSDK.utils.scheduler import MSAScheduler
 from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo
-
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 """Security Context for Password Helper"""
@@ -69,15 +72,69 @@ security = getMSASecurity()
 """MSASecurity instance"""
 
 
-class MSATimerStatus(SQLModel):
-    """**MSATimerStatus** Pydantic Response Class
+class MSASchedulerRepoLogRecord(SQLModel):
+    task_name: str
+    action: str
+    created: Optional[datetime.datetime]
+    name: str
+    msg: str
+    levelname: Any
+    levelno: int
+    pathname: str
+    filename: str
+    module: str
+    exc_text: Any
+    lineno: int
+    funcName: str
+    msecs: float
+    relativeCreated: Optional[datetime.datetime]
+    thread: int
+    threadName: str
+    processName: str
+    process: int
+    message: Any
+    formatted_message: Any
+
+
+class MSASchedulerTaskDetail(SQLModel):
+    permanent_task: bool
+    fmt_log_message: str
+    daemon: Any
+    name: str
+    description: Any
+    logger_name: str
+    execution: Any
+    priority: int
+    disabled: bool
+    force_run: bool
+    force_termination: bool
+    status: str
+    timeout: Optional[Union[str, int, timedelta]]
+    parameters: Any
+    start_cond: Any
+    end_cond: Any
+    on_startup: bool
+    on_shutdown: bool
+    last_run: Optional[datetime.datetime]
+    last_success: Optional[datetime.datetime]
+    last_fail: Optional[datetime.datetime]
+    last_terminate: Optional[datetime.datetime]
+    last_inaction: Optional[datetime.datetime]
+    last_crash: Optional[datetime.datetime]
+    func: Any
+    path: Any
+    func_name: str
+    cache: bool
+    sys_paths: List
+
+
+class MSASchedulerTaskStatus(SQLModel):
+    """**MSASchedulerTaskStatus** Pydantic Response Class
     """
-    mode: Optional[str] = None
-    """Timer Mode."""
-    func: Optional[str] = None
-    """Timer Handler Function."""
-    mark_HH_MM: Optional[str] = None
-    """ Mark for Schedule"""
+    name: Optional[str] = None
+    """Task Name."""
+    detail: Optional[MSASchedulerTaskDetail] = None
+    """Task detail."""
 
 
 class MSASchedulerStatus(SQLModel):
@@ -86,8 +143,20 @@ class MSASchedulerStatus(SQLModel):
     """
     name: Optional[str] = "msaSDK Service"
     """Service Name."""
-    timers: Optional[List[MSATimerStatus]] = []
-    """Optional MSATimerStatus List"""
+    tasks: Optional[List[MSASchedulerTaskStatus]] = []
+    """Optional MSASchedulerTaskStatus List"""
+    message: Optional[str] = "None"
+    """Optional Message Text"""
+
+
+class MSASchedulerLog(SQLModel):
+    """
+    **MSASchedulerStatus** Pydantic Response Class
+    """
+    name: Optional[str] = "msaSDK Service"
+    """Service Name."""
+    log: Optional[List[MSASchedulerRepoLogRecord]] = []
+    """Optional MSASchedulerRepoLogRecord List"""
     message: Optional[str] = "None"
     """Optional Message Text"""
 
@@ -170,7 +239,6 @@ class MSAApp(MSAFastAPI):
 
     Args:
         settings: MSAServiceDefinition (Must be provided), instance of a service definition with all settings
-        timers: MSATimers instance Default None, provide a MSATimers instance and it will start the scheduler internaly
         sql_models: List of SQLModel Default None, provide list of your SQLModel Classes and the instance can create CRUD API and if site is enabled also UI for CRUD
         auto_mount_site: Default True, if site is enabled in settings and this is true, mounts the site in internal startup event.
 
@@ -178,7 +246,6 @@ class MSAApp(MSAFastAPI):
         logger: loguru logger instance
         auto_mount_site: bool auto_mount_site
         settings: MSAServiceDefinition settings instance.
-        timers: MSATimers = timers
         healthdefinition: MSAHealthDefinition settings.healthdefinition
         limiter: Limiter = None
         db_engine: AsyncEngine = Db Engine instance
@@ -194,7 +261,6 @@ class MSAApp(MSAFastAPI):
     def __init__(
             self,
             settings: MSAServiceDefinition,
-            timers: MSATimers = None,
             sql_models: List[SQLModel] = None,
             auto_mount_site: bool = True,
             *args,
@@ -202,19 +268,19 @@ class MSAApp(MSAFastAPI):
     ) -> None:
         # call super class __init__
         super().__init__(*args, **settings.fastapi_kwargs)
-        self.logger = logger
+        self.logger = logger_gruru
         init_logging()
         self.auto_mount_site: bool = auto_mount_site
         self.settings = settings
-        self.timers: MSATimers = timers
         self.healthdefinition: MSAHealthDefinition = self.settings.healthdefinition
         self.limiter: Limiter = None
-        self.db_engine: AsyncEngine = None
+        self.sqlite_db_engine: AsyncEngine = None
+        self.json_db_engine: TinyDB = None
         self.sql_models: List[SQLModel] = sql_models
         self.sql_cruds: List[MSASQLModelCrud] = []
         self.scheduler: MSAScheduler = None
         self.site = None
-        self.scheduler_task: Task = None
+        self._scheduler_task: Task = None
         self.ROOTPATH = os.path.join(os.path.dirname(__file__))
 
         if self.settings.uvloop:
@@ -249,20 +315,29 @@ class MSAApp(MSAFastAPI):
         if not self.settings.site_auth:
             self.logger.info("Excluded Admin Auth Site")
 
-        if self.settings.db:
-            self.logger.info("DB - Init: " + self.settings.db_url)
+        if self.settings.json_db:
+            self.logger.info("JSON DB - Init: " + self.settings.sqlite_db_url)
+            if self.settings.json_db_memory_only:
+                self.json_db_engine = TinyDB(self.settings.json_db_url, storage=MemoryStorage)
+            else:
+                self.json_db_engine = TinyDB(self.settings.json_db_url, storage=TinyDB.default_storage_class)
+        else:
+            self.logger.info("JSON Excluded DB")
+
+        if self.settings.sqlite_db or (self.settings.scheduler and self.settings.scheduler_log_to_db):
+            self.logger.info("SQLite DB - Init: " + self.settings.sqlite_db_url)
             self.Base: DeclarativeMeta = declarative_base()
-            self.db_engine = create_async_engine(self.settings.db_url, echo=self.settings.db_debug, future=True)
-            if (self.settings.db_crud or self.settings.site) and self.sql_models:
-                self.logger.info("DB - Register/CRUD SQL Models: " + str(self.sql_models))
+            self.sqlite_db_engine = create_async_engine(self.settings.sqlite_db_url, echo=self.settings.sqlite_db_debug, future=True)
+            if (self.settings.sqlite_db_crud or self.settings.site) and self.sql_models:
+                self.logger.info("SQLite DB - Register/CRUD SQL Models: " + str(self.sql_models))
                 # register all Models and the crud for them
                 for model in self.sql_models:
-                    new_crud: MSASQLModelCrud = MSASQLModelCrud(model=model, engine=self.db_engine).register_crud()
-                    if self.settings.db_crud:
+                    new_crud: MSASQLModelCrud = MSASQLModelCrud(model=model, engine=self.sqlite_db_engine).register_crud()
+                    if self.settings.sqlite_db_crud:
                         self.include_router(new_crud.router)
                     self.sql_cruds.append(new_crud)
         else:
-            self.logger.info("Excluded DB")
+            self.logger.info("Excluded SQLiteDB")
 
         if self.settings.graphql:
             self.logger.info("Init Graphql")
@@ -368,6 +443,8 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Include Servicerouter")
             self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
                                response_model=MSASchedulerStatus)
+            self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
+                               response_model=MSASchedulerLog)
             self.add_api_route("/status", self.get_services_status, tags=["service"],
                                response_model=MSAServiceStatus)
             self.add_api_route("/definition", self.get_services_definition, tags=["service"],
@@ -419,20 +496,12 @@ class MSAApp(MSAFastAPI):
         self.add_event_handler("shutdown", self.shutdown_event)
         self.add_event_handler("startup", self.startup_event)
 
-        if self.settings.scheduler and self.timers:
-            self.logger.info("Add Scheduler Timers: " + str(len(self.timers.timer_jobs)))
-            if time.daylight:
-                offsetHour = time.altzone / 3600
-            else:
-                offsetHour = time.timezone / 3600
-            tz: str = 'Etc/GMT%+d' % offsetHour
-            self.scheduler = MSAScheduler(jobs=self.timers.timer_jobs, local_time_zone=tz,
-                                          poll_millis=self.settings.scheduler_poll_millis,
-                                          parent_logger=self.logger)
+        if self.settings.scheduler:
+            self.logger.info("Add Scheduler")
+            self.scheduler = MSAScheduler(config={"task_execution": "async"})
+
         elif not self.settings.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
-        else:
-            self.logger.info("Excluded Scheduler, Timers is Empty")
 
     async def startup_event(self) -> None:
         """
@@ -442,15 +511,15 @@ class MSAApp(MSAFastAPI):
         """
         self.logger.info("msaSDK Internal Startup MSAUIEvent")
 
-        if self.settings.db:
-            async with self.db_engine.begin() as conn:
-                if self.settings.db_meta_drop:
-                    self.logger.info("DB - Drop Meta All: " + self.settings.db_url)
+        if self.settings.sqlite_db:
+            async with self.sqlite_db_engine.begin() as conn:
+                if self.settings.sqlite_db_meta_drop:
+                    self.logger.info("SQLite DB - Drop Meta All: " + self.settings.sqlite_db_url)
                     await conn.run_sync(SQLModel.metadata.drop_all)
-                if self.settings.db_meta_create:
-                    self.logger.info("DB - Create Meta All: " + self.settings.db_url)
+                if self.settings.sqlite_db_meta_create:
+                    self.logger.info("SQLite DB - Create Meta All: " + self.settings.sqlite_db_url)
                     await conn.run_sync(SQLModel.metadata.create_all)
-            await self.db_engine.dispose()
+            await self.sqlite_db_engine.dispose()
 
         if self.settings.site or self.settings.site_auth:
 
@@ -473,9 +542,9 @@ class MSAApp(MSAFastAPI):
             if site and self.auto_mount_site:
                 self.mount_site()
 
-        if self.settings.scheduler and self.timers:
-            self.logger.info("Scheduler - Start All Timers")
-            self.scheduler_task = asyncio.create_task(self.scheduler.run_timers(), name="MSA_Scheduler")
+        if self.settings.scheduler:
+            self.logger.info("Scheduler - Start")
+            self._scheduler_task = asyncio.create_task(self.scheduler.serve(debug=self.debug), name="MSA_Scheduler")
 
     def mount_site(self) -> None:
         if self.site:
@@ -486,20 +555,20 @@ class MSAApp(MSAFastAPI):
 
     async def shutdown_event(self) -> None:
         self.logger.info("msaSDK Internal Shutdown MSAUIEvent")
-        if self.settings.scheduler and self.timers:
-            self.logger.info("Stop Scheduler Timers: " + str(len(self.timers.timer_jobs)))
-            await self.scheduler.stop_timers()
-            self.logger.info("Cancel Scheduler Timers: " + str(len(self.timers.timer_jobs)))
-            if not self.scheduler_task.cancelled():
+        if self.settings.scheduler:
+            self.logger.info("Stop Schedulers")
+
+            self.logger.info("Cancel Scheduler")
+            if not self._scheduler_task.cancelled():
                 try:
-                    self.scheduler_task.cancel()
+                    self._scheduler_task.cancel()
                 except Exception as ex:
-                    self.logger.error(f"scheduler_task cancel failed")
+                    self.logger.error(f"_scheduler_task cancel failed")
                     pass
 
             self.logger.info("End Scheduler")
-            self.scheduler_task = None
-            del self.scheduler_task
+            self._scheduler_task = None
+            del self._scheduler_task
 
         if self.site:
             self.logger.info("Stopping Site")
@@ -510,9 +579,13 @@ class MSAApp(MSAFastAPI):
             await self.healthcheck.stop()
             self.healthcheck = None
 
-        if self.settings.db:
-            self.logger.info("DB - Dispose Connections: " + self.settings.db_url)
-            await self.db_engine.dispose()
+        if self.settings.json_db:
+            self.logger.info("JSON DB - Close: " + self.settings.sqlite_db_url)
+            self.json_db_engine.close()
+
+        if self.settings.sqlite_db:
+            self.logger.info("SQLite DB - Dispose Connections: " + self.settings.sqlite_db_url)
+            await self.sqlite_db_engine.dispose()
 
     async def _init_graphql(self, strawberry_schema: schema) -> None:
         """
@@ -542,7 +615,14 @@ class MSAApp(MSAFastAPI):
 
     async def get_scheduler_status(self, request: Request) -> MSASchedulerStatus:
         """
-        Get Service Status Info
+        Get Service Scheduler Status, with the registered Task's
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            sst: MSASchedulerStatus Pydantic Response Model
+
         """
         self.logger.info("Called - get_scheduler_status :" + str(request.url))
         sst: MSASchedulerStatus = MSASchedulerStatus()
@@ -552,22 +632,61 @@ class MSAApp(MSAFastAPI):
 
         else:
             sst.name = self.settings.name
-            for key, val in self.timers.timer_jobs.items():
-                nt: MSATimerStatus = MSATimerStatus()
-                nt.mode = key
-                if isinstance(val, tuple):
-                    nt.func = str(val[0])
-                    nt.mark_HH_MM = str(val[1])
-                else:
-                    nt.func = str(val)
-                sst.timers.append(nt)
+            for task in self.scheduler.session.tasks:
+                nt: MSASchedulerTaskStatus = MSASchedulerTaskStatus()
+                nt.name = task.name
+                nt.detail = MSASchedulerTaskDetail.parse_obj(task)
+                sst.tasks.append(nt)
             sst.message = "Scheduler is enabled!"
+
+        return sst
+
+    async def get_scheduler_log(self, request: Request, optionClearLog: bool = False,
+                                optionFORCEClearLog: bool = False) -> MSASchedulerLog:
+        """
+        Get Service Scheduler Log
+
+        Args:
+            request: The input http request object
+            optionClearLog: If True the Log gets cleared after the response was build
+            optionFORCEClearLog: Forcing the clearing of the log before the response gets created
+
+        Returns:
+            sst: MSASchedulerLog Pydantic Response Model
+
+        """
+        self.logger.info("Called - get_scheduler_log :" + str(request.url))
+        sst: MSASchedulerLog = MSASchedulerLog()
+        if not self.settings.scheduler:
+            sst.name = self.settings.name
+            sst.message = "Scheduler is disabled!"
+
+        else:
+            sst.name = self.settings.name
+            repo: MemoryRepo = self.scheduler.session.get_repo()
+            if optionFORCEClearLog:
+                repo.collection.clear()
+            for log_entry in repo.filter_by().all():
+                le: MSASchedulerRepoLogRecord = MSASchedulerRepoLogRecord.parse_obj(log_entry)
+                sst.log.append(le)
+            if optionClearLog:
+                repo.collection.clear()
+                sst.message = "Scheduler is enabled! Scheduler Log cleared!"
+            else:
+                sst.message = "Scheduler is enabled!"
 
         return sst
 
     async def get_services_status(self, request: Request) -> MSAServiceStatus:
         """
         Get Service Status Info
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            sst: MSAServiceStatus Pydantic Response Model
+
         """
         self.logger.info("Called - get_services_status :" + str(request.url))
         sst: MSAServiceStatus = MSAServiceStatus()
@@ -586,6 +705,13 @@ class MSAApp(MSAFastAPI):
     def get_services_definition(self, request: Request) -> MSAServiceDefinition:
         """
         Get Service Definition Info
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            settings: MSAServiceDefinition Pydantic Response Model
+
         """
         self.logger.info("Called - get_services_definition :" + str(request.url))
         return self.settings
@@ -593,6 +719,13 @@ class MSAApp(MSAFastAPI):
     def get_services_settings(self, request: Request) -> ORJSONResponse:
         """
         Get Service OpenAPI Schema
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            settings: ORJSONResponse
+
         """
         self.logger.info("Called - get_services_settings :" + str(request.url))
 
@@ -614,6 +747,14 @@ class MSAApp(MSAFastAPI):
     def get_services_openapi_schema(self, request: Request) -> ORJSONResponse:
         """
         Get Service OpenAPI Schema
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            openapi: ORJSONResponse openapi schema
+
+
         """
         self.logger.info("Called - get_services_openapi_schema :" + str(request.url))
 
@@ -635,6 +776,13 @@ class MSAApp(MSAFastAPI):
     def get_services_openapi_info(self, request: Request) -> MSAOpenAPIInfo:
         """
         Get Service OpenAPI Info
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            oai: MSAOpenAPIInfo Paydantic Response Model
+
         """
         self.logger.info("Called - get_services_openapi_info :" + str(request.url))
         oai: MSAOpenAPIInfo = MSAOpenAPIInfo()
@@ -659,12 +807,13 @@ class MSAApp(MSAFastAPI):
     async def msa_exception_handler_disabled(self, request: Request, exc: HTTPException) -> JSONResponse:
         """
         Handles all HTTPExceptions if Disabled with JSON Response.
-        :param request:
-        :type request:
-        :param exc:
-        :type exc:
-        :return:
-        :rtype:
+
+        Args:
+            request: The input http request object
+
+        Returns:
+            HTTPException: as JSONResponse
+
         """
 
         error_content = jsonable_encoder({"status_code": exc.status_code,
@@ -682,12 +831,14 @@ class MSAApp(MSAFastAPI):
     async def msa_exception_handler(self, request: Request, exc: HTTPException):
         """
         Handles all HTTPExceptions if enabled with HTML Response or forward error if the code is in the exclude settings list.
-        :param request:
-        :type request:
-        :param exc:
-        :type exc:
-        :return:
-        :rtype:
+
+        Args:
+            request: The input http request object
+            exc : The HTTPException instance
+
+        Returns:
+            HTTPException or Template
+
         """
         error_content = {'request': request, 'detail': exc.detail,
                          'status': exc.status_code,
@@ -708,6 +859,10 @@ class MSAApp(MSAFastAPI):
     def index_page(self, request: Request) -> _TemplateResponse:
         """
         Get Service Index.html Page
+
+        Args:
+            request: The input http request object
+
         """
         self.logger.info("Called - index_page :" + str(request.url))
         return self.templates.TemplateResponse("index.html",
@@ -719,8 +874,9 @@ class MSAApp(MSAFastAPI):
         """
         Simple Testpage to see if the Micro Service is up and running.
         Only works if pages is enabled in MSAServiceDefinition
-        :param request:
-        :return:
+
+        Args:
+            request: The input http request object
         """
         self.logger.info("Called - testpage :" + str(request.url))
         return self.templates.TemplateResponse("test.html",
@@ -731,8 +887,9 @@ class MSAApp(MSAFastAPI):
         """
         Simple Service Monitor Page.
         Only works if pages is enabled in MSAServiceDefinition
-        :param request:
-        :return:
+
+        Args:
+            request: The input http request object
         """
         self.logger.info("Called - monitor :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()
@@ -744,8 +901,9 @@ class MSAApp(MSAFastAPI):
         """
         Simple Profiler Page.
         Only works if pages is enabled in MSAServiceDefinition
-        :param request:
-        :return:
+
+        Args:
+            request: The input http request object
         """
         self.logger.info("Called - profiler :" + str(request.url))
         return self.templates.TemplateResponse("profiler.html",
@@ -755,8 +913,9 @@ class MSAApp(MSAFastAPI):
         """
         Simple Monitor Page as Inline without head and body tags.
         Only works if pages is enabled in MSAServiceDefinition
-        :param request:
-        :return:
+
+        Args:
+            request: The input http request object
         """
         self.logger.info("Called - monitor_inline :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()

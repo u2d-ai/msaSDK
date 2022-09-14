@@ -2287,7 +2287,7 @@ class Table(MSAUINode):
     className: str = None
     """ "panel-default" # Outer CSS class name"""
     tableClassName: str = None
-    """ "table-db table-striped" # Table CSS class name"""
+    """ "table-sqlite_db table-striped" # Table CSS class name"""
     headerClassName: str = None
     """ "Action.md-table-header" # top outer CSS class name"""
     footerClassName: str = None

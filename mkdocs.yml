@@ -140,7 +140,7 @@ nav:
     - index.md
     - history-design-future.md
     - used_tools.md
-    - Libraries: requirements.md
+    - Used Libraries: requirements.md
   - User Guides:
     - guides/index.md
   - Sites:

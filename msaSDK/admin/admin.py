@@ -1109,7 +1109,7 @@ class AdminApp(PageAdmin, AdminGroup):
         self.msa_app: MSAApp = msa_app
         self.engine = self.engine or self.app.engine
         if msa_app:
-            self.engine = msa_app.db_engine
+            self.engine = msa_app.sqlite_db_engine
         else:
             self.engine = create_async_engine(self.engine.url, future=True)
         assert self.engine, 'engine is None'
@@ -1243,10 +1243,10 @@ class BaseAdminSite(AdminApp):
         self.settings = msa_app.settings
         self.msa_app = msa_app
         self.router = self.msa_app.router
-        if self.msa_app.db_engine:
-            self.db_engine = self.msa_app.db_engine
-        elif self.settings.db_url:
-            self.db_engine = create_async_engine(self.settings.db_url, echo=self.settings.debug, future=True)
+        if self.msa_app.sqlite_db_engine:
+            self.db_engine = self.msa_app.sqlite_db_engine
+        elif self.settings.sqlite_db_url:
+            self.db_engine = create_async_engine(self.settings.sqlite_db_url, echo=self.settings.debug, future=True)
 
         super().__init__(self, msa_app)
 

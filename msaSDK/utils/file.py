@@ -3,6 +3,7 @@ import os
 import re
 import shutil
 import unicodedata
+import uuid
 from typing import List, Optional
 from uuid import uuid4
 
@@ -33,11 +34,11 @@ _windows_device_files = (
 
 
 def secure_filename(filename: str) -> str:
-    r"""Pass it a filename and it will return a secure version of it.  This
+    r"""Pass it a filename, and it will return a secure version of it.  This
     filename can then safely be stored on a regular file system and passed
     to :func:`os.path.join`.  The filename returned is an ASCII only string
     for maximum portability.
-    On windows systems the function also makes sure that the file is not
+    On Windows systems the function also makes sure that the file is not
     named after one of the special device files.
 
     Example:
@@ -46,8 +47,8 @@ def secure_filename(filename: str) -> str:
         'My_cool_movie.mov'
         secure_filename("../../../etc/passwd")
         'etc_passwd'
-        secure_filename('i contain cool \xfcml\xe4uts.txt')
-        'i_contain_cool_umlauts.txt'
+        secure_filename('xyz contain cool \xfcml\xe4uts.txt')
+        'xyz_contain_cool_umlauts.txt'
         ```
 
     The function might return an empty filename.  It's your responsibility
@@ -82,6 +83,115 @@ def secure_filename(filename: str) -> str:
     return filename
 
 
+async def checkIfFileIsArchive(file: UploadFile):
+    """Check if File is an Archive like zip or tar"""
+    if not file:
+        return False
+    list_extensions = []
+    for entry in archive_unpack_formats:
+        subl = entry[1]
+        list_extensions.extend([sub_ntry for sub_ntry in subl])
+
+    filename, file_extension = os.path.splitext(file.filename)
+    if file_extension in list_extensions:
+        return True
+    return False
+
+
+async def get_all_dirs_with_subdirs(path: str, subdirs: set[str]) -> List[str]:
+    """Get all Directories which have a specific set of Sub Dirs
+
+        Args:
+            path: The root path to wlk through
+            subdirs: a set of subdir names which need to be found to add the dirs
+
+        Returns:
+            result: The list of directory names
+
+    """
+    path: str = os.path.abspath(path)
+
+    result: List[str] = []
+    for root, dirs, files in os.walk(path):
+        if all(subdir in dirs for subdir in subdirs):
+            result.append(root)
+            result.extend([subdir for subdir in dirs])
+    return result
+
+
+async def get_all_dirs(path: str) -> List:
+    """Get all Directories of a specific root path
+
+        Args:
+            path: The root path to wlk through
+
+        Returns:
+            result: The list of directory names
+
+    """
+    path: str = os.path.abspath(path)
+
+    result: List[str] = []
+    for root, dirs, files in os.walk(path):
+        result.append(root)
+        result.extend([subdir for subdir in dirs])
+    return result
+
+
+async def save_text_to_file(path_file_name: str, text_content: str) -> None:
+    """Saves a str content to file
+
+        Args:
+            path_file_name: The pathfilename to save the content to
+            text_content: The str content to store inside the file
+
+        Returns:
+            None
+    """
+    async with aiofiles.open(path_file_name, "w") as file:
+        await file.write(text_content)
+
+
+async def save_bytes_to_file(path_file_name: str, binary_content: bytes) -> None:
+    """Saves a bytes content to file
+
+        Args:
+            path_file_name: The pathfilename to save the content to
+            binary_content: The bytes content to store inside the file
+
+        Returns:
+            None
+    """
+    async with aiofiles.open(path_file_name, "wb") as file:
+        await file.write(binary_content)
+
+
+async def load_text_from_file(path_file_name: str) -> str:
+    """Load a text content from a file
+
+        Args:
+            path_file_name: The pathfilename to load the content from
+
+        Returns:
+            str: The content of the file
+    """
+    async with aiofiles.open(path_file_name, "r") as file:
+        return await file.read()
+
+
+async def load_bytes_from_file(path_file_name: str) -> bytes:
+    """Load a bytes/binary content from a file
+
+        Args:
+            path_file_name: The pathfilename to load the content from
+
+        Returns:
+            bytes: The content of the file
+    """
+    async with aiofiles.open(path_file_name, "rb") as file:
+        return await file.read()
+
+
 class ServerHTTPException(HTTPException):
     def __init__(self, error: str = None):
         super(ServerHTTPException, self).__init__(
@@ -113,8 +223,9 @@ class FileExtNotAllowed(ServerHTTPException):
     """
 
 
-def nameGen(uid, file):
-    return str(uid) + "_" + file.filename
+def nameGen(uid: uuid, file_name: str) -> str:
+    """Gets an uuid and file_name combined name back"""
+    return str(uid) + "_" + file_name
 
 
 class FileUpload:
@@ -196,7 +307,7 @@ class FileUpload:
         self.name = file.filename
         self.content_type = file.content_type
 
-        filename = self.filename_generator(self.uid, file)
+        filename = self.filename_generator(self.uid, file.filename)
 
         if self.file_size > self.max_size:
             raise FileMaxSizeLimit(f"File size {self.file_size} exceeds max size {self.max_size}")
@@ -218,7 +329,7 @@ class FileDelete:
 
     Args:
         uid: str , the GUID of the file
-        root_path: str, dirname of the file
+        root_path: str, dir name of the file
         uploads_dir: str, the folder the file was uploaded to.
     """
 
@@ -234,39 +345,24 @@ class FileDelete:
         self.root_path = root_path
 
     async def delete_files(self):
-        targetfolder = os.path.join(self.root_path, self.uploads_dir, self.uid)
+        target_folder = os.path.join(self.root_path, self.uploads_dir, self.uid)
         ret = str("{ \"Success\": \"deleted " + self.uid + "\"}")
-        if os.path.exists(targetfolder):
+        if os.path.exists(target_folder):
             try:
-                shutil.rmtree(targetfolder)
+                shutil.rmtree(target_folder)
             except OSError as e:
                 ret = str("{ \"Error\": \"%s - %s." % (e.filename, e.strerror) + "\"}")
         else:
-            targetfolder = os.path.join(self.root_path, self.uploads_dir)
+            target_folder = os.path.join(self.root_path, self.uploads_dir)
             hit = False
-            for fname in os.listdir(targetfolder):
-                if fname.startswith(self.uid):
-                    targetfile = os.path.join(self.root_path, self.uploads_dir, fname)
-                    os.remove(targetfile)
+            for f_name in os.listdir(target_folder):
+                if f_name.startswith(self.uid):
+                    target_file = os.path.join(self.root_path, self.uploads_dir, f_name)
+                    os.remove(target_file)
                     hit = True
             if hit is False:
                 ret = str("{ \"Error\": \" no such file or batch exists for " + self.uid + "\"}")
         return ret
-
-
-async def checkIfFileIsArchive(file: UploadFile):
-    """Check if File is an Archive like zip or tar"""
-    if not file:
-        return False
-    list_extensions = []
-    for entry in archive_unpack_formats:
-        subl = entry[1]
-        list_extensions.extend([sub_ntry for sub_ntry in subl])
-
-    filename, file_extension = os.path.splitext(file.filename)
-    if file_extension in list_extensions:
-        return True
-    return False
 
 
 async def createMSAFile(file: UploadFile, up: FileUpload) -> MSAFile:
@@ -291,22 +387,23 @@ async def createMSAFile(file: UploadFile, up: FileUpload) -> MSAFile:
     return mf  # .copy()
 
 
-async def createMSAFileFromUnpacked(filepath: str, processuid: str) -> MSAFile:
-    """Create an MSAFile Instance for a file from an archive, and keep them under one group by the processuid
+async def createMSAFileFromUnpacked(filepath: str, process_uid: str) -> MSAFile:
+    """Create an MSAFile Instance for a file from an archive, and keep them under one group by the process_uid
 
     Args:
         filepath: str of the file path
-        processuid: str of the group process id (GUID)
+        process_uid: str of the group process id (GUID)
 
     Returns:
         mf: New MSAFile instance.
 
     """
     mf: MSAFile = MSAFile()
-    mf.uid = processuid
+    mf.uid = process_uid
     mf.filename = filepath
     mf.size = os.path.getsize(filepath)
     mf.content_type = magic.from_file(filepath, mime=True)
     mf.type_raw = mf.content_type
     mf.type_description = magic.from_file(filepath)
     return mf  # .copy()
+
