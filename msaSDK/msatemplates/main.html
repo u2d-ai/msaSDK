@@ -1,0 +1,6 @@
+{%- for file_name in options.component_file_list %}
+    <script src={{ url_for(options.static_name, path=file_name) }}></script>
+{%- endfor %}
+    {%- if context_obj %}
+    {{ context_obj.as_html_lines() | safe }}
+    {% endif %}

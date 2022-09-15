@@ -2,3 +2,5 @@
 /docs_dist_site/
 
 /msaSDK.egg-info/
+/msaSDK/msa_sdk.json
+/msaSDK/msa_sdk.sqlite_db

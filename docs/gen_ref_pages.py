@@ -1,6 +1,5 @@
 """Generate the code reference pages and navigation."""
 
-"""Generate the code reference pages and navigation."""
 import os.path
 import pickle
 from os.path import exists
@@ -10,13 +9,13 @@ from typing import List
 import mkdocs_gen_files
 
 
-def format_pip_result(pip_result, version) -> (str, str, List[str]):
+def format_pip_result(pip_result, version):
     req_line_text: str = ""
     check_version: str = ""
     check_required: List[str] = []
     for req_line in pip_result.splitlines():
-        if not req_line.__contains__("Location"):
-            if req_line.__contains__("Version") and not req_line.__contains__(version) and len(
+        if not req_line.__contains__("Location:"):
+            if req_line.__contains__("Version:") and not req_line.__contains__(version) and len(
                     version) > 0:
                 check_version = req_line
             if req_line.__contains__("Requires:"):
@@ -29,6 +28,87 @@ def format_pip_result(pip_result, version) -> (str, str, List[str]):
             req_line_text += f"    {req_line}\n"  # keep the spaces !important
 
     return req_line_text, check_version, check_required
+
+
+def generate_sub_process_result(requirement_file) -> dict:
+    sub_process_result: dict = {}
+    with open(requirement_file, "r") as req_file:
+        req_txt = req_file.read()
+        if req_txt and len(req_txt) > 0:
+            from subprocess import PIPE, run
+            for line in req_txt.splitlines():
+                line = line.strip()
+
+                if line == '':
+                    continue
+                elif not line or line.startswith('#'):
+                    continue
+                else:
+                    parts: list = line.split("#")
+                    parts_front = str(parts[0]).strip()
+                    parts_front = parts_front.replace("==", "=")
+                    package: str = \
+                        str(parts_front).split("=")[0].replace(">", "").replace("<", "").replace("~", "").split("[")[0]
+                    version: str = ""
+                    package = package.lower()
+                    comment: str = ""
+                    if len(str(parts_front).split("=")) > 1:
+                        version: str = str(parts_front).split("=")[1].replace(">", "") \
+                            .replace("<", "").replace("~", "").strip()
+                        version_link: str = f"[![PyPI version fury.io](https://badge.fury.io/py/{package}.svg)](https://pypi.org/project/{package}/{version}/)"
+                        condition: str = parts_front.replace(package, "")  # .replace(version, "")
+                        if condition.__contains__("]"):
+                            condition = condition.split("]")[1]
+
+                    if len(parts) > 1:
+                        comment = str(parts[1]).strip().capitalize()
+
+                    pip_result: str = ""
+                    command = ['pip', 'show', package]
+                    print("Collect PIP Infos for package:", package)
+                    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+
+                    pip_result = result.stdout
+                    if result.returncode != 0:
+                        print("ERROR Pip result:", result.returncode, result.stderr, len(pip_result), pip_result)
+                    else:
+                        req_line_text: str
+                        check_version: str
+                        check_required: List[str]
+                        req_line_text, check_version, check_required = format_pip_result(pip_result=pip_result,
+                                                                                         version=version)
+                        sub_process_result[package] = {"pip_result": pip_result,
+                                                       "version": version,
+                                                       "version_link": version_link,
+                                                       "condition": condition,
+                                                       "req_line_text": req_line_text,
+                                                       "check_version": check_version,
+                                                       "check_required": check_required,
+                                                       "comment": comment,
+                                                       }
+                        for entry in check_required:
+                            entry = entry.lower()
+                            if entry not in sub_process_result:
+
+                                command = ['pip', 'show', entry]
+                                print("Collect Req. PIP Infos for package:", entry)
+                                result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+
+                                r_pip_result = result.stdout
+                                if result.returncode != 0:
+                                    print("ERROR: Req. Pip result:", result.returncode, result.stderr,
+                                          len(r_pip_result),
+                                          r_pip_result)
+                                else:
+                                    r_req_line_text, r_check_version, r_check_required = format_pip_result(
+                                        pip_result=r_pip_result,
+                                        version=version)
+                                    sub_process_result[entry] = {"pip_result": r_pip_result,
+                                                                 "req_line_text": r_req_line_text,
+                                                                 "check_required": r_check_required,
+                                                                 }
+
+    return sub_process_result
 
 
 def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference",
@@ -83,6 +163,8 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
         with open(pkl_info_file, 'rb') as f:
             print("Load existing", pkl_info_file, "file")
             sub_process_result = pickle.load(f)
+    else:
+        sub_process_result = generate_sub_process_result(requirement_file=requirement_file)
 
     with open(requirement_file, "r") as req_file:
         req_txt = req_file.read()
@@ -90,7 +172,7 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
             from subprocess import PIPE, run
 
             with mkdocs_gen_files.open(req_md_file, "w") as fd:
-                fd.write(f"# {source_path.replace('_', ' ').upper()} - Included Libraries\n***\n\n")
+                fd.write(f"# {source_path.replace('_', ' ')} - Included Libraries\n***\n\n")
                 # Python 3.x only
                 for line in req_txt.splitlines():
                     line = line.strip()
@@ -107,77 +189,65 @@ def generate_code_reference_documentation(virtual_ref_nav_path: str = "reference
                         parts_front = str(parts[0]).strip()
                         parts_front = parts_front.replace("==", "=")
                         package: str = \
-                        str(parts_front).split("=")[0].replace(">", "").replace("<", "").replace("~", "").split("[")[0]
+                            str(parts_front).split("=")[0].replace(">", "").replace("<", "").replace("~", "").split(
+                                "[")[0]
                         version: str = ""
-                        if len(str(parts_front).split("=")) > 1:
-                            version: str = str(parts_front).split("=")[1].replace(">", "")\
-                                .replace("<", "").replace("~","").strip()
-                            version_link: str = f"[![PyPI version fury.io](https://badge.fury.io/py/{package}.svg)](https://pypi.org/project/{package}/{version}/)"
-                            condition: str = parts_front.replace(package, "")  # .replace(version, "")
-                            if condition.__contains__("]"):
-                                condition = condition.split("]")[1]
-                            fd.write(f"### **{package}** ``{condition}``\n\n")
-                            fd.write(f"{version_link}\n\n")
-                        else:
-                            fd.write(f"### **{package}**\n")
+                        version_link: str = ""
+                        package = package.lower()
+                        if package in sub_process_result:
+                            sub_entry: dict = sub_process_result[package]
 
-                        if len(parts) > 1:
-                            comment: str = str(parts[1]).strip().capitalize()
-                            fd.write(f"{comment.capitalize()}\n\n")
-                        else:
-                            fd.write(f"\n\n")
-                        pip_result: str = ""
-                        if not sub_process_result_file_exists or package not in sub_process_result.keys():
-                            sub_process_result_file_needs_update = True
-                            command = ['pip', 'show', package]
-                            print("Collect PIP Infos for package:", package)
-                            result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
-                            pip_result = result.stdout
-                            sub_process_result[package] = pip_result
-                        else:
-                            pip_result = sub_process_result[package]
+                            if "condition" in sub_entry:
+                                condition: str = sub_entry["condition"]
+                                fd.write(f"### **{package}** ``{condition}``\n\n")
+                            else:
+                                fd.write(f"### **{package}**\n")
 
-                        if len(pip_result) > 0:
-                            req_line_text: str
-                            check_version: str
-                            check_required: List[str]
-                            req_line_text, check_version, check_required = format_pip_result(pip_result=pip_result,
-                                                                                             version=version)
+                            if "version" in sub_entry:
+                                version = sub_entry["version"]
+                                version_link = sub_entry["version_link"]
+                                fd.write(f"{version_link}\n\n")
 
-                            if len(check_version) > 0:
-                                fd.write(f"<span style='color:red'> Check {check_version} vs {version}</span>\n")
+                            if "comment" in sub_entry:
+                                comment: str = sub_entry["comment"]
+                                fd.write(f"{comment.capitalize()}\n\n")
+                            else:
+                                fd.write(f"\n\n")
 
-                            fd.write(f"=== \"{package}\"\n")
-                            fd.write(f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
+                            pip_result: str = sub_entry["pip_result"]
 
-                            for entry in check_required:
-                                if not sub_process_result_file_exists or entry not in sub_process_result.keys():
-                                    sub_process_result_file_needs_update = True
-                                    command = ['pip', 'show', entry]
-                                    print("Collect PIP Infos for package:", entry)
-                                    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
-                                    pip_result = result.stdout
-                                    sub_process_result[entry] = pip_result
-                                else:
-                                    pip_result = sub_process_result[entry]
+                            if "req_line_text" in sub_entry:
+                                req_line_text: str = sub_entry["req_line_text"]
+                                check_version: str = ""
+                                if "check_version" in sub_entry:
+                                    check_version = sub_entry["check_version"]
+                                check_required: List[str] = sub_entry["check_required"]
 
-                                if len(pip_result) > 0:
-                                    req_line_text: str
-                                    check_version: str
-                                    check_required: List[str]
-                                    req_line_text, check_version, check_required = format_pip_result(
-                                        pip_result=pip_result,
-                                        version=version)
+                                if len(check_version) > 0:
+                                    fd.write(f"<span style='color:red'> Check {check_version} vs {version}</span>\n")
 
-                                fd.write(f"=== \"rqr: {entry}\"\n")
-                                fd.write(f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
+                                fd.write(f"=== \"{package}\"\n")
+                                fd.write(
+                                    f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
+
+                                for entry in check_required:
+                                    entry = entry.lower()
+                                    if entry in sub_process_result:
+                                        sub_entry_req: dict = sub_process_result[entry]
+                                        pip_result: str = sub_entry_req["pip_result"]
+                                        req_line_text = sub_entry_req["req_line_text"]
+
+                                        fd.write(f"=== \"rqr: {entry}\"\n")
+                                        fd.write(
+                                            f"    ```console\n\n{req_line_text}\n\n    ```\n")  # keep the spaces !important
+                                    else:
+                                        print("ERROR: entry not in results:", package, entry, req_line_text, check_required)
 
         nav[virtual_requirements_nav_path] = req_md_file
         print("Nav:", nav)
-    if not sub_process_result_file_exists or sub_process_result_file_needs_update:
+    if not sub_process_result_file_exists or sub_process_result_file_needs_update or recreate_pip_info:
         with open(pkl_info_file, 'wb') as f:
             pickle.dump(sub_process_result, f)
 
 
 generate_code_reference_documentation()
-

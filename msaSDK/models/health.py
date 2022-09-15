@@ -7,10 +7,6 @@ from typing import Optional
 
 from sqlmodel import SQLModel
 
-""" str: Module Version"""
-module_var: str = "" # Module var
-""" str: Module Vars """
-
 
 class MSAHealthDefinition(SQLModel):
     """ Health Service Definition
