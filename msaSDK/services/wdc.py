@@ -14,6 +14,7 @@ from msaSDK.models.wdc import WDCDocument, WDCSentence, WDCPage, WDCParagraph, W
 if __name__ == '__main__':
     pass
 
+
 async def getResultSentences(doc: WDCDocument):
     ret = []
     pages = doc.pages

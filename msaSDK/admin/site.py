@@ -38,6 +38,26 @@ class ReDocsAdmin(IframeAdmin):
         return self.app.site.router_path + self.app.site.msa_app.redoc_url
 
 
+class MSADocsAdmin(IframeAdmin):
+    """Admin Page for the ReDoc Documentation as a IFrame"""
+    group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
+    page_schema = PageSchema(label='msaSDK', icon='fa fa-book')
+
+    @property
+    def src(self):
+        return "http://msa.u2d.ai/"
+
+
+class FastAPIDocsAdmin(IframeAdmin):
+    """Admin Page for the ReDoc Documentation as a IFrame"""
+    group_schema = PageSchema(label='API Docs', icon='fa fa-book', sort=-100)
+    page_schema = PageSchema(label='FastAPI', icon='fa fa-book')
+
+    @property
+    def src(self):
+        return "https://fastapi.tiangolo.com/"
+
+
 class ProfilerAdmin(IframeAdmin):
     """Admin Page for the Profiler Result HTML as a IFrame"""
     group_schema = None
@@ -161,4 +181,4 @@ class AdminSite(BaseAdminSite):
     """Admin Site, registers all defined Pages for the UI and the Routers"""
     def __init__(self, msa_app: MSAApp):
         super().__init__(msa_app)
-        self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, ProfilerAdmin, FileAdmin)
+        self.register_admin(HomeAdmin, DocsAdmin, ReDocsAdmin, MSADocsAdmin, FastAPIDocsAdmin, ProfilerAdmin, FileAdmin)

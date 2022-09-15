@@ -10,6 +10,18 @@ from msaSDK.models.health import MSAHealthDefinition
 from msaSDK.utils.settings import MSAAppSettings
 
 
+class MSAServiceStatus(SQLModel):
+    """
+    **MSAServiceStatus** Pydantic Response Class
+    """
+    name: Optional[str] = "msaSDK Service"
+    """Service Name."""
+    healthy: Optional[str] = "None"
+    """Health status"""
+    message: Optional[str] = "None"
+    """Optional Message Text"""
+
+
 class MSAServiceDefinition(MSAAppSettings):
     """
     MSAApp Settings (Service Definitions)
@@ -101,6 +113,12 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enables Rate Limiter (slowapi)."""
     scheduler: bool = True
     "Enables MSA Scheduler Engine."
+    scheduler_debug: bool = False
+    "Enables MSA Scheduler debug messages."
+    abstract_fs: bool = True
+    """Enables internal Abstract Filesystem."""
+    abstract_fs_url: str = "."
+    """Set's Filesystem URL"""
     json_db: bool = True
     """Enables internal NoSQl/TinyDB DB."""
     json_db_memory_only: bool = False
@@ -119,6 +137,10 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enables internal DB Metadata creation from defined SQLModels at Startup."""
     sqlite_db_url: str = "sqlite+aiosqlite:///msa_sdk.sqlite_db?check_same_thread=True"
     """Set's DB URL, compatibility with async and SQLModel/SQLAlchemy is required."""
+    ui_justpy: bool = True
+    """Enables internal justpy mounting."""
+    ui_justpy_demos: bool = True
+    """Enables justpy demos"""
     site: bool = True
     """Enables internal Admin Site Dashboard."""
     site_auth: bool = False

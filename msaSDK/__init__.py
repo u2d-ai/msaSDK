@@ -7,7 +7,7 @@
 # Created Date: 23.08.2022
 # ---------------------------------------------------------------------------
 
-version = '0.1.3'
+version = '0.1.4'
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"

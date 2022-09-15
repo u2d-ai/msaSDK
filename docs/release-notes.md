@@ -1,4 +1,8 @@
 # Release Notes
+## 0.1.4
+* Integrated PyFilesystem2 as Abstract Filesystem for the Service
+* Integrated msaSDk and FastAPI Docs in Admin API Docs as IFrame Pages
+* Integrated justpy WEB UI Framework int MSAAPI Class
 
 ## 0.1.3
 * merged fileupload and fileutils modules into refactored file module

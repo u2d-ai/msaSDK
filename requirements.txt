@@ -14,7 +14,7 @@ dapr-ext-grpc~=1.7.0 # gRPC extension for Dapr.
 dapr-ext-fastapi~=1.7.0 # Dapr is a portable, serverless, event-driven runtime
 
 # FastAPI related Dependencies
-fastapi[all]~=0.83.0 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
+fastapi[all]~=0.85.0 # FastAPI framework, high performance, easy to learn, fast to code, ready for production
 fastapi_utils~=0.2.1 # Reusable utilities for FastAPI, Repeated Tasks, APIModel, APISettings
 fastapi_sessions~=0.3.2 # add session authentication to your FastAPI project
 pyinstrument~=4.3.0 # pyinstrument to check service performance.
@@ -24,6 +24,7 @@ fastapi-pagination~=0.10.0 # library that provides pagination feature
 # Other Dependencies
 httpx~=0.23.0 # The next generation HTTP client.
 JPype1~=1.4.0 # A Python to Java bridge.
+justpy~=0.9.1 # Object-oriented, component based, high-level Python Web UI Framework.
 loguru~=0.6.0 # Python logging made (stupidly) simple
 lxml~=4.9.1 # Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
 multidict~=6.0.2 # Multidict is dict-like collection of key-value pairs where key might be occurred more than once in the container.
@@ -42,12 +43,26 @@ regex~=2022.3.2 # Alternative regular expression module, to replace re.
 setuptools~=65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 slowapi~=0.1.6 # A rate limiting extension for Starlette and Fastapi
 
+# Filesystem
+fs~=2.4.16 # Module that provides a common interface to any filesystem.
+six~=1.16.0 # Python 2 and 3 compatibility utilities
+pysmb~=1.2.8 # SMB/CIFS library
+fs.webdavfs~=0.4.2 # WebDAV support
+fs-dlk~=0.1.3 # Azure Datalake support
+fs-s3fs~=1.1.1 # Amazon S3 filesystem support
+fs-gcsfs~=1.5.1 # Google Cloud Storage (GCS) support
+fs.googledrivefs~=2.3.0 # Google Drive support
+fs.dropboxfs~=0.2.2.post2 # Dropbox support
+fs.onedrivefs~=1.1.1 # OneDrive support
+fs.youtube~=0.3.1 # Youtube support
+fs.smbfs~=1.0.5 # SMB support
+
 # Scheduler
 rocketry~=2.3.0 # Rocketry is a modern scheduling framework for Python applications
 
 # Starlette related Dependencies
 sse_starlette~=1.1.6 # Server Sent Events for Starlette and FastAPI
-starlette~=0.19.1 # Starlette is a lightweight ASGI framework/toolkit, which is ideal for building async web services in Python.
+starlette~=0.20.4 # Starlette is a lightweight ASGI framework/toolkit, which is ideal for building async web services in Python.
 Starlette-WTF~=0.4.3 # Simple integration of Starlette and WTForms.
 starlette-context~=0.3.4 # Access context in Starlette
 starception~=0.4.0 # Beautiful debugging page for Starlette apps.
@@ -66,8 +81,8 @@ tinydb~=4.7.0 # TinyDB is a tiny, document oriented database
 
 # Uvicorn/Gunicorn related Dependencies
 gunicorn~=20.1.0 # WSGI HTTP Server for UNIX
-uvicorn~=0.17.6 # The lightning-fast ASGI server.
-uvloop~=0.16.0 # Fast implementation of asyncio event loop on top of libuv
+uvicorn~=0.18.3 # The lightning-fast ASGI server.
+uvloop~=0.17.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
 fonttools~=4.37.1 # Tools to manipulate font files
