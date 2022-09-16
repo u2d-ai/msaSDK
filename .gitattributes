@@ -2,3 +2,6 @@ dist/* linguist-vendored
 docs/* linguist-vendored
 docs_dist_site/* linguist-vendored
 msaSDK/msastatic/* linguist-vendored
+*.html linguist-detectable=false
+*.js linguist-detectable=false
+*.css linguist-detectable=false
