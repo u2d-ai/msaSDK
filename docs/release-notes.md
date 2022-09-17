@@ -1,6 +1,6 @@
 # Release Notes
 ## Possible future features:
-* Add examples for Amins Pages
+* Add examples for Amins Pages and additional features of the Admin and auth module
 * versioning? FastAPI versioning
 * camel case support FastAPI-CamelCase
 * FastAPI Future Flags?
