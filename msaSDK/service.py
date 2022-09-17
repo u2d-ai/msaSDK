@@ -448,7 +448,7 @@ class MSAApp(MSAFastAPI):
 
         else:
             self.logger.info("EExcluded UI justpy")
-        logger = logger_gruru
+
         init_logging()
 
     async def startup_event(self) -> None:

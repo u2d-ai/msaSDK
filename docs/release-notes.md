@@ -1,5 +1,7 @@
 # Release Notes
 ## 0.1.5
+* Cleaned Static Files
+* Optimized logging as the * import from justpy and reocktry overrides the logging with INFO
 * Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive?
 * More events from fastapi, beside startup and shutdown?
 * Fixed some typo in Docs
