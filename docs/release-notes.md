@@ -1,11 +1,19 @@
 # Release Notes
 ## 0.1.5
-* xyz
+* Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive?
+* More events from fastapi, beside startup and shutdown?
+* Fixed some typo in Docs
+* Add More examples docu
+* Add exsamples for Amins and justpy
+* versioning? FastAPI versioning
+* camel case support FastAPI-CamelCase
+* FastAPI Future Flags?
+* fastapi_socketio?
 
 ## 0.1.4
 * Integrated PyFilesystem2 as Abstract Filesystem for the Service
 * Integrated msaSDk and FastAPI Docs in Admin API Docs as IFrame Pages
-* Integrated justpy WEB UI Framework int MSAAPI Class
+* Integrated justpy WEB UI Framework into MSAAPI Class
 
 ## 0.1.3
 * merged fileupload and fileutils modules into refactored file module

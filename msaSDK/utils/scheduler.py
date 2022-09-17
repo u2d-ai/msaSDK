@@ -108,12 +108,13 @@ class MSAScheduler(Rocketry):
 
     """
 
-    def __init__(self, session: Session = None, logger_repo: Optional[BaseRepo] = None, execution=None,
+    def __init__(self, session: Session = None, logger_repo: Optional[BaseRepo] = None, execution=None, msa_logger=None,
                  **kwargs):
         if not logger_repo:
             logger_repo = MemoryRepo(model=LogRecord)
 
         super().__init__(session=session, logger_repo=logger_repo, execution=execution, **kwargs)
+        self.logger = msa_logger
 
 
 def get_time_stamp(local_time_zone='UTC', time_format='HMS'):

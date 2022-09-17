@@ -88,18 +88,21 @@ def init_logging():
     loggers = (
         logging.getLogger(name)
         for name in logging.root.manager.loggerDict
-        if name.startswith("uvicorn.")
+        if not name.startswith("rocketry.")
     )
 
     # change handler for default uvicorn logger
     intercept_handler = InterceptHandler()
 
     for uvicorn_logger in loggers:
-        uvicorn_logger.handlers = [intercept_handler]
-
+        try:
+            uvicorn_logger.handlers = [intercept_handler]
+        except:
+            pass
+    logging.getLogger().handlers = [intercept_handler]
     logging.getLogger("uvicorn").handlers = [intercept_handler]
 
     # set logs output, level and format
     logger.configure(
-        handlers=[{"sink": sys.stdout, "level": logging.DEBUG, "format": format_record}]
+        handlers=[{"sink": sys.stdout, "level": logging.INFO, "format": format_record}]
     )

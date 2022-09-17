@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import importlib
 import inspect
 import json
 import os
@@ -15,15 +16,12 @@ from fastapi.datastructures import Default
 from fastapi.params import Depends
 from fastapi.utils import generate_unique_id
 from jpcore.component import Component
-from jpcore.justpy_app import templates, template_options, cookie_signer, JustpyAjaxEndpoint
-from jpcore.justpy_config import COOKIE_MAX_AGE, CRASH, STATIC_ROUTE, \
-    STATIC_DIRECTORY, STATIC_NAME, MEMORY_DEBUG
+from jpcore.justpy_app import templates, template_options, cookie_signer
+from jpcore.justpy_config import COOKIE_MAX_AGE, CRASH
 from jpcore.justpy_config import FAVICON, LATENCY
 from jpcore.justpy_config import SESSION_COOKIE_NAME, SESSIONS
 from jpcore.template import Context
 from jpcore.webpage import WebPage
-from justpy.htmlcomponents import JustpyBaseComponent
-from starlette.endpoints import WebSocketEndpoint
 from starlette.middleware import Middleware
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, PlainTextResponse, Response, JSONResponse
@@ -61,12 +59,11 @@ class MSAFastAPI(FastAPI):
                  generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
                      generate_unique_id
                  ), **extra: Any) -> None:
-        self.STATIC_ROUTE = STATIC_ROUTE
-        self.STATIC_DIRECTORY = STATIC_DIRECTORY
-        self.STATIC_NAME = STATIC_NAME
+        self.UI_STATIC_ROUTE = "/static"
+        self.UI_STATIC_NAME = "static"
         self.WebPage = WebPage
-        self.ui_current_module = sys.modules["justpy.justpy"]
-        self.ui_current_dir = os.path.dirname(self.ui_current_module.__file__)
+        ref = importlib.util.find_spec("justpy", package=None)
+        self.ui_current_dir = os.path.dirname(ref.origin)
 
         super().__init__(debug=debug, routes=routes, title=title, description=description, version=version,
                          openapi_url=openapi_url, openapi_tags=openapi_tags, servers=servers, dependencies=dependencies,

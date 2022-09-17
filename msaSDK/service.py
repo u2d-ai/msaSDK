@@ -355,46 +355,6 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded MSAStatic")
 
-        if self.settings.ui_justpy or self.settings.ui_justpy_demos:
-            self.logger.info("Enable and Mount - UI justpy")
-            from justpy import AjaxEndpoint, JustpyEvents
-            self.mount(self.STATIC_ROUTE, StaticFiles(directory=self.ui_current_dir + "/templates"), name=self.STATIC_NAME)
-            self.add_route("/zzz_justpy_ajax", AjaxEndpoint)
-            self.add_websocket_route("/", JustpyEvents)
-            self.WebPage.loop = asyncio.get_event_loop()
-            self.mount(
-                "/templates", StaticFiles(directory=self.ui_current_dir + "/templates"), name="templates"
-            )
-
-            if self.settings.ui_justpy_demos:
-                self.logger.info("Enable/Add JP Route - UI justpy Demos")
-
-                from msaSDK.utils.ui_demos.card import cards_demo
-                from msaSDK.utils.ui_demos.click import click_demo
-                from msaSDK.utils.ui_demos.dogs import dogs_demo
-                from msaSDK.utils.ui_demos.happiness import happiness_demo, corr_stag_test, corr_test
-                from msaSDK.utils.ui_demos.iris import iris_demo
-                from msaSDK.utils.ui_demos.uploads import upload_demo
-                from msaSDK.utils.ui_demos.quasar import quasar_demo
-                from msaSDK.utils.ui_demos.after import after_click_demo
-                from msaSDK.utils.ui_demos.drag import drag_demo
-
-                self.add_jproute("/ui/click", click_demo)
-                self.add_jproute("/ui/cards", cards_demo)
-                self.add_jproute("/ui/iris", iris_demo)
-                self.add_jproute("/ui/dogs", dogs_demo)
-                self.add_jproute("/ui/happiness", happiness_demo)
-
-                self.add_jproute("/corr_staggered", corr_stag_test)
-                self.add_jproute("/corr", corr_test)
-                self.add_jproute("/ui/upload", upload_demo)
-                self.add_jproute("/ui/quasar", quasar_demo)
-                self.add_jproute("/ui/after", after_click_demo)
-                self.add_jproute("/ui/drag", drag_demo)
-
-        else:
-            self.logger.info("EExcluded UI justpy")
-
         if self.settings.pagination:
             self.logger.info("Add Pagination Engine")
             from fastapi_pagination import add_pagination
@@ -436,7 +396,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.scheduler:
             self.logger.info("Add Scheduler")
             from msaSDK.utils.scheduler import MSAScheduler
-            self.scheduler = MSAScheduler(config={"task_execution": "async"})
+            self.scheduler = MSAScheduler(msa_logger=logger_gruru, config={"task_execution": "async"})
 
         elif not self.settings.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
@@ -448,6 +408,48 @@ class MSAApp(MSAFastAPI):
             self.fs = self.abstract_fs.fs
         else:
             self.logger.info("Excluded Abstract Filesystem")
+
+        if self.settings.ui_justpy or self.settings.ui_justpy_demos:
+            self.logger.info("Enable and Mount - UI justpy")
+            from justpy import AjaxEndpoint, JustpyEvents
+            self.mount(self.UI_STATIC_ROUTE, StaticFiles(directory=self.ui_current_dir + "/templates"), name=self.UI_STATIC_NAME)
+            self.add_route("/zzz_justpy_ajax", AjaxEndpoint)
+            self.add_websocket_route("/", JustpyEvents)
+            self.WebPage.loop = asyncio.get_event_loop()
+            self.mount(
+                "/templates", StaticFiles(directory=self.ui_current_dir + "/templates"), name="templates"
+            )
+
+            if self.settings.ui_justpy_demos:
+                self.logger.info("Enable/Add JP Route - UI justpy Demos")
+
+                from msaSDK.utils.ui_demos.card import cards_demo
+                from msaSDK.utils.ui_demos.click import click_demo
+                from msaSDK.utils.ui_demos.dogs import dogs_demo
+                from msaSDK.utils.ui_demos.happiness import happiness_demo, corr_stag_test, corr_test
+                from msaSDK.utils.ui_demos.iris import iris_demo
+                from msaSDK.utils.ui_demos.uploads import upload_demo
+                from msaSDK.utils.ui_demos.quasar import quasar_demo
+                from msaSDK.utils.ui_demos.after import after_click_demo
+                from msaSDK.utils.ui_demos.drag import drag_demo
+
+                self.add_jproute("/ui/click", click_demo)
+                self.add_jproute("/ui/cards", cards_demo)
+                self.add_jproute("/ui/iris", iris_demo)
+                self.add_jproute("/ui/dogs", dogs_demo)
+                self.add_jproute("/ui/happiness", happiness_demo)
+
+                self.add_jproute("/corr_staggered", corr_stag_test)
+                self.add_jproute("/corr", corr_test)
+                self.add_jproute("/ui/upload", upload_demo)
+                self.add_jproute("/ui/quasar", quasar_demo)
+                self.add_jproute("/ui/after", after_click_demo)
+                self.add_jproute("/ui/drag", drag_demo)
+
+        else:
+            self.logger.info("EExcluded UI justpy")
+        logger = logger_gruru
+        init_logging()
 
     async def startup_event(self) -> None:
         """Internal Startup Event Handler
@@ -489,6 +491,7 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Scheduler - Start")
             self._scheduler_task = asyncio.create_task(self.scheduler.serve(debug=self.settings.scheduler_debug),
                                                        name="MSA_Scheduler")
+        init_logging()
 
     def mount_site(self) -> None:
         if self.site:

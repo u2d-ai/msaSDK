@@ -37,7 +37,7 @@
 - **Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms.
 - **Integrated CRUD**: Generates CRUD Router and Admin Dashboard Forms based on SQLModel and SQLAlchemy.
 - **Integrated Abstract Filesystem**: Agnostic Abstract Filesystem API which allows to use S3, GCS, Azure Datalake, your local FS, Youtube etc.
-- **Added justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of roots to justpy webpages functions.
+- **Added justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
 
 ## Dependencies
 
@@ -134,7 +134,7 @@ if __name__ == '__main__':
 #### Login Screen
 - Open `http://127.0.0.1:8090/admin/auth/form/login` in your browser:
 ![Login](images/msa_auth_login.png)
-- 
+
 #### OpenAPI Interactive Documentation (Swagger) Screen
 - Open `http://127.0.0.1:8090/#/admin/docs` in your browser:
 ![OpenAPI](images/msa_admin_openapi.png)
