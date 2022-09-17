@@ -1,16 +1,20 @@
 # Release Notes
-## 0.1.5
-* Cleaned Static Files
-* Optimized logging as the * import from justpy and reocktry overrides the logging with INFO
-* Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive?
-* More events from fastapi, beside startup and shutdown?
-* Fixed some typo in Docs
-* Add More examples docu
-* Add exsamples for Amins and justpy
+## Possible future features:
+* Add examples for Amins Pages
 * versioning? FastAPI versioning
 * camel case support FastAPI-CamelCase
 * FastAPI Future Flags?
 * fastapi_socketio?
+* Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive? Seems we need a combination of some
+
+## 0.1.5
+* Cleaned Static Files
+* Optimized logging as the * import from justpy and rocketry overrides the logging with INFO
+* Fixed some typo in Docs
+* Added more examples docu
+* Added Web UI Examples
+
+* BUG: in logger fixed, uvicorn handler wasnt empty list, corrected this (Some log messages were duplicated)
 
 ## 0.1.4
 * Integrated PyFilesystem2 as Abstract Filesystem for the Service
