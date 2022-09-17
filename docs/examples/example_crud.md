@@ -1,4 +1,8 @@
-Example Usage of MSAApp.utils.crud
+Required MSAApp Service Definition (Settings):
+
+    sqlite_db_crud: bool = True
+
+### Example Usage of MSAApp.utils.crud
 
 ```python
 
@@ -45,3 +49,6 @@ app.logger.info("Initialized " + settings.title + " " + settings.version)
 if __name__ == '__main__':
     pass
 ```
+
+### Here the API routes you get from this:
+![CRUD API Router](../images/msa_example_crud.png)

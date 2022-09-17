@@ -84,11 +84,15 @@ def init_logging():
     # disable handlers for specific uvicorn loggers
     # to redirect their output to the default uvicorn logger
     # works with uvicorn==0.11.6
-    #print("Logger", [name for name in logging.root.manager.loggerDict])
+    # print("Logger", [name for name in logging.root.manager.loggerDict])
+
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+
     loggers = (
         logging.getLogger(name)
         for name in logging.root.manager.loggerDict
-        if not name.startswith("rocketry.")
+        if name.startswith("uvicorn.")
     )
 
     # change handler for default uvicorn logger
@@ -99,8 +103,8 @@ def init_logging():
             uvicorn_logger.handlers = [intercept_handler]
         except:
             pass
-    logging.getLogger().handlers = [intercept_handler]
-    logging.getLogger("uvicorn").handlers = [intercept_handler]
+    #logging.getLogger().handlers = [intercept_handler]
+    logging.getLogger("uvicorn").handlers = []
 
     # set logs output, level and format
     logger.configure(

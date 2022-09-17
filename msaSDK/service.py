@@ -133,6 +133,8 @@ class MSAApp(MSAFastAPI):
         #logger = logging.getLogger('MSA SDK')
         #logger.setLevel(logging.ERROR)
         self.logger = logger_gruru
+
+        super()
         init_logging()
 
         self.auto_mount_site: bool = auto_mount_site
@@ -333,10 +335,11 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.servicerouter:
             self.logger.info("Include Servicerouter")
-            self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
-                               response_model=MSASchedulerStatus)
-            self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
-                               response_model=MSASchedulerLog)
+            if self.settings.scheduler:
+                self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
+                                   response_model=MSASchedulerStatus)
+                self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
+                                   response_model=MSASchedulerLog)
             self.add_api_route("/status", self.get_services_status, tags=["service"],
                                response_model=MSAServiceStatus)
             self.add_api_route("/definition", self.get_services_definition, tags=["service"],
@@ -491,7 +494,6 @@ class MSAApp(MSAFastAPI):
             self.logger.info("Scheduler - Start")
             self._scheduler_task = asyncio.create_task(self.scheduler.serve(debug=self.settings.scheduler_debug),
                                                        name="MSA_Scheduler")
-        init_logging()
 
     def mount_site(self) -> None:
         if self.site:
