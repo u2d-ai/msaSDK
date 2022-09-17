@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
 #### Profiler Screen
 - Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
-![OpenAPI](images/msa_admin_profiler.png)
+![Profiler](images/msa_admin_profiler.png)
 
 ## License Agreement
 
@@ -162,3 +162,14 @@ We can now test and view our documentation using:
 Build static Site:
 
     mkdocs build
+
+
+## Build and Publish
+  
+Build:  
+
+    python setup.py sdist
+
+Publish to pypi:
+
+    twine upload dist/*

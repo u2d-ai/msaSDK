@@ -179,3 +179,14 @@ We can now test and view our documentation using:
 Build static Site:
 
     mkdocs build
+
+
+## Build and Publish
+  
+Build:  
+
+    python setup.py sdist
+
+Publish to pypi:
+
+    twine upload dist/*
