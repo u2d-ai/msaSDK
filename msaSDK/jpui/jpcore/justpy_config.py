@@ -1,8 +1,8 @@
-'''
-Created on 2022-09-11
-
-@author: wf
-'''
+"""
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
+"""
 from starlette.config import Config
 import os
 from ssl import PROTOCOL_SSLv23

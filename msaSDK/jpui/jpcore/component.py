@@ -1,8 +1,8 @@
-'''
-Created on 2022-09-13
-
-@author: wf
-'''
+"""
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
+"""
 from msaSDK.jpui.jpcore.tailwind import Tailwind
 
 

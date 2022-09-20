@@ -50,6 +50,7 @@ class MSAFastAPI(FastAPI, JustpyApp):
                  generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
                      generate_unique_id
                  ), **extra: Any) -> None:
+
         self.UI_STATIC_ROUTE = "/static"
         self.UI_STATIC_NAME = "static"
         self.WebPage = WebPage

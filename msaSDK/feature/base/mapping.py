@@ -45,7 +45,7 @@ class MSAContainer(object):
 
     """
     Base class for MSAMapping, which are responsible for understanding inputs
-    and returning Argument Variables.  Argument variables are compared against
+    and returning Mapping Variables.  Mapping variables are compared against
     the Operator inside of a Condition, for deciding if a condition applies to
     the specified input.
     """
@@ -56,7 +56,7 @@ class MSAContainer(object):
         self.input = inpt
 
     @MSAClassProperty
-    def arguments(cls):
+    def mappings(cls):
         return dict(
             (key, value) for key, value in vars(cls).items()
             if type(value) is MSAMapping

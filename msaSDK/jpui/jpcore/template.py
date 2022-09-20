@@ -1,7 +1,7 @@
 """
-Created on 2022-09-07
-
-@author: wf
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
 """
 import textwrap
 from typing import List

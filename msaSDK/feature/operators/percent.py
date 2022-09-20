@@ -9,11 +9,11 @@ class MSAPercentRange(MSAOperatorBase):
     name = 'percent_range'
     group = 'misc'
     preposition = 'in the percentage range of'
-    arguments = ('lower_limit', 'upper_limit')
+    mappings = ('lower_limit', 'upper_limit')
 
     _context = decimal_Context()
 
-    def _modulo(self, decimal_argument):
+    def _modulo(self, decimal_mapping):
         """
         The mod operator is prone to floating point errors, so use decimal.
         101.1 % 100
@@ -21,7 +21,7 @@ class MSAPercentRange(MSAOperatorBase):
         decimal_context.divmod(Decimal('100.1'), 100)
         >>> (Decimal('1'), Decimal('0.1'))
         """
-        _times, remainder = self._context.divmod(decimal_argument, 100)
+        _times, remainder = self._context.divmod(decimal_mapping, 100)
 
         # match the builtin % behavior by adding the N to the result if negative
         return remainder if remainder >= 0 else remainder + 100
@@ -31,13 +31,13 @@ class MSAPercentRange(MSAOperatorBase):
         self.upper_limit = self._context.create_decimal(str(upper_limit))
         self.lower_limit = self._context.create_decimal(str(lower_limit))
 
-    def applies_to(self, argument):
+    def applies_to(self, mapping):
         try:
-            decimal_argument = Decimal(str(argument))
+            decimal_mapping = Decimal(str(mapping))
         except DecimalException:
-            decimal_argument = Decimal(hash(argument))
+            decimal_mapping = Decimal(hash(mapping))
 
-        return self.lower_limit <= self._modulo(decimal_argument) < self.upper_limit
+        return self.lower_limit <= self._modulo(decimal_mapping) < self.upper_limit
 
     def __str__(self):
         return 'in %0.1f - %0.1f%% of values' % (self.lower_limit, self.upper_limit)
@@ -48,7 +48,7 @@ class MSAPercent(MSAPercentRange):
     name = 'percent'
     group = 'misc'
     preposition = 'within the percentage of'
-    arguments = ('percentage',)
+    mappings = ('percentage',)
 
     def __init__(self, percentage, lower_limit, upper_limit, *args, **kwargs):
         super().__init__(lower_limit, upper_limit, *args, **kwargs)

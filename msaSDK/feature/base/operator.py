@@ -3,22 +3,22 @@ from typing import Any
 
 class MSAOperatorInitError(ValueError):
 
-    def __init__(self, argument: Any):
-        message = "Missing argument %s to construct operator." % argument
+    def __init__(self, mapping: Any):
+        message = "Missing mapping %s to construct operator." % mapping
         super(MSAOperatorInitError, self).__init__(message)
 
 
 class MSAOperatorBase(object):
 
-    arguments = ()
+    mappings = ()
 
     def __init__(self, *args, **kwargs):
-        argument: Any = None
+        mapping: Any = None
         try:
-            for argument in self.arguments:
-                setattr(self, argument, kwargs.pop(argument))
+            for mapping in self.mappings:
+                setattr(self, mapping, kwargs.pop(mapping))
         except KeyError:
-            raise MSAOperatorInitError(argument)
+            raise MSAOperatorInitError(mapping)
 
     @property
     def variables(self):

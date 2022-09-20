@@ -150,6 +150,7 @@ nav:
     # - Modules Overview: guides/modules_overview.md
     - Storage Dict: guides/storagedict.md
     - Signals: guides/signals.md
+    - Feature Management: guides/features.md
   - Sites & UI:
     - Admin: sites/admin.md
     - Auth Admin: sites/auth.md

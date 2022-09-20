@@ -4,8 +4,8 @@ from msaSDK.feature.base import signal
 from msaSDK.feature.base.condition import MSAConditionsDict, all_false_if_empty
 from msaSDK.feature.base.settings import MSAFeatureSettings, get_msa_feature_settings
 
-class MSASwitch(object):
 
+class MSASwitch(object):
     """
     A switch encapsulates the concept of an item that is either 'on' or 'off'
     depending on the input.  The switch determines this by checking each of its
@@ -39,7 +39,7 @@ class MSASwitch(object):
             manager=None,
             label=None,
             description=None,
-            settings:MSAFeatureSettings = get_msa_feature_settings(),
+            settings: MSAFeatureSettings = get_msa_feature_settings(),
             **kwargs
     ):
         self.__init_vars = None
@@ -82,10 +82,10 @@ class MSASwitch(object):
 
     def __eq__(self, other):
         return (
-            self.name == other.name and
-            self.state is other.state and
-            self.interlinked is other.interlinked and
-            self.concent is other.concent
+                self.name == other.name and
+                self.state is other.state and
+                self.interlinked is other.interlinked and
+                self.concent is other.concent
         )
 
     def __getstate__(self):
@@ -96,8 +96,8 @@ class MSASwitch(object):
     def __setstate__(self, state):
         # remove parent from the state, this is now a calculated field
         for attr in (
-            'parent',
-            'children',
+                'parent',
+                'children',
         ):
             state.pop(attr, '')
 
@@ -113,7 +113,7 @@ class MSASwitch(object):
         The MSASwitch state is then checked to see if it is ``PERMANENT`` or
         ``DISABLED``.  If it is not, then the switch is ``CONDITIONAL`` and each
         condition is checked.
-        Keyword Arguments:
+        Keyword Mappings:
         inpt -- An instance of the ``Input`` class.
         """
 
@@ -133,7 +133,7 @@ class MSASwitch(object):
                 cond.call(inpt)
                 for cond
                 in conditions
-                if cond.argument(inpt).applies
+                if cond.mapping(inpt).applies
             )
         else:
             result = None

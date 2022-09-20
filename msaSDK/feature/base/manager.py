@@ -1,4 +1,3 @@
-
 import threading
 
 from msaSDK.feature.base import signal
@@ -7,47 +6,43 @@ from msaSDK.feature.base.switch import MSASwitch
 
 
 class MSAManager(threading.local):
-
     """
-    The Manager holds all state for Gutter.  It knows what Switches have been
+    The Manager holds all state for msaSDK.features.  It knows what Switches have been
     registered, and also what Input objects are currently being applied.  It
     also offers an ``active`` method to ask it if a given switch name is
     active, given its conditions and current inputs.
     """
 
-    #: Special singleton used to represent a "no input" which arguments can look
+    #: Special singleton used to represent a "no input" which mappings can look
     #: for and ignore
     NONE_INPUT = object()
 
     def __init__(
-        self,
-        storage=None,
-        autocreate=False,
-        switch_class=MSASwitch,
-        inputs=None,
-        namespace=None,
-        settings: MSAFeatureSettings = get_msa_feature_settings(),
+            self,
+            switch_class=MSASwitch,
+            namespace=None,
+            settings: MSAFeatureSettings = get_msa_feature_settings(),
     ):
         self.settings = settings
         self.key_separator = self.settings.hirachy_seperator
         self.namespace_separator = self.settings.namespace_separator
         self.default_namespace = self.settings.default_namespace
+        self.storage = self.settings.storage_engine
+        self.autocreate = self.settings.autocreate
+        self.inputs = self.settings.inputs
 
-        if storage is None:
+        if self.storage is None:
             # todo: make a better check
             raise TypeError('storage must be a dict like value')
 
-        if inputs is None:
-            inputs = []
+        if self.inputs is None:
+            self.inputs = []
 
         if namespace is None:
             namespace = self.default_namespace
         elif isinstance(namespace, str):
             namespace = [namespace]
 
-        self.storage = storage
-        self.autocreate = autocreate
-        self.inputs = inputs
         self.switch_class = switch_class
         self.namespace = namespace
 
@@ -83,7 +78,7 @@ class MSAManager(threading.local):
         Returns the switch with the provided ``name``.
         If ``autocreate`` is set to ``True`` and no switch with that name
         exists, a ``DISABLED`` switch will be with that name.
-        Keyword Arguments:
+        Keyword Mappings:
         name -- A name of a switch.
         """
         try:
@@ -149,9 +144,9 @@ class MSAManager(threading.local):
         # ``inputs``.
 
         if (
-            switch.concent
-            and switch.get_parent()
-            and not self.active(switch.parent, *inputs, **kwargs)
+                switch.concent
+                and switch.get_parent()
+                and not self.active(switch.parent, *inputs, **kwargs)
         ):
             return False
 

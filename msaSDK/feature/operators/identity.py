@@ -7,8 +7,8 @@ class Truth(MSAOperatorBase):
     group = 'identity'
     preposition = 'true'
 
-    def applies_to(self, argument):
-        return bool(argument)
+    def applies_to(self, mapping):
+        return bool(mapping)
 
     def __str__(self):
         return 'true'

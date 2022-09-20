@@ -1,8 +1,8 @@
-'''
-Created on 2022-09-12
-
-@author: wf
-'''
+"""
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
+"""
 from addict import Dict
 import asyncio
 import inspect

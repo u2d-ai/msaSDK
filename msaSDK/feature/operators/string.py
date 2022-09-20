@@ -8,15 +8,15 @@ class EqualsStripIgnoreCase(MSAOperatorBase):
     name = 'strip_ignorecase_equals'
     group = 'string'
     preposition = 'strip ignore case equal to'
-    arguments = ('value',)
+    mappings = ('value',)
 
-    def applies_to(self, argument):
-        if isinstance(argument, MSAVariableBase):
-            argument = str(argument.value)
+    def applies_to(self, mapping):
+        if isinstance(mapping, MSAVariableBase):
+            mapping = str(mapping.value)
         else:
-            argument = str(argument)
+            mapping = str(mapping)
 
-        return argument.lower().strip() == self.value.lower().strip()
+        return mapping.lower().strip() == self.value.lower().strip()
 
     def __str__(self):
         return '%s "%s"' % (self.preposition, self.value.lower())

@@ -1,7 +1,7 @@
 """
-Created on 2022-08-29
-
-@author: wf
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
 """
 import urllib.request
 import os

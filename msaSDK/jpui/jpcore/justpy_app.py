@@ -1,13 +1,12 @@
 """
 Created on 2022-09-02
-
-@author: wf
+modified version, original from JustPy
+@author: wf (modification swelcker)
 """
 import asyncio
 import fnmatch
 import inspect
 import json
-
 import os
 import pathlib
 import sys
@@ -16,7 +15,6 @@ import typing
 import uuid
 
 from itsdangerous import Signer
-from starlette.applications import Starlette
 from starlette.endpoints import HTTPEndpoint
 from starlette.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
 from starlette.routing import Route
@@ -32,7 +30,6 @@ from ..jpcore.justpy_config import config, AGGRID, AGGRID_ENTERPRISE, BOKEH, COO
 from ..jpcore.template import Context
 from ..jpcore.webpage import WebPage
 
-# TODO refacto to object oriented version where this is a property of some instance of some class
 cookie_signer = Signer(str(SECRET_KEY))
 
 
@@ -160,25 +157,11 @@ async def handle_event(data_dict, com_type=0, page_event=False):
         return dict_to_send
 
 
-class JustpyApp(Starlette):
+class JustpyApp:
     """
-    a justpy application is a special Starlette application
-    
-      uses starlette Routing
+    a justpy application is a special FastAPI Addition
 
-    see
-       https://www.starlette.io/routing/
-
-       https://github.com/encode/starlette/blob/master/starlette/routing.py
     """
-    # @Todo - legacy for SetRoute 
-    app = None
-
-    def __init__(self, **kwargs):
-        # https://www.starlette.io/applications/
-        Starlette.__init__(self, **kwargs)
-        # @Todo - legacy for SetRoute 
-        JustpyApp.app = self
 
     def route_as_text(self, route):
         """
