@@ -28,15 +28,6 @@
 - **Build connected distributed applications faster**: Ready for [Dapr](https://dapr.io/).
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
-- **High efficiency**: Perfect code type hints. Higher code reusability.
-- **Support asynchronous and synchronous hybrid writing**: `ORM`  is based on`SQLModel` & `Sqlalchemy`. Freely customize
-  database type. Asynchronous mode. Strong scalability.
-- **Front-end separation**: The front-end is rendered by `Amis`, the back-end interface is automatically generated
-  by `msaSDK - Admin`. The interface is reusable.
-- **Strong scalability**: The background page supports `Amis` pages and ordinary `html` pages. Easily customize the
-  interface freely.
-- **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
-  interfaces.
 - **Integrated Scheduler**: Define Scheduler Tasks with natural language timings and dependencies.
 - **Integrated Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms.
 - **Integrated CRUD**: Generates CRUD Router and Admin Dashboard Forms based on SQLModel and SQLAlchemy.
@@ -45,13 +36,13 @@
 - **Integrated Dict with Storage Backend**: Use Dict's with backend storage like redis.
 - **Integrated Signals**: Use and handle Signals and Tasks.
 
-## Dependencies
+## Main Dependencies
 
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [SQLModel](https://sqlmodel.tiangolo.com/)
   combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
   their features .
-- [Amis](https://baidu.gitee.io/amis): Vue Frontend
+
 
 ### Usage example is in the app module \_\_init\_\_.py
 
