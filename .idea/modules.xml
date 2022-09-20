@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/U2D_MSA_SDK.iml" filepath="$PROJECT_DIR$/.idea/U2D_MSA_SDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../msaSDK/.idea/msaSDK.iml" filepath="$PROJECT_DIR$/../msaSDK/.idea/msaSDK.iml" />
     </modules>
   </component>
 </project>

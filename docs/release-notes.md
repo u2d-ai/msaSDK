@@ -1,9 +1,11 @@
 # Release Notes
 ## Possible future features:
 * Add examples for Amins Pages and additional features of the Admin and auth module
+* Extend settings with dynaconf
 * versioning? FastAPI versioning
 * camel case support FastAPI-CamelCase
-* FastAPI Future Flags?
+* Feature Flags: Own Implementation Boolean, Multivariates, Temporary, Permanent, PaidUsers, ClosedBeta, PercentageOfUsers, Experimental, DefaultFallbackHandler=func, ConditionalFeature
+* Feature Switch with Conditions based on Pydantic Models, switch can have conditions or just on/of and conditions cheack against an existing pydantic or sqlmodel
 * fastapi_socketio?
 * Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive? Seems we need a combination of some
 
@@ -13,7 +15,9 @@
 * Fixed some typo in Docs
 * Added more examples docu
 * Added Web UI Examples
-
+* Fully integrated JustPy 0.9.2 into msaSDK as the original JustPy is just not build for full integration in FastAPI, makes things easier
+* Added signal module, as decorator and middleware plus the option to mount middleware in MSAApp via settings
+* Added storagedict: Dicts who can sync themself to data storage backends, like redis, zookeeper.
 * BUG: in logger fixed, uvicorn handler wasnt empty list, corrected this (Some log messages were duplicated)
 
 ## 0.1.4

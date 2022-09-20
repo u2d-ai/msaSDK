@@ -33,6 +33,7 @@ from msaSDK.models.scheduler import MSASchedulerStatus, MSASchedulerLog, MSASche
 from msaSDK.models.service import MSAServiceDefinition, MSAHealthDefinition, MSAServiceStatus
 from msaSDK.msaapi import MSAFastAPI
 from msaSDK.security import getMSASecurity
+
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 from msaSDK.utils.logger import init_logging
 from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo
@@ -129,12 +130,7 @@ class MSAApp(MSAFastAPI):
         # call super class __init__
         super().__init__(*args, **settings.fastapi_kwargs)
 
-
-        #logger = logging.getLogger('MSA SDK')
-        #logger.setLevel(logging.ERROR)
         self.logger = logger_gruru
-
-        super()
         init_logging()
 
         self.auto_mount_site: bool = auto_mount_site
@@ -322,6 +318,20 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Middleware Timing")
 
+        if self.settings.signal_middleware:
+            self.logger.info("Add Middleware Signal")
+            from msaSDK.signals import MSASignalMiddleware
+            self.add_middleware(MSASignalMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Signal")
+
+        if self.settings.task_middleware:
+            self.logger.info("Add Middleware Task")
+            from msaSDK.signals import MSATaskMiddleware
+            self.add_middleware(MSATaskMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Task")
+
         if self.settings.limiter:
             self.logger.info("Add Limiter Engine")
             from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -414,14 +424,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.ui_justpy or self.settings.ui_justpy_demos:
             self.logger.info("Enable and Mount - UI justpy")
-            from justpy import AjaxEndpoint, JustpyEvents
-            self.mount(self.UI_STATIC_ROUTE, StaticFiles(directory=self.ui_current_dir + "/templates"), name=self.UI_STATIC_NAME)
-            self.add_route("/zzz_justpy_ajax", AjaxEndpoint)
-            self.add_websocket_route("/", JustpyEvents)
-            self.WebPage.loop = asyncio.get_event_loop()
-            self.mount(
-                "/templates", StaticFiles(directory=self.ui_current_dir + "/templates"), name="templates"
-            )
+            self.mount_jp_internal_routes()
 
             if self.settings.ui_justpy_demos:
                 self.logger.info("Enable/Add JP Route - UI justpy Demos")

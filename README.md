@@ -38,10 +38,12 @@
 - **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
   interfaces.
 - **Integrated Scheduler**: Define Scheduler Tasks with natural language timings and dependencies.
-- **Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms.
+- **Integrated Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms.
 - **Integrated CRUD**: Generates CRUD Router and Admin Dashboard Forms based on SQLModel and SQLAlchemy.
 - **Integrated Abstract Filesystem**: Agnostic Abstract Filesystem API which allows to use S3, GCS, Azure Datalake, your local FS, Youtube etc.
-- **Added justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
+- **Integrated justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
+- **Integrated Dict with Storage Backend**: Use Dict's with backend storage like redis.
+- **Integrated Signals**: Use and handle Signals and Tasks.
 
 ## Dependencies
 

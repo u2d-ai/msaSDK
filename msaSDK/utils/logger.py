@@ -105,6 +105,7 @@ def init_logging():
             pass
     #logging.getLogger().handlers = [intercept_handler]
     logging.getLogger("uvicorn").handlers = []
+    logging.getLogger("rocketry").handlers = []
 
     # set logs output, level and format
     logger.configure(

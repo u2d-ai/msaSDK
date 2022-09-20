@@ -1,4 +1,4 @@
-import justpy as jp
+import msaSDK.jpui as jp
 import pandas as pd
 
 iris = pd.read_csv(

@@ -16,12 +16,12 @@ setup_info = dict(
     version=info['version'],
     author='Stefan Welcker',
     author_email='stefan@u2d.ai',
-    url='https://github.com/swelcker/U2D_MSA_SDK',
+    url='https://github.com/swelcker/msaSDK',
     download_url='http://pypi.python.org/pypi/msaSDK',
     project_urls={
         'Documentation': 'http://msa.u2d.ai/',
-        'Source': 'https://github.com/swelcker/U2D_MSA_SDK',
-        'Tracker': 'https://github.com/swelcker/U2D_MSA_SDK/issues',
+        'Source': 'https://github.com/swelcker/msaSDK',
+        'Tracker': 'https://github.com/swelcker/msaSDK/issues',
     },
     description='FastAPI based Microservice Architecture Development Kit',
     long_description=open('README.md').read(),
@@ -45,7 +45,6 @@ setup_info = dict(
         'Topic :: Documentation',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Server',
         'Topic :: Software Development :: Libraries',
-        'Topic :: System :: Logging',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 

@@ -1,4 +1,4 @@
-import justpy as jp
+import msaSDK.jpui as jp
 
 btn_classes = jp.Styles.button_outline + " m-2"
 notification_classes = "m-2 text-center text-xl bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded w-64"

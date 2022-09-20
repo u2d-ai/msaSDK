@@ -1,15 +1,38 @@
 # WEB UI
 
-<h2 align="center">
-  msaSDK justpy - WEB UI Integration
-</h2>
+msaSDK JustPy - WEB UI Integration
 
----
-<p align="center">
-    <em>Initialized by the MSAApp Class</em>
-</p>
+Just another Web UI option beside pure HTML or the Amis/Admin capabilities. Most important, it is also a Vue.js basis.
 
----
+Initialized by the MSAApp Class
+
+
+## Introduction
+
+JustPy is an object-oriented, component based, high-level Python Web Framework that requires no front-end programming. With a few lines of only Python code, you can create interactive websites without any JavaScript programming. JustPy can also be used to create graphic user interfaces for Python programs.  
+
+Unlike other web frameworks, JustPy has no front-end/back-end distinction. All programming is done on the back-end allowing a simpler, more productive, and more Pythonic web development experience. JustPy removes the front-end/back-end distinction by intercepting the relevant events on the front-end and sending them to the back-end to be processed.
+
+!!! note
+    JustPy 0.9.3 is fully integrated in msaSDK and runs under the MSAAPI/FastAPI umbrella, you just call a function by a route that async gives back a jp.WebPage. Websocket etc. runs all under MSAAPI/FastAPI.
+
+In JustPy, elements on the web page are instances of component classes. A component in JustPy is a Python class that allows you to instantiate reusable custom elements whose functionality and design is encapsulated away from the rest of your code.
+
+Custom components can be created using other components as building blocks. Out of the box, JustPy comes with support for [HTML](tutorial/html_components) and [SVG](tutorial/svg_components) components as well as more complex components such as [charts](charts_tutorial/introduction.md) and [grids](grids_tutorial/introduction.md).  It also supports most of the components and the functionality of the [Quasar](https://quasar.dev/) library of [Material Design 2.0](https://material.io/) components.
+
+JustPy encourages creating your own components and reusing them in different projects (and, if applicable, sharing these components with others).
+
+JustPy also supports visualization using matplotlib and Highcharts.
+
+JustPy integrates very nicely with [pandas](https://pandas.pydata.org/) and simplifies building web sites based on pandas analysis. JustPy comes with a [pandas extension](charts_tutorial/pandas?id=using-the-pandas-extension) that makes it simple to create interactive charts and grids from pandas data structures.
+
+Hopefully, this JustPy Integration will enable simple web development with Python courses by reducing the complexity of web development.
+
+[Original JustPy Project - GitHub Repo](https://github.com/justpy-org/justpy)
+
+
+!!! note "Different Usage"
+    Just use ``import msaSDK.jpui as jp`` intead of ``import justpy as jp``
 
 ## Simple Example
 
@@ -53,7 +76,7 @@ app.add_jproute("/ui/cards", cards_demo)
 
 === "Code"
     ```python
-    import justpy as jp
+    import msaSDK.jpui as jp
     import asyncio
     
     card_size = 0.5
@@ -277,7 +300,7 @@ app.add_jproute("/ui/click", click_demo)
             """
             the example Webpage under test
             """
-            import justpy as jp
+            import msaSDK.jpui as jp
             wp = jp.WebPage(debug=False)
             self.clickCount = 0
             d = jp.Div(
@@ -606,7 +629,7 @@ app.add_jproute("/corr", corr_test)
 
 === "Code"
     ```python
-    import justpy as jp
+    import msaSDK.jpui as jp
     import pandas as pd
     import numpy as np
     import asyncio
@@ -853,7 +876,7 @@ app.add_jproute("/ui/iris", iris_demo)
 
 === "Code"
     ```python
-    import justpy as jp
+    import msaSDK.jpui as jp
     import pandas as pd
     
     iris = pd.read_csv(
@@ -1050,8 +1073,7 @@ app.add_jproute("/ui/after", after_click_demo)
 
 === "Code"
     ```python
-    import justpy as jp
-    
+    import msaSDK.jpui as jp
     btn_classes = jp.Styles.button_outline + " m-2"
     notification_classes = "m-2 text-center text-xl bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded w-64"
     
@@ -1109,7 +1131,7 @@ app.add_jproute("/ui/drag", drag_demo)
 
 === "Code"
     ```python
-    import justpy as jp
+    import msaSDK.jpui as jp
     
     
     def drag_start(self, msg):

@@ -1,5 +1,8 @@
-import justpy as jp
+
 import asyncio
+
+
+import msaSDK.jpui as jp
 
 card_size = 0.5
 card_width = int(226 * card_size)

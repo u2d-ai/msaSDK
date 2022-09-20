@@ -4,8 +4,8 @@ site_dir: docs_dist_site
 
 # Repository
 
-repo_url: https://github.com/swelcker/U2D_MSA_SDK.git
-repo_name: swelcker/U2D_MSA_SDK
+repo_url: https://github.com/swelcker/msaSDK.git
+repo_name: swelcker/msaSDK
 edit_uri: ""
 
 # Copyright
@@ -76,6 +76,7 @@ markdown_extensions:
   - abbr
   - footnotes
   - md_in_html
+  - extra
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
@@ -131,6 +132,9 @@ theme:
     - instant
     - header.autohide
     - content.code.annotate
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
 
 extra_css:
   - css/mkdocstrings.css
@@ -141,12 +145,16 @@ nav:
     - history-design-future.md
     - used_tools.md
     - Used Libraries: requirements.md
-  - User Guides:
-    - guides/index.md
+  - Guides:
+    - Intro: guides/index.md
+    # - Modules Overview: guides/modules_overview.md
+    - Storage Dict: guides/storagedict.md
+    - Signals: guides/signals.md
   - Sites & UI:
     - Admin: sites/admin.md
     - Auth Admin: sites/auth.md
-    - Web UI: sites/justpy.md
+    - Web UI - JustPy: sites/justpy.md
+    - Web UI - amis: sites/amis.md
   - Examples:
     - MSAApp: examples/example_app.md
     - CRUD: examples/example_crud.md

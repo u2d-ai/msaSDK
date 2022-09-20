@@ -3,7 +3,7 @@ Created on 2022-08-27
 @author: wf
 see https://justpy.io/quasar_tutorial/introduction/
 """
-import justpy as jp
+import msaSDK.jpui as jp
 import random
 
 
