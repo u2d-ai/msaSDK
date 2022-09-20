@@ -23,7 +23,7 @@
             padding: 0;
         }
 
-        /*DropDownButton组件下拉菜单样式修改*/
+        /*DropDownButton - Component drop-down menu style modification*/
         .msa_ui-scope .msa-DropDown-menu {
             min-width: 100%;
             text-align: center;
@@ -114,7 +114,7 @@
                             history.location.pathname + history.location.search) ||
                         location === history.location.href
                     ) {
-                        // 目标地址和当前地址一样，不处理，免得重复刷新
+                        // The destination address is the same as the current address and is not processed to avoid repeated refreshes
                         return;
                     } else if (/^https?\:\/\//.test(location) || !history) {
                         return (window.location.href = location);

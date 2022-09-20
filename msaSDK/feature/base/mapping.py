@@ -1,0 +1,67 @@
+from types import NoneType
+
+class MSAClassProperty(object):
+
+    def __init__(self, getter):
+        self.getter = getter
+
+    def __get__(self, instance, owner):
+        return self.getter(owner)
+
+
+class MSAMapping(object):
+
+    def __init__(self, variable, getter):
+        if issubclass(type(getter), str):
+            self.getter = lambda self: getattr(self.input, getter)
+        else:
+            self.getter = getter
+
+        self.owner = None
+        self.variable = variable
+
+    def __get__(self, instance, owner):
+        self.owner = owner
+
+        if instance:
+            return self.variable(self.getter(instance))
+        else:
+            return self
+
+    def __str__(self):
+        if self.name:
+            return "%s.%s" % (self.owner.__name__, self.name)
+        else:
+            return repr(self)
+
+    @property
+    def name(self):
+        for name, attr in vars(self.owner).items():
+            if attr is self:
+                return name
+
+
+class MSAContainer(object):
+
+    """
+    Base class for MSAMapping, which are responsible for understanding inputs
+    and returning Mapping Variables.  Mapping variables are compared against
+    the Operator inside of a Condition, for deciding if a condition applies to
+    the specified input.
+    """
+
+    COMPATIBLE_TYPE = NoneType
+
+    def __init__(self, inpt):
+        self.input = inpt
+
+    @MSAClassProperty
+    def mappings(cls):
+        return dict(
+            (key, value) for key, value in vars(cls).items()
+            if type(value) is MSAMapping
+        )
+
+    @property
+    def applies(self):
+        return isinstance(self.input, self.COMPATIBLE_TYPE)

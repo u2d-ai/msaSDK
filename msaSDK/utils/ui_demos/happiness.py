@@ -1,4 +1,5 @@
-import justpy as jp
+
+import msaSDK.jpui as jp
 import pandas as pd
 import numpy as np
 import asyncio

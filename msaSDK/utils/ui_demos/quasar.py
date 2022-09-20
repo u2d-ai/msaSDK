@@ -1,9 +1,9 @@
 """
-Created on 2022-08-27
-@author: wf
-see https://justpy.io/quasar_tutorial/introduction/
+Created on 2022-09-02
+modified version, original from JustPy
+@author: wf (modification swelcker)
 """
-import justpy as jp
+import msaSDK.jpui as jp
 import random
 
 

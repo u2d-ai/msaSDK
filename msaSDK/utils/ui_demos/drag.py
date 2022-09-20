@@ -2,7 +2,7 @@
 Created on 2022-08-25
 @author: em
 """
-import justpy as jp
+import msaSDK.jpui as jp
 
 
 def drag_start(self, msg):

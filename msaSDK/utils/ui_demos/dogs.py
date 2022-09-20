@@ -1,6 +1,6 @@
 # This is the "dogs" example for justpy
 # see https://github.com/justpy-org/justpy/blob/master/examples/dogs.py
-from justpy import *
+from msaSDK.jpui.justpy import *
 from starlette.requests import Request
 
 # https://dog.ceo/api/breeds/list/all    dict of all breeds under

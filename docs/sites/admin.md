@@ -18,18 +18,10 @@ in AI Applications. It can be extended with Auth and Login for an MVP Phase with
 ---
 
 ## Features
-- **Build connected distributed applications faster**: Ready for Distributed Application Runtime (Dapr).
-- **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
-- **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
-- **High efficiency**: Perfect code type hints. Higher code reusability.
-- **Support asynchronous and synchronous hybrid writing**: `ORM`  is based on`SQLModel` & `Sqlalchemy`. Freely customize
-  database type. Asynchronous mode. Strong scalability.
 - **Front-end separation**: The front-end is rendered by `Amis`, the back-end interface is automatically generated
-  by `msaSDK - Admin`. The interface is reusable.
-- **Strong scalability**: The background page supports `Amis` pages and ordinary `html` pages. Easily customize the
-  interface freely.
-- **Automatic api documentation**: Automatically generate Interface documentation by `FastAPI`. Easily debug and share
-  interfaces.
+  by `msaSDK.db.crud`. The interface is reusable.
+- **Strong scalability**: The page creation supports `Amis` pages and ordinary `html` pages. 
+
 
 ## Dependencies
 
@@ -147,7 +139,7 @@ async def shutdown():
 
 #### Profiler Screen
 - Open `http://127.0.0.1:8090/#/admin/profiler` in your browser:
-![OpenAPI](../images/msa_admin_profiler.png)
+![Profiler](../images/msa_admin_profiler.png)
 
 ## License Agreement
 

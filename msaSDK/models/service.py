@@ -85,6 +85,10 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enable Messagepack Negotiation Middleware."""
     instrument: bool = True
     """Enable Prometheus Instrumentation for the instance."""
+    signal_middleware: bool = False
+    """Enable MSASignal Middleware."""
+    task_middleware: bool = False
+    """Enable MSATask Middleware."""
     static: bool = True
     """Enable the internal Static Folder (``msastatic``) and Mount to instance."""
     pages: bool = True

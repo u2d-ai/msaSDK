@@ -16,7 +16,7 @@ class ClickDemo:
         """
         the example Webpage under test
         """
-        import justpy as jp
+        import msaSDK.jpui as jp
         wp = jp.WebPage(debug=False)
         self.clickCount = 0
         d = jp.Div(

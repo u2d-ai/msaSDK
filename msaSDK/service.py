@@ -33,6 +33,7 @@ from msaSDK.models.scheduler import MSASchedulerStatus, MSASchedulerLog, MSASche
 from msaSDK.models.service import MSAServiceDefinition, MSAHealthDefinition, MSAServiceStatus
 from msaSDK.msaapi import MSAFastAPI
 from msaSDK.security import getMSASecurity
+
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 from msaSDK.utils.logger import init_logging
 from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo
@@ -129,9 +130,6 @@ class MSAApp(MSAFastAPI):
         # call super class __init__
         super().__init__(*args, **settings.fastapi_kwargs)
 
-
-        #logger = logging.getLogger('MSA SDK')
-        #logger.setLevel(logging.ERROR)
         self.logger = logger_gruru
         init_logging()
 
@@ -320,6 +318,20 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Middleware Timing")
 
+        if self.settings.signal_middleware:
+            self.logger.info("Add Middleware Signal")
+            from msaSDK.signals import MSASignalMiddleware
+            self.add_middleware(MSASignalMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Signal")
+
+        if self.settings.task_middleware:
+            self.logger.info("Add Middleware Task")
+            from msaSDK.signals import MSATaskMiddleware
+            self.add_middleware(MSATaskMiddleware)
+        else:
+            self.logger.info("Excluded Middleware Task")
+
         if self.settings.limiter:
             self.logger.info("Add Limiter Engine")
             from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -333,10 +345,11 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.servicerouter:
             self.logger.info("Include Servicerouter")
-            self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
-                               response_model=MSASchedulerStatus)
-            self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
-                               response_model=MSASchedulerLog)
+            if self.settings.scheduler:
+                self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
+                                   response_model=MSASchedulerStatus)
+                self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
+                                   response_model=MSASchedulerLog)
             self.add_api_route("/status", self.get_services_status, tags=["service"],
                                response_model=MSAServiceStatus)
             self.add_api_route("/definition", self.get_services_definition, tags=["service"],
@@ -354,46 +367,6 @@ class MSAApp(MSAFastAPI):
 
         else:
             self.logger.info("Excluded MSAStatic")
-
-        if self.settings.ui_justpy or self.settings.ui_justpy_demos:
-            self.logger.info("Enable and Mount - UI justpy")
-            from justpy import AjaxEndpoint, JustpyEvents
-            self.mount(self.STATIC_ROUTE, StaticFiles(directory=self.ui_current_dir + "/templates"), name=self.STATIC_NAME)
-            self.add_route("/zzz_justpy_ajax", AjaxEndpoint)
-            self.add_websocket_route("/", JustpyEvents)
-            self.WebPage.loop = asyncio.get_event_loop()
-            self.mount(
-                "/templates", StaticFiles(directory=self.ui_current_dir + "/templates"), name="templates"
-            )
-
-            if self.settings.ui_justpy_demos:
-                self.logger.info("Enable/Add JP Route - UI justpy Demos")
-
-                from msaSDK.utils.ui_demos.card import cards_demo
-                from msaSDK.utils.ui_demos.click import click_demo
-                from msaSDK.utils.ui_demos.dogs import dogs_demo
-                from msaSDK.utils.ui_demos.happiness import happiness_demo, corr_stag_test, corr_test
-                from msaSDK.utils.ui_demos.iris import iris_demo
-                from msaSDK.utils.ui_demos.uploads import upload_demo
-                from msaSDK.utils.ui_demos.quasar import quasar_demo
-                from msaSDK.utils.ui_demos.after import after_click_demo
-                from msaSDK.utils.ui_demos.drag import drag_demo
-
-                self.add_jproute("/ui/click", click_demo)
-                self.add_jproute("/ui/cards", cards_demo)
-                self.add_jproute("/ui/iris", iris_demo)
-                self.add_jproute("/ui/dogs", dogs_demo)
-                self.add_jproute("/ui/happiness", happiness_demo)
-
-                self.add_jproute("/corr_staggered", corr_stag_test)
-                self.add_jproute("/corr", corr_test)
-                self.add_jproute("/ui/upload", upload_demo)
-                self.add_jproute("/ui/quasar", quasar_demo)
-                self.add_jproute("/ui/after", after_click_demo)
-                self.add_jproute("/ui/drag", drag_demo)
-
-        else:
-            self.logger.info("EExcluded UI justpy")
 
         if self.settings.pagination:
             self.logger.info("Add Pagination Engine")
@@ -436,7 +409,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.scheduler:
             self.logger.info("Add Scheduler")
             from msaSDK.utils.scheduler import MSAScheduler
-            self.scheduler = MSAScheduler(config={"task_execution": "async"})
+            self.scheduler = MSAScheduler(msa_logger=logger_gruru, config={"task_execution": "async"})
 
         elif not self.settings.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
@@ -448,6 +421,41 @@ class MSAApp(MSAFastAPI):
             self.fs = self.abstract_fs.fs
         else:
             self.logger.info("Excluded Abstract Filesystem")
+
+        if self.settings.ui_justpy or self.settings.ui_justpy_demos:
+            self.logger.info("Enable and Mount - UI justpy")
+            self.mount_jp_internal_routes()
+
+            if self.settings.ui_justpy_demos:
+                self.logger.info("Enable/Add JP Route - UI justpy Demos")
+
+                from msaSDK.utils.ui_demos.card import cards_demo
+                from msaSDK.utils.ui_demos.click import click_demo
+                from msaSDK.utils.ui_demos.dogs import dogs_demo
+                from msaSDK.utils.ui_demos.happiness import happiness_demo, corr_stag_test, corr_test
+                from msaSDK.utils.ui_demos.iris import iris_demo
+                from msaSDK.utils.ui_demos.uploads import upload_demo
+                from msaSDK.utils.ui_demos.quasar import quasar_demo
+                from msaSDK.utils.ui_demos.after import after_click_demo
+                from msaSDK.utils.ui_demos.drag import drag_demo
+
+                self.add_jproute("/ui/click", click_demo)
+                self.add_jproute("/ui/cards", cards_demo)
+                self.add_jproute("/ui/iris", iris_demo)
+                self.add_jproute("/ui/dogs", dogs_demo)
+                self.add_jproute("/ui/happiness", happiness_demo)
+
+                self.add_jproute("/corr_staggered", corr_stag_test)
+                self.add_jproute("/corr", corr_test)
+                self.add_jproute("/ui/upload", upload_demo)
+                self.add_jproute("/ui/quasar", quasar_demo)
+                self.add_jproute("/ui/after", after_click_demo)
+                self.add_jproute("/ui/drag", drag_demo)
+
+        else:
+            self.logger.info("EExcluded UI justpy")
+
+        init_logging()
 
     async def startup_event(self) -> None:
         """Internal Startup Event Handler

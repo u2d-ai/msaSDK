@@ -1,4 +1,4 @@
-from justpy import Form, Input, Li, Ol, WebPage
+from msaSDK.jpui.justpy import Form, Input, Li, Ol, WebPage
 
 # see https://github.com/elimintz/justpy/pull/401
 
