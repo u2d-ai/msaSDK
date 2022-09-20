@@ -11,7 +11,7 @@ import jpui.justpy as justpy
 from os.path import dirname, basename, isfile, join
 import glob
 
-version = '0.1.5'
+version = '0.1.6'
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"

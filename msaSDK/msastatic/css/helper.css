@@ -19053,11 +19053,11 @@ Box Sizing 相关样式，主要区别在于设置宽高的时候，是否包含
 
 ## 响应式设计
 
-不支持 [「响应式设计前缀」](../../../docs/style/responsive-design.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持 [「响应式设计前缀」](../../../docs/style/responsive-design.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .box-border {
@@ -19096,7 +19096,7 @@ https://www.w3school.com.cn/cssref/pr_class_clear.asp
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .clear-right {
@@ -19191,7 +19191,7 @@ https://tailwindcss.com/docs/display
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .block {
@@ -19472,7 +19472,7 @@ title: Floats
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/anis/issues)。
 */
 .float-right {
   float: right;
@@ -19547,7 +19547,7 @@ https://www.w3school.com.cn/cssref/pr_pos_overflow.asp
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 
 */
@@ -19725,7 +19725,7 @@ https://www.w3school.com.cn/cssref/pr_class_position.asp
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .static {
@@ -19941,7 +19941,7 @@ title: Top / Right / Bottom / Left
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .top-px {
@@ -28779,7 +28779,7 @@ title: Visibility
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .visible {
@@ -28846,7 +28846,7 @@ Utilities for controlling the stack order of an element.
 
 ## 状态前缀
 
-不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/msa_ui/issues)。
+不支持[「状态前缀」](../../../docs/style/state.md)，有需求请提 [issue](https://github.com/baidu/amis/issues)。
 
 */
 .z-0 {

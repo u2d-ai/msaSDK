@@ -157,6 +157,16 @@ class MSAApp(MSAFastAPI):
 
         self.healthcheck: "health.MSAHealthCheck" = None
 
+        if self.settings.profiler:
+            self.logger.info("Add Middleware Profiler")
+            from msaSDK.utils.profiler import MSAProfilerMiddleware
+            self.add_middleware(MSAProfilerMiddleware,
+                                profiler_output_type=self.settings.profiler_output_type,
+                                track_each_request=self.settings.profiler_single_calls,
+                                msa_app=self)
+        else:
+            self.logger.info("Excluded Middleware Profiler")
+
         if self.settings.validationception:
             self.logger.info("Add Handler ValidationError")
             self.add_exception_handler(RequestValidationError, self.validation_exception_handler)
@@ -301,16 +311,6 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("Excluded Middleware Context")
 
-        if self.settings.profiler:
-            self.logger.info("Add Middleware Profiler")
-            from msaSDK.utils.profiler import MSAProfilerMiddleware
-            self.add_middleware(MSAProfilerMiddleware,
-                                profiler_output_type=self.settings.profiler_output_type,
-                                track_each_request=self.settings.profiler_single_calls,
-                                msa_app=self)
-        else:
-            self.logger.info("Excluded Middleware Profiler")
-
         if self.settings.timing:
             self.logger.info("Add Middleware Timing")
             from fastapi_utils.timing import add_timing_middleware
@@ -454,6 +454,8 @@ class MSAApp(MSAFastAPI):
 
         else:
             self.logger.info("EExcluded UI justpy")
+
+
 
         init_logging()
 

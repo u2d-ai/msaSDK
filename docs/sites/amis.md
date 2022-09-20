@@ -14,10 +14,9 @@ Building a parser that can generate a JSON for a UI seemed pretty straight forwa
 
 Here an example:
 
-=== UI
-  ![Smis Schema Example](../images/msa_amis_schema_example.png)
-
-=== JSON
+=== "UI"
+    ![Smis Schema Example](../images/msa_amis_schema_example.png)
+=== "JSON"
     ```python
     {
       "title": "Browser kernel support for CSS",

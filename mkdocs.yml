@@ -1,10 +1,11 @@
 site_name: msaSDK - Documentation
 docs_dir: docs
 site_dir: docs_dist_site
+site_url: https://msa.u2d.ai/
 
 # Repository
 
-repo_url: https://github.com/swelcker/msaSDK.git
+repo_url: https://github.com/swelcker/msaSDK
 repo_name: swelcker/msaSDK
 edit_uri: ""
 
@@ -57,8 +58,6 @@ plugins:
             show_signature_annotations: true
             heading_level: 2
 
-
-
 markdown_extensions:
   - admonition
   - toc:
@@ -102,7 +101,6 @@ markdown_extensions:
 theme:
   name: material
   language: en
-  custom_dir: 'docs'
   icon:
     repo: fontawesome/brands/github
   palette:

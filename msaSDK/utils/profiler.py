@@ -51,8 +51,8 @@ class MSAProfilerMiddleware:
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return
-
-        self._profiler.start()
+        if not self._profiler.is_running:
+            self._profiler.start()
 
         request = Request(scope, receive=receive)
 
@@ -69,12 +69,13 @@ class MSAProfilerMiddleware:
             await self.app(scope, receive, wrapped_send)
         finally:
             if scope["type"] == "http":
-                self._profiler.stop()
-                end = time.perf_counter()
-                if self._output_type == "html" and not self._htmlfile_init_done:
-                    await self.get_profiler_result()
-                elif self._track_each_request:
-                    await self.get_profiler_result()
+                if self._profiler.is_running:
+                    self._profiler.stop()
+                    end = time.perf_counter()
+                    if self._output_type == "html" and not self._htmlfile_init_done:
+                        await self.get_profiler_result()
+                    elif self._track_each_request:
+                        await self.get_profiler_result()
 
     async def get_profiler_result(self):
         """ Produces the profiler result in the defined output type format, ``text`` or ``html``"""

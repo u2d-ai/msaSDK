@@ -86,7 +86,7 @@ uvicorn~=0.18.3 # The lightning-fast ASGI server.
 uvloop~=0.17.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
-fonttools~=4.37.2 # Tools to manipulate font files
+fonttools~=4.37.3 # Tools to manipulate font files
 gputil~=1.4.0 # Python module for getting the GPU status from NVIDA GPUs using nvidia-smi.
 Jinja2~=3.1.2 # A very fast and expressive template engine.
 matplotlib~=3.5.3 # Python plotting package
