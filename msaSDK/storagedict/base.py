@@ -1,9 +1,6 @@
 from abc import ABC
 
-from encoding import (
-    MSADictDefaultEncoding,
-    EncodingError,
-)
+from .encoding import EncodingError, MSADictDefaultEncoding
 
 
 class MSAStorageDict(object):
@@ -20,13 +17,15 @@ class MSAStorageDict(object):
     If you need to switch between two encodings provide the old_encoding as a fallback.
     """
 
-    def __init__(self, autosync=True, encoding=MSADictDefaultEncoding, old_encoding=None):
+    def __init__(
+        self, autosync=True, encoding=MSADictDefaultEncoding, old_encoding=None
+    ):
         self.__dict = dict()
         self.last_synced = 0
         self.autosync = autosync
         self.encoding = encoding
         self.old_encoding = old_encoding
-        self.__sync_with_durable_storage(force=True)
+        # self.__sync_with_durable_storage(force=True)
 
     @property
     def cache_expired(self):

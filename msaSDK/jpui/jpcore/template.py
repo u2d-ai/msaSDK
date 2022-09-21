@@ -19,19 +19,19 @@ class Context:
         constructor
 
         Args:
-            context_dict(dict): a context dict in legacy format
+            context_dict: a context dict in legacy format
         """
         self.context_dict = context_dict
         self.page_options = PageOptions(context_dict.get("page_options", {}))
-        self.use_websockets_js=self.context_dict.get("use_websockets","true")
-        self.page_id_js=context_dict["page_id"]
+        self.use_websockets_js = self.context_dict.get("use_websockets", "true")
+        self.page_id_js = context_dict["page_id"]
         self.component_engine_type = context_dict["frontend_engine_type"]
         self.frontend_engine_libs = context_dict["frontend_engine_libs"]
-        self.title_js=self.get_js_option("title", "JustPy")
-        self.redirect_js=self.get_js_option("redirect","")
-        self.display_url_js=self.get_js_option("display_url","")
-        justpy_dict_js=str(self.context_dict.get("justpy_dict","[]"))
-        self.justpy_dict_js=justpy_dict_js.replace('</' + 'script>', '</" + "script>')
+        self.title_js = self.get_js_option("title", "JustPy")
+        self.redirect_js = self.get_js_option("redirect", "")
+        self.display_url_js = self.get_js_option("display_url", "")
+        justpy_dict_js = str(self.context_dict.get("justpy_dict", "[]"))
+        self.justpy_dict_js = justpy_dict_js.replace("</" + "script>", '</" + "script>')
 
     def get_url_for(self, name: str, path: str = None):
         """
@@ -47,54 +47,58 @@ class Context:
                 path = ""
             url = request.url_for(name, path=path)
         return url
-    
-    def get_js_option(self,key,default_value):
+
+    def get_js_option(self, key, default_value):
         """
         get the page_option with the given key as javascript using the
         default value in case the value is not set or none
         """
-        js_option=self.page_options.page_options_dict.get(key,default_value)
+        js_option = self.page_options.page_options_dict.get(key, default_value)
         if js_option is None:
-            js_option=default_value
+            js_option = default_value
         return js_option
-        
-    def as_html_lines(self,indent:str="  "):
+
+    def as_html_lines(self, indent: str = "  "):
         """
-        generate the html lines for justpy to work 
+        generate the html lines for justpy to work
         """
-        html=self.as_script_src("justpy_core")
-        html+=f"""{indent}<script>
+        html = self.as_script_src("justpy_core")
+        html += f"""{indent}<script>
 {indent}  var page_id = {self.page_id_js};
 {indent}  var use_websockets = {self.use_websockets_js};
 {indent}  var justpyComponents = {self.justpy_dict_js};
 """
-        html+=self.as_javascript_constructor(indent+"  ")
-        html+=f"\n{indent}</script>\n{self.as_script_srcs(indent)}"
-        html+=f"{indent}<script>\n{self.as_javascript_setup(indent)}\n{indent}</script>\n"
+        html += self.as_javascript_constructor(indent + "  ")
+        html += f"\n{indent}</script>\n{self.as_script_srcs(indent)}"
+        html += (
+            f"{indent}<script>\n{self.as_javascript_setup(indent)}\n{indent}</script>\n"
+        )
         return html
-    
-    def as_script_src(self,file_name:str, indent:str="  ", subdir=""):
-        src= f"{indent}<script src='/templates/js/{subdir}/{file_name}.js'></script>\n"
+
+    def as_script_src(self, file_name: str, indent: str = "  ", subdir=""):
+        src = f"{indent}<script src='/templates/js/{subdir}/{file_name}.js'></script>\n"
         return src
-    
-    def as_script_srcs(self,indent:str="  "):
+
+    def as_script_srcs(self, indent: str = "  "):
         """
         generate a list of javascript files to be imported
         """
         srcs = ""
-        srcs +=self.as_script_src("event_handler", indent)
+        srcs += self.as_script_src("event_handler", indent)
         for file_name in self.frontend_engine_libs:
-            srcs +=self.as_script_src(file_name, indent, subdir=self.component_engine_type)
+            srcs += self.as_script_src(
+                file_name, indent, subdir=self.component_engine_type
+            )
         return srcs
-    
-    def as_javascript_setup(self,indent):
+
+    def as_javascript_setup(self, indent):
         """
         generate the java script setup code
         """
-        js=f"{indent}  justpy_core.setup();"
+        js = f"{indent}  justpy_core.setup();"
         return js
 
-    def as_javascript_constructor(self,indent:str="    "):
+    def as_javascript_constructor(self, indent: str = "    "):
         """
         generate my initial JavaScript
         """

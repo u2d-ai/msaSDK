@@ -2,10 +2,7 @@ import base64
 import pickle
 from abc import ABC
 
-try:
-    import orjson as json
-except ImportError:
-    import json
+import json
 
 
 class EncoderError(ValueError):
@@ -53,23 +50,35 @@ class NoOpEncoding(Encoder, ABC):
 
 
 class PickleEncoding(Encoder):
-    encoding_exceptions = (TypeError, pickle.PicklingError,)
-    decoding_exceptions = (TypeError, pickle.UnpicklingError,)
+    encoding_exceptions = (
+        TypeError,
+        pickle.PicklingError,
+    )
+    decoding_exceptions = (
+        TypeError,
+        pickle.UnpicklingError,
+    )
 
     @staticmethod
     def encoder(data):
         pickled = pickle.dumps(data, pickle.HIGHEST_PROTOCOL)
-        return base64.encodestring(pickled)
+        return base64.encodebytes(pickled)
 
     @staticmethod
     def decoder(data):
-        pickled = base64.decodestring(data)
+        pickled = base64.decodebytes(data)
         return pickle.loads(pickled)
 
 
 class JSONEncoding(Encoder):
-    encoding_exceptions = (TypeError, ValueError,)
-    decoding_exceptions = (TypeError, ValueError,)
+    encoding_exceptions = (
+        TypeError,
+        ValueError,
+    )
+    decoding_exceptions = (
+        TypeError,
+        ValueError,
+    )
 
     encoder = staticmethod(json.dumps)
     decoder = staticmethod(json.loads)

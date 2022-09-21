@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
 from typing import Optional
-from fastapi import Depends, status, HTTPException
+
+from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from datetime import datetime, timedelta
 from sqlmodel import SQLModel
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
 class MSATokenData(SQLModel):
     """TokenData schema"""
+
     id: Optional[str]
     """User ID"""
 
 
 class MSAToken:
-
     def __init__(self, secret_key: str, algorithm: str = "HS256"):
         """MSAToken
 
@@ -27,19 +28,21 @@ class MSAToken:
         super().__init__()
         self.secret_key: str = secret_key
         self.algorithm: str = algorithm
-        self.credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                                   detail="Could not validate credentials",
-                                                   headers={"WWW-Authenticate": "Bearer"})
+        self.credentials_exception = HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     async def create_token(self, data: dict, expire_minutes: int = 100) -> str:
         """Create a Token
 
-            Args:
-                data: the data and content used to build the token
-                expire_minutes: the time the token is valid, expires
+        Args:
+            data: the data and content used to build the token
+            expire_minutes: the time the token is valid, expires
 
-            Returns:
-                encoded_jwt: jwt encoded token
+        Returns:
+            encoded_jwt: jwt encoded token
         """
         to_encode = data.copy()
         # Use utcnow, not now
@@ -52,14 +55,14 @@ class MSAToken:
     async def verify_token(self, token: str) -> MSATokenData:
         """Verify Token
 
-            Args:
-                token: the token as str
+        Args:
+            token: the token as str
 
-            Raises:
-                JWTError: credentials_exception
+        Raises:
+            JWTError: credentials_exception
 
-            Returns:
-                token_data: the jwt decoded data
+        Returns:
+            token_data: the jwt decoded data
         """
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
@@ -73,7 +76,7 @@ class MSAToken:
 
         return token_data
 
-    async def get_current_user(self, token: str = Depends(oauth2_scheme)):
+    async def get_current_user(self, token: str = Depends(oauth2_scheme)) -> MSATokenData:
 
-        token = await self.verify_token(token)
-        return token
+        ret_token = await self.verify_token(token)
+        return ret_token

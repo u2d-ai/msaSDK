@@ -3,8 +3,9 @@ Created on 2022-09-02
 modified version, original from JustPy
 @author: wf (modification swelcker)
 """
-import msaSDK.jpui as jp
 import random
+
+import msaSDK.jpui as jp
 
 
 async def my_click(self, msg):

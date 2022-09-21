@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List, Optional
 
 from sqlmodel import SQLModel
 
@@ -7,6 +7,7 @@ class MSAOpenAPIInfo(SQLModel):
     """
     **MSAOpenAPIInfo** Pydantic Response Class
     """
+
     name: str = "msaSDK Service"
     """Service Name."""
     version: str = "0.0.0"

@@ -1,4 +1,4 @@
-from base import MSAConnectionStorageDict
+from .base import MSAConnectionStorageDict
 
 
 class MSARedisDict(MSAConnectionStorageDict):
@@ -20,10 +20,10 @@ class MSARedisDict(MSAConnectionStorageDict):
 
     def persist(self, key, value):
         encoded = self.encoding.encode(value)
-        self.__touch_and_multi(('hset', (self.keyspace, key, encoded)))
+        self.__touch_and_multi(("hset", (self.keyspace, key, encoded)))
 
     def depersist(self, key):
-        self.__touch_and_multi(('hdel', (self.keyspace, key)))
+        self.__touch_and_multi(("hdel", (self.keyspace, key)))
 
     def durables(self):
         encoded = self.connection.hgetall(self.keyspace)
@@ -38,16 +38,15 @@ class MSARedisDict(MSAConnectionStorageDict):
     # already exist
     def _setdefault(self, key, default=None):
         encoded = self.__touch_and_multi(
-            ('hsetnx', (self.keyspace, key, self.encoding.encode(default))),
-            ('hget', (self.keyspace, key)),
-            returns=-1
+            ("hsetnx", (self.keyspace, key, self.encoding.encode(default))),
+            ("hget", (self.keyspace, key)),
+            returns=-1,
         )
         return self.encoding.decode(encoded)
 
     def _pop(self, key, default=None):
         last_updated, encoded, key_existed = self.__touch_and_multi(
-            ('hget', (self.keyspace, key)),
-            ('hdel', (self.keyspace, key))
+            ("hget", (self.keyspace, key)), ("hdel", (self.keyspace, key))
         )
 
         if key_existed:
@@ -70,8 +69,8 @@ class MSARedisDict(MSAConnectionStorageDict):
             [getattr(pipe, function)(*a) for function, a in args]
             results = pipe.execute()
 
-            if kwargs.get('returns'):
-                return results[kwargs.get('returns')]
+            if kwargs.get("returns"):
+                return results[kwargs.get("returns")]
             else:
                 return results
 
@@ -80,4 +79,4 @@ class MSARedisDict(MSAConnectionStorageDict):
 
     @property
     def __last_update_key(self):
-        return self.keyspace + 'last_updated'
+        return self.keyspace + "last_updated"

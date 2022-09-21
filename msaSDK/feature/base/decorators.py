@@ -1,4 +1,3 @@
-
 from functools import wraps
 
 from starlette.exceptions import HTTPException
@@ -13,7 +12,6 @@ def msa_switch_active(name, redirect_to=None, default=None, msa_manager=None):
         msa_manager = MSAManager()
 
     def deco_inner(func):
-
         @wraps(func)
         def wrapper(request, *args, **kwargs):
             if msa_manager.active(name, request):
@@ -23,7 +21,9 @@ def msa_switch_active(name, redirect_to=None, default=None, msa_manager=None):
             elif default:
                 return RedirectResponse(url=redirect_to)
             else:
-                raise HTTPException(status_code=404, detail='MSASwitch %s not active' % name)
+                raise HTTPException(
+                    status_code=404, detail="MSASwitch %s not active" % name
+                )
 
         return wrapper
 

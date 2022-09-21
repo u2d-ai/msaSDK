@@ -1,22 +1,15 @@
 import os
+from typing import Any
 
 from starlette.endpoints import WebSocketEndpoint
 
-from .htmlcomponents import *
+from ..jpcore.justpy_app import JustpyAjaxEndpoint, cookie_signer, handle_event
+from ..jpcore.justpy_config import MEMORY_DEBUG, SESSION_COOKIE_NAME, SESSIONS
 from .chartcomponents import *
 from .gridcomponents import *
-from .quasarcomponents import *
-from ..jpcore.justpy_app import JustpyAjaxEndpoint, handle_event, cookie_signer
-
-from ..jpcore.justpy_config import config, AGGRID, AGGRID_ENTERPRISE, BOKEH, COOKIE_MAX_AGE, CRASH
-from ..jpcore.justpy_config import DEBUG, DECKGL, FAVICON, HIGHCHARTS, HOST, KATEX, LATENCY
-from ..jpcore.justpy_config import MEMORY_DEBUG, NO_INTERNET, PLOTLY, PORT, SECRET_KEY, SESSION_COOKIE_NAME, SESSIONS
-from ..jpcore.justpy_config import SSL_CERTFILE, SSL_KEYFILE, SSL_VERSION, STATIC_DIRECTORY, STATIC_NAME, STATIC_ROUTE
-from ..jpcore.justpy_config import QUASAR, QUASAR_VERSION, TAILWIND, VEGA
-
+from .htmlcomponents import *
 from .pandas import *
-
-import os
+from .quasarcomponents import *
 
 
 class AjaxEndpoint(JustpyAjaxEndpoint):
@@ -107,14 +100,21 @@ class JustpyEvents(WebSocketEndpoint):
             print("WebPages: ", len(WebPage.instances), WebPage.instances)
             print("Sockets: ", len(WebPage.sockets), WebPage.sockets)
             import psutil
+
             process = psutil.Process(os.getpid())
             print(f"Memory used: {process.memory_info().rss:,}")
             print("************************")
 
 
-def convert_dict_to_object(d):
+def convert_dict_to_object(d: Dict) -> Any:
     """
     convert the given dict to an object
+
+    Args:
+        d: dict
+
+    Returns:
+        obj: Any object that was represented by the input dict
     """
     obj = globals()[d["class_name"]]()
     for obj_prop in d["object_props"]:
@@ -129,12 +129,12 @@ def convert_dict_to_object(d):
 def redirect(url: str) -> WebPage:
     """
     redirect to the given url
-    
+
     Args:
-        url(str): the url to redirect to
-        
+        url: the url to redirect to
+
     Returns:
-        a WebPage with a single Div that hat the redirect
+        wp: a WebPage with a single Div that hat the redirect
     """
     wp = WebPage()
     wp.add(Div())

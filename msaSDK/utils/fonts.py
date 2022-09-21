@@ -3,11 +3,13 @@ import os
 import sys
 from typing import List
 
-from matplotlib.font_manager import get_fontext_synonyms, MSUserFontDirectories, win32InstalledFonts, \
-    X11FontDirectories, OSXFontDirectories, win32FontDirectory, get_fontconfig_fonts, list_fonts
+from matplotlib.font_manager import (MSUserFontDirectories, OSXFontDirectories,
+                                     X11FontDirectories, get_fontconfig_fonts,
+                                     get_fontext_synonyms, list_fonts,
+                                     win32FontDirectory, win32InstalledFonts)
 
 
-async def findSystemFonts(fontpaths=None, fontext='ttf') -> List[str]:
+async def findSystemFonts(fontpaths=None, fontext="ttf") -> List[str]:
     """
     Search for fonts in the specified font paths.
 
@@ -23,13 +25,13 @@ async def findSystemFonts(fontpaths=None, fontext='ttf') -> List[str]:
     fontexts = get_fontext_synonyms(fontext)
 
     if fontpaths is None:
-        if sys.platform == 'win32':
+        if sys.platform == "win32":
             fontpaths = MSUserFontDirectories + [win32FontDirectory()]
             # now get all installed fonts directly...
             fontfiles.update(win32InstalledFonts(fontext=fontext))
         else:
             fontpaths = X11FontDirectories
-            if sys.platform == 'darwin':
+            if sys.platform == "darwin":
                 fontpaths = [*X11FontDirectories, *OSXFontDirectories]
             fontfiles.update(get_fontconfig_fonts(fontext))
 

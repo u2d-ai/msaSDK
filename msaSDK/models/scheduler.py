@@ -1,12 +1,12 @@
 import datetime
-from typing import Optional, Any, Union, List
+from typing import Any, List, Optional, Union
 
 from sqlmodel import SQLModel
 
 
 class MSASchedulerRepoLogRecord(SQLModel):
-    """**MSASchedulerRepoLogRecord** Pydantic Response Class
-    """
+    """**MSASchedulerRepoLogRecord** Pydantic Response Class"""
+
     task_name: str
     action: str
     created: Optional[datetime.datetime]
@@ -31,8 +31,8 @@ class MSASchedulerRepoLogRecord(SQLModel):
 
 
 class MSASchedulerTaskDetail(SQLModel):
-    """**MSASchedulerTaskDetail** Pydantic Response Class
-    """
+    """**MSASchedulerTaskDetail** Pydantic Response Class"""
+
     permanent_task: bool
     fmt_log_message: str
     daemon: Any
@@ -65,8 +65,8 @@ class MSASchedulerTaskDetail(SQLModel):
 
 
 class MSASchedulerTaskStatus(SQLModel):
-    """**MSASchedulerTaskStatus** Pydantic Response Class
-    """
+    """**MSASchedulerTaskStatus** Pydantic Response Class"""
+
     name: Optional[str] = None
     """Task Name."""
     detail: Optional[MSASchedulerTaskDetail] = None
@@ -77,6 +77,7 @@ class MSASchedulerStatus(SQLModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
+
     name: Optional[str] = "msaSDK Service"
     """Service Name."""
     tasks: Optional[List[MSASchedulerTaskStatus]] = []
@@ -89,6 +90,7 @@ class MSASchedulerLog(SQLModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
+
     name: Optional[str] = "msaSDK Service"
     """Service Name."""
     log: Optional[List[MSASchedulerRepoLogRecord]] = []

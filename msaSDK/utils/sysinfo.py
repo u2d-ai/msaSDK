@@ -9,14 +9,17 @@ import socket
 import uuid
 from subprocess import getoutput
 from typing import Dict, List, Optional
+
 import GPUtil
 import psutil
 from sqlmodel import SQLModel
+
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 
 
 class MSAGPUInfo(SQLModel):
     """Pydantic GPU Info Model."""
+
     id: Optional[int]
     name: Optional[str]
     load: Optional[str]
@@ -30,18 +33,19 @@ class MSAGPUInfo(SQLModel):
 class MSADiskIO(SQLModel):
     """Pydantic Disk IO Info Model.
 
-        Attributes:
-            read_count: number of reads
-            write_count: number of writes
-            read_bytes: number of bytes read
-            write_bytes: number of bytes written
-            read_time: (all except NetBSD and OpenBSD) time spent reading from disk (in milliseconds)
-            write_time: (all except NetBSD and OpenBSD) time spent writing to disk (in milliseconds)
-            busy_time: (Linux, FreeBSD) time spent doing actual I/Os (in milliseconds)
-            read_merged_count (Linux): number of merged reads (see iostats doc)
-            write_merged_count (Linux): number of merged writes (see iostats doc)
+    Attributes:
+        read_count: number of reads
+        write_count: number of writes
+        read_bytes: number of bytes read
+        write_bytes: number of bytes written
+        read_time: (all except NetBSD and OpenBSD) time spent reading from disk (in milliseconds)
+        write_time: (all except NetBSD and OpenBSD) time spent writing to disk (in milliseconds)
+        busy_time: (Linux, FreeBSD) time spent doing actual I/Os (in milliseconds)
+        read_merged_count (Linux): number of merged reads (see iostats doc)
+        write_merged_count (Linux): number of merged writes (see iostats doc)
 
     """
+
     read_count: Optional[int]
     write_count: Optional[int]
     read_bytes: Optional[int]
@@ -56,16 +60,17 @@ class MSADiskIO(SQLModel):
 class MSANetworkIO(SQLModel):
     """Pydantic Network IO Info Model.
 
-        Attributes:
-            bytes_sent: number of bytes sent
-            bytes_recv: number of bytes received
-            packets_sent: number of packets sent
-            packets_recv: number of packets received
-            errin: total number of errors while receiving
-            errout: total number of errors while sending
-            dropin: total number of incoming packets which were dropped
-            dropout: total number of outgoing packets which were dropped (always 0 on macOS and BSD)
+    Attributes:
+        bytes_sent: number of bytes sent
+        bytes_recv: number of bytes received
+        packets_sent: number of packets sent
+        packets_recv: number of packets received
+        errin: total number of errors while receiving
+        errout: total number of errors while sending
+        dropin: total number of incoming packets which were dropped
+        dropout: total number of outgoing packets which were dropped (always 0 on macOS and BSD)
     """
+
     bytes_sent: Optional[int]
     bytes_recv: Optional[int]
     packets_sent: Optional[int]
@@ -78,6 +83,7 @@ class MSANetworkIO(SQLModel):
 
 class MSANetworkConnection(SQLModel):
     """Pydantic Network Connection Info Model."""
+
     index: Optional[int]
     file_descriptor: Optional[int]
     """the socket file descriptor. If the connection refers to the current process this may be passed to socket.fromfd to obtain a usable socket object. On Windows and SunOS this is always set to -1."""
@@ -96,8 +102,8 @@ class MSANetworkConnection(SQLModel):
 
 
 class MSANetworkAdapter(SQLModel):
-    """Pydantic Network Adapter Info Model.
-    """
+    """Pydantic Network Adapter Info Model."""
+
     family: Optional[int]
     """the address family, either AF_INET or AF_INET6 or psutil.AF_LINK, which refers to a MAC address."""
     address: Optional[str]
@@ -112,12 +118,14 @@ class MSANetworkAdapter(SQLModel):
 
 class MSANetworkAdapters(SQLModel):
     """Pydantic Network Adapters List Model."""
+
     name: str = ""
     adapters: List[MSANetworkAdapter] = []
 
 
 class MSANetworkStat(SQLModel):
     """Pydantic Network Stats Info Model."""
+
     isup: Optional[bool]
     """a bool indicating whether the NIC is up and running (meaning ethernet cable or Wi-Fi is connected)."""
     duplex: Optional[int]
@@ -130,12 +138,14 @@ class MSANetworkStat(SQLModel):
 
 class MSANetworkStats(SQLModel):
     """Pydantic Network Stats List Info Model."""
+
     name: str = ""
     adapters: List[MSANetworkStat] = []
 
 
 class MSATemperature(SQLModel):
     """Pydantic Temperature Info Model."""
+
     label: Optional[str]
     current: Optional[float]
     high: Optional[float]
@@ -144,12 +154,14 @@ class MSATemperature(SQLModel):
 
 class MSATemperatures(SQLModel):
     """Pydantic Temperatures List Model."""
+
     device: str = ""
     temps: List[MSATemperature] = []
 
 
 class MSACPUFrequency(SQLModel):
     """Pydantic CPU Frequency Info Model."""
+
     current: Optional[float]
     min: Optional[int]
     max: Optional[int]
@@ -157,6 +169,7 @@ class MSACPUFrequency(SQLModel):
 
 class MSACPUTimes(SQLModel):
     """Pydantic CPU Timings Info Model."""
+
     user: Optional[float]
     """time spent by normal processes executing in user mode; on Linux this also includes guest time"""
     nice: Optional[int]
@@ -181,6 +194,7 @@ class MSACPUTimes(SQLModel):
 
 class MSACPUStats(SQLModel):
     """Pydantic CPU Stats Info Model."""
+
     ctx_switches: Optional[int]
     """number of context switches (voluntary + involuntary) since boot."""
     interrupts: Optional[int]
@@ -193,6 +207,7 @@ class MSACPUStats(SQLModel):
 
 class MSAMemoryUsage(SQLModel):
     """Pydantic Memory Usage Info Model."""
+
     total: Optional[float]
     """total physical memory (exclusive swap)."""
     available: Optional[float]
@@ -215,6 +230,7 @@ class MSAMemoryUsage(SQLModel):
 
 class MSASwap(SQLModel):
     """Pydantic Swapfile Info Model."""
+
     total: Optional[float]
     used: Optional[float]
     free: Optional[float]
@@ -224,6 +240,7 @@ class MSASwap(SQLModel):
 
 class MSASystemInfo(SQLModel):
     """Pydantic System Info Model."""
+
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -266,6 +283,7 @@ class MSASystemInfo(SQLModel):
 
 class MSASystemGPUInfo(SQLModel):
     """Pydantic System GPU Info Model."""
+
     OS_Name: str = ""
     Node_Name: str = ""
     Host_Name: str = ""
@@ -290,18 +308,18 @@ class MSASystemGPUInfo(SQLModel):
 def get_hostname() -> str:
     """Get socket.gethostname()
 
-        Returns:
-            hostname: str
+    Returns:
+        hostname: str
     """
-    hostname: str = (socket.gethostname())
+    hostname: str = socket.gethostname()
     return hostname
 
 
 def get_list_partitions() -> List:
     """Get psutil.disk_partitions()
 
-        Returns:
-            partitions_list: List = []
+    Returns:
+        partitions_list: List = []
     """
     partitions_list = []
     partitions = psutil.disk_partitions()
@@ -313,8 +331,8 @@ def get_list_partitions() -> List:
 def get_gpus() -> List[MSAGPUInfo]:
     """Get GPUtil.getGPUs()
 
-        Returns:
-            list_gpus: List[MSAGPUInfo] = []
+    Returns:
+        list_gpus: List[MSAGPUInfo] = []
     """
     gpus = GPUtil.getGPUs()
     list_gpus: List[MSAGPUInfo] = []
@@ -342,8 +360,8 @@ def get_gpus() -> List[MSAGPUInfo]:
 def get_partition_usage(partitions) -> Dict:
     """Get psutil.disk_usage(partition)
 
-        Returns:
-            ret: Dict = {"partition": list, "total": list, "used": list, "free": list, "percent": list}
+    Returns:
+        ret: Dict = {"partition": list, "total": list, "used": list, "free": list, "percent": list}
     """
     lstotal = []
     lsused = []
@@ -355,20 +373,26 @@ def get_partition_usage(partitions) -> Dict:
         usage = psutil.disk_usage(partition)
         total, used, free, percent = usage
 
-        lstotal.append(total // (2 ** 30))
-        lsused.append(used // (2 ** 30))
-        lsfree.append(free // (2 ** 30))
+        lstotal.append(total // (2**30))
+        lsused.append(used // (2**30))
+        lsfree.append(free // (2**30))
         lspercent.append(percent)
 
-    ret: Dict = {"partition": lspartition, "total": lstotal, "used": lsused, "free": lsfree, "percent": lspercent}
+    ret: Dict = {
+        "partition": lspartition,
+        "total": lstotal,
+        "used": lsused,
+        "free": lsfree,
+        "percent": lspercent,
+    }
     return ret
 
 
 def get_map_disk_usage() -> Dict:
     """Get get_partition_usage(get_list_partitions())
 
-        Returns:
-            rdict: Dict
+    Returns:
+        rdict: Dict
     """
     MapUsage: Dict = get_partition_usage(get_list_partitions())
     disk = MapUsage["partition"]
@@ -383,8 +407,8 @@ def get_map_disk_usage() -> Dict:
 def get_memory_usage() -> MSAMemoryUsage:
     """Get psutil.virtual_memory()
 
-        Returns:
-            mu: MSAMemoryUsage
+    Returns:
+        mu: MSAMemoryUsage
     """
     mu: MSAMemoryUsage = MSAMemoryUsage()
     memory = psutil.virtual_memory()
@@ -404,8 +428,8 @@ def get_memory_usage() -> MSAMemoryUsage:
 def get_cpu_freq() -> MSACPUFrequency:
     """Get psutil.cpu_freq()
 
-        Returns:
-            cpf: MSACPUFrequency
+    Returns:
+        cpf: MSACPUFrequency
     """
     cpf: MSACPUFrequency = MSACPUFrequency()
     cpf.current, cpf.min, cpf.max = psutil.cpu_freq()
@@ -415,55 +439,87 @@ def get_cpu_freq() -> MSACPUFrequency:
 def get_cpu_times() -> MSACPUTimes:
     """Get psutil.cpu_times()
 
-        Returns:
-            cti: MSACPUTimes
+    Returns:
+        cti: MSACPUTimes
     """
     cti: MSACPUTimes = MSACPUTimes()
-    cti.user, cti.nice, cti.system, cti.idle, cti.iowait, cti.irq, cti.softirq, \
-    cti.steal, cti.guest, cti.guest_nice = psutil.cpu_times()
+    (
+        cti.user,
+        cti.nice,
+        cti.system,
+        cti.idle,
+        cti.iowait,
+        cti.irq,
+        cti.softirq,
+        cti.steal,
+        cti.guest,
+        cti.guest_nice,
+    ) = psutil.cpu_times()
     return cti
 
 
 def get_cpu_stats() -> MSACPUStats:
     """Get psutil.cpu_times()
 
-        Returns:
-            cst: MSACPUStats
+    Returns:
+        cst: MSACPUStats
     """
     cst: MSACPUStats = MSACPUStats()
-    cst.ctx_switches, cst.interrupts, cst.soft_interrupts, cst.syscalls = psutil.cpu_stats()
+    (
+        cst.ctx_switches,
+        cst.interrupts,
+        cst.soft_interrupts,
+        cst.syscalls,
+    ) = psutil.cpu_stats()
     return cst
 
 
 def get_disk_io() -> MSADiskIO:
     """Get psutil.disk_io_counters()
 
-        Returns:
-            dio: MSADiskIO
+    Returns:
+        dio: MSADiskIO
     """
     dio: MSADiskIO = MSADiskIO()
-    dio.read_count, dio.write_count, dio.read_bytes, dio.write_bytes, dio.read_time, dio.write_time, \
-    dio.read_merged_count, dio.write_merged_count, dio.busy_time = psutil.disk_io_counters()
+    (
+        dio.read_count,
+        dio.write_count,
+        dio.read_bytes,
+        dio.write_bytes,
+        dio.read_time,
+        dio.write_time,
+        dio.read_merged_count,
+        dio.write_merged_count,
+        dio.busy_time,
+    ) = psutil.disk_io_counters()
     return dio
 
 
 def get_network_io() -> MSANetworkIO:
     """Get psutil.net_io_counters()
 
-        Returns:
-            nio: MSANetworkIO
+    Returns:
+        nio: MSANetworkIO
     """
     nio: MSANetworkIO = MSANetworkIO()
-    nio.bytes_sent, nio.bytes_recv, nio.packets_sent, nio.packets_recv, nio.errin, \
-    nio.errout, nio.dropin, nio.dropout = psutil.net_io_counters()
+    (
+        nio.bytes_sent,
+        nio.bytes_recv,
+        nio.packets_sent,
+        nio.packets_recv,
+        nio.errin,
+        nio.errout,
+        nio.dropin,
+        nio.dropout,
+    ) = psutil.net_io_counters()
     return nio
 
 
 def get_network_adapters() -> List[MSANetworkAdapters]:
     """Get psutil.net_if_addrs()
 
-        Returns:
-            ret: List[MSANetworkAdapters] = []
+    Returns:
+        ret: List[MSANetworkAdapters] = []
     """
     ret: List[MSANetworkAdapters] = []
     la: Dict = psutil.net_if_addrs()
@@ -486,8 +542,8 @@ def get_network_adapters() -> List[MSANetworkAdapters]:
 def get_temperatures() -> List[MSATemperatures]:
     """Get psutil.sensors_temperatures()
 
-        Returns:
-            ret: List[MSATemperatures] = []
+    Returns:
+        ret: List[MSATemperatures] = []
     """
     ret: List[MSATemperatures] = []
     ta: Dict = psutil.sensors_temperatures()
@@ -508,8 +564,8 @@ def get_temperatures() -> List[MSATemperatures]:
 def get_network_stats() -> List[MSANetworkStats]:
     """Get psutil.net_if_stats()
 
-        Returns:
-            ret: List[MSANetworkStats] = []
+    Returns:
+        ret: List[MSANetworkStats] = []
     """
     ret: List[MSANetworkStats] = []
     net_stats: Dict = psutil.net_if_stats()
@@ -529,8 +585,8 @@ def get_network_stats() -> List[MSANetworkStats]:
 def get_network_connections() -> List[MSANetworkConnection]:
     """Get psutil.net_connections()
 
-        Returns:
-            rlist: List[MSANetworkConnection] = []
+    Returns:
+        rlist: List[MSANetworkConnection] = []
     """
     rlist: List[MSANetworkConnection] = []
     inlist = psutil.net_connections()
@@ -553,8 +609,8 @@ def get_network_connections() -> List[MSANetworkConnection]:
 def get_swap() -> MSASwap:
     """Get psutil.swap_memory()
 
-        Returns:
-            sw: MSASwap
+    Returns:
+        sw: MSASwap
     """
     swap = psutil.swap_memory()
     sw: MSASwap = MSASwap()
@@ -565,7 +621,7 @@ def get_swap() -> MSASwap:
     return sw
 
 
-def get_load_average() -> tuple[float, float, float]:
+def get_load_average() -> List[float]:
     """Returns the CPU load average in tuple[1min, 5min, 15min].
 
     Returns:
@@ -580,32 +636,32 @@ def get_load_average() -> tuple[float, float, float]:
 def get_cpu_usage(user: str = None, ignore_self: bool = False) -> tuple[int, int, str]:
     """Returns the total CPU usage for all available cores.
 
-        Args:
-            user: If given, returns only the total CPU usage of all processes for the given user.
-            ignore_self: If ``True`` the process that runs this script will be ignored.
+    Args:
+        user: If given, returns only the total CPU usage of all processes for the given user.
+        ignore_self: If ``True`` the process that runs this script will be ignored.
 
-        Returns:
-            total: total usage
-            largest_process: largest process usage
-            largest_process_name: name of the largest process
+    Returns:
+        total: total usage
+        largest_process: largest process usage
+        largest_process_name: name of the largest process
 
     """
     pid = os.getpid()
     cmd = "ps aux"
     output = getoutput(cmd)
-    total = 0
+    total: int = 0
     largest_process = 0
     largest_process_name = None
-    for row in output.split('\n')[1:]:
-        row = row.split()
-        if row[1] == str(pid) and ignore_self:
+    for row in output.split("\n")[1:]:
+        erow: List = row.split()
+        if erow[1] == str(pid) and ignore_self:
             continue
-        if user is None or user == row[0]:
-            cpu = decimal.Decimal(row[2])
+        if user is None or user == erow[0]:
+            cpu = decimal.Decimal(erow[2])
             if cpu > total:
                 largest_process = cpu
-                largest_process_name = ' '.join(row[10:len(row)])
-            total += decimal.Decimal(row[2])
+                largest_process_name = " ".join(erow[10 : len(erow)])
+            total += decimal.Decimal(erow[2])
     return total, largest_process, largest_process_name
 
 
@@ -625,11 +681,18 @@ def get_sysinfo() -> MSASystemInfo:
         system_info.HW_Identifier = os.uname().machine
         system_info.CPU_Physical = psutil.cpu_count(logical=False)
         system_info.CPU_Logical = os.cpu_count()
-        system_info.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
-        system_info.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
-        system_info.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-        system_info.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
-            "%Y-%m-%d %H:%M:%S")
+        system_info.Memory_Physical = (
+            str(round(psutil.virtual_memory().total / 1024000000.0, 2)) + " GB"
+        )
+        system_info.Memory_Available = (
+            str(round(psutil.virtual_memory().available / 1024000000.0, 2)) + " GB"
+        )
+        system_info.System_Boot = datetime.datetime.fromtimestamp(
+            psutil.boot_time()
+        ).strftime("%Y-%m-%d %H:%M:%S")
+        system_info.Service_Start = datetime.datetime.fromtimestamp(
+            psutil.Process().create_time()
+        ).strftime("%Y-%m-%d %H:%M:%S")
         system_info.Runtime_Exe = psutil.Process().exe()
         system_info.Runtime_Cmd = psutil.Process().cmdline()
         system_info.PID = psutil.Process().pid
@@ -642,7 +705,11 @@ def get_sysinfo() -> MSASystemInfo:
         system_info.CPU_Affinity = len(psutil.Process().cpu_affinity())
         system_info.Memory_Usage = get_memory_usage()
         system_info.CPU_LoadAvg = get_load_average()
-        system_info.CPU_Usage_Total, system_info.CPU_Usage_Process, system_info.CPU_Usage_Name = get_cpu_usage()
+        (
+            system_info.CPU_Usage_Total,
+            system_info.CPU_Usage_Process,
+            system_info.CPU_Usage_Name,
+        ) = get_cpu_usage()
         system_info.Runtime_Status = psutil.Process().status()
         system_info.Network_Adapters = get_network_adapters()
         system_info.Temperatures = get_temperatures()
@@ -650,7 +717,7 @@ def get_sysinfo() -> MSASystemInfo:
         system_info.Swap = get_swap()
         system_info.Network_Stats = get_network_stats()
         system_info.IP_Address = socket.gethostbyname(socket.gethostname())
-        system_info.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+        system_info.MAC_Address = ":".join(re.findall("..", "%012x" % uuid.getnode()))
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System Information:")
@@ -673,18 +740,27 @@ def get_sysgpuinfo() -> MSASystemGPUInfo:
         system_gpu_info.HW_Identifier = os.uname().machine
         system_gpu_info.CPU_Physical = psutil.cpu_count(logical=False)
         system_gpu_info.CPU_Logical = os.cpu_count()
-        system_gpu_info.Memory_Physical = str(round(psutil.virtual_memory().total / 1024000000., 2)) + " GB"
-        system_gpu_info.Memory_Available = str(round(psutil.virtual_memory().available / 1024000000., 2)) + " GB"
-        system_gpu_info.System_Boot = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-        system_gpu_info.Service_Start = datetime.datetime.fromtimestamp(psutil.Process().create_time()).strftime(
-            "%Y-%m-%d %H:%M:%S")
+        system_gpu_info.Memory_Physical = (
+            str(round(psutil.virtual_memory().total / 1024000000.0, 2)) + " GB"
+        )
+        system_gpu_info.Memory_Available = (
+            str(round(psutil.virtual_memory().available / 1024000000.0, 2)) + " GB"
+        )
+        system_gpu_info.System_Boot = datetime.datetime.fromtimestamp(
+            psutil.boot_time()
+        ).strftime("%Y-%m-%d %H:%M:%S")
+        system_gpu_info.Service_Start = datetime.datetime.fromtimestamp(
+            psutil.Process().create_time()
+        ).strftime("%Y-%m-%d %H:%M:%S")
         system_gpu_info.Runtime_Exe = psutil.Process().exe()
         system_gpu_info.Runtime_Cmd = psutil.Process().cmdline()
         system_gpu_info.Runtime_Status = psutil.Process().status()
         system_gpu_info.PID = psutil.Process().pid
         system_gpu_info.GPUs = get_gpus()
         system_gpu_info.IP_Address = socket.gethostbyname(socket.gethostname())
-        system_gpu_info.MAC_Address = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+        system_gpu_info.MAC_Address = ":".join(
+            re.findall("..", "%012x" % uuid.getnode())
+        )
 
     except Exception as e:
         getMSABaseExceptionHandler().handle(e, "Error: Get System GPU Information:")

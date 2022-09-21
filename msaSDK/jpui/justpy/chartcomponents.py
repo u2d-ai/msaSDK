@@ -1,10 +1,10 @@
-import hjson
-
-from .htmlcomponents import *
-from addict import Dict
 import itertools
 from urllib.parse import quote
 
+import hjson
+from addict import Dict
+
+from .htmlcomponents import *
 
 # TODO: May need to call chart.reflow() on resize
 # TODO: Handle formatter functions, for example in dataLabels and others.
@@ -459,7 +459,7 @@ s = """
 """
 
 try:
-    import pydeck as pdk
+    pass
 
     _has_pydeck = True
 except:
@@ -514,7 +514,7 @@ if _has_pydeck:
 
 
 try:
-    import altair as alt
+    pass
 
     _has_altair = True
 except:
@@ -554,7 +554,7 @@ if _has_altair:
 
 
 try:
-    import plotly
+    pass
 
     _has_plotly = True
 except:
@@ -632,7 +632,7 @@ if _has_bokeh:
 
 
 try:
-    import folium
+    pass
 
     _has_folium = True
 except:

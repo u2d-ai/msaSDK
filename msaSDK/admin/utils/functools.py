@@ -5,9 +5,7 @@ except ImportError:
 
     _NOT_FOUND = object()
 
-
     class cached_property:  # noqa: E303
-
         def __init__(self, func):
             self.func = func
             self.attrname = None
@@ -17,8 +15,8 @@ except ImportError:
         def __set_name__(self, owner, name):
             """Set the cached_property name
 
-                Raises:
-                    TypeError: Cannot assign the same cached_property to two different names
+            Raises:
+                TypeError: Cannot assign the same cached_property to two different names
             """
             if self.attrname is None:
                 self.attrname = name
@@ -31,10 +29,10 @@ except ImportError:
         def __get__(self, instance, owner=None):
             """Get the cached_property
 
-                Raises:
-                    TypeError: Cannot use cached_property instance without calling __set_name__ on it.
-                    TypeError: No '__dict__' attribute on...
-                    TypeError: The '__dict__' attribute on ... does not support item assignment for caching...
+            Raises:
+                TypeError: Cannot use cached_property instance without calling __set_name__ on it.
+                TypeError: No '__dict__' attribute on...
+                TypeError: The '__dict__' attribute on ... does not support item assignment for caching...
             """
             if instance is None:
                 return self

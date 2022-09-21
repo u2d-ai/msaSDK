@@ -7,11 +7,12 @@
 # Created Date: 23.08.2022
 # ---------------------------------------------------------------------------
 
-import jpui.justpy as justpy
-from os.path import dirname, basename, isfile, join
 import glob
+from os.path import basename, dirname, isfile, join
 
-version = '0.1.6'
+import msaSDK.jpui.justpy as justpy
+
+version = "0.1.6"
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"
@@ -23,6 +24,8 @@ __url__ = "https://github.com/swelcker/msaSDK"
 
 
 modules = glob.glob(join(dirname(__file__), "*.py"))
-__all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
+__all__ = [
+    basename(f)[:-3] for f in modules if isfile(f) and not f.endswith("__init__.py")
+]
 
 # __all__ += ['justpy']

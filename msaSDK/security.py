@@ -3,14 +3,19 @@
 import os
 from functools import lru_cache
 
-from fastapi_users.authentication import JWTStrategy, BearerTransport, CookieTransport, AuthenticationBackend
+from fastapi_users.authentication import (AuthenticationBackend,
+                                          BearerTransport, CookieTransport,
+                                          JWTStrategy)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
 
 
 def getSecretKey():
-    ret_key: str = os.getenv("SECRET_KEY_SECURITY", "documentunderstandingaiservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
+    ret_key: str = os.getenv(
+        "SECRET_KEY_SECURITY",
+        "documentunderstandingaiservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%",
+    )
     return ret_key
 
 
@@ -19,7 +24,6 @@ def get_jwt_strategy() -> JWTStrategy:
 
 
 class MSASecurity:
-
     def __init__(self) -> None:
         super().__init__()
         self.auth_backends = []
@@ -49,13 +53,3 @@ def getMSASecurity() -> MSASecurity:
         Caching is used to prevent re-reading the environment every time the MSASecurity is used.
     """
     return MSASecurity()
-
-
-
-
-
-
-
-
-
-

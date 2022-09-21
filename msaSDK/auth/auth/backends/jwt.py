@@ -1,19 +1,18 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
 from typing import Optional, Union
 
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 
 from ..backends.base import BaseTokenStore, _TokenDataSchemaT
 
 
 class JwtTokenStore(BaseTokenStore):
-
     def __init__(
-            self,
-            secret_key: str,
-            algorithm: str = "HS256",
-            expire_seconds: Optional[int] = 60 * 60 * 24 * 3,
-            TokenDataSchema: _TokenDataSchemaT = None
+        self,
+        secret_key: str,
+        algorithm: str = "HS256",
+        expire_seconds: Optional[int] = 60 * 60 * 24 * 3,
+        TokenDataSchema: _TokenDataSchemaT = None,
     ):
         super().__init__(expire_seconds, TokenDataSchema)
         self.secret_key = secret_key
@@ -27,7 +26,11 @@ class JwtTokenStore(BaseTokenStore):
             return None
 
     async def write_token(self, token_data: Union[_TokenDataSchemaT, dict]) -> str:
-        obj = self.TokenDataSchema.parse_obj(token_data) if isinstance(token_data, dict) else token_data
+        obj = (
+            self.TokenDataSchema.parse_obj(token_data)
+            if isinstance(token_data, dict)
+            else token_data
+        )
         data = obj.dict()
         expire = datetime.utcnow() + timedelta(seconds=self.expire_seconds)
         data.update({"exp": expire})

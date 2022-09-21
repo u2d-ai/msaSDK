@@ -4,14 +4,12 @@
 """
 from typing import Optional
 
-
 from sqlmodel import SQLModel
 
 
 class MSAHealthDefinition(SQLModel):
-    """ Health Service Definition
+    """Health Service Definition"""
 
-    """
     path: str = "/healthcheck"
     """ Path in URL for the API"""
     interval: Optional[int] = 60
@@ -21,7 +19,8 @@ class MSAHealthDefinition(SQLModel):
 
 
 class MSAHealthMessage(SQLModel):
-    """ Health Pydantic Response Service Message """
+    """Health Pydantic Response Service Message"""
+
     healthy: bool = False
     message: Optional[str]
     error: Optional[str]

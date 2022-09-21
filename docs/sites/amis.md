@@ -1,4 +1,4 @@
-# amis
+# amis v1.10.1
 
 amis is a low-code front-end framework that uses JSON configuration to generate pages, which can reduce page development efforts and greatly improve efficiency.
 

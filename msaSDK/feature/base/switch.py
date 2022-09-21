@@ -2,7 +2,8 @@ from functools import partial
 
 from msaSDK.feature.base import signal
 from msaSDK.feature.base.condition import MSAConditionsDict, all_false_if_empty
-from msaSDK.feature.base.settings import MSAFeatureSettings, get_msa_feature_settings
+from msaSDK.feature.base.settings import get_msa_feature_settings
+from msaSDK.feature.base.signal import switch_checked, switch_active
 
 
 class MSASwitch(object):
@@ -31,16 +32,16 @@ class MSASwitch(object):
         PERMANENT = 3
 
     def __init__(
-            self,
-            name,
-            state=states.DISABLED,
-            interlinked=False,
-            concent=True,
-            manager=None,
-            label=None,
-            description=None,
-            settings: MSAFeatureSettings = get_msa_feature_settings(),
-            **kwargs
+        self,
+        name,
+        state=states.DISABLED,
+        interlinked=False,
+        parent=None,
+        concent=True,
+        manager=None,
+        label=None,
+        description=None,
+        **kwargs
     ):
         self.__init_vars = None
         self._name = str(name)
@@ -49,9 +50,10 @@ class MSASwitch(object):
         self.state = state
         self.conditions = []
         self.interlinked = interlinked
+        self.parent = parent
         self.concent = concent
+        self.children = []
         self.manager = manager
-        self.settings = settings
         self.reset()
 
     @property
@@ -60,7 +62,9 @@ class MSASwitch(object):
 
     @property
     def parent(self):
-        separator = getattr(self.manager, 'key_separator', self.settings.hirachy_seperator)
+        separator = getattr(
+            self.manager, "key_separator", ":"
+        )
         parent = self.name.rsplit(separator, 1)[0]
         return parent if parent != self.name else None
 
@@ -69,55 +73,36 @@ class MSASwitch(object):
 
     def __repr__(self):
         kwargs = dict(
-            state=self.state,
-            interlinked=self.interlinked,
-            concent=self.concent
+            state=self.state, interlinked=self.interlinked, concent=self.concent
         )
         parts = ["%s=%s" % (k, v) for k, v in kwargs.items()]
         return '<MSASwitch("%s") conditions=%s, %s>' % (
             self.name,
             len(self.conditions),
-            ', '.join(parts)
+            ", ".join(parts),
         )
 
     def __eq__(self, other):
         return (
-                self.name == other.name and
-                self.state is other.state and
-                self.interlinked is other.interlinked and
-                self.concent is other.concent
+            self.name == other.name
+            and self.state is other.state
+            and self.interlinked is other.interlinked
+            and self.concent is other.concent
         )
-
-    def __getstate__(self):
-        inner_dict = vars(self).copy()
-        inner_dict.pop('manager', False)
-        return inner_dict
-
-    def __setstate__(self, state):
-        # remove parent from the state, this is now a calculated field
-        for attr in (
-                'parent',
-                'children',
-        ):
-            state.pop(attr, '')
-
-        self.__dict__ = state
-        if not hasattr(self, 'manager'):
-            setattr(self, 'manager', None)
 
     def enabled_for(self, inpt):
         """
-        Checks if this MSASwitch is enabled for the provided input.
-        If ``interlinked``, all switch conditions must be ``True`` to enable the MSASwitch.
-        Otherwise, *any* condition needs to be ``True`` to enable the MSASwitch.
-        The MSASwitch state is then checked to see if it is ``PERMANENT`` or
-        ``DISABLED``.  If it is not, then the switch is ``CONDITIONAL`` and each
+        Checks to see if this switch is enabled for the provided input.
+        If ``compounded``, all switch conditions must be ``True`` for the swtich
+        to be enabled.  Otherwise, *any* condition needs to be ``True`` for the
+        switch to be enabled.
+        The switch state is then checked to see if it is ``GLOBAL`` or
+        ``DISABLED``.  If it is not, then the switch is ``SELECTIVE`` and each
         condition is checked.
-        Keyword Mappings:
+        Keyword Arguments:
         inpt -- An instance of the ``Input`` class.
         """
-
-        signal.switch_checked.call(self)
+        switch_checked.call(self)
         signal_decorated = partial(self.__signal_and_return, inpt)
 
         if self.state is self.states.PERMANENT:
@@ -125,32 +110,13 @@ class MSASwitch(object):
         elif self.state is self.states.DISABLED:
             return signal_decorated(False)
 
-        conditions_dict = MSAConditionsDict.from_conditions_list(self.conditions)
-        conditions = conditions_dict.get_by_input(inpt)
-
-        if conditions:
-            result = self.__enabled_func(
-                cond.call(inpt)
-                for cond
-                in conditions
-                if cond.mapping(inpt).applies
-            )
-        else:
-            result = None
-
+        result = self.__enabled_func(cond.call(inpt) for cond in self.conditions)
         return signal_decorated(result)
-
-    def enabled_for_all(self, *inpts):
-        foo = filter(
-            lambda x: x is not None,
-            (self.enabled_for(inpt) for inpt in inpts)
-        )
-        return self.__enabled_func(foo)
 
     def save(self):
         """
         Saves this switch in its manager (if present).
-        Equivalent to ``self.manager.update(self)``.  If no ``manager`` is set
+        Equivilant to ``self.manager.update(self)``.  If no ``manager`` is set
         for the switch, this method is a no-op.
         """
         if self.manager:
@@ -159,8 +125,8 @@ class MSASwitch(object):
     @property
     def changes(self):
         """
-        A dictionary of changes to the switch since last saved.
-        MSASwitch changes are a dict in the following format::
+        A dicitonary of changes to the switch since last saved.
+        Switch changes are a dict in the following format::
             {
                 'property_name': {'previous': value, 'current': value}
             }
@@ -182,7 +148,7 @@ class MSASwitch(object):
     def reset(self):
         """
         Resets switch change tracking.
-        No switch properties are altered, only the tracking of what has changed
+        No switch properties are alterted, only the tracking of what has changed
         is reset.
         """
         self.__init_vars = vars(self).copy()
@@ -196,7 +162,7 @@ class MSASwitch(object):
     @property
     def __enabled_func(self):
         if self.interlinked:
-            return all_false_if_empty
+            return all
         else:
             return any
 
@@ -209,6 +175,10 @@ class MSASwitch(object):
 
     def __signal_and_return(self, inpt, is_enabled):
         if is_enabled:
-            signal.switch_active.call(self, inpt)
+            switch_active.call(self, inpt)
 
         return is_enabled
+
+    @parent.setter
+    def parent(self, value):
+        self._parent = value

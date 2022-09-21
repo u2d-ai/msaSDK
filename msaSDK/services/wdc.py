@@ -6,12 +6,13 @@ from typing import Dict, List
 
 import pandas as pd
 
-from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 from msaSDK.models.sdu import SDUPage, SDUSentence
-from msaSDK.models.wdc import WDCDocument, WDCSentence, WDCPage, WDCParagraph, WDCSpan, WDCPosition, WDCToken, \
-    WDCWord, WDCTriple, WDCMLDocument
+from msaSDK.models.wdc import (WDCDocument, WDCMLDocument, WDCPage,
+                               WDCParagraph, WDCPosition, WDCSentence, WDCSpan,
+                               WDCToken, WDCTriple, WDCWord)
+from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
 
 
@@ -35,8 +36,13 @@ async def getResultDependencies(doc: WDCDocument):
         for para in page.paragraphs:
             for seno in para.sentences:
                 deps: List = [dep for dep in seno.dependencies]
-                res: Dict = {"pageid": page.id, "paraid": para.id, "senid": seno.id, "sentence": seno.text,
-                             "deps": deps}
+                res: Dict = {
+                    "pageid": page.id,
+                    "paraid": para.id,
+                    "senid": seno.id,
+                    "sentence": seno.text,
+                    "deps": deps,
+                }
                 ret.append(res)
     return ret
 
@@ -111,12 +117,22 @@ async def getResultPages(doc: WDCDocument):
     ret = []
     pages = doc.pages
     for pageo in pages:
-        ret.append({"id": pageo.id, "nparagraphs": pageo.nparagraphs, "content": pageo.content})
+        ret.append(
+            {"id": pageo.id, "nparagraphs": pageo.nparagraphs, "content": pageo.content}
+        )
     return ret
 
 
-async def createEntityOnly(text: str, type: str, start: int, end: int, pageid: int = -1, paraid: int = -1,
-                           senid: int = -1, misc=None):
+async def createEntityOnly(
+    text: str,
+    type: str,
+    start: int,
+    end: int,
+    pageid: int = -1,
+    paraid: int = -1,
+    senid: int = -1,
+    misc=None,
+):
     if misc is None:
         misc = {}
     if len(text) < 1:
@@ -142,7 +158,9 @@ async def createEntityOnly(text: str, type: str, start: int, end: int, pageid: i
     return nent
 
 
-async def createEntitySimple(paragraph: WDCParagraph, text, type, start, end, misc, x, senx):
+async def createEntitySimple(
+    paragraph: WDCParagraph, text, type, start, end, misc, x, senx
+):
     if len(text) < 1:
         return None
     nent = WDCSpan()
@@ -166,9 +184,15 @@ async def createEntitySimple(paragraph: WDCParagraph, text, type, start, end, mi
     return nent
 
 
-async def createEntity(paragraph: WDCParagraph, ent,
-                       optionCountry: bool, optionOrg: bool, optionDensity: bool,
-                       optionNatural: bool, langcode: str):
+async def createEntity(
+    paragraph: WDCParagraph,
+    ent,
+    optionCountry: bool,
+    optionOrg: bool,
+    optionDensity: bool,
+    optionNatural: bool,
+    langcode: str,
+):
     if not paragraph and not ent:
         return None
 
@@ -187,7 +211,12 @@ async def createEntity(paragraph: WDCParagraph, ent,
         nent.ntokens = len(ent.tokens)
 
         for ti, tok in enumerate(ent.tokens):
-            ntok = await createToken(tok, optionDensity=optionDensity, optionNatural=optionNatural, langcode=langcode)
+            ntok = await createToken(
+                tok,
+                optionDensity=optionDensity,
+                optionNatural=optionNatural,
+                langcode=langcode,
+            )
             ntok.position.senid = ent.sent.index
             ntok.position.paraid = paragraph.id
             ntok.position.pageid = paragraph.position.pageid
@@ -203,8 +232,7 @@ async def createEntity(paragraph: WDCParagraph, ent,
     return nent
 
 
-async def createToken(tok, optionDensity: bool,
-                      optionNatural: bool, langcode: str):
+async def createToken(tok, optionDensity: bool, optionNatural: bool, langcode: str):
     if not tok:
         return None
 
@@ -250,56 +278,56 @@ async def createWord(wrd):
 
 
 async def getCompleteRoleFromDep(dep) -> str:
-    if dep == 'nsubj':
-        return 'agent'
-    if dep == 'iobj':
-        return 'recipient'
-    if dep == 'dobj':
-        return 'undergoer'
-    if dep == 'mod':
-        return 'oblique'
-    if dep == 'nmod':
-        return 'oblique'
-    if dep == 'nmod_prep':
-        return 'oblique'
-    if dep == 'nsubjpass':
-        return 'undergoer'
-    if dep == 'advcl':
-        return 'oblique'
-    if dep == 'nmod:agent':
-        return 'agent'
-    if dep == 'ccomp':
-        return 'eventuality'
-    if dep == 'xcomp':
-        return 'eventuality'
-    if dep == 'acl_prep':
-        return 'eventuality'
-    if dep == 'advcl_prep':
-        return 'eventuality'
-    if dep == 'advcl':
-        return 'eventuality'
-    if dep == 'acl':
-        return 'eventuality'
-    if dep == 'acl_prep':
-        return 'eventuality'
-    if dep == 'parataxis':
-        return 'eventuality'
-    if dep == 'tmod':
-        return 'oblique'
-    if dep == 'nmod:tmod':
-        return 'oblique'
-    if dep == 'agent':
-        return 'agent'
-    if dep == 'vmod':
-        return 'undergoer'
-    if dep == 'nsubj':
-        return 'not(undergoer),not(recipient),not(oblique)'
-    if dep == 'iobj':
-        return 'not(undergoer),not(agent),not(oblique)'
-    if dep == 'dobj':
-        return 'not(agent),not(recipient),not(oblique)'
-    if dep == 'nmod_prep':
-        return 'not(undergoer),not(recipient),not(agent)'
+    if dep == "nsubj":
+        return "agent"
+    if dep == "iobj":
+        return "recipient"
+    if dep == "dobj":
+        return "undergoer"
+    if dep == "mod":
+        return "oblique"
+    if dep == "nmod":
+        return "oblique"
+    if dep == "nmod_prep":
+        return "oblique"
+    if dep == "nsubjpass":
+        return "undergoer"
+    if dep == "advcl":
+        return "oblique"
+    if dep == "nmod:agent":
+        return "agent"
+    if dep == "ccomp":
+        return "eventuality"
+    if dep == "xcomp":
+        return "eventuality"
+    if dep == "acl_prep":
+        return "eventuality"
+    if dep == "advcl_prep":
+        return "eventuality"
+    if dep == "advcl":
+        return "eventuality"
+    if dep == "acl":
+        return "eventuality"
+    if dep == "acl_prep":
+        return "eventuality"
+    if dep == "parataxis":
+        return "eventuality"
+    if dep == "tmod":
+        return "oblique"
+    if dep == "nmod:tmod":
+        return "oblique"
+    if dep == "agent":
+        return "agent"
+    if dep == "vmod":
+        return "undergoer"
+    if dep == "nsubj":
+        return "not(undergoer),not(recipient),not(oblique)"
+    if dep == "iobj":
+        return "not(undergoer),not(agent),not(oblique)"
+    if dep == "dobj":
+        return "not(agent),not(recipient),not(oblique)"
+    if dep == "nmod_prep":
+        return "not(undergoer),not(recipient),not(agent)"
     return ""
 
 
@@ -339,9 +367,12 @@ async def createNewDoc(inputText: str, langcode: str = "en"):
     return newdoc
 
 
-async def createNewMLDoc(data: dict, langcode: str = "en",
-                         optionTargetFields: str = "IMPULSKATEGORIE, IMPULSART",
-                         optionTrainFields: str = "SACHVERHALT"):
+async def createNewMLDoc(
+    data: dict,
+    langcode: str = "en",
+    optionTargetFields: str = "IMPULSKATEGORIE, IMPULSART",
+    optionTrainFields: str = "SACHVERHALT",
+):
     newdoc = WDCMLDocument()
     sheet_value: str
     sheet_key: str
@@ -372,8 +403,9 @@ async def createNewMLDoc(data: dict, langcode: str = "en",
     return newdoc
 
 
-async def createNewParagraphs(page: WDCPage, sdu_page: SDUPage,
-                              parmove: int, optionSentiment: bool, langcode: str):
+async def createNewParagraphs(
+    page: WDCPage, sdu_page: SDUPage, parmove: int, optionSentiment: bool, langcode: str
+):
     try:
 
         for xp, parT in enumerate(sdu_page.text.paragraphs):

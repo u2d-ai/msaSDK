@@ -14,19 +14,24 @@ import traceback
 import typing
 import uuid
 
+from fastapi import FastAPI
 from itsdangerous import Signer
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
+from starlette.requests import Request
+from starlette.responses import (HTMLResponse, JSONResponse, PlainTextResponse,
+                                 Response)
 from starlette.routing import Route
 from starlette.templating import Jinja2Templates
 
 from ..jpcore.component import Component
-from ..jpcore.justpy_config import DECKGL, FAVICON, HIGHCHARTS, KATEX, LATENCY
-from ..jpcore.justpy_config import FRONTEND_ENGINE_TYPE
-from ..jpcore.justpy_config import NO_INTERNET, PLOTLY, SECRET_KEY, SESSION_COOKIE_NAME, SESSIONS
-from ..jpcore.justpy_config import QUASAR, QUASAR_VERSION, TAILWIND, VEGA
-from ..jpcore.justpy_config import STATIC_DIRECTORY, STATIC_NAME
-from ..jpcore.justpy_config import config, AGGRID, AGGRID_ENTERPRISE, BOKEH, COOKIE_MAX_AGE, CRASH
+from ..jpcore.justpy_config import (AGGRID, AGGRID_ENTERPRISE, BOKEH,
+                                    COOKIE_MAX_AGE, CRASH, DECKGL, FAVICON,
+                                    FRONTEND_ENGINE_TYPE, HIGHCHARTS, KATEX,
+                                    LATENCY, NO_INTERNET, PLOTLY, QUASAR,
+                                    QUASAR_VERSION, SECRET_KEY,
+                                    SESSION_COOKIE_NAME, SESSIONS,
+                                    STATIC_DIRECTORY, STATIC_NAME, TAILWIND,
+                                    VEGA, config)
 from ..jpcore.template import Context
 from ..jpcore.webpage import WebPage
 
@@ -49,14 +54,11 @@ template_dir = f"{grand_parent}/justpy/templates"
 
 lib_dir = os.path.join(template_dir, "js", FRONTEND_ENGINE_TYPE)
 # remove .js extension
-FRONTEND_ENGINE_LIBS = [fn[:-3]
-                        for fn in os.listdir(lib_dir)
-                        if fnmatch.fnmatch(fn, "*.js")
-                        ]
+FRONTEND_ENGINE_LIBS = [
+    fn[:-3] for fn in os.listdir(lib_dir) if fnmatch.fnmatch(fn, "*.js")
+]
 
-TEMPLATES_DIRECTORY = config(
-    "TEMPLATES_DIRECTORY", cast=str, default=template_dir
-)
+TEMPLATES_DIRECTORY = config("TEMPLATES_DIRECTORY", cast=str, default=template_dir)
 
 templates = Jinja2Templates(directory=TEMPLATES_DIRECTORY)
 
@@ -128,7 +130,6 @@ async def handle_event(data_dict, com_type=0, page_event=False):
             sys.exit(1)
         event_result = None
 
-
     # If page is not to be updated, the event_function should return anything but None
     if event_result is None:
         if com_type == 0:  # WebSockets communication
@@ -163,6 +164,12 @@ class JustpyApp:
 
     """
 
+    app = None
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.app = self
+
     def route_as_text(self, route):
         """
         get a string representation of the given route
@@ -175,25 +182,25 @@ class JustpyApp:
     def add_jproute(self, path: str, wpfunc: typing.Callable, name: str = None):
         """
         add a route for the given Webpage returning func
-        
+
         Args:
-            path(str): the path to use as route
-            wpfunc(typing.Callable): a Webpage returning func
-            name(str): the name of the route
+            path: the path to use as route
+            wpfunc: a Webpage returning func
+            name: the name of the route
         """
         endpoint = self.response(wpfunc)
         if name is None:
             name = wpfunc.__name__
         self.router.add_route(path, endpoint, name=name, include_in_schema=False)
 
-    def jproute(self,
-                path: str,
-                name: typing.Optional[str] = None) -> typing.Callable:  # pragma: nocover
-        """ 
+    def jproute(
+        self, path: str, name: typing.Optional[str] = None
+    ) -> typing.Callable:  # pragma: nocover
+        """
         justpy route decorator
-        
+
         function will we "wrapped" as a response and a route added
-        
+
         Args:
             func(typing.Callable): the function to convert to a reponse
         """
@@ -201,13 +208,13 @@ class JustpyApp:
         def routeResponse(func: typing.Callable) -> typing.Callable:
             """
             decorator for the given func
-            
+
             Args:
-                func(typing.Callable)
-                
+                func: the callable func
+
             Returns:
-                Callable: an endpoint that has been routed
-            
+                endpoint: an endpoint that has been routed
+
             """
             endpoint = self.response(func)
             self.router.add_route(
@@ -224,36 +231,36 @@ class JustpyApp:
     def response(self, func: typing.Callable):
         """
         response decorator converts a function to a response
-        
+
         see also https://github.com/justpy-org/justpy/issues/532
         castAsEndPoint
-        
+
         Args:
-            func(typing.Callable): the function (returning a WebPage) to convert to a response
+            func: the function (returning a WebPage) to convert to a response
         """
 
         async def funcResponse(request) -> HTMLResponse:
             """
             decorator function to apply the function to the request and
             return it as a response
-            
+
             Args:
-                request(Request): the request to apply the function to
-                
+                request: the request to apply the function to
+
             Returns:
-                Response: a HTMLResponse applying the justpy infrastructure
-            
+                response: a HTMLResponse applying the justpy infrastructure
+
             """
             new_cookie = self.handle_session_cookie(request)
             wp = await self.get_page_for_func(request, func)
-            response = self.get_response_for_load_page(request, wp)
-            response = self.set_cookie(request, response, wp, new_cookie)
+            htmlresponse = self.get_response_for_load_page(request, wp)
+            htmlresponse = self.set_cookie(request, htmlresponse, wp, new_cookie)
             if LATENCY:
                 await asyncio.sleep(LATENCY / 1000)
-            return response
+            return htmlresponse
 
         # return the decorated function, thus allowing access to the func
-        # parameter in the funcResponse later when applied 
+        # parameter in the funcResponse later when applied
         return funcResponse
 
     async def get_page_for_func(self, request, func: typing.Callable) -> WebPage:
@@ -263,7 +270,7 @@ class JustpyApp:
         Args:
             request: the request to pass to the given function
             func: the function
-            
+
         Returns:
             WebPage: the Webpage returned by the given function
         """
@@ -271,7 +278,9 @@ class JustpyApp:
         # in scope here (anymore) anyways
         func_to_run = func
         func_parameters = len(inspect.signature(func_to_run).parameters)
-        assert (func_parameters < 2), f"Function {func_to_run.__name__} cannot have more than one parameter"
+        assert (
+            func_parameters < 2
+        ), f"Function {func_to_run.__name__} cannot have more than one parameter"
         if inspect.iscoroutinefunction(func_to_run):
             if func_parameters == 1:
                 load_page = await func_to_run(request)
@@ -284,17 +293,18 @@ class JustpyApp:
                 load_page = func_to_run()
         return load_page
 
-    def get_response_for_load_page(self, request, load_page):
+    def get_response_for_load_page(
+        self, request: Request, load_page: WebPage
+    ) -> HTMLResponse:
         """
         get the response for the given webpage
-        
+
         Args:
-            request(Request): the request to handle
-            load_page(WebPage): the webpage to wrap with justpy and  
-            return as a full HtmlResponse
-        
+            request: the request to handle
+            load_page(WebPage): the webpage to wrap with justpy and
+
         Returns:
-            Reponse: the response for the given load_page
+            response: the response for the given load_page
         """
         page_type = type(load_page)
         assert issubclass(
@@ -333,7 +343,7 @@ class JustpyApp:
             "page_options": page_options,
             "html": load_page.html,
             "frontend_engine_type": FRONTEND_ENGINE_TYPE,
-            "frontend_engine_libs": FRONTEND_ENGINE_LIBS
+            "frontend_engine_libs": FRONTEND_ENGINE_LIBS,
         }
         # wrap the context in a context object to make it available
         context_obj = Context(context)
@@ -341,10 +351,10 @@ class JustpyApp:
         response = templates.TemplateResponse(load_page.template_file, context)
         return response
 
-    def handle_session_cookie(self, request) -> typing.Union[bool, Response]:
+    def handle_session_cookie(self, request: Request) -> typing.Union[bool, Response]:
         """
         handle the session cookie for this request
-        
+
         Returns:
             True if a new cookie and session has been created
         """
@@ -368,15 +378,24 @@ class JustpyApp:
 
         return new_cookie
 
-    def set_cookie(self, request, response, load_page, new_cookie: typing.Union[bool, Response]):
+    def set_cookie(
+        self,
+        request: Request,
+        response: Response,
+        load_page: WebPage,
+        new_cookie: typing.Union[bool, Response],
+    ) -> Response:
         """
         set the cookie_value
-        
+
         Args:
-            request: the request 
+            request: the request
             response: the response to be sent
-            load_page(WebPage): the WebPage to handle
-            new_cookie(bool|Response): True if there is a new cookie. Or Response if cookie was invalid
+            load_page: the WebPage to handle
+            new_cookie: True if there is a new cookie. Or Response if cookie was invalid
+
+        Returns:
+            response: the response object
         """
         if isinstance(new_cookie, Response):
             return new_cookie
@@ -397,17 +416,17 @@ class JustpyAjaxEndpoint(HTTPEndpoint):
     """
 
     def __init__(self, scope, receive, send):
-        """ 
+        """
         constructor
         """
         HTTPEndpoint.__init__(self, scope, receive, send)
 
-    async def post(self, request):
+    async def post(self, request: Request):
         """
         Handles post method. Used in Ajax mode for events when websockets disabled
-        
+
         Args:
-            request(Request): the request to handle
+            request: the request to handle
         """
         data_dict = await request.json()
         # {'type': 'event', 'event_data': {'event_type': 'beforeunload', 'page_id': 0}}

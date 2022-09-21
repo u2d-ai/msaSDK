@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-from typing import List, Dict
 import asyncio
+from datetime import datetime
 from functools import lru_cache
+from typing import Dict, List
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
 
 
-class MSAUserProgress():
-
+class MSAUserProgress:
     def __init__(self) -> None:
         super().__init__()
 
         self.user_progress = {}
 
-    async def addToProgress(self, event: str, message: Dict):  # user: str, progressPercent: int, progressMessage: str = ""
+    async def addToProgress(
+        self, event: str, message: Dict
+    ):  # user: str, progressPercent: int, progressMessage: str = ""
         data: Dict = message
         print(str(datetime.utcnow()), "addToProgress", data)
         if event and event.__eq__("user.progress"):
@@ -37,8 +38,10 @@ class MSAUserProgress():
                         msgs: List = self.user_progress[user]
                         msgs.append({"data": progressPercent, "msg": msg})
                     else:
-                        self.user_progress[user] = [{"data": progressPercent, "msg": msg}]
-                    #print(user, msg, str(progressPercent))
+                        self.user_progress[user] = [
+                            {"data": progressPercent, "msg": msg}
+                        ]
+                    # print(user, msg, str(progressPercent))
                     await asyncio.sleep(0.1)
 
     def resetProgress(self, event: str, message: Dict):  # user: str

@@ -1,13 +1,13 @@
-from base import MSAStorageDict
-from encoding import NoOpEncoding
+from .base import MSAStorageDict
+from .encoding import NoOpEncoding
 
 
 class MSAMemoryDict(MSAStorageDict):
 
-    '''
+    """
     Does not actually persist any data to a persistant storage.  Instead, keeps
     everything in memory.  This is really only useful for use in tests
-    '''
+    """
 
     def __init__(self, autosync=True, encoding=NoOpEncoding, *args, **kwargs):
         self.__storage = dict()

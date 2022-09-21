@@ -1,7 +1,8 @@
 import threading
 
+from msaSDK import signals
 from msaSDK.feature.base import signal
-from msaSDK.feature.base.settings import MSAFeatureSettings, get_msa_feature_settings
+from msaSDK.feature.base.signal import switch_unregistered, switch_updated
 from msaSDK.feature.base.switch import MSASwitch
 
 
@@ -21,7 +22,7 @@ class MSAManager(threading.local):
             self,
             switch_class=MSASwitch,
             namespace=None,
-            settings: MSAFeatureSettings = get_msa_feature_settings(),
+            settings=None,
     ):
         self.settings = settings
         self.key_separator = self.settings.hirachy_seperator
@@ -33,7 +34,7 @@ class MSAManager(threading.local):
 
         if self.storage is None:
             # todo: make a better check
-            raise TypeError('storage must be a dict like value')
+            raise TypeError("storage must be a dict like value")
 
         if self.inputs is None:
             self.inputs = []
@@ -48,8 +49,8 @@ class MSAManager(threading.local):
 
     def __getstate__(self):
         inner_dict = vars(self).copy()
-        inner_dict.pop('inputs', False)
-        inner_dict.pop('storage', False)
+        inner_dict.pop("inputs", False)
+        inner_dict.pop("storage", False)
         return inner_dict
 
     def __getitem__(self, key):
@@ -67,7 +68,8 @@ class MSAManager(threading.local):
         List of all switches currently registered.
         """
         results = [
-            switch for name, switch in self.storage.iteritems()
+            switch
+            for name, switch in self.storage.iteritems()
             if name.startswith(self.__joined_namespace)
         ]
 
@@ -85,7 +87,9 @@ class MSAManager(threading.local):
             switch = self.storage[self.__namespaced(name)]
         except KeyError:
             if not self.autocreate:
-                raise ValueError("No switch named '%s' registered in '%s'" % (name, self.namespace))
+                raise ValueError(
+                    "No switch named '%s' registered in '%s'" % (name, self.namespace)
+                )
 
             switch = self.__create_and_register_disabled_switch(name)
 
@@ -93,34 +97,34 @@ class MSAManager(threading.local):
         return switch
 
     def get_children(self, parent):
-        namespaced_parent = self.__namespaced(parent) + ':'
+        namespaced_parent = self.__namespaced(parent) + ":"
         return [
             self.__denamespaced(child)
-            for child
-            in self.storage.keys()
+            for child in self.storage.keys()
             if child.startswith(namespaced_parent)
         ]
 
     def register(self, switch, signal=signal.switch_registered):
-        '''
+        """
         Register a switch and persist it to the storage.
-        '''
+        """
         if not switch.name:
-            raise ValueError('MSASwitch name cannot be blank')
+            raise ValueError("MSASwitch name cannot be blank")
 
-        switch.manager = self
+        switch.manager = None  # Prevents having to serialize the manager
+        self.__sync_parental_relationships(switch)
         self.__persist(switch)
-
+        switch.manager = self
         signal.call(switch)
 
     def unregister(self, switch_or_name):
-        switch = getattr(switch_or_name, 'name', switch_or_name)
+        name = getattr(switch_or_name, 'name', switch_or_name)
+        switch = self.switch(name)
 
-        map(self.unregister, self.get_children(switch))
+        map(self.unregister, switch.children)
 
-        if switch in self:
-            signal.switch_unregistered.call(self.switch(switch))
-            del self.storage[self.__namespaced(switch)]
+        del self.storage[self.__namespaced(name)]
+        switch_unregistered.call(switch)
 
     def input(self, *inputs):
         self.inputs = list(inputs)
@@ -131,7 +135,7 @@ class MSAManager(threading.local):
     def active(self, name, *inputs, **kwargs):
         switch = self.switch(name)
 
-        if not kwargs.get('exclusive', False):
+        if not kwargs.get("exclusive", False):
             inputs = tuple(self.inputs) + inputs
 
         # Also check the switches against "NONE" input. This ensures there will
@@ -143,19 +147,31 @@ class MSAManager(threading.local):
         # false if the switch is consenting and the parent is not enabled for
         # ``inputs``.
 
-        if (
-                switch.concent
-                and switch.get_parent()
-                and not self.active(switch.parent, *inputs, **kwargs)
-        ):
+        if (switch.concent and switch.parent and
+                not self.active(switch.parent.name, *inputs, **kwargs)):
             return False
 
-        return switch.enabled_for_all(*inputs)
+        return any(map(switch.enabled_for, inputs))
 
     def update(self, switch):
 
-        self.register(switch, signal=signal.switch_updated)
+        self.register(switch, signal=switch_updated)
+
+        if switch.changes.get('name'):
+            old_name = switch.changes['name'].get('previous')
+            del self.storage[self.__namespaced(old_name)]
+
         switch.reset()
+
+        # If this switch has any children, it's likely their instance of this
+        # switch (their ``parent``) is now "stale" since this switch has
+        # been updated. In order for them to pick up their new parent, we need
+        # to re-save them.
+        #
+        # ``register`` is not used here since we do not need/want to sync
+        # parental relationships.
+        for child in getattr(switch, 'children', []):
+            self.__persist(child)
 
     def namespaced(self, namespace):
         new_namespace = []
@@ -185,24 +201,41 @@ class MSAManager(threading.local):
         self.register(switch)
         return switch
 
+    def __sync_parental_relationships(self, switch):
+        try:
+            parent_key = self.__parent_key_for(switch)
+            new_parent = self.switch(parent_key)
+        except ValueError:
+            new_parent = None
+
+        old_parent = switch.parent
+
+        switch.parent = new_parent
+
+        if old_parent and old_parent is not new_parent:
+            old_parent.children.remove(switch)
+            old_parent.save()
+
+        if new_parent:
+            new_parent.children.append(switch)
+            new_parent.save()
+
     def __parent_key_for(self, switch):
         # TODO: Make this a method on the switch object
-        return self.name.rsplit(self.key_separator, 1)[:-1]
-        # parent_parts = switch.name.split(self.key_separator)[:-1]
-        # return self.key_separator.join(parent_parts)
+        # return self.name.rsplit(self.key_separator, 1)[:-1]
+        parent_parts = switch.name.split(self.key_separator)[:-1]
+        return self.key_separator.join(parent_parts)
 
-    def __namespaced(self, name=''):
+    def __namespaced(self, name=""):
         if not self.__joined_namespace:
             return name
         else:
-            return self.namespace_separator.join(
-                (self.__joined_namespace, name)
-            )
+            return self.namespace_separator.join((self.__joined_namespace, name))
 
-    def __denamespaced(self, name=''):
+    def __denamespaced(self, name=""):
         prefix = self.__joined_namespace + self.namespace_separator
         if prefix and name.startswith(prefix):
-            return name.replace(prefix, '', 1)
+            return name.replace(prefix, "", 1)
         return name
 
     @property

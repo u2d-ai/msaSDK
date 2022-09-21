@@ -1,4 +1,4 @@
-# WEB UI
+# WEB UI (Integrated JustPy v0.9.3)
 
 msaSDK JustPy - WEB UI Integration
 
@@ -18,13 +18,13 @@ Unlike other web frameworks, JustPy has no front-end/back-end distinction. All p
 
 In JustPy, elements on the web page are instances of component classes. A component in JustPy is a Python class that allows you to instantiate reusable custom elements whose functionality and design is encapsulated away from the rest of your code.
 
-Custom components can be created using other components as building blocks. Out of the box, JustPy comes with support for [HTML](tutorial/html_components) and [SVG](tutorial/svg_components) components as well as more complex components such as [charts](charts_tutorial/introduction.md) and [grids](grids_tutorial/introduction.md).  It also supports most of the components and the functionality of the [Quasar](https://quasar.dev/) library of [Material Design 2.0](https://material.io/) components.
+Custom components can be created using other components as building blocks. Out of the box, JustPy comes with support for html_components and svg_components components as well as more complex components such as charts and grids. It also supports most of the components and the functionality of the [Quasar](https://quasar.dev/) library of [Material Design 2.0](https://material.io/) components.
 
 JustPy encourages creating your own components and reusing them in different projects (and, if applicable, sharing these components with others).
 
 JustPy also supports visualization using matplotlib and Highcharts.
 
-JustPy integrates very nicely with [pandas](https://pandas.pydata.org/) and simplifies building web sites based on pandas analysis. JustPy comes with a [pandas extension](charts_tutorial/pandas?id=using-the-pandas-extension) that makes it simple to create interactive charts and grids from pandas data structures.
+JustPy integrates very nicely with [pandas](https://pandas.pydata.org/) and simplifies building web sites based on pandas analysis. JustPy comes with a pandas extension that makes it simple to create interactive charts and grids from pandas data structures.
 
 Hopefully, this JustPy Integration will enable simple web development with Python courses by reducing the complexity of web development.
 

@@ -7,48 +7,50 @@ Initialize with a MSAServiceDefintion Instance to control the features and funct
 import asyncio
 import os
 from asyncio import Task
-from typing import List
+from typing import List, Union
 
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import ORJSONResponse
-
 from loguru import logger as logger_gruru
 from passlib.context import CryptContext
 from sqlmodel import SQLModel
 from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.staticfiles import StaticFiles
 from starlette.templating import _TemplateResponse
 from starlette_context import plugins
 
 from msaSDK.models.health import MSAHealthMessage
 from msaSDK.models.openapi import MSAOpenAPIInfo
-from msaSDK.models.scheduler import MSASchedulerStatus, MSASchedulerLog, MSASchedulerTaskStatus, MSASchedulerTaskDetail, \
-    MSASchedulerRepoLogRecord
-from msaSDK.models.service import MSAServiceDefinition, MSAHealthDefinition, MSAServiceStatus
+from msaSDK.models.scheduler import (MSASchedulerLog,
+                                     MSASchedulerRepoLogRecord,
+                                     MSASchedulerStatus,
+                                     MSASchedulerTaskDetail,
+                                     MSASchedulerTaskStatus)
+from msaSDK.models.service import (MSAHealthDefinition, MSAServiceDefinition,
+                                   MSAServiceStatus)
 from msaSDK.msaapi import MSAFastAPI
 from msaSDK.security import getMSASecurity
-
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 from msaSDK.utils.logger import init_logging
-from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo
-
+from msaSDK.utils.sysinfo import MSASystemInfo, get_sysinfo
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 """Security Context for Password Helper"""
 from fastapi_users.password import PasswordHelper
+
 password_helper = PasswordHelper(security_context)
 """Password Helper Instance"""
 security = getMSASecurity()
 """MSASecurity instance"""
 
 
-def getSecretKey():
+def getSecretKey() -> str:
     """
     Get Secret Key for Token creation from OS Environment Variable **SECRET_KEY_TOKEN**
 
@@ -56,12 +58,14 @@ def getSecretKey():
         key: The SECRET_KEY_TOKEN.
 
     """
-    key: str = os.getenv("SECRET_KEY_TOKEN",
-                         "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%")
+    key: str = os.getenv(
+        "SECRET_KEY_TOKEN",
+        "u2dmsaservicex_#M8A{1o3Bd?<ipwt^K},Z)OE<Fkj-X9IILWq|Cf`Y:HFI~&2L%Ion3}+p{T%",
+    )
     return key
 
 
-def getSecretKeySessions():
+def getSecretKeySessions() -> str:
     """
     Get Secret Key for Session Middleware from OS Environment Variable **SECRET_KEY_SESSIONS**
 
@@ -69,8 +73,10 @@ def getSecretKeySessions():
         key: The SECRET_KEY_SESSIONS.
 
     """
-    key: str = os.getenv("SECRET_KEY_SESSIONS",
-                         "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)")
+    key: str = os.getenv(
+        "SECRET_KEY_SESSIONS",
+        "u2dmsaserviceeP)zg5<g@4WJ0W8'?ad!T9UBvW1z2k|y~|Pgtewv=H?GY_Q]t~-~UUe'pJ0V[>!<)",
+    )
     return key
 
 
@@ -82,8 +88,10 @@ def getSecretKeyCSRF() -> str:
         key: The SECRET_KEY_CSRF.
 
     """
-    key: str = os.getenv("SECRET_KEY_CSRF",
-                         "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s")
+    key: str = os.getenv(
+        "SECRET_KEY_CSRF",
+        "u2dmsaservicee_rJM'onkEV1trD=I7dci$flB)aSNW+raL4j]Ww=n~_BRg35*3~(E.>rx`1aTw:s",
+    )
     return key
 
 
@@ -120,12 +128,12 @@ class MSAApp(MSAFastAPI):
     """
 
     def __init__(
-            self,
-            settings: MSAServiceDefinition,
-            sql_models: List[SQLModel] = None,
-            auto_mount_site: bool = True,
-            *args,
-            **kwargs
+        self,
+        settings: MSAServiceDefinition,
+        sql_models: List[SQLModel] = None,
+        auto_mount_site: bool = True,
+        *args,
+        **kwargs
     ) -> None:
         # call super class __init__
         super().__init__(*args, **settings.fastapi_kwargs)
@@ -151,6 +159,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.uvloop:
             self.logger.info("Enable UVLoop")
             import uvloop
+
             uvloop.install()
         else:
             self.logger.info("Excluded UVLoop")
@@ -160,29 +169,39 @@ class MSAApp(MSAFastAPI):
         if self.settings.profiler:
             self.logger.info("Add Middleware Profiler")
             from msaSDK.utils.profiler import MSAProfilerMiddleware
-            self.add_middleware(MSAProfilerMiddleware,
-                                profiler_output_type=self.settings.profiler_output_type,
-                                track_each_request=self.settings.profiler_single_calls,
-                                msa_app=self)
+
+            self.add_middleware(
+                MSAProfilerMiddleware,
+                profiler_output_type=self.settings.profiler_output_type,
+                track_each_request=self.settings.profiler_single_calls,
+                msa_app=self,
+            )
         else:
             self.logger.info("Excluded Middleware Profiler")
 
         if self.settings.validationception:
             self.logger.info("Add Handler ValidationError")
-            self.add_exception_handler(RequestValidationError, self.validation_exception_handler)
+            self.add_exception_handler(
+                RequestValidationError, self.validation_exception_handler
+            )
         else:
             self.logger.info("Excluded Handler ValidationError")
 
         if self.settings.httpception:
             self.logger.info("Add Handler HTTPException")
-            self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler)
+            self.add_exception_handler(
+                StarletteHTTPException, self.msa_exception_handler
+            )
         else:
-            self.add_exception_handler(StarletteHTTPException, self.msa_exception_handler_disabled)
+            self.add_exception_handler(
+                StarletteHTTPException, self.msa_exception_handler_disabled
+            )
             self.logger.info("Excluded Handler HTTPException")
 
         if self.settings.starception:
             self.logger.info("Add Middleware Starception")
             from starception import StarceptionMiddleware
+
             self.add_middleware(StarceptionMiddleware)
         else:
             self.logger.info("Excluded Middleware Starception")
@@ -196,28 +215,43 @@ class MSAApp(MSAFastAPI):
             self.logger.info("JSON DB - Init: " + self.settings.sqlite_db_url)
             from tinydb import TinyDB
             from tinydb.storages import MemoryStorage
+
             if self.settings.json_db_memory_only:
-                self.json_db_engine = TinyDB(self.settings.json_db_url, storage=MemoryStorage)
+                self.json_db_engine = TinyDB(
+                    self.settings.json_db_url, storage=MemoryStorage
+                )
             else:
-                self.json_db_engine = TinyDB(self.settings.json_db_url, storage=TinyDB.default_storage_class)
+                self.json_db_engine = TinyDB(
+                    self.settings.json_db_url, storage=TinyDB.default_storage_class
+                )
         else:
             self.logger.info("JSON Excluded DB")
 
-        if self.settings.sqlite_db or (self.settings.scheduler and self.settings.scheduler_log_to_db):
+        if self.settings.sqlite_db or (
+            self.settings.scheduler and self.settings.scheduler_log_to_db
+        ):
             from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
             from sqlalchemy.ext.declarative import declarative_base
             from sqlalchemy.orm import DeclarativeMeta
+
             self.logger.info("SQLite DB - Init: " + self.settings.sqlite_db_url)
             self.Base: DeclarativeMeta = declarative_base()
-            self.sqlite_db_engine = create_async_engine(self.settings.sqlite_db_url, echo=self.settings.sqlite_db_debug,
-                                                        future=True)
+            self.sqlite_db_engine = create_async_engine(
+                self.settings.sqlite_db_url,
+                echo=self.settings.sqlite_db_debug,
+                future=True,
+            )
             if (self.settings.sqlite_db_crud or self.settings.site) and self.sql_models:
-                self.logger.info("SQLite DB - Register/CRUD SQL Models: " + str(self.sql_models))
+                self.logger.info(
+                    "SQLite DB - Register/CRUD SQL Models: " + str(self.sql_models)
+                )
                 # register all Models and the crud for them
                 from msaSDK.db.crud import MSASQLModelCrud
+
                 for model in self.sql_models:
-                    new_crud: MSASQLModelCrud = MSASQLModelCrud(model=model,
-                                                                engine=self.sqlite_db_engine).register_crud()
+                    new_crud: MSASQLModelCrud = MSASQLModelCrud(
+                        model=model, engine=self.sqlite_db_engine
+                    ).register_crud()
                     if self.settings.sqlite_db_crud:
                         self.include_router(new_crud.router)
                     self.sql_cruds.append(new_crud)
@@ -226,8 +260,9 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.graphql:
             self.logger.info("Init Graphql")
-            from strawberry.fastapi import GraphQLRouter
             from strawberry import schema
+            from strawberry.fastapi import GraphQLRouter
+
             self.graphql_app: GraphQLRouter = None
             self.graphql_schema: schema = None
         else:
@@ -236,22 +271,27 @@ class MSAApp(MSAFastAPI):
         if self.healthdefinition.enabled:
             self.logger.info("Init Healthcheck")
             from msaSDK.utils import healthcheck as health
+
             self.healthcheck = health.MSAHealthCheck(
                 healthdefinition=self.healthdefinition,
                 host=self.settings.host,
-                port=self.settings.port
+                port=self.settings.port,
             )
             self.logger.info("Start Healthcheck Thread")
             self.healthcheck.start()
-            self.add_api_route(self.healthdefinition.path, self.get_healthcheck,
-                               response_model=MSAHealthMessage,
-                               tags=["service"])
+            self.add_api_route(
+                self.healthdefinition.path,
+                self.get_healthcheck,
+                response_model=MSAHealthMessage,
+                tags=["service"],
+            )
         else:
             self.logger.info("Excluded Healthcheck")
 
         if self.settings.sysrouter:
             self.logger.info("Include Sysrouter")
             from msaSDK.router.system import sys_router
+
             self.include_router(sys_router)
         else:
             self.logger.info("Excluded Sysrouter")
@@ -259,15 +299,21 @@ class MSAApp(MSAFastAPI):
         if self.settings.cors:
             self.logger.info("Add Middleware CORS")
             from starlette.middleware.cors import CORSMiddleware
-            self.add_middleware(CORSMiddleware, allow_origins=self.settings.allow_origins,
-                                allow_credentials=self.settings.allow_credentials,
-                                allow_methods=self.settings.allow_methods,
-                                allow_headers=self.settings.allow_headers, )
+
+            self.add_middleware(
+                CORSMiddleware,
+                allow_origins=self.settings.allow_origins,
+                allow_credentials=self.settings.allow_credentials,
+                allow_methods=self.settings.allow_methods,
+                allow_headers=self.settings.allow_headers,
+            )
         else:
             self.logger.info("Excluded Middleware CORS")
 
         if self.settings.httpsredirect:
-            from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+            from starlette.middleware.httpsredirect import \
+                HTTPSRedirectMiddleware
+
             self.logger.info("Add Middleware HTTPSRedirect")
             self.add_middleware(HTTPSRedirectMiddleware)
         else:
@@ -276,6 +322,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.gzip:
             self.logger.info("Add Middleware GZip")
             from starlette.middleware.gzip import GZipMiddleware
+
             self.add_middleware(GZipMiddleware)
         else:
             self.logger.info("Excluded Middleware GZip")
@@ -283,6 +330,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.session:
             self.logger.info("Add Middleware Session")
             from starlette.middleware.sessions import SessionMiddleware
+
             self.add_middleware(SessionMiddleware, secret_key=getSecretKeySessions())
         else:
             self.logger.info("Excluded Middleware Session")
@@ -290,6 +338,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.csrf:
             self.logger.info("Add Middleware CSRF")
             from starlette_wtf import CSRFProtectMiddleware
+
             self.add_middleware(CSRFProtectMiddleware, csrf_secret=getSecretKeyCSRF())
         else:
             self.logger.info("Excluded Middleware CSRF")
@@ -297,6 +346,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.msgpack:
             self.logger.info("Add Middleware MSGPack")
             from msgpack_asgi import MessagePackMiddleware
+
             self.add_middleware(MessagePackMiddleware)
         else:
             self.logger.info("Excluded Middleware MSGPack")
@@ -304,23 +354,28 @@ class MSAApp(MSAFastAPI):
         if self.settings.context:
             self.logger.info("Add Middleware Context")
             from starlette_context.middleware import RawContextMiddleware
-            self.add_middleware(RawContextMiddleware, plugins=(
-                plugins.RequestIdPlugin(),
-                plugins.CorrelationIdPlugin()
-            ))
+
+            self.add_middleware(
+                RawContextMiddleware,
+                plugins=(plugins.RequestIdPlugin(), plugins.CorrelationIdPlugin()),
+            )
         else:
             self.logger.info("Excluded Middleware Context")
 
         if self.settings.timing:
             self.logger.info("Add Middleware Timing")
             from fastapi_utils.timing import add_timing_middleware
-            add_timing_middleware(self, record=self.logger.info, prefix="app", exclude="untimed")
+
+            add_timing_middleware(
+                self, record=self.logger.info, prefix="app", exclude="untimed"
+            )
         else:
             self.logger.info("Excluded Middleware Timing")
 
         if self.settings.signal_middleware:
             self.logger.info("Add Middleware Signal")
             from msaSDK.signals import MSASignalMiddleware
+
             self.add_middleware(MSASignalMiddleware)
         else:
             self.logger.info("Excluded Middleware Signal")
@@ -328,6 +383,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.task_middleware:
             self.logger.info("Add Middleware Task")
             from msaSDK.signals import MSATaskMiddleware
+
             self.add_middleware(MSATaskMiddleware)
         else:
             self.logger.info("Excluded Middleware Task")
@@ -337,6 +393,7 @@ class MSAApp(MSAFastAPI):
             from slowapi import Limiter, _rate_limit_exceeded_handler
             from slowapi.errors import RateLimitExceeded
             from slowapi.util import get_remote_address
+
             self.limiter = Limiter(key_func=get_remote_address)
             self.state.limiter = self.limiter
             self.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -346,24 +403,50 @@ class MSAApp(MSAFastAPI):
         if self.settings.servicerouter:
             self.logger.info("Include Servicerouter")
             if self.settings.scheduler:
-                self.add_api_route("/scheduler", self.get_scheduler_status, tags=["service"],
-                                   response_model=MSASchedulerStatus)
-                self.add_api_route("/scheduler_log", self.get_scheduler_log, tags=["service"],
-                                   response_model=MSASchedulerLog)
-            self.add_api_route("/status", self.get_services_status, tags=["service"],
-                               response_model=MSAServiceStatus)
-            self.add_api_route("/definition", self.get_services_definition, tags=["service"],
-                               response_model=MSAServiceDefinition)
-            self.add_api_route("/settings", self.get_services_settings, tags=["service"])
-            self.add_api_route("/schema", self.get_services_openapi_schema, tags=["openapi"])
-            self.add_api_route("/info", self.get_services_openapi_info, tags=["openapi"],
-                               response_model=MSAOpenAPIInfo)
+                self.add_api_route(
+                    "/scheduler",
+                    self.get_scheduler_status,
+                    tags=["service"],
+                    response_model=MSASchedulerStatus,
+                )
+                self.add_api_route(
+                    "/scheduler_log",
+                    self.get_scheduler_log,
+                    tags=["service"],
+                    response_model=MSASchedulerLog,
+                )
+            self.add_api_route(
+                "/status",
+                self.get_services_status,
+                tags=["service"],
+                response_model=MSAServiceStatus,
+            )
+            self.add_api_route(
+                "/definition",
+                self.get_services_definition,
+                tags=["service"],
+                response_model=MSAServiceDefinition,
+            )
+            self.add_api_route(
+                "/settings", self.get_services_settings, tags=["service"]
+            )
+            self.add_api_route(
+                "/schema", self.get_services_openapi_schema, tags=["openapi"]
+            )
+            self.add_api_route(
+                "/info",
+                self.get_services_openapi_info,
+                tags=["openapi"],
+                response_model=MSAOpenAPIInfo,
+            )
         else:
             self.logger.info("Excluded Servicerouter")
 
         if self.settings.static or self.settings.pages:
             self.logger.info("Mount MSAStatic")
-            self.mount("/msastatic", StaticFiles(directory="msastatic"), name="msastatic")
+            self.mount(
+                "/msastatic", StaticFiles(directory="msastatic"), name="msastatic"
+            )
 
         else:
             self.logger.info("Excluded MSAStatic")
@@ -371,6 +454,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.pagination:
             self.logger.info("Add Pagination Engine")
             from fastapi_pagination import add_pagination
+
             add_pagination(self)
         else:
             self.logger.info("Excluded Pagination Engine")
@@ -378,27 +462,52 @@ class MSAApp(MSAFastAPI):
         if self.settings.templates or self.settings.pages:
             self.logger.info("Init Jinja MSAUITemplate Engine")
             from starlette.templating import Jinja2Templates
+
             self.templates = Jinja2Templates(directory=self.settings.templates_dir)
         else:
             self.logger.info("Excluded Jinja MSAUITemplate Engine")
 
         if self.settings.pages:
             self.logger.info("Add Pages Router")
-            self.add_api_route(self.settings.profiler_url, self.profiler, tags=["pages"], response_class=HTMLResponse)
-            self.add_api_route("/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse)
+            self.add_api_route(
+                self.settings.profiler_url,
+                self.profiler,
+                tags=["pages"],
+                response_class=HTMLResponse,
+            )
+            self.add_api_route(
+                "/testpage", self.testpage, tags=["pages"], response_class=HTMLResponse
+            )
             # self.add_route("/ui/click", click_demo)
             if not self.settings.site:
-                self.add_api_route("/", self.index_page, tags=["pages"], response_class=HTMLResponse)
-                self.add_api_route("/monitor", self.monitor, tags=["pages"], response_class=HTMLResponse)
-                self.add_api_route("/monitor_inline", self.monitor_inline, tags=["pages"], response_class=HTMLResponse)
+                self.add_api_route(
+                    "/", self.index_page, tags=["pages"], response_class=HTMLResponse
+                )
+                self.add_api_route(
+                    "/monitor",
+                    self.monitor,
+                    tags=["pages"],
+                    response_class=HTMLResponse,
+                )
+                self.add_api_route(
+                    "/monitor_inline",
+                    self.monitor_inline,
+                    tags=["pages"],
+                    response_class=HTMLResponse,
+                )
         else:
             self.logger.info("Excluded Pages Router")
 
         if self.settings.instrument:
             self.logger.info("Prometheus Instrument and Expose App")
             from prometheus_fastapi_instrumentator import Instrumentator
-            Instrumentator().instrument(app=self).expose(app=self, include_in_schema=True, tags=["service"],
-                                                         response_class=HTMLResponse)
+
+            Instrumentator().instrument(app=self).expose(
+                app=self,
+                include_in_schema=True,
+                tags=["service"],
+                response_class=HTMLResponse,
+            )
         else:
             self.logger.info("Excluded Prometheus Instrument and Expose")
 
@@ -409,7 +518,10 @@ class MSAApp(MSAFastAPI):
         if self.settings.scheduler:
             self.logger.info("Add Scheduler")
             from msaSDK.utils.scheduler import MSAScheduler
-            self.scheduler = MSAScheduler(msa_logger=logger_gruru, config={"task_execution": "async"})
+
+            self.scheduler = MSAScheduler(
+                msa_logger=logger_gruru, config={"task_execution": "async"}
+            )
 
         elif not self.settings.scheduler:
             self.logger.info("Excluded Scheduler, Disabled")
@@ -417,6 +529,7 @@ class MSAApp(MSAFastAPI):
         if self.settings.abstract_fs:
             self.logger.info("Enable Abstract Filesystem")
             from msaSDK.filesystem.msafs import MSAFilesystem
+
             self.abstract_fs = MSAFilesystem(fs_url=self.settings.abstract_fs_url)
             self.fs = self.abstract_fs.fs
         else:
@@ -429,15 +542,17 @@ class MSAApp(MSAFastAPI):
             if self.settings.ui_justpy_demos:
                 self.logger.info("Enable/Add JP Route - UI justpy Demos")
 
+                from msaSDK.utils.ui_demos.after import after_click_demo
                 from msaSDK.utils.ui_demos.card import cards_demo
                 from msaSDK.utils.ui_demos.click import click_demo
                 from msaSDK.utils.ui_demos.dogs import dogs_demo
-                from msaSDK.utils.ui_demos.happiness import happiness_demo, corr_stag_test, corr_test
-                from msaSDK.utils.ui_demos.iris import iris_demo
-                from msaSDK.utils.ui_demos.uploads import upload_demo
-                from msaSDK.utils.ui_demos.quasar import quasar_demo
-                from msaSDK.utils.ui_demos.after import after_click_demo
                 from msaSDK.utils.ui_demos.drag import drag_demo
+                from msaSDK.utils.ui_demos.happiness import (corr_stag_test,
+                                                             corr_test,
+                                                             happiness_demo)
+                from msaSDK.utils.ui_demos.iris import iris_demo
+                from msaSDK.utils.ui_demos.quasar import quasar_demo
+                from msaSDK.utils.ui_demos.uploads import upload_demo
 
                 self.add_jproute("/ui/click", click_demo)
                 self.add_jproute("/ui/cards", cards_demo)
@@ -455,22 +570,23 @@ class MSAApp(MSAFastAPI):
         else:
             self.logger.info("EExcluded UI justpy")
 
-
-
         init_logging()
 
     async def startup_event(self) -> None:
-        """Internal Startup Event Handler
-        """
+        """Internal Startup Event Handler"""
         self.logger.info("msaSDK Internal Startup MSAUIEvent")
 
         if self.settings.sqlite_db:
             async with self.sqlite_db_engine.begin() as conn:
                 if self.settings.sqlite_db_meta_drop:
-                    self.logger.info("SQLite DB - Drop Meta All: " + self.settings.sqlite_db_url)
+                    self.logger.info(
+                        "SQLite DB - Drop Meta All: " + self.settings.sqlite_db_url
+                    )
                     await conn.run_sync(SQLModel.metadata.drop_all)
                 if self.settings.sqlite_db_meta_create:
-                    self.logger.info("SQLite DB - Create Meta All: " + self.settings.sqlite_db_url)
+                    self.logger.info(
+                        "SQLite DB - Create Meta All: " + self.settings.sqlite_db_url
+                    )
                     await conn.run_sync(SQLModel.metadata.create_all)
             await self.sqlite_db_engine.dispose()
 
@@ -480,15 +596,19 @@ class MSAApp(MSAFastAPI):
             if self.settings.site_auth:
                 self.logger.info("Add Admin Site with Auth")
                 from msaSDK.auth.site import AuthAdminSite
+
                 site = AuthAdminSite(msa_app=self)
                 try:
-                    await site.db.async_run_sync(SQLModel.metadata.create_all, is_session=False)
-                    await site.auth.create_role_user('admin')
+                    await site.db.async_run_sync(
+                        SQLModel.metadata.create_all, is_session=False
+                    )
+                    await site.auth.create_role_user("admin")
                 except Exception as e:
                     pass
             else:
                 self.logger.info("Add Admin Site without Auth")
                 from msaSDK.admin import AdminSite
+
                 site = AdminSite(msa_app=self)
 
             self.site = site
@@ -497,8 +617,10 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.scheduler:
             self.logger.info("Scheduler - Start")
-            self._scheduler_task = asyncio.create_task(self.scheduler.serve(debug=self.settings.scheduler_debug),
-                                                       name="MSA_Scheduler")
+            self._scheduler_task = asyncio.create_task(
+                self.scheduler.serve(debug=self.settings.scheduler_debug),
+                name="MSA_Scheduler",
+            )
 
     def mount_site(self) -> None:
         if self.site:
@@ -518,8 +640,9 @@ class MSAApp(MSAFastAPI):
                 try:
                     self._scheduler_task.cancel()
                 except Exception as ex:
-                    getMSABaseExceptionHandler().handle(ex, "Error: _scheduler_task cancel failed:")
-                    pass
+                    getMSABaseExceptionHandler().handle(
+                        ex, "Error: _scheduler_task cancel failed:"
+                    )
 
             self.logger.info("End Scheduler")
             self._scheduler_task = None
@@ -539,14 +662,18 @@ class MSAApp(MSAFastAPI):
                 self.logger.info("Closing Abstract Filesystem")
                 self.fs.close()
             except Exception as e:
-                getMSABaseExceptionHandler().handle(ex, "Error: Closing Abstract Filesystem failed:")
+                getMSABaseExceptionHandler().handle(
+                    ex, "Error: Closing Abstract Filesystem failed:"
+                )
 
         if self.settings.json_db:
             self.logger.info("JSON DB - Close: " + self.settings.sqlite_db_url)
             self.json_db_engine.close()
 
         if self.settings.sqlite_db:
-            self.logger.info("SQLite DB - Dispose Connections: " + self.settings.sqlite_db_url)
+            self.logger.info(
+                "SQLite DB - Dispose Connections: " + self.settings.sqlite_db_url
+            )
             await self.sqlite_db_engine.dispose()
 
     async def init_graphql(self, strawberry_schema) -> None:
@@ -555,6 +682,7 @@ class MSAApp(MSAFastAPI):
         """
         if self.settings.graphql:
             from strawberry.fastapi import GraphQLRouter
+
             self.graphql_schema = strawberry_schema
             self.graphql_app = GraphQLRouter(self.graphql_schema, graphiql=True)
             self.include_router(self.graphql_app, prefix="/graphql", tags=["graphql"])
@@ -603,8 +731,12 @@ class MSAApp(MSAFastAPI):
 
         return sst
 
-    async def get_scheduler_log(self, request: Request, optionClearLog: bool = False,
-                                optionFORCEClearLog: bool = False) -> MSASchedulerLog:
+    async def get_scheduler_log(
+        self,
+        request: Request,
+        optionClearLog: bool = False,
+        optionFORCEClearLog: bool = False,
+    ) -> MSASchedulerLog:
         """
         Get Service Scheduler Log
 
@@ -625,12 +757,15 @@ class MSAApp(MSAFastAPI):
 
         else:
             from redbird.repos import MemoryRepo
+
             sst.name = self.settings.name
             repo: MemoryRepo = self.scheduler.session.get_repo()
             if optionFORCEClearLog:
                 repo.collection.clear()
             for log_entry in repo.filter_by().all():
-                le: MSASchedulerRepoLogRecord = MSASchedulerRepoLogRecord.parse_obj(log_entry)
+                le: MSASchedulerRepoLogRecord = MSASchedulerRepoLogRecord.parse_obj(
+                    log_entry
+                )
                 sst.log.append(le)
             if optionClearLog:
                 repo.collection.clear()
@@ -704,7 +839,6 @@ class MSAApp(MSAFastAPI):
             {
                 self.settings.name: try_get_json(),
             }
-
         )
 
     def get_services_openapi_schema(self, request: Request) -> ORJSONResponse:
@@ -733,7 +867,6 @@ class MSAApp(MSAFastAPI):
             {
                 self.settings.name: try_get_json(),
             }
-
         )
 
     def get_services_openapi_info(self, request: Request) -> MSAOpenAPIInfo:
@@ -760,14 +893,18 @@ class MSAApp(MSAFastAPI):
 
         return oai
 
-    async def validation_exception_handler(self, request: Request, exc: RequestValidationError) -> JSONResponse:
+    async def validation_exception_handler(
+        self, request: Request, exc: RequestValidationError
+    ) -> JSONResponse:
         self.logger.error("validation_exception_handler - " + str(exc.errors()))
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
         )
 
-    async def msa_exception_handler_disabled(self, request: Request, exc: HTTPException) -> JSONResponse:
+    async def msa_exception_handler_disabled(
+        self, request: Request, exc: HTTPException
+    ) -> JSONResponse:
         """
         Handles all HTTPExceptions if Disabled with JSON Response.
 
@@ -779,19 +916,24 @@ class MSAApp(MSAFastAPI):
 
         """
 
-        error_content = jsonable_encoder({"status_code": exc.status_code,
-                                          "detail": exc.detail,
-                                          "args": exc.args,
-                                          "headers": exc.headers,
-                                          "request": request.url,
-                                          })
+        error_content = jsonable_encoder(
+            {
+                "status_code": exc.status_code,
+                "detail": exc.detail,
+                "args": exc.args,
+                "headers": exc.headers,
+                "request": request.url,
+            }
+        )
         self.logger.error("msa_exception_handler_disabled - " + str(error_content))
         return JSONResponse(
             status_code=exc.status_code,
             content=error_content,
         )
 
-    async def msa_exception_handler(self, request: Request, exc: HTTPException):
+    async def msa_exception_handler(
+        self, request: Request, exc: HTTPException
+    ) -> Union[Response, _TemplateResponse]:
         """
         Handles all HTTPExceptions if enabled with HTML Response or forward error if the code is in the exclude settings list.
 
@@ -803,21 +945,24 @@ class MSAApp(MSAFastAPI):
             HTTPException or Template
 
         """
-        error_content = {'request': request, 'detail': exc.detail,
-                         'status': exc.status_code,
-                         "definitions": jsonable_encoder(self.settings)}
+        error_content = {
+            "request": request.__dict__,
+            "detail": exc.detail,
+            "status": exc.status_code,
+            "definitions": jsonable_encoder(self.settings),
+        }
         self.logger.error("msa_exception_handler - " + str(error_content))
         if exc.status_code == 403:
-            return self.templates.TemplateResponse('403.html', error_content)
+            return self.templates.TemplateResponse("403.html", error_content)
         elif exc.status_code == 404:
-            return self.templates.TemplateResponse('404.html', error_content)
+            return self.templates.TemplateResponse("404.html", error_content)
         elif exc.status_code == 500:
-            return self.templates.TemplateResponse('500.html', error_content)
+            return self.templates.TemplateResponse("500.html", error_content)
         elif exc.status_code in self.settings.httpception_exclude:
             return await http_exception_handler(request, exc)
         else:
             # Generic error page
-            return self.templates.TemplateResponse('error.html', error_content)
+            return self.templates.TemplateResponse("error.html", error_content)
 
     def index_page(self, request: Request) -> _TemplateResponse:
         """
@@ -828,10 +973,14 @@ class MSAApp(MSAFastAPI):
 
         """
         self.logger.info("Called - index_page :" + str(request.url))
-        return self.templates.TemplateResponse("index.html",
-                                               {"request": request,
-                                                "settings": jsonable_encoder(self.settings),
-                                                "definitions": jsonable_encoder(self.settings)})
+        return self.templates.TemplateResponse(
+            "index.html",
+            {
+                "request": request,
+                "settings": jsonable_encoder(self.settings),
+                "definitions": jsonable_encoder(self.settings),
+            },
+        )
 
     def testpage(self, request: Request) -> _TemplateResponse:
         """
@@ -842,9 +991,10 @@ class MSAApp(MSAFastAPI):
             request: The input http request object
         """
         self.logger.info("Called - testpage :" + str(request.url))
-        return self.templates.TemplateResponse("test.html",
-                                               {"request": request,
-                                                "settings": jsonable_encoder(self.settings)})
+        return self.templates.TemplateResponse(
+            "test.html",
+            {"request": request, "settings": jsonable_encoder(self.settings)},
+        )
 
     async def monitor(self, request: Request) -> _TemplateResponse:
         """
@@ -856,9 +1006,9 @@ class MSAApp(MSAFastAPI):
         """
         self.logger.info("Called - monitor :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()
-        return self.templates.TemplateResponse("monitor.html",
-                                               {"request": request,
-                                                "outputSystemInfo": sysinfo})
+        return self.templates.TemplateResponse(
+            "monitor.html", {"request": request, "outputSystemInfo": sysinfo}
+        )
 
     def profiler(self, request: Request) -> _TemplateResponse:
         """
@@ -869,8 +1019,7 @@ class MSAApp(MSAFastAPI):
             request: The input http request object
         """
         self.logger.info("Called - profiler :" + str(request.url))
-        return self.templates.TemplateResponse("profiler.html",
-                                               {"request": request})
+        return self.templates.TemplateResponse("profiler.html", {"request": request})
 
     async def monitor_inline(self, request: Request) -> _TemplateResponse:
         """
@@ -882,6 +1031,6 @@ class MSAApp(MSAFastAPI):
         """
         self.logger.info("Called - monitor_inline :" + str(request.url))
         sysinfo: MSASystemInfo = get_sysinfo()
-        return self.templates.TemplateResponse("monitor_inline.html",
-                                               {"request": request,
-                                                "outputSystemInfo": sysinfo})
+        return self.templates.TemplateResponse(
+            "monitor_inline.html", {"request": request, "outputSystemInfo": sysinfo}
+        )

@@ -3,9 +3,10 @@ Created on 2022-09-02
 modified version, original from JustPy
 @author: wf (modification swelcker)
 """
-from starlette.config import Config
 import os
 from ssl import PROTOCOL_SSLv23
+
+from starlette.config import Config
 
 config = Config("justpy.env")
 DEBUG = config("DEBUG", cast=bool, default=True)

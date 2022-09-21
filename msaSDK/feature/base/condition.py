@@ -1,7 +1,6 @@
 from collections import defaultdict
 
-from msaSDK.feature.base.manager import MSAManager
-from msaSDK.feature.base.settings import MSAFeatureSettings, get_msa_feature_settings
+from msaSDK.feature.base.signal import condition_apply_error
 
 
 def all_false_if_empty(iterable):
@@ -15,7 +14,6 @@ def all_false_if_empty(iterable):
 
 
 class MSAConditionsDict(defaultdict):
-
     @classmethod
     def from_conditions_list(cls, conditions):
         conditions_dict = cls(set)
@@ -41,7 +39,7 @@ class MSAConditionsDict(defaultdict):
 
 class MSACondition(object):
     """
-    A Condition is the configuration of an mapping, its attribute and an
+    A Condition is the configuration of a mapping, its attribute and an
     operator. It tells you if it itself is true or false given an input.
     The ``mapping`` defines what this condition is checking.  Perhaps it's a
     ``User`` or ``Request`` object. The ``attribute`` name is then extracted out
@@ -70,17 +68,21 @@ class MSACondition(object):
            is between 15 and 30.
     """
 
-    def __init__(self, mapping, attribute, operator, negative=False,
-                 settings: MSAFeatureSettings = get_msa_feature_settings()):
+    def __init__(
+        self,
+        mapping,
+        attribute,
+        operator,
+        negative=False,
+    ):
         self.attribute = attribute
         self.mapping = mapping
         self.operator = operator
         self.negative = negative
-        self.settings = settings
 
     @property
     def __is_or_is_not(self):
-        return 'is not' if self.negative else 'is'
+        return "is not" if self.negative else "is"
 
     def __repr__(self):
         mapping = ".".join((self.mapping.__name__, self.attribute))
@@ -91,10 +93,10 @@ class MSACondition(object):
 
     def __eq__(self, other):
         return (
-                self.mapping == other.mapping and
-                self.attribute == other.attribute and
-                self.operator == other.operator and
-                self.negative is other.negative
+            self.mapping == other.mapping
+            and self.attribute == other.attribute
+            and self.operator == other.operator
+            and self.negative is other.negative
         )
 
     def call(self, inpt):
@@ -105,18 +107,20 @@ class MSACondition(object):
         applies to the ``NONE`` input.
         Otherwise, ``mapping`` is called, with ``inpt`` as the instance and
         the value is compared to the ``operator`` and the Value is returned.  If
-        the condition is ``negative``, then then ``not`` the value is returned.
+        the condition is ``negative``, then ``not`` the value is returned.
         Keyword Mappings:
         inpt -- An instance of the ``Input`` class.
         """
-        if inpt is MSAManager.NONE_INPUT:
+        if inpt is object():
             return False
 
         # Call (construct) the mapping with the input object
-        mapping_instance = self.mapping(inpt)
+        # mapping_instance = self.mapping(inpt)
 
-        if not mapping_instance.applies:
-            return False
+        mapping_instance = self.mapping()
+
+        # if not mapping_instance.applies:
+        #     return False
 
         application = self.__apply(mapping_instance, inpt)
 
@@ -128,7 +132,7 @@ class MSACondition(object):
     @property
     def mapping_string(self):
         parts = [self.mapping.__name__, self.attribute]
-        return '.'.join(map(str, parts))
+        return ".".join(map(str, parts))
 
     def __apply(self, mapping_instance, inpt):
         variable = getattr(mapping_instance, self.attribute)
@@ -136,5 +140,5 @@ class MSACondition(object):
         try:
             return self.operator.applies_to(variable)
         except Exception as error:
-            signals.condition_apply_error.call(self, inpt, error)
+            condition_apply_error.call(self, inpt, error)
             return False

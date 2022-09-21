@@ -126,9 +126,9 @@
 | bg-pink-800 | background: #9d174d | <div style="background: #9d174d;" class="w-24 h-6"></div> |
 | bg-pink-900 | background: #831843 | <div style="background: #831843;" class="w-24 h-6"></div> |
 
-还有 hover、active、focus、disabled 扩展，比如 `hover:bg-black`
+hover、active、focus、disabled  `hover:bg-black`
 
-参考: [tailwindcss](https://tailwindcss.com/docs/background-color)
+[tailwindcss](https://tailwindcss.com/docs/background-color)
 
 */
 .bg-transparent {
@@ -58235,5 +58235,3 @@ title: Word Break
     word-break: break-all;
   }
 }
-
-/*# sourceMappingURL=helper.css.map */

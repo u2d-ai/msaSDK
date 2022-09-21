@@ -1,22 +1,22 @@
-from typing import Dict, Any, Union, List
+from typing import Any, Dict, List, Union, Optional
 
 from pydantic import Extra
 
 from msaSDK.utils.base_model import MSABaseModel
 
-try:
-    import ujson as json
-except ImportError:
-    import json
+import json
 
 MSAUIExpression = str
 MSAUITemplate = Union[str, "MSAUITpl"]
-MSAUISchemaNode = Union[MSAUITemplate, "MSAUINode", List["MSAUINode"], Dict[str, Any], List[Dict[str, Any]]]
+MSAUISchemaNode = Union[
+    MSAUITemplate, "MSAUINode", List["MSAUINode"], Dict[str, Any], List[Dict[str, Any]]
+]
 MSAOptionsNode = Union[List[Dict[str, Any]], List[str]]
 
 
 class MSABaseUIModel(MSABaseModel):
     """Core Pydantic Base UI Model."""
+
     class Config:
         extra = Extra.allow
         json_loads = json.loads
@@ -39,75 +39,78 @@ class MSABaseUIModel(MSABaseModel):
 
 class MSABaseUIApiOut(MSABaseUIModel):
     """MSA UI Api interface output data model"""
+
     status: int = 0
-    msg: str = ''
-    data: dict = None
+    msg: str = ""
+    data: Optional[dict] = None
 
 
 class MSAUINode(MSABaseUIModel):
     """UI Node Component Configuration"""
-    type: str = None
+
+    type: Optional[str] = None
     """Component Type"""
-    visible: bool = None
+    visible: Optional[bool] = None
     """Enable Visible/Show"""
-    hidden: bool = None
+    hidden: Optional[bool] = None
     """Hide this node"""
-    visibleOn: MSAUIExpression = None
+    visibleOn: Optional[MSAUIExpression] = None
     """Condition for Visibility"""
-    hiddenOn: MSAUIExpression = None
+    hiddenOn: Optional[MSAUIExpression] = None
     """Condition for Hiding"""
-    id: str = None
+    id: Optional[str] = None
     """ID of the Node"""
-    name: str = None
+    name: Optional[str] = None
     """Name of the Node"""
-    onEvent: dict = None
+    onEvent: Optional[Dict] = None
     """On MSAUIEvent Handler"""
 
 
 class MSAUIAPI(MSABaseUIModel):
-    """ Core MSA UI API"""
+    """Core MSA UI API"""
+
     url: MSAUITemplate
     """Current interface Api address"""
-    method: str = None
+    method: Optional[str] = None
     """``GET`` holds request method (get, post, put, delete)"""
-    data: Union[str, dict] = None
+    data: Optional[Union[str, dict]] = None
     """Data body of the request, supports data mapping"""
-    dataType: str = None
+    dataType: Optional[str] = None
     """Default is json can be configured as form or form-data.
     
     When the data contains a file, the form-data (multipart/form-data) format is automatically used.
     The application/x-www-form-urlencoded format when configured as form.
     """
-    qsOptions: Union[str, dict] = None
+    qsOptions: Optional[Union[str, dict]] = None
     """Useful when dataType is form or form-data.
     
     Specific parameters, set by default to: { arrayFormat: 'indices', encodeValuesOnly: true }
     """
-    headers: Dict[str, Any] = None
+    headers: Optional[Dict[str, Any]] = None
     """The requested headers"""
-    sendOn: MSAUIExpression = None
+    sendOn: Optional[MSAUIExpression] = None
     """Configure the request conditions"""
-    cache: int = None
+    cache: Optional[int] = None
     """Set cache to set the cache time in milliseconds, within the set cache time, the same request will not be repeatedly initiated, but will get the cached request response data.
     """
-    requestAdaptor: str = None
+    requestAdaptor: Optional[str] = None
     """send adapter , msa_ui's API configuration, if you can not configure the request structure you want, then you can configure the requestAdaptor send adapter"""
-    responseData: Dict[str, Any] = None
+    responseData: Optional[Dict[str, Any]] = None
     """ If the data structure returned by the interface does not meet expectations, you can modify it by configuring responseData, which also supports data mapping.
     The data available for mapping is the actual data of the interface (the data part returned by the interface), with additional api variables.
     where api.query is the query parameter sent by the interface, and api.body is the raw data of the content body sent by the interface.
     """
-    replaceData: bool = None
+    replaceData: Optional[bool] = None
     """Whether the returned data replaces the current data, the default is false, i.e., append, set to true is a complete replacement."""
-    adaptor: str = None
+    adaptor: Optional[str] = None
     """Receive adapter, if the interface does not meet the requirements, you can configure an adapter to handle it as msa_ui needs.
     Also supports Function or string function styles
     """
-    responseType: str = None
+    responseType: Optional[str] = None
     """Return type, if it is a download it needs to be set to ``blob``"""
-    autoRefresh: bool = None
+    autoRefresh: Optional[bool] = None
     """Configure whether the interface needs to be automatically refreshed."""
-    trackExpression: str = None
+    trackExpression: Optional[str] = None
     """Configure track variable expression, when autoRefresh is enabled, the default is the url of the api to automatically track variable changes.
     If you want to monitor variables outside of the url, configure traceExpression.
     """
@@ -118,27 +121,27 @@ MSA_UI_API = Union[str, MSAUIAPI, dict]
 
 class MSAUITpl(MSAUINode):
     """MSAUITpl component"""
+
     type: str = "tpl"
     """Specify as MSAUITpl component"""
-    tpl: str
+    tpl: Optional[Any] = None
     """Configuration template"""
-    className: str = None
+    className: Optional[str] = None
     """Class name of the outer Dom"""
 
 
 class MSAUIEvent(MSABaseUIModel):
     """MSA UI Event Pydantic Model"""
-    actionType: str = None
+
+    actionType: Optional[str] = None
     """Action name"""
-    args: dict = None
+    args: Optional[Dict] = None
     """Action parameter {key:value}, supports data mapping"""
-    preventDefault: Union[
-        bool, MSAUIExpression] = None
+    preventDefault: Optional[Union[bool, MSAUIExpression]] = None
     """False = prevent event default behavior"""
-    stopPropagation: Union[
-        bool, MSAUIExpression] = None
+    stopPropagation: Optional[Union[bool, MSAUIExpression]] = None
     """False = Stop the execution of subsequent actions"""
-    expression: Union[bool, MSAUIExpression] = None
+    expression: Optional[Union[bool, MSAUIExpression]] = None
     """Execution condition, not set means default execution"""
-    outputVar: str = None
+    outputVar: Optional[str] = None
     """Output data variable name"""

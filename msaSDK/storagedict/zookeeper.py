@@ -1,9 +1,8 @@
+import posixpath
+from functools import wraps
 from typing import Any
 
-from base import MSAConnectionStorageDict
-
-from functools import wraps
-import posixpath
+from .base import MSAConnectionStorageDict
 
 
 def validate_key(func):
@@ -14,7 +13,7 @@ def validate_key(func):
     @wraps(func)
     def wrapper(self, key, *args, **kwargs):
         if posixpath.sep in key:
-            raise ValueError('Keys cannot contains slashes')
+            raise ValueError("Keys cannot contains slashes")
 
         return func(self, key, *args, **kwargs)
 
@@ -110,8 +109,8 @@ class MSAZookeeperDict(MSAConnectionStorageDict):
         Construct a new instance of a ``MSAZookeeperDict``.
 
         Args:
-            connection: KazooClient, Zookeeper client, likely ``KazooClient``
-            keyspace: string, The path to the root config node.
+            connection: Zookeeper client, likely ``KazooClient``
+            keyspace: str, The path to the root config node.
             autosync: bool, Sync with Zookeeper before each read.
         """
         super(MSAZookeeperDict, self).__init__(*args, **kwargs)
@@ -127,14 +126,13 @@ class MSAZookeeperDict(MSAConnectionStorageDict):
         # manually when adding a new key with __setattr__, as well as this watch
         # also incrementing the value.
         self.child_watch = self.connection.retry(
-            self.connection.ChildrenWatch,
-            self.keyspace,
-            self.__increment_last_updated
+            self.connection.ChildrenWatch, self.keyspace, self.__increment_last_updated
         )
 
     @property
     def no_node_error(self):
         from kazoo.exceptions import NoNodeError
+
         return NoNodeError
 
     def last_updated(self):
@@ -184,7 +182,7 @@ class MSAZookeeperDict(MSAConnectionStorageDict):
             value, _ = self.connection.retry(
                 self.connection.get,
                 self.__path_of(child),
-                watch=self.__increment_last_updated
+                watch=self.__increment_last_updated,
             )
             results[child] = self.encoding.decode(value)
 
@@ -272,6 +270,8 @@ class MSAZookeeperDict(MSAConnectionStorageDict):
             return self.encoding.decode(value)
         except self.no_node_error:
             # Node does not exist, we have to create it
-            self.connection.retry(self.connection.create, path, self.encoding.encode(value))
+            self.connection.retry(
+                self.connection.create, path, self.encoding.encode(value)
+            )
             self.__increment_last_updated()
             return value

@@ -10,21 +10,22 @@ from sqlmodel import SQLModel
 """str: Module Version"""
 import html
 import os
-from typing import Optional, List, Dict, Tuple
+from typing import Dict, List, Optional, Tuple
+
 from msaSDK.utils.htmlutils import sanitize
 
 
 def getCRLF() -> str:
-    """ get's the OS Environment Variable for ``CR_LF``.
-         Default: ``\\n``
+    """get's the OS Environment Variable for ``CR_LF``.
+    Default: ``\\n``
     """
     ret: str = os.getenv("CR_LF", "\n")
     return ret
 
 
 def getSentenceSeperator() -> str:
-    """ get's the OS Environment Variable for ``SENTENCE_SEPARATOR``.
-         Default: `` `` (Space/Blank)
+    """get's the OS Environment Variable for ``SENTENCE_SEPARATOR``.
+    Default: `` `` (Space/Blank)
     """
     ret: str = os.getenv("SENTENCE_SEPARATOR", " ")
     return ret
@@ -32,8 +33,8 @@ def getSentenceSeperator() -> str:
 
 def getCRParagraph() -> str:
     # CR_PARAGRAPH
-    """ get's the OS Environment Variable for ``CR_PARAGRAPH``.
-         Default: ``\\n\\n``
+    """get's the OS Environment Variable for ``CR_PARAGRAPH``.
+    Default: ``\\n\\n``
     """
     ret: str = os.getenv("CR_PARAGRAPH", "\n\n")
     return ret
@@ -42,13 +43,14 @@ def getCRParagraph() -> str:
 class SDUPageImage(SQLModel):
     """Page Image Pydantic Model.
 
-        Storing the information about the Image representation of a Page.
+    Storing the information about the Image representation of a Page.
     """
+
     id: int = -1  # ID = Page Index.
     filepath_name: str = ""  # Filepath to the image on filesystem storage.
-    height: float = 0.  # Image Height.
-    width: float = 0.  # Image Width.
-    dpi: float = 0.  # Picture DPI Resolution.
+    height: float = 0.0  # Image Height.
+    width: float = 0.0  # Image Width.
+    dpi: float = 0.0  # Picture DPI Resolution.
     format: str = ""  # Image Format (png, jpg etc.).
     mode: str = ""  # Image Mode.
     layout: List = []  # Image Layout Information."""
@@ -59,6 +61,7 @@ class SDUPageImage(SQLModel):
 
 class SDUEmail(SQLModel):
     """Parsed EMail Pydantic Model."""
+
     msg_id: str = ""
     msg_from: str = ""
     msg_to: str = ""
@@ -82,8 +85,9 @@ class SDUEmail(SQLModel):
 
 class SDULanguage(SQLModel):
     """Detected Language Pydantic Model."""
-    code: str = 'unknown'  # Short de, en etc.
-    lang: str = 'unknown'  # Language name like german.
+
+    code: str = "unknown"  # Short de, en etc.
+    lang: str = "unknown"  # Language name like german.
     reliable: bool = False  # is the detected result reliable.
     proportion: int = -1  # Proportion of the text in this language.
     bytes: int = -1  # Bytes of the text in this language.
@@ -97,6 +101,7 @@ class SDULanguage(SQLModel):
 
 class SDUStatistic(SQLModel):
     """Text Statistics Pydantic Model."""
+
     avg_character_per_word: float = 0
     avg_letter_per_word: float = 0
     avg_sentence_length: float = 0
@@ -144,7 +149,7 @@ class SDUPDFElement(SQLModel):
     bold: bool = False
     italic: bool = False
     font: str = ""
-    fontsize: float = 0.
+    fontsize: float = 0.0
     color: int = 0
 
 
@@ -286,7 +291,9 @@ class SDUPage(SQLModel):
                 ret += txt + getCRLF()
             else:
                 txt = par.getText()
-                if par.semantic_type.__contains__("head") or par.semantic_type.__contains__("title"):
+                if par.semantic_type.__contains__(
+                    "head"
+                ) or par.semantic_type.__contains__("title"):
                     ret += getCRLF() + txt + getCRLF()
                 elif len(par.sentences) > 1:
                     ret += txt + getCRParagraph()
@@ -435,7 +442,7 @@ class SDUAttachment(SQLModel):
     id: str = ""
     name: str = ""
     path: str = ""
-    metadata: Dict = {}
+    meta: Dict = {}
     text: SDUText = SDUText()
     charset: str = ""
     encoding: str = ""
@@ -451,10 +458,10 @@ class SDUAttachment(SQLModel):
 
 class SDUDimensions(SQLModel):
     id: int = -1
-    height: float = 0.
-    width: float = 0.
-    factor_x: float = 0.
-    factor_y: float = 0.
+    height: float = 0.0
+    width: float = 0.0
+    factor_x: float = 0.0
+    factor_y: float = 0.0
     rotation: int = 0
 
     class Config:
