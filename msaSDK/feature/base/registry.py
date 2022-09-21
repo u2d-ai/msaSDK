@@ -1,9 +1,9 @@
-from msaSDK.feature.base.mapping import MSAContainer
+from sqlmodel import SQLModel
+
 from msaSDK.feature.base.operator import MSAOperatorBase
 
 
 class MSARegistry(object):
-
     def __init__(self, cls):
         self.__items = {}
         self.__cls = cls
@@ -39,7 +39,7 @@ def extract_key_from_name(func):
     return helpful_register
 
 
-mappings = MSARegistry(MSAContainer)
+mappings = MSARegistry(SQLModel)
 operators = MSARegistry(MSAOperatorBase)
 
 

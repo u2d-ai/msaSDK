@@ -3,10 +3,10 @@ Created on 2022-09-02
 modified version, original from JustPy
 @author: wf (modification swelcker)
 """
-import urllib.request
-import os
 import gzip
+import os
 import shutil
+import urllib.request
 from pathlib import Path
 
 
@@ -40,11 +40,11 @@ class Download:
         does not exist has a size of zero or the download should be forced
 
         Args:
-            file_path(str): the path of the file to be checked
-            force(bool): True if the result should be forced to True
+            file_path: the path of the file to be checked
+            force: True if the result should be forced to True
 
         Return:
-            bool: True if  a download for this file needed
+            result: True if  a download for this file needed
         """
         if not os.path.isfile(file_path):
             result = True
@@ -65,18 +65,18 @@ class Download:
     @staticmethod
     def download_backup_file(
         url: str, file_name: str, target_directory: str, force: bool = False
-    ):
+    ) -> str:
         """
         Downloads from the given url the zip-file and extracts the file corresponding to the given file_name.
 
         Args:
             url: url linking to a downloadable gzip file
             file_name: Name of the file that should be extracted from gzip file
-            target_directory(str): download the file this directory
-            force (bool): True if the download should be forced
+            target_directory: download the file this directory
+            force: True if the download should be forced
 
         Returns:
-            Name of the extracted file with path to the backup directory
+            extract_to: Name of the extracted file with path to the backup directory
         """
         extract_to = f"{target_directory}/{file_name}"
         # we might want to check whether a new version is available

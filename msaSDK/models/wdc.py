@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import html
-from typing import List, Tuple, Optional, Dict
+from typing import Dict, List, Optional, Tuple
+
 from sqlmodel import SQLModel
 
 
@@ -93,7 +94,7 @@ class WDCMeaning(SQLModel):  # Used for entity
     similar: List[str] = []
     entailments: List[str] = []
     name: str = ""
-    misc = Dict = {}
+    misc: Dict = {}
     hits: int = 1
     token: str = ""
     pos: str = ""
@@ -107,7 +108,7 @@ class WDCMeaning(SQLModel):  # Used for entity
         if not syn:
             return
         self.type = type
-        #print("processSynset", self.token, syn)
+        # print("processSynset", self.token, syn)
 
         self.pos = syn.pos()
         self.synset = syn.name()
@@ -145,7 +146,9 @@ class WDCMeaning(SQLModel):  # Used for entity
         self.sees = [entry.name() for entry in lst]
         # domains
         lst = syn.topic_domains()
-        self.domains = [entry.name() for entry in lst if entry.name() not in self.domains]
+        self.domains = [
+            entry.name() for entry in lst if entry.name() not in self.domains
+        ]
         # root
         rn = syn.root_hypernyms()
         if len(rn) > 0:
@@ -172,11 +175,11 @@ class WDCMeaning(SQLModel):  # Used for entity
             self.pos = syn.pos
             if "description" in meta.keys():
                 self.description = meta["description"]
-            #print("Metadata", syn.metadata())
-            #print("Sense", syn.senses())
+            # print("Metadata", syn.metadata())
+            # print("Sense", syn.senses())
 
             self.name = syn.senses()[0].word().lemma().replace(" ", "_")
-            for sense in syn.get_related('domain_topic'):
+            for sense in syn.get_related("domain_topic"):
                 if len(sense.words()) > 0:
                     self.domains.append(sense.words()[0].lemma())
 
@@ -184,7 +187,7 @@ class WDCMeaning(SQLModel):  # Used for entity
             if len(self.synset) < 1:
                 sid: str = str(syn.id)
                 sids = sid.split("-")
-                if len(sids)> 0:
+                if len(sids) > 0:
                     sid = sids[1]
                 else:
                     sid = sid.replace("odenet-", "")
@@ -198,28 +201,48 @@ class WDCMeaning(SQLModel):  # Used for entity
 
             # hypernyms
             lst = syn.get_related("hypernym")
-            self.hypernyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
-            self.hypernyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+            self.hypernyms.extend(
+                [nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0]
+            )
+            self.hypernyms.extend(
+                [nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0]
+            )
 
             # hyponyms
             lst = syn.get_related("hyponym")
-            self.hyponyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
-            self.hyponyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+            self.hyponyms.extend(
+                [nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0]
+            )
+            self.hyponyms.extend(
+                [nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0]
+            )
 
             # holonyms
             lst = syn.get_related("holo_member")
-            self.holonyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
-            self.holonyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+            self.holonyms.extend(
+                [nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0]
+            )
+            self.holonyms.extend(
+                [nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0]
+            )
 
             # meronyms
             lst = syn.get_related("mero_member")
-            self.meronyms.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
-            self.meronyms.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+            self.meronyms.extend(
+                [nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0]
+            )
+            self.meronyms.extend(
+                [nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0]
+            )
 
             # entailments
             lst = syn.get_related("entails")
-            self.entailments.extend([nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0])
-            self.entailments.extend([nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0])
+            self.entailments.extend(
+                [nentry.lemmas()[0] for nentry in lst if len(nentry.lemmas()) > 0]
+            )
+            self.entailments.extend(
+                [nentry.words()[0].lemma() for nentry in lst if len(nentry.words()) > 0]
+            )
 
             # root
             rn = syn.hypernyms()
@@ -350,39 +373,107 @@ class WDCMeaning(SQLModel):  # Used for entity
         return ret
 
     def get_tooltip(self) -> str:
-        ret = "<span><i><small><strong>" + html.escape(self.type.upper() + "." + self.synset.upper()) + "</strong> / " + html.escape(self.ssid.upper()) + "</small></i><hr></span>" #<p>{{ entry[3] }}</p>
-        ret += "<p><h5><b><strong>" + html.escape(self.name.capitalize()) + "</strong></b> > " + html.escape(self.token.capitalize()) + "</h5></p>" #<p>{{ entry[3] }}</p>
-        #ret += "<hr>"
-        ret += "<span><i><small><strong>Description</strong></small></i><hr><i><h6>" + html.escape(self.description.capitalize()) + "<h6></i></span>"
-        #ret += "<hr>"
-        ret += "<span><i><small><strong>Node</strong></small></i><hr><h6>" + html.escape(self.get_tree()) + "</h6></span>"
-        ret += "<span><i><small><strong>Tree</strong></small></i><hr><h6>" + html.escape(self.get_root_tree_names()).replace("\n", "<br><br>") + "</h6></span>"
-        #ret += "<hr>"
+        ret = (
+            "<span><i><small><strong>"
+            + html.escape(self.type.upper() + "." + self.synset.upper())
+            + "</strong> / "
+            + html.escape(self.ssid.upper())
+            + "</small></i><hr></span>"
+        )  # <p>{{ entry[3] }}</p>
+        ret += (
+            "<p><h5><b><strong>"
+            + html.escape(self.name.capitalize())
+            + "</strong></b> > "
+            + html.escape(self.token.capitalize())
+            + "</h5></p>"
+        )  # <p>{{ entry[3] }}</p>
+        # ret += "<hr>"
+        ret += (
+            "<span><i><small><strong>Description</strong></small></i><hr><i><h6>"
+            + html.escape(self.description.capitalize())
+            + "<h6></i></span>"
+        )
+        # ret += "<hr>"
+        ret += (
+            "<span><i><small><strong>Node</strong></small></i><hr><h6>"
+            + html.escape(self.get_tree())
+            + "</h6></span>"
+        )
+        ret += (
+            "<span><i><small><strong>Tree</strong></small></i><hr><h6>"
+            + html.escape(self.get_root_tree_names()).replace("\n", "<br><br>")
+            + "</h6></span>"
+        )
+        # ret += "<hr>"
         if len(self.sees) > 0:
-            ret += "<span><i><small><strong>Sees</strong></small></i><hr><h6>" + html.escape(self.get_sees()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Sees</strong></small></i><hr><h6>"
+                + html.escape(self.get_sees())
+                + "</h6></span>"
+            )
         if len(self.similar) > 0:
-            ret += "<span><i><small><strong>Similar</strong></small></i><hr><h6>" + html.escape(self.get_similar()) + "</h6></span>"
-        #ret += "<hr>"
+            ret += (
+                "<span><i><small><strong>Similar</strong></small></i><hr><h6>"
+                + html.escape(self.get_similar())
+                + "</h6></span>"
+            )
+        # ret += "<hr>"
         if len(self.hyponyms) > 0:
-            ret += "<span><i><small><strong>Specifics</strong></small></i><hr><h6>" + html.escape(self.get_hyponyms()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Specifics</strong></small></i><hr><h6>"
+                + html.escape(self.get_hyponyms())
+                + "</h6></span>"
+            )
         if len(self.hypernyms) > 0:
-            ret += "<span><i><small><strong>Generalized</strong></small></i><hr><h6>" + html.escape(self.get_hypernyms()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Generalized</strong></small></i><hr><h6>"
+                + html.escape(self.get_hypernyms())
+                + "</h6></span>"
+            )
         if len(self.holonyms) > 0:
-            ret += "<span><i><small><strong>Whole</strong></small></i><hr><h6>" + html.escape(self.get_holonyms()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Whole</strong></small></i><hr><h6>"
+                + html.escape(self.get_holonyms())
+                + "</h6></span>"
+            )
         if len(self.meronyms) > 0:
-            ret += "<span><i><small><strong>Part</strong></small></i><hr><h6>" + html.escape(self.get_meronyms()) + "</h6></span>"
-        #ret += "<hr>"
+            ret += (
+                "<span><i><small><strong>Part</strong></small></i><hr><h6>"
+                + html.escape(self.get_meronyms())
+                + "</h6></span>"
+            )
+        # ret += "<hr>"
         if len(self.entailments) > 0:
-            ret += "<span><i><small><strong>Entailments</strong></small></i><hr><h6>" + html.escape(self.get_entailments()) + "</h6></span>"
-        #ret += "<hr>"
+            ret += (
+                "<span><i><small><strong>Entailments</strong></small></i><hr><h6>"
+                + html.escape(self.get_entailments())
+                + "</h6></span>"
+            )
+        # ret += "<hr>"
         if len(self.domains) > 0:
-            ret += "<span><i><small><strong>Topic/Domain</strong></small></i><hr><h6>" + html.escape(self.get_domains()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Topic/Domain</strong></small></i><hr><h6>"
+                + html.escape(self.get_domains())
+                + "</h6></span>"
+            )
         if len(self.frames) > 0:
-            ret += "<span><i><small><strong>Frames</strong></small></i><hr><h6>" + html.escape(self.get_frames()) + "</h6></span>"
+            ret += (
+                "<span><i><small><strong>Frames</strong></small></i><hr><h6>"
+                + html.escape(self.get_frames())
+                + "</h6></span>"
+            )
         if len(self.frames_set) > 0:
-            ret += "<span><i><small><strong>FramesSet</strong></small></i><hr><h6>" + html.escape(self.get_frames_set()) + "</h6></span>"
-        ret += "<span><i><small><strong>Usual Words</strong></small></i><hr><h6><em>" + html.escape(self.get_lemmas()) + "</h6></span>"
-        #ret = ret.replace("'", "\"")
+            ret += (
+                "<span><i><small><strong>FramesSet</strong></small></i><hr><h6>"
+                + html.escape(self.get_frames_set())
+                + "</h6></span>"
+            )
+        ret += (
+            "<span><i><small><strong>Usual Words</strong></small></i><hr><h6><em>"
+            + html.escape(self.get_lemmas())
+            + "</h6></span>"
+        )
+        # ret = ret.replace("'", "\"")
         return ret
 
 
@@ -392,7 +483,7 @@ class WDCSpan(SQLModel):  # Used for entity
     ntokens: int = 0
     npos: int = 0
     type: str = ""
-    misc = Dict = {}
+    misc: Dict = {}
     tokens: List[WDCToken] = []
     positions: List[WDCPosition] = []
 
@@ -653,4 +744,3 @@ class WDCDocument(SQLModel):
             meaning.id = self.nmeanings - 1
             meaning.positions.append(pos)
             self.meanings.append(meaning)
-

@@ -1,6 +1,7 @@
-from functools import wraps
 import asyncio
 import functools
+from functools import wraps
+
 queue = asyncio.Queue()
 
 
@@ -25,6 +26,7 @@ class MSASignalHandler:
         Decorator to register the handler.
         Handler must be asynchronous.
         """
+
         def _wrap(func):
             if asyncio.iscoroutinefunction(func):
                 self._register_handler(func)
@@ -84,5 +86,3 @@ class MSATaskHandler:
             function_object = await queue.get()
             await function_object(*args, **kwargs)
             queue.task_done()
-
-

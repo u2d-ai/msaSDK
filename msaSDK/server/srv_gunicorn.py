@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import multiprocessing
 import os
-import logging
 import sys
 from abc import ABC
 
@@ -12,15 +12,16 @@ from loguru import logger
 
 from msaSDK.service import MSAApp
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
 
 JSON_LOGS = True if os.environ.get("JSON_LOGS", "0") == "1" else False
 
 
 def number_of_workers():
-    ret = (multiprocessing.cpu_count())
-    if ret > 10: ret = 10
+    ret = multiprocessing.cpu_count()
+    if ret > 10:
+        ret = 10
     ret = int(os.environ.get("GUNICORN_WORKERS", str(ret)))
     return ret
 
@@ -39,7 +40,9 @@ class InterceptHandler(logging.Handler):
             frame = frame.f_back
             depth += 1
 
-        logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+        logger.opt(depth=depth, exception=record.exc_info).log(
+            level, record.getMessage()
+        )
 
 
 class StubbedGunicornLogger(Logger):
@@ -63,8 +66,11 @@ class StandaloneApplication(BaseApplication, ABC):
         super().__init__()
 
     def load_config(self):
-        config = {key: value for key, value in self.options.items()
-                  if key in self.cfg.settings and value is not None}
+        config = {
+            key: value
+            for key, value in self.options.items()
+            if key in self.cfg.settings and value is not None
+        }
         for key, value in config.items():
             self.cfg.set(key.lower(), value)
 
@@ -73,9 +79,16 @@ class StandaloneApplication(BaseApplication, ABC):
 
 
 class MSAServerGunicorn:
-
-    def __init__(self, app: MSAApp, app_dir: str, host: str, port: int, reload: bool = False, log_level: str = "info",
-                 workers: int = -1) -> None:
+    def __init__(
+        self,
+        app: MSAApp,
+        app_dir: str,
+        host: str,
+        port: int,
+        reload: bool = False,
+        log_level: str = "info",
+        workers: int = -1,
+    ) -> None:
         super().__init__()
         self.app: MSAApp = app
         self.app_dir: str = app_dir
@@ -110,13 +123,13 @@ class MSAServerGunicorn:
         logger.configure(handlers=[{"sink": sys.stdout, "serialize": JSON_LOGS}])
 
         options = {
-            'bind': '%s:%s' % (self.host, self.port),
-            'reload': self.reload,
-            'workers': self.workers,
-            'worker_class': 'uvicorn.workers.UvicornWorker',
-            'accesslog': '-',
-            'errorlog': '-',
-            "logger_class": StubbedGunicornLogger
+            "bind": "%s:%s" % (self.host, self.port),
+            "reload": self.reload,
+            "workers": self.workers,
+            "worker_class": "uvicorn.workers.UvicornWorker",
+            "accesslog": "-",
+            "errorlog": "-",
+            "logger_class": StubbedGunicornLogger,
         }
 
         StandaloneApplication(self.app, options).run()

@@ -8,15 +8,15 @@ import os
 
 def find_files(path: str, ext: str) -> list:
     """
-        find files with the given extension in the given path
+    find files with the given extension in the given path
 
-        Args:
-            path(str): the path to start with
-            ext(str): the extension to search for
+    Args:
+        path: the path to start with
+        ext: the extension to search for
 
-        Returns:
-            list: a list of files found
-        """
+    Returns:
+        list: a list of files found
+    """
     foundFiles = []
     for root, _dirs, files in os.walk(path, topdown=False):
         for name in files:

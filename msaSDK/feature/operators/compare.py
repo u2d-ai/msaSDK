@@ -4,10 +4,10 @@ from msaSDK.feature.base.registry import operators
 
 class Equals(MSAOperatorBase):
 
-    name = 'equals'
-    group = 'comparable'
-    preposition = 'equal to'
-    mappings = ('value',)
+    name = "equals"
+    group = "comparable"
+    preposition = "equal to"
+    mappings = ("value",)
 
     def applies_to(self, mapping):
         return mapping == self.value
@@ -18,10 +18,10 @@ class Equals(MSAOperatorBase):
 
 class Between(MSAOperatorBase):
 
-    name = 'between'
-    group = 'comparable'
-    preposition = 'between'
-    mappings = ('lower_limit', 'upper_limit')
+    name = "between"
+    group = "comparable"
+    preposition = "between"
+    mappings = ("lower_limit", "upper_limit")
 
     def applies_to(self, mapping):
         return mapping > self.lower_limit and mapping < self.upper_limit
@@ -32,10 +32,10 @@ class Between(MSAOperatorBase):
 
 class LessThan(MSAOperatorBase):
 
-    name = 'before'
-    group = 'comparable'
-    preposition = 'less than'
-    mappings = ('upper_limit',)
+    name = "before"
+    group = "comparable"
+    preposition = "less than"
+    mappings = ("upper_limit",)
 
     def applies_to(self, mapping):
         return mapping < self.upper_limit
@@ -46,9 +46,9 @@ class LessThan(MSAOperatorBase):
 
 class LessThanOrEqualTo(LessThan):
 
-    name = 'less_than_or_equal_to'
-    group = 'comparable'
-    preposition = 'less than or equal to'
+    name = "less_than_or_equal_to"
+    group = "comparable"
+    preposition = "less than or equal to"
 
     def applies_to(self, mapping):
         return mapping <= self.upper_limit
@@ -59,10 +59,10 @@ class LessThanOrEqualTo(LessThan):
 
 class MoreThan(MSAOperatorBase):
 
-    name = 'more_than'
-    group = 'comparable'
-    preposition = 'more than'
-    mappings = ('lower_limit',)
+    name = "more_than"
+    group = "comparable"
+    preposition = "more than"
+    mappings = ("lower_limit",)
 
     def applies_to(self, mapping):
         return mapping > self.lower_limit
@@ -73,9 +73,9 @@ class MoreThan(MSAOperatorBase):
 
 class MoreThanOrEqualTo(MoreThan):
 
-    name = 'more_than_or_equal_to'
-    group = 'comparable'
-    preposition = 'more than or equal to'
+    name = "more_than_or_equal_to"
+    group = "comparable"
+    preposition = "more than or equal to"
 
     def applies_to(self, mapping):
         return mapping >= self.lower_limit

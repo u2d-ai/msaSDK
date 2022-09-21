@@ -1,4 +1,3 @@
-
 class ClickDemo:
     """
     demo for click handling
@@ -17,6 +16,7 @@ class ClickDemo:
         the example Webpage under test
         """
         import msaSDK.jpui as jp
+
         wp = jp.WebPage(debug=False)
         self.clickCount = 0
         d = jp.Div(

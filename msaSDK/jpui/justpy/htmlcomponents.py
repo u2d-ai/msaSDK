@@ -1,10 +1,10 @@
 import inspect
-
 import re
 from html import unescape
 from html.entities import name2codepoint
 from html.parser import HTMLParser
 from types import MethodType
+from typing import List
 
 import httpx
 from addict import Dict
@@ -12,10 +12,11 @@ from addict import Dict
 from ..jpcore.component import Component
 from ..jpcore.webpage import WebPage as BaseWebPage
 
-tagfind_tolerant = re.compile(r'([a-zA-Z][^\t\n\r\f />\x00]*)(?:\s|/(?!>))*')
+tagfind_tolerant = re.compile(r"([a-zA-Z][^\t\n\r\f />\x00]*)(?:\s|/(?!>))*")
 attrfind_tolerant = re.compile(
     r'((?<=[\'"\s/])[^\s/>][^\s/=>]*)(\s*=+\s*'
-    r'(\'[^\']*\'|"[^"]*"|(?![\'"])[^>\s]*))?(?:\s|/(?!>))*')
+    r'(\'[^\']*\'|"[^"]*"|(?![\'"])[^>\s]*))?(?:\s|/(?!>))*'
+)
 
 # Dictionary for translating from tag to class
 _tag_class_dict = {}
@@ -98,6 +99,7 @@ class JustpyBaseComponent(Component):
     """
     the base class for all Justpy components
     """
+
     temp_flag = True
     delete_flag = True
     needs_deletion = False
@@ -151,13 +153,13 @@ class JustpyBaseComponent(Component):
                 self.needs_deletion = False
 
     def on(
-            self,
-            event_type,
-            func,
-            *,
-            debounce=None,
-            throttle=None,
-            immediate=False,
+        self,
+        event_type,
+        func,
+        *,
+        debounce=None,
+        throttle=None,
+        immediate=False,
     ):
         if event_type in self.allowed_events:
             cls = JustpyBaseComponent
@@ -279,7 +281,7 @@ class JustpyBaseComponent(Component):
         return model_value
 
     async def run_event_function(
-            self, event_type, event_data, create_namespace_flag=True
+        self, event_type, event_data, create_namespace_flag=True
     ):
         event_function = getattr(self, "on_" + event_type)
         if create_namespace_flag:
@@ -309,9 +311,9 @@ class HTMLBaseComponent(JustpyBaseComponent):
     Base Component for all HTML components
     """
 
-    attributes = []
-    html_tag = "div"
-    vue_type = "html_component"  # Vue.js component name
+    attributes: List = []
+    html_tag: str = "div"
+    vue_type: str = "html_component"  # Vue.js component name
 
     html_global_attributes = [
         "accesskey",
@@ -496,7 +498,7 @@ class HTMLBaseComponent(JustpyBaseComponent):
                 except:
                     pass
         for i in (
-                self.prop_list + self.attributes + HTMLBaseComponent.used_global_attributes
+            self.prop_list + self.attributes + HTMLBaseComponent.used_global_attributes
         ):
             try:
                 d["attrs"][i] = getattr(self, i)
@@ -529,7 +531,7 @@ class HTMLBaseComponent(JustpyBaseComponent):
 
 
 class Div(HTMLBaseComponent):
-    """ 
+    """
     A general purpose html container
     This is a component that other components can be added to
     """
@@ -559,10 +561,10 @@ class Div(HTMLBaseComponent):
     def add_component(self, child, position=None, slot=None):
         """
         add a component
-        
+
         Args:
             child: the component to add
-            position: the position to add to (append if None) 
+            position: the position to add to (append if None)
             slot: if given set the slot of the child
         """
         if slot:
@@ -971,6 +973,7 @@ class A(Div):
         super().__init__(**kwargs)
 
         if not kwargs.get("click"):
+
             def default_click(self, msg):
                 return True
 
@@ -1108,7 +1111,7 @@ class TabGroup(Div):
             self.wrapper_div.add(self.tabs[self.value]["tab"])
 
         self.style = (
-                " position: relative; overflow: hidden; " + self.style
+            " position: relative; overflow: hidden; " + self.style
         )  # overflow: hidden;
         d = super().convert_object_to_dict()
         return d
@@ -2305,8 +2308,8 @@ for tag in svg_tags_use:
         {
             "html_tag": tag,
             "attributes": svg_attr_dict.get(tag, [])
-                          + svg_presentation_attributes
-                          + svg_filter_attributes,
+            + svg_presentation_attributes
+            + svg_filter_attributes,
         },
     )
 
@@ -2481,8 +2484,8 @@ class BasicHTMLParser(HTMLParser):
             if not rest:
                 attrvalue = None
             elif (
-                    attrvalue[:1] == "'" == attrvalue[-1:]
-                    or attrvalue[:1] == '"' == attrvalue[-1:]
+                attrvalue[:1] == "'" == attrvalue[-1:]
+                or attrvalue[:1] == '"' == attrvalue[-1:]
             ):
                 attrvalue = attrvalue[1:-1]
             if attrvalue:

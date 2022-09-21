@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 from functools import lru_cache
-from typing import Union, Optional, Type, List, Dict, Any, Iterable, Tuple, Callable
+from typing import (Any, Callable, Dict, Iterable, List, Optional, Tuple, Type,
+                    Union)
 
-from pydantic.datetime_parse import parse_datetime, parse_date
+from pydantic.datetime_parse import parse_date, parse_datetime
 from pydantic.fields import ModelField
 from pydantic.utils import smart_deepcopy
 from sqlalchemy import Column
@@ -18,13 +19,15 @@ SQLModelListField = Union[Type[SQLModel], SQLModelField]
 
 
 class MSASQLModelFieldParser:
-    _name_format = '{model_name}_{field_name}'
-    _alias_format = '{table_name}__{field_key}'
+    _name_format = "{model_name}_{field_name}"
+    _alias_format = "{table_name}__{field_key}"
 
     def __init__(self, default_model: Type[SQLModel]):
         self.default_model = default_model
 
-    def get_modelfield(self, field: Union[ModelField, SQLModelField], deepcopy: bool = False) -> Optional[ModelField]:
+    def get_modelfield(
+        self, field: Union[ModelField, SQLModelField], deepcopy: bool = False
+    ) -> Optional[ModelField]:
         """pydantic ModelField"""
         modelfield = None
         if isinstance(field, InstrumentedAttribute):
@@ -56,22 +59,35 @@ class MSASQLModelFieldParser:
 
     def get_alias(self, field: Union[Column, SQLModelField, Label]) -> str:
         if isinstance(field, Column):
-            return field.name if field.table.name == self.default_model.__tablename__ else self._alias_format.format(
-                table_name=field.table.name, field_key=field.name
+            return (
+                field.name
+                if field.table.name == self.default_model.__tablename__
+                else self._alias_format.format(
+                    table_name=field.table.name, field_key=field.name
+                )
             )
         elif isinstance(field, InstrumentedAttribute):
-            return field.key if field.class_.__tablename__ == self.default_model.__tablename__ else self._alias_format.format(
-                table_name=field.class_.__tablename__, field_key=field.expression.key
+            return (
+                field.key
+                if field.class_.__tablename__ == self.default_model.__tablename__
+                else self._alias_format.format(
+                    table_name=field.class_.__tablename__,
+                    field_key=field.expression.key,
+                )
             )
         elif isinstance(field, Label):
             return field.key
         elif isinstance(field, str) and field in self.default_model.__fields__:
             return field
-        return ''
+        return ""
 
     def get_name(self, field: InstrumentedAttribute) -> str:
-        return field.key if field.class_.__tablename__ == self.default_model.__tablename__ else self._name_format.format(
-            model_name=field.class_.__tablename__, field_name=field.key
+        return (
+            field.key
+            if field.class_.__tablename__ == self.default_model.__tablename__
+            else self._name_format.format(
+                model_name=field.class_.__tablename__, field_name=field.key
+            )
         )
 
     def get_row_keys(self, row: Row) -> List[str]:
@@ -82,7 +98,9 @@ class MSASQLModelFieldParser:
         """sqlalchemy select keys"""
         return [self.get_alias(column) for column in stmt.exported_columns]
 
-    def conv_row_to_dict(self, rows: Union[Row, List[Row]]) -> Union[None, Dict[str, Any], List[Dict[str, Any]]]:
+    def conv_row_to_dict(
+        self, rows: Union[Row, List[Row]]
+    ) -> Union[None, Dict[str, Any], List[Dict[str, Any]]]:
         """sqlalchemy row to dict"""
         if not rows:
             return None
@@ -94,7 +112,9 @@ class MSASQLModelFieldParser:
             data = dict(zip(keys, rows))
         return data
 
-    def get_sqlmodel_insfield(self, model: Type[SQLModel]) -> List[InstrumentedAttribute]:
+    def get_sqlmodel_insfield(
+        self, model: Type[SQLModel]
+    ) -> List[InstrumentedAttribute]:
         """Excluding the relationship field"""
         return [model.__dict__[field_name] for field_name in model.__fields__]
 
@@ -106,8 +126,11 @@ class MSASQLModelFieldParser:
 
         return None
 
-    def filter_insfield(self, fields: Iterable[Union[SQLModelListField, Any]], save_class: Tuple[type] = None) -> \
-            List[Union[InstrumentedAttribute, Any]]:
+    def filter_insfield(
+        self,
+        fields: Iterable[Union[SQLModelListField, Any]],
+        save_class: Tuple[type] = None,
+    ) -> List[Union[InstrumentedAttribute, Any]]:
         result = []
         for field in fields:
             insfield = self.get_insfield(field)

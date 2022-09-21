@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from functools import lru_cache
-from typing import Dict, List, Optional
-
+from typing import List, Optional
 
 from pydantic import validator
 from sqlmodel import SQLModel
@@ -14,6 +13,7 @@ class MSAServiceStatus(SQLModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
+
     name: Optional[str] = "msaSDK Service"
     """Service Name."""
     healthy: Optional[str] = "None"
@@ -37,6 +37,7 @@ class MSAServiceDefinition(MSAAppSettings):
     Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
     to the config, they should have the correct types.
     """
+
     name: str = "msaSDK Service"
     """Service Name, also used as Title."""
     version: str = "0.0.0"
@@ -69,7 +70,9 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enable Validation Exception Handler."""
     httpception: bool = True
     """Enable the HTTP Exception Handler, which provides HTML Error Pages instead of JSONResponse."""
-    httpception_exclude: List[int] = [307, ]
+    httpception_exclude: List[int] = [
+        307,
+    ]
     """List of HTTP Exception Codes which are excluded and just forwarded by the HTTP Exception Handler."""
     cors: bool = True
     """Enable CORS Middleware."""
@@ -99,7 +102,7 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enable Context Middleware."""
     pagination: bool = False
     """Enable FastAPI Pagination."""
-    profiler: bool = False
+    profiler: bool = True
     """Enable Profiler Middleware."""
     profiler_output_type: str = "html"  # text or html
     """Set the Profiler Output Type, should be html or text, html is needed if you want to use the profiler on the Admin Site."""
@@ -162,10 +165,10 @@ class MSAServiceDefinition(MSAAppSettings):
     language: str = ""  # 'zh_CN','en_US'
     """Set's internal Admin Dashboard language (``zh_CN`` or ``en_US``=default if empty)."""
 
-    @validator('root_path', 'site_url', pre=True)
+    @validator("root_path", "site_url", pre=True)
     def valid_url(cls, url: str):
-        """ Internal Validator for ``root_path`` and ``site_url`` to remove ending ``/``."""
-        return url[:-1] if url.endswith('/') else url
+        """Internal Validator for ``root_path`` and ``site_url`` to remove ending ``/``."""
+        return url[:-1] if url.endswith("/") else url
 
 
 @lru_cache()

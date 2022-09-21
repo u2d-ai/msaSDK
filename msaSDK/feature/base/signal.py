@@ -1,6 +1,4 @@
-
 class MSASignal(object):
-
     def __init__(self):
         self.__callbacks = []
 

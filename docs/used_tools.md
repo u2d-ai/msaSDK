@@ -88,4 +88,3 @@ It is the recommended server for Starlette, FastAPI and you guessed it **msaSDK*
 
     You can combine it with Gunicorn, to have an asynchronous multi-process server.
 
-    Check more details in the [Deployment](deployment/index.md){.internal-link target=_blank} section.

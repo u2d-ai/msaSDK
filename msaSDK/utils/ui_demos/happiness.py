@@ -1,10 +1,10 @@
-
-import msaSDK.jpui as jp
-import pandas as pd
-import numpy as np
 import asyncio
 
+import numpy as np
+import pandas as pd
 from starlette.requests import Request
+
+import msaSDK.jpui as jp
 
 # https://worldhappiness.report/ed/2019/
 df = pd.read_csv("http://elimintz.github.io/happiness_report_2019.csv").round(3)
@@ -209,7 +209,6 @@ def create_corr_page():
 corr_page = create_corr_page()
 
 
-
 async def corr_test():
     return corr_page
 
@@ -223,6 +222,7 @@ async def page_ready(self, msg):
 
 
 # Loads charts one by one to page, improving user experience
+
 
 async def corr_stag_test():
     wp = jp.WebPage()

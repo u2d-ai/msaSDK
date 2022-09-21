@@ -22,7 +22,9 @@ class MSABaseModel(BaseModel):
     class Config:
         json_loads = orjson.loads
         json_dumps = orjson_dumps
-        json_encoders = {datetime: convert_datetime_to_gmt}  # method for customer JSON encoding of datetime fields
+        json_encoders = {
+            datetime: convert_datetime_to_gmt
+        }  # method for customer JSON encoding of datetime fields
 
     @root_validator()
     def set_null_microseconds(cls, data: dict) -> dict:

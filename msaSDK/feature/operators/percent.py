@@ -1,4 +1,5 @@
-from decimal import Context as decimal_Context, Decimal, DecimalException
+from decimal import Context as decimal_Context
+from decimal import Decimal, DecimalException
 
 from msaSDK.feature.base import MSAOperatorBase
 from msaSDK.feature.base.registry import operators
@@ -6,10 +7,10 @@ from msaSDK.feature.base.registry import operators
 
 class MSAPercentRange(MSAOperatorBase):
 
-    name = 'percent_range'
-    group = 'misc'
-    preposition = 'in the percentage range of'
-    mappings = ('lower_limit', 'upper_limit')
+    name = "percent_range"
+    group = "misc"
+    preposition = "in the percentage range of"
+    mappings = ("lower_limit", "upper_limit")
 
     _context = decimal_Context()
 
@@ -40,15 +41,15 @@ class MSAPercentRange(MSAOperatorBase):
         return self.lower_limit <= self._modulo(decimal_mapping) < self.upper_limit
 
     def __str__(self):
-        return 'in %0.1f - %0.1f%% of values' % (self.lower_limit, self.upper_limit)
+        return "in %0.1f - %0.1f%% of values" % (self.lower_limit, self.upper_limit)
 
 
 class MSAPercent(MSAPercentRange):
 
-    name = 'percent'
-    group = 'misc'
-    preposition = 'within the percentage of'
-    mappings = ('percentage',)
+    name = "percent"
+    group = "misc"
+    preposition = "within the percentage of"
+    mappings = ("percentage",)
 
     def __init__(self, percentage, lower_limit, upper_limit, *args, **kwargs):
         super().__init__(lower_limit, upper_limit, *args, **kwargs)
@@ -60,7 +61,7 @@ class MSAPercent(MSAPercentRange):
         return dict(percentage=self.upper_limit)
 
     def __str__(self):
-        return 'in %s%% of values' % self.upper_limit
+        return "in %s%% of values" % self.upper_limit
 
 
 operators.register(MSAPercentRange)

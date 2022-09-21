@@ -89,6 +89,40 @@ Since constructing mappings that simply reference an attribute on
 property from `self.input`. You must also pass a `Variable` to the
 `variable=` kwarg so msaSDK.feature know what Variable to wrap your value in.
 
+```python
+from typing import Optional
+from sqlmodel import SQLModel
+from msaSDK.admin.utils.fields import Field
+from msaSDK.feature.base.condition import MSACondition
+from msaSDK.feature.base.manager import MSAManager
+from msaSDK.feature.base.settings import get_msa_feature_settings
+from msaSDK.feature.base.switch import MSASwitch
+from msaSDK.feature.operators.compare import MoreThan
+
+
+class TestCategory(SQLModel, table=True):
+    __table_args__ = {"extend_existing": True}
+    id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
+    title: str = Field(title="ArticleTitle", max_length=200)
+    description: Optional[str] = Field(
+        default="", title="ArticleDescription", max_length=400
+    )
+    status: bool = Field(None, title="status")
+    content: str = Field(title="ArticleContent")
+    age: int = Field(default=35, title="Age")
+
+
+settings_features = get_msa_feature_settings()
+settings_features.autocreate = True
+myManager = MSAManager(settings=settings_features)
+switch = MSASwitch('my feature', state=MSASwitch.states.CONDITIONAL)
+condition = MSACondition(mapping=TestCategory, attribute='age', operator=MoreThan(15))
+switch.conditions.append(condition)
+myManager.register(switch)
+
+print("active: ", myManager.active('my feature'))
+```
+
 ## Switches
 
 Switches encapsulate the concept of an item that is either \'on\' or
@@ -239,7 +273,7 @@ deleted.
 ## Conditions
 
 Each Switch can have 0+ conditions, which describe the conditions under
-which that switch is active. `Condition` objects are constructed with
+which that switch is active. `MSACondition` objects are constructed with
 three values: a `mapping`, `attribute` and `operator`.
 
 An `mapping` is any `Pydantic` or `SQLModel` class, like the one you defined earlier.
@@ -249,16 +283,16 @@ condition to check. `operator` is some sort of check applied against
 that attribute. For instance, is the `UserPydanticClass.age` greater than
 some value? Equal to some value? Within a range of values? Etc.
 
-Let's say you wanted a `Condition` that checks if the user's age is \>
-65 years old? You would construct a Condition that way:
+Let's say you wanted a `MSACondition` that checks if the user's age is \>
+65 years old? You would construct a MSACondition that way:
 
 ``` {.python}
 from msaSDK.feature.base.operators.comparable import MoreThan
 
-condition = Condition(mapping=UserPydanticClass, attribute='age', operator=MoreThan(65))
+condition = MSACondition(mapping=UserPydanticClass, attribute='age', operator=MoreThan(65))
 ```
 
-This Condition will be true if any input instance has an `age` that is
+This MSACondition will be true if any input instance has an `age` that is
 more than `65`.
 
 Please see the `msaSDK.feature.operators` for a list of available operators.
@@ -269,7 +303,7 @@ negates the condition. For example:
 ``` {.python}
 from msaSDK.feature.base.operators.comparable import MoreThan
 
-condition = Condition(mapping=UserPydanticClass, attribute='age', operator=MoreThan(65), negative=True)
+condition = MSACondition(mapping=UserPydanticClass, attribute='age', operator=MoreThan(65), negative=True)
 ```
 
 This Condition is now `True` if the condition evaluates to `False`. In

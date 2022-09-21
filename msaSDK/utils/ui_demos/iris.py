@@ -1,5 +1,6 @@
-import msaSDK.jpui as jp
 import pandas as pd
+
+import msaSDK.jpui as jp
 
 iris = pd.read_csv(
     "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"

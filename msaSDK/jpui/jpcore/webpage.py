@@ -3,16 +3,19 @@ Created on 2022-09-02
 modified version, original from JustPy
 @author: wf (modification swelcker)
 """
-from addict import Dict
 import asyncio
 import inspect
+import typing
 from types import MethodType
+
+from addict import Dict
 
 
 class WebPage:
     """
     a web page
     """
+
     # TODO: Add page events online, beforeunload, resize
     instances = {}
     sockets = {}
@@ -184,7 +187,7 @@ class WebPage:
         update the Webpage
 
         Args:
-            websocket(): The websocket to use (if any)
+            websocket: The websocket to use (if any)
         """
         try:
             websocket_dict = WebPage.sockets[self.page_id]
@@ -212,7 +215,6 @@ class WebPage:
                 *[websocket.send_json(dict_to_send) for websocket in websockets],
                 return_exceptions=True,
             )
-            pass
         return self
 
     async def delayed_update(self, delay):
@@ -243,14 +245,14 @@ class WebPage:
             object_list.append(d)
         return object_list
 
-    def on(self, event_type, func):
+    def on(self, event_type: str, func: typing.Callable):
         """
         add an event of the given event_type  with the given function
-        
+
         Args:
-            event_type(str): the type of the event without on_prefix
-            func(Callable): the function to call
-            
+            event_type: the type of the event without on_prefix
+            func: the function to call (Callable)
+
         """
         if event_type in self.allowed_events:
             if inspect.ismethod(func):
@@ -263,7 +265,7 @@ class WebPage:
             raise Exception(f"No event of type {event_type} supported")
 
     async def run_event_function(
-            self, event_type, event_data, create_namespace_flag=True
+        self, event_type, event_data, create_namespace_flag=True
     ):
         event_function = getattr(self, "on_" + event_type)
         if create_namespace_flag:

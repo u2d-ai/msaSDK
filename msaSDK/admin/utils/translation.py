@@ -6,7 +6,6 @@ from typing import Dict, Set
 
 
 class I18N:
-
     def __init__(self):
         self._locales: Dict[str, Set[GNUTranslations]] = {}
         self._language: str = self.set_language()
@@ -34,8 +33,13 @@ class I18N:
         Returns:
             the language after the successful setting
         """
-        language = language or os.getenv('LANGUAGE') or os.getenv('LANG') or locale.getdefaultlocale()[0]
-        self._language = 'zh_CN' if language.lower().startswith('zh') else 'en_US'
+        language = (
+            language
+            or os.getenv("LANGUAGE")
+            or os.getenv("LANG")
+            or locale.getdefaultlocale()[0]
+        )
+        self._language = "zh_CN" if language.lower().startswith("zh") else "en_US"
         return self._language
 
     def get_language(self):

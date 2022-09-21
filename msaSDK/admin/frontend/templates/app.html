@@ -8,11 +8,12 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
     <link href="${site_icon}" rel="shortcut icon" type="image/x-icon"/>
     <link href="/msastatic/css/sdk.css" rel="stylesheet" title="default"/>
-    <link href="/msastatic/css/helper.css" rel="stylesheet"/>
-    <link href="/msastatic/css/iconfont.css" rel="stylesheet"/>
+    <link href="/msastatic/css/helper.css" rel="stylesheet">
+    <link href="/msastatic/css/iconfont.css" rel="stylesheet">
     <script src="/msastatic/js/sdk.js"></script>
     <script src="/msastatic/js/vue.js"></script>
     <script src="/msastatic/js/history.js"></script>
+
     <style>
         html, body,
         .app-wrapper {
@@ -24,18 +25,20 @@
         }
 
         /*DropDownButton - Component drop-down menu style modification*/
-        .msa_ui-scope .msa-DropDown-menu {
+        .amis-scope .msa-DropDown-menu {
             min-width: 100%;
             text-align: center;
         }
     </style>
+
+
 </head>
 <body>
 <div class="app-wrapper" id="root"></div>
 <script>
     (function () {
-        let msa_ui = msa_uiRequire('msa_ui/embed');
-        const match = msa_uiRequire('path-to-regexp').match;
+        let amis = amisRequire('amis/embed');
+        const match = amisRequire('path-to-regexp').match;
 
         // If you want to use browserHistory, please unmark next line, and leave the rest unchanged
         // const history = History.createBrowserHistory();
@@ -96,7 +99,7 @@
             return decodeURI(pathname) === link;
         }
 
-        let msa_uiInstance = msa_ui.embed(
+        let amisInstance = amis.embed(
             '#root',
             app,
             {location: history.location, locale: "${locale}"},
@@ -161,11 +164,12 @@
         );
 
         history.listen(state => {
-            msa_uiInstance.updateProps({
+            amisInstance.updateProps({
                 location: state.location || state
             });
         });
     })();
 </script>
+
 </body>
 </html>

@@ -2,7 +2,6 @@ from typing import Any
 
 
 class MSAOperatorInitError(ValueError):
-
     def __init__(self, mapping: Any):
         message = "Missing mapping %s to construct operator." % mapping
         super(MSAOperatorInitError, self).__init__(message)
@@ -11,12 +10,17 @@ class MSAOperatorInitError(ValueError):
 class MSAOperatorBase(object):
 
     mappings = ()
+    #upper_limt = None
+    #lower_limit = None
 
     def __init__(self, *args, **kwargs):
         mapping: Any = None
         try:
             for mapping in self.mappings:
-                setattr(self, mapping, kwargs.pop(mapping))
+                if len(kwargs) > 0:
+                    setattr(self, mapping, kwargs.pop(mapping))
+                else:
+                    setattr(self, mapping, args[0])
         except KeyError:
             raise MSAOperatorInitError(mapping)
 

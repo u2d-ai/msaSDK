@@ -1,20 +1,22 @@
-from fs import open_fs
+from typing import Union
+
 from fs import *
+from fs import open_fs
 from fs.base import *
 from fs.compress import *
 from fs.copy import *
 from fs.enums import *
 from fs.errors import *
+from fs.filesize import *
 from fs.glob import *
 from fs.info import *
-from fs.filesize import *
 from fs.mirror import *
 from fs.move import *
 from fs.opener import *
 from fs.opener.base import *
+from fs.opener.errors import *
 from fs.opener.parse import *
 from fs.opener.registry import *
-from fs.opener.errors import *
 from fs.path import *
 from fs.permissions import *
 from fs.tools import *
@@ -23,7 +25,6 @@ from fs.walk import *
 from fs.wildcard import *
 from fs.wrap import *
 from fs.wrapfs import *
-from typing import Union
 
 
 class MSAFilesystem:
@@ -449,8 +450,13 @@ class MSAFilesystem:
 
     """
 
-    def __init__(self, fs_url: Union[FS, str], writeable: bool = True,
-                 create: bool = True, cwd: str = "") -> None:
+    def __init__(
+        self,
+        fs_url: Union[FS, str],
+        writeable: bool = True,
+        create: bool = True,
+        cwd: str = "",
+    ) -> None:
 
         super().__init__()
         self._fs_url: Union[FS, str] = fs_url
@@ -459,6 +465,3 @@ class MSAFilesystem:
         self._cwd: str = cwd
 
         self.fs: FS = open_fs(self._fs_url, self._writeable, self._create, self._cwd)
-
-
-

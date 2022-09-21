@@ -3,8 +3,7 @@ import asyncio
 import hjson
 
 from .htmlcomponents import *
-from .htmlcomponents import _tag_class_dict, parse_dict
-
+from .htmlcomponents import parse_dict
 
 quasar_directives = [
     "v-close-popup",
@@ -47,8 +46,9 @@ class QuasarPage(WebPage):
         await self.run_javascript("Quasar.AppFullscreen.toggle()")
         return True
 
+
 class QDiv(Div):
-    slots = []
+    slots: list = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -68,7 +68,7 @@ class _QInputBase(Input):
     Base Class for Quasar Input
     """
 
-    slots = []
+    slots: list = []
 
     def __init__(self, **kwargs):
         """
@@ -402,7 +402,7 @@ class QSelect(_QInputBase):
 @parse_dict
 class QOptionGroup(_QInputBase):
     html_tag = "q-option-group"
-    slots = []
+    slots: list = []
 
     def __init__(self, **kwargs):
         self.options = []
@@ -445,7 +445,7 @@ class QOptionGroup(_QInputBase):
 @parse_dict
 class QBtnToggle(_QInputBase):
     html_tag = "q-btn-toggle"
-    slots = []
+    slots: list = []
 
     def __init__(self, **kwargs):
         self.options = []
@@ -485,7 +485,7 @@ class QBtnToggle(_QInputBase):
 class QSlider(_QInputBase):
     # TODO: Deal with label-value prop, for now use suffix
     html_tag = "q-slider"
-    slots = []
+    slots: list = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -527,7 +527,7 @@ class QSlider(_QInputBase):
 class QRange(_QInputBase):
     # TODO: Deal with left-label-value  and right-label-value props, for now use suffix for both right and left
 
-    slots = []
+    slots: list = []
     html_tag = "q-range"
 
     def __init__(self, **kwargs):
@@ -572,7 +572,7 @@ class QRange(_QInputBase):
 
 @parse_dict
 class QRating(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-rating"
 
     def __init__(self, **kwargs):
@@ -612,7 +612,7 @@ class QRating(_QInputBase):
 
 @parse_dict
 class QTime(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-time"
 
     def __init__(self, **kwargs):
@@ -646,7 +646,7 @@ class QTime(_QInputBase):
 
 @parse_dict
 class QDate(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-date"
 
     def __init__(self, **kwargs):
@@ -806,7 +806,7 @@ class QAvatar(QDiv):
 
 @parse_dict
 class QAjaxBar(QDiv):
-    slots = []
+    slots: list = []
     html_tag = "q-ajax-bar"
 
     def __init__(self, **kwargs):
@@ -896,7 +896,7 @@ class QBreadcrumbs(QDiv):
 
 @parse_dict
 class QBreadcrumbsEl(QDiv):
-    slots = []
+    slots: list = []
     html_tag = "q-breadcrumbs-el"
 
     def __init__(self, **kwargs):
@@ -1250,7 +1250,7 @@ class QKnob(_QInputBase):
 
 @parse_dict
 class QPagination(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-pagination"
 
     def __init__(self, **kwargs):
@@ -1412,7 +1412,7 @@ class QLinearProgress(QDiv):
 
 @parse_dict
 class QColor(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-color"
 
     def __init__(self, **kwargs):
@@ -1499,7 +1499,7 @@ class QPopupProxy(_QInputBase):
 
 @parse_dict
 class QDialog(_QInputBase):
-    slots = []
+    slots: list = []
     html_tag = "q-dialog"
 
     def __init__(self, **kwargs):
@@ -1691,7 +1691,7 @@ class QTimelineEntry(QDiv):
 
 @parse_dict
 class QEditor(QInput):
-    slots = []
+    slots: list = []
     html_tag = "q-editor"
 
     icon_set = Dict(
@@ -2301,7 +2301,7 @@ class QVideo(QDiv):
 
 @parse_dict
 class QTree(QDiv):
-    slots = []
+    slots: list = []
     html_tag = "q-tree"
 
     def __init__(self, **kwargs):

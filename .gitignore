@@ -1,5 +1,5 @@
 /dist/
-/docs_dist_site/
+/dist_docs/
 
 /msaSDK.egg-info/
 /msaSDK/msa_sdk.json

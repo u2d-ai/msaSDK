@@ -74,9 +74,9 @@ def secure_filename(filename: str) -> str:
     # have to ensure that the target file is not such a filename.  In
     # this case we prepend an underline
     if (
-            os.name == "nt"
-            and filename
-            and filename.split(".")[0].upper() in _windows_device_files
+        os.name == "nt"
+        and filename
+        and filename.split(".")[0].upper() in _windows_device_files
     ):
         filename = f"_{filename}"
 
@@ -101,18 +101,18 @@ async def checkIfFileIsArchive(file: UploadFile):
 async def get_all_dirs_with_subdirs(path: str, subdirs: set[str]) -> List[str]:
     """Get all Directories which have a specific set of Sub Dirs
 
-        Args:
-            path: The root path to wlk through
-            subdirs: a set of subdir names which need to be found to add the dirs
+    Args:
+        path: The root path to wlk through
+        subdirs: a set of subdir names which need to be found to add the dirs
 
-        Returns:
-            result: The list of directory names
+    Returns:
+        result: The list of directory names
 
     """
-    path: str = os.path.abspath(path)
+    apath: str = os.path.abspath(path)
 
     result: List[str] = []
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(apath):
         if all(subdir in dirs for subdir in subdirs):
             result.append(root)
             result.extend([subdir for subdir in dirs])
@@ -122,17 +122,17 @@ async def get_all_dirs_with_subdirs(path: str, subdirs: set[str]) -> List[str]:
 async def get_all_dirs(path: str) -> List:
     """Get all Directories of a specific root path
 
-        Args:
-            path: The root path to wlk through
+    Args:
+        path: The root path to wlk through
 
-        Returns:
-            result: The list of directory names
+    Returns:
+        result: The list of directory names
 
     """
-    path: str = os.path.abspath(path)
+    apath: str = os.path.abspath(path)
 
     result: List[str] = []
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(apath):
         result.append(root)
         result.extend([subdir for subdir in dirs])
     return result
@@ -141,12 +141,12 @@ async def get_all_dirs(path: str) -> List:
 async def save_text_to_file(path_file_name: str, text_content: str) -> None:
     """Saves a str content to file
 
-        Args:
-            path_file_name: The pathfilename to save the content to
-            text_content: The str content to store inside the file
+    Args:
+        path_file_name: The pathfilename to save the content to
+        text_content: The str content to store inside the file
 
-        Returns:
-            None
+    Returns:
+        None
     """
     async with aiofiles.open(path_file_name, "w") as file:
         await file.write(text_content)
@@ -155,12 +155,12 @@ async def save_text_to_file(path_file_name: str, text_content: str) -> None:
 async def save_bytes_to_file(path_file_name: str, binary_content: bytes) -> None:
     """Saves a bytes content to file
 
-        Args:
-            path_file_name: The pathfilename to save the content to
-            binary_content: The bytes content to store inside the file
+    Args:
+        path_file_name: The pathfilename to save the content to
+        binary_content: The bytes content to store inside the file
 
-        Returns:
-            None
+    Returns:
+        None
     """
     async with aiofiles.open(path_file_name, "wb") as file:
         await file.write(binary_content)
@@ -169,11 +169,11 @@ async def save_bytes_to_file(path_file_name: str, binary_content: bytes) -> None
 async def load_text_from_file(path_file_name: str) -> str:
     """Load a text content from a file
 
-        Args:
-            path_file_name: The pathfilename to load the content from
+    Args:
+        path_file_name: The pathfilename to load the content from
 
-        Returns:
-            str: The content of the file
+    Returns:
+        str: The content of the file
     """
     async with aiofiles.open(path_file_name, "r") as file:
         return await file.read()
@@ -182,11 +182,11 @@ async def load_text_from_file(path_file_name: str) -> str:
 async def load_bytes_from_file(path_file_name: str) -> bytes:
     """Load a bytes/binary content from a file
 
-        Args:
-            path_file_name: The pathfilename to load the content from
+    Args:
+        path_file_name: The pathfilename to load the content from
 
-        Returns:
-            bytes: The content of the file
+    Returns:
+        bytes: The content of the file
     """
     async with aiofiles.open(path_file_name, "rb") as file:
         return await file.read()
@@ -242,13 +242,13 @@ class FileUpload:
     """
 
     def __init__(
-            self,
-            filesize: int,
-            root_path: str = os.path.join(os.path.dirname(__file__)),
-            uploads_dir: str = "data/uploads",
-            not_allow_extensions: Optional[List[str]] = None,
-            max_size: int = 150000000,
-            createUIDSubFolders: bool = False
+        self,
+        filesize: int,
+        root_path: str = os.path.join(os.path.dirname(__file__)),
+        uploads_dir: str = "data/uploads",
+        not_allow_extensions: Optional[List[str]] = None,
+        max_size: int = 150000000,
+        createUIDSubFolders: bool = False,
     ):
         self.max_size = max_size
         self.not_allow_extensions = not_allow_extensions
@@ -286,7 +286,7 @@ class FileUpload:
 
         filen = os.path.join(struct, filename)
         self.fullpath = filen
-        f = open(f'{filen}', 'wb')
+        f = open(f"{filen}", "wb")
         ufile.file.seek(0)
         with f as buffer:
             shutil.copyfileobj(ufile.file, buffer)
@@ -310,7 +310,9 @@ class FileUpload:
         filename = self.filename_generator(self.uid, file.filename)
 
         if self.file_size > self.max_size:
-            raise FileMaxSizeLimit(f"File size {self.file_size} exceeds max size {self.max_size}")
+            raise FileMaxSizeLimit(
+                f"File size {self.file_size} exceeds max size {self.max_size}"
+            )
         if self.not_allow_extensions:
             for ext in self.not_allow_extensions:
                 if filename.endswith(ext):
@@ -334,11 +336,10 @@ class FileDelete:
     """
 
     def __init__(
-            self,
-            uid: str,
-            root_path: str = os.path.join(os.path.dirname(__file__)),
-            uploads_dir: str = "data/uploads",
-
+        self,
+        uid: str,
+        root_path: str = os.path.join(os.path.dirname(__file__)),
+        uploads_dir: str = "data/uploads",
     ):
         self.uid = uid
         self.uploads_dir = uploads_dir
@@ -346,12 +347,12 @@ class FileDelete:
 
     async def delete_files(self):
         target_folder = os.path.join(self.root_path, self.uploads_dir, self.uid)
-        ret = str("{ \"Success\": \"deleted " + self.uid + "\"}")
+        ret = str('{ "Success": "deleted ' + self.uid + '"}')
         if os.path.exists(target_folder):
             try:
                 shutil.rmtree(target_folder)
             except OSError as e:
-                ret = str("{ \"Error\": \"%s - %s." % (e.filename, e.strerror) + "\"}")
+                ret = str('{ "Error": "%s - %s.' % (e.filename, e.strerror) + '"}')
         else:
             target_folder = os.path.join(self.root_path, self.uploads_dir)
             hit = False
@@ -361,7 +362,9 @@ class FileDelete:
                     os.remove(target_file)
                     hit = True
             if hit is False:
-                ret = str("{ \"Error\": \" no such file or batch exists for " + self.uid + "\"}")
+                ret = str(
+                    '{ "Error": " no such file or batch exists for ' + self.uid + '"}'
+                )
         return ret
 
 
@@ -406,4 +409,3 @@ async def createMSAFileFromUnpacked(filepath: str, process_uid: str) -> MSAFile:
     mf.type_raw = mf.content_type
     mf.type_description = magic.from_file(filepath)
     return mf  # .copy()
-

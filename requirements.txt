@@ -1,6 +1,7 @@
 # General Dependencies
 aiomultiprocess~=0.9.0 # running a full AsyncIO event loop on each child process
 aiofiles~=22.1.0 # handling local disk files in asyncio applications
+types-aiofiles~=22.1.0 # Typing stubs for aiofiles
 Babel~=2.10.3 # collection of tools for internationalizing Python applications
 charset_normalizer~=2.1.1 #  read text from an unknown charset encoding
 country_list~=1.0.0 # List of all countries with names and ISO 3166-1 codes in all languages and all data formats
@@ -86,10 +87,14 @@ uvicorn~=0.18.3 # The lightning-fast ASGI server.
 uvloop~=0.17.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
-fonttools~=4.37.2 # Tools to manipulate font files
+autoflake~=1.6.0 # Removes unused imports and unused variables
+flake8~=5.0.4 # modular source code checker: pep8 pyflakes and co
+fonttools~=4.37.3 # Tools to manipulate font files
 gputil~=1.4.0 # Python module for getting the GPU status from NVIDA GPUs using nvidia-smi.
+isort~=5.10.1 # library to sort Python imports.
 Jinja2~=3.1.2 # A very fast and expressive template engine.
 matplotlib~=3.5.3 # Python plotting package
+mypy~=0.971 # Optional static typing for Python
 numpy~=1.23.3 # NumPy is the fundamental package for array computing with Python.
 orjson~=3.8.0 # Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy
 pandas~=1.4.4 # Powerful data structures for data analysis, time series, and statistics
@@ -112,3 +117,5 @@ mkdocs-section-index~=0.3.4 # MkDocs plugin to allow clickable sections that lea
 mkdocs-page-pdf~=0.1.0 # Generate a PDF file for each MkDocs page and adds a download button
 mkdocs-git-revision-date-localized-plugin~=1.1.0
 Pygments~=2.13.0 # generic syntax highlighter
+Markdown~=3.3.7 # implementation of Markdown.
+mdx-include~=1.4.2 # Markdown extension to include local or remote files

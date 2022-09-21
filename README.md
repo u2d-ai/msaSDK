@@ -20,7 +20,7 @@
 
 ------
 
-**Documentation**: <a href="http://msa.u2d.ai/" target="_blank">MSA SDK Documentation (http://msa.u2d.ai/)</a>
+**Documentation**: <a href="https://msa.u2d.ai/" target="_blank">MSA SDK Documentation (http://msa.u2d.ai/)</a>
 
 ------
 

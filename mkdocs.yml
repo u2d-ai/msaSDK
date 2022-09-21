@@ -1,17 +1,57 @@
-site_name: msaSDK - Documentation
+# directory
 docs_dir: docs
-site_dir: docs_dist_site
 
-# Repository
+# site
+site_name: msaSDK - Documentation
+site_dir: dist_docs
+site_url: https://msa.u2d.ai/
 
-repo_url: https://github.com/swelcker/msaSDK.git
+# Repo
+repo_url: https://github.com/swelcker/msaSDK
 repo_name: swelcker/msaSDK
 edit_uri: ""
 
 # Copyright
 copyright: Stefan Welcker, 2022, stefan@u2d.ai
 
+# theme
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      accent: blue
+      primary: white
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      accent: blue
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  logo: '../images/msa_logo_big.png'
+  favicon: '../images/favicon.png'
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - instant
+    - header.autohide
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+
+# plugins
 plugins:
   - search:
       lang: en
@@ -37,8 +77,6 @@ plugins:
   - autorefs
   - section-index
   - mkdocstrings:
-      watch:
-        - msaSDK
       default_handler: python
       handlers:
         python:
@@ -57,10 +95,10 @@ plugins:
             show_signature_annotations: true
             heading_level: 2
 
-
-
+# extensions
 markdown_extensions:
   - admonition
+  - mdx_include
   - toc:
       permalink: true
   - pymdownx.highlight:
@@ -99,46 +137,11 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
-theme:
-  name: material
-  language: en
-  custom_dir: 'docs'
-  icon:
-    repo: fontawesome/brands/github
-  palette:
-    # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      accent: blue
-      primary: white
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-
-    # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      accent: blue
-      primary: black
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-
-  logo: '../images/msa_logo_big.png'
-  favicon: '../images/favicon.png'
-  features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - instant
-    - header.autohide
-    - content.code.annotate
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-
+# extras
 extra_css:
   - css/mkdocstrings.css
 
+# navigation
 nav:
   - Home:
     - index.md

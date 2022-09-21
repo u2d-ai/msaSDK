@@ -3,12 +3,13 @@
 from fastapi import APIRouter
 from starlette.requests import Request
 
-from msaSDK.utils.sysinfo import get_sysinfo, MSASystemInfo, MSASystemGPUInfo, get_sysgpuinfo
+from msaSDK.utils.sysinfo import (MSASystemGPUInfo, MSASystemInfo,
+                                  get_sysgpuinfo, get_sysinfo)
 
 sys_router = APIRouter(prefix="", tags=["system"], include_in_schema=True)
 
 
-@sys_router.get('/sysinfo', response_model=MSASystemInfo)
+@sys_router.get("/sysinfo", response_model=MSASystemInfo)
 def system_info(request: Request) -> MSASystemInfo:
     """Get System Info
 
@@ -23,7 +24,7 @@ def system_info(request: Request) -> MSASystemInfo:
     return sysinfo
 
 
-@sys_router.get('/sysgpuinfo', response_model=MSASystemGPUInfo)
+@sys_router.get("/sysgpuinfo", response_model=MSASystemGPUInfo)
 def system_gpu_info(request: Request) -> MSASystemGPUInfo:
     """Get System Nvidia GPU's Info
 
@@ -38,7 +39,7 @@ def system_gpu_info(request: Request) -> MSASystemGPUInfo:
     return sysgpuinfo
 
 
-@sys_router.get('/syserror')
+@sys_router.get("/syserror")
 def system_test_error(request: Request) -> TypeError:
     """Create an Error to test the interception middleware.
 
@@ -53,4 +54,4 @@ def system_test_error(request: Request) -> TypeError:
 
 
     """
-    raise TypeError('msaSDK System Test error...')
+    raise TypeError("msaSDK System Test error...")

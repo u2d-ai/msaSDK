@@ -1,4 +1,4 @@
-# amis
+# amis v1.10.1
 
 amis is a low-code front-end framework that uses JSON configuration to generate pages, which can reduce page development efforts and greatly improve efficiency.
 
@@ -14,10 +14,9 @@ Building a parser that can generate a JSON for a UI seemed pretty straight forwa
 
 Here an example:
 
-=== UI
-  ![Smis Schema Example](../images/msa_amis_schema_example.png)
-
-=== JSON
+=== "UI"
+    ![Smis Schema Example](../images/msa_amis_schema_example.png)
+=== "JSON"
     ```python
     {
       "title": "Browser kernel support for CSS",

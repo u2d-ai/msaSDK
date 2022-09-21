@@ -103,7 +103,7 @@ def init_logging():
             uvicorn_logger.handlers = [intercept_handler]
         except:
             pass
-    #logging.getLogger().handlers = [intercept_handler]
+    # logging.getLogger().handlers = [intercept_handler]
     logging.getLogger("uvicorn").handlers = []
     logging.getLogger("rocketry").handlers = []
 
