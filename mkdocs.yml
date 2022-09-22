@@ -138,6 +138,11 @@ markdown_extensions:
       alternate_style: true
 
 # extras
+extra:
+  analytics:
+    provider: google
+    property: G-06Q4RT8KC2
+
 extra_css:
   - css/mkdocstrings.css
 

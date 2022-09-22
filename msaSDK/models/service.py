@@ -102,7 +102,7 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enable Context Middleware."""
     pagination: bool = False
     """Enable FastAPI Pagination."""
-    profiler: bool = True
+    profiler: bool = False
     """Enable Profiler Middleware."""
     profiler_output_type: str = "html"  # text or html
     """Set the Profiler Output Type, should be html or text, html is needed if you want to use the profiler on the Admin Site."""
