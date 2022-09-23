@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://msa.u2d.ai/images/msa_logo_big.png?raw=true" alt="MSA SDK image"/>
+  <img src="http://msa.u2d.ai/images/msaSDK_logo.png?raw=true" alt="MSA SDK image"/>
 </p>
 
 ------

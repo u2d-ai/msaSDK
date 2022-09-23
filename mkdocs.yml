@@ -39,7 +39,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-  logo: '../images/msa_logo_big.png'
+  logo: '../images/msaSDK_logo.png'
   favicon: '../images/favicon.png'
   features:
     - navigation.tabs

@@ -493,7 +493,7 @@ class App(Page):
     """ Page configuration interface, please configure if you want to pull the page configuration remotely. Return the configuration path json>data>pages, please refer to the pages property for the exact format. """
     brandName: Optional[str] = None
     """ Application name """
-    logo: str = "/msastatic/img/msa_logo.png"
+    logo: str = "/msastatic/img/msaSDK_logo.png"
     """ Support image address, or svg. """
     className: Optional[str] = None
     """ css class name """
