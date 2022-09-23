@@ -1,6 +1,6 @@
 dist/* linguist-documentation
 docs/* linguist-documentation
-docs_dist_site/* linguist-documentation
+dist_docs/* linguist-documentation
 msaSDK/msastatic/* linguist-vendored
 *.html linguist-detectable=false
 *.js linguist-detectable=false
