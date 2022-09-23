@@ -1,4 +1,4 @@
-ERROR = "SPK_V1_ERROR"
+ERROR = "MSA_V1_ERROR"
 ERROR_NO_TEXT = '{"' + ERROR + '": "' + "InputText empty" + '"}'
 
 ERROR_NO_FILE = '{"' + ERROR + '": "' + "No File provided" + '"}'
