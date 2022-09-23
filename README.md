@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
 ## License Agreement
 
-- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about msaSDK - Auth Admin in the display interface.
+- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please show/list the copyright information about msaSDK somewhere.
 
 
 ## How to create the documentation
