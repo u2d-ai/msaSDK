@@ -1,9 +1,9 @@
 from fastapi_utils.api_settings import APISettings
-from sqlmodel import SQLModel
+from pydantic import BaseModel
 
 
-class MSAAppSettings(APISettings, SQLModel):
-    """MSAAppSettingsbase, inherit APISettings and SQLModel
+class MSAAppSettings(APISettings, BaseModel):
+    """MSAAppSettingsbase, inherit APISettings and BaseModel
 
     Pydantic gives a powerful tool to parse also environment variables and process them with its validators.
     """

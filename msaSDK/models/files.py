@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 """Module for the MSAFile Pydantic Model.
 
-
 """
 
-from sqlmodel import SQLModel
-
-"""str: Module Version"""
+from pydantic import BaseModel
 from typing import Optional
 
 
-class MSAFile(SQLModel):
+class MSAFile(BaseModel):
     """MSAFile Model, used for File Import/Upload."""
 
     filename: Optional[str] = None

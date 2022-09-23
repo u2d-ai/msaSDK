@@ -61,6 +61,8 @@ fs.smbfs~=1.0.5 # SMB support
 
 # Scheduler
 rocketry~=2.3.0 # Rocketry is a modern scheduling framework for Python applications
+pytz~=2022.2.1 # World timezone definitions, modern and historical
+redbird~=0.5.1 # Repository Patterns for Python
 
 # Starlette related Dependencies
 sse_starlette~=1.1.6 # Server Sent Events for Starlette and FastAPI
@@ -102,7 +104,7 @@ pandas-profiling~=3.3.0 # Generate profile report for pandas DataFrame
 pillow~=9.2.0 # Python Imaging Library (Fork)
 python-magic~=0.4.27 # File type identification using libmagic
 python-multipart~=0.0.5 # A streaming multipart parser for Python
-pytz~=2022.2.1 # World timezone definitions, modern and historical
+
 
 
 # Documentation related Libraries

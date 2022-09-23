@@ -3,10 +3,10 @@
 import html
 from typing import Dict, List, Optional, Tuple
 
-from sqlmodel import SQLModel
+from pydantic import BaseModel
 
 
-class WDCPosition(SQLModel):  # Used for entity
+class WDCPosition(BaseModel):  # Used for entity
     id: int = 0
     pageid: int = -1
     paraid: int = -1  #
@@ -15,7 +15,7 @@ class WDCPosition(SQLModel):  # Used for entity
     e: int = -1
 
 
-class WDCWord(SQLModel):
+class WDCWord(BaseModel):
     id: int = -1
     text: str = ""
     lemma: str = ""
@@ -29,7 +29,7 @@ class WDCWord(SQLModel):
     role: str = ""
 
 
-class WDCToken(SQLModel):
+class WDCToken(BaseModel):
     id: int = -1
     position: WDCPosition = WDCPosition()
     nwords: int = 0
@@ -46,7 +46,7 @@ class WDCToken(SQLModel):
             self.nwords = len(self.words)
 
 
-class WDCTriple(SQLModel):
+class WDCTriple(BaseModel):
     id: int = -1
     position: WDCPosition = WDCPosition()
     score: float = 0.0
@@ -57,7 +57,7 @@ class WDCTriple(SQLModel):
     perspective: Dict = {}
 
 
-class WDCItem(SQLModel):
+class WDCItem(BaseModel):
     id: int = -1
     score: float = 0.0
     text: str = ""
@@ -66,7 +66,7 @@ class WDCItem(SQLModel):
     pos_text: List[str] = []
 
 
-class WDCMeaning(SQLModel):  # Used for entity
+class WDCMeaning(BaseModel):  # Used for entity
     id: int = -1
     positions: List[WDCPosition] = []
     description: str = ""
@@ -477,7 +477,7 @@ class WDCMeaning(SQLModel):  # Used for entity
         return ret
 
 
-class WDCSpan(SQLModel):  # Used for entity
+class WDCSpan(BaseModel):  # Used for entity
     id: int = -1
     text: str = ""
     ntokens: int = 0
@@ -497,7 +497,7 @@ class WDCSpan(SQLModel):  # Used for entity
                 pos.id = xi
 
 
-class WDCMLEntry(SQLModel):
+class WDCMLEntry(BaseModel):
     id: int = -1  #
     text: str = ""  #
     text_en: str = ""  #
@@ -540,7 +540,7 @@ class WDCMLEntry(SQLModel):
             self.meanings.append(meaning)
 
 
-class WDCSentence(SQLModel):
+class WDCSentence(BaseModel):
     id: int = -1  #
     text: str = ""  #
     text_en: str = ""  #
@@ -589,7 +589,7 @@ class WDCSentence(SQLModel):
             triple.id = self.ntriples - 1
 
 
-class WDCParagraph(SQLModel):
+class WDCParagraph(BaseModel):
     id: int = -1
     content: str = ""
     semantic: str = ""
@@ -623,7 +623,7 @@ class WDCParagraph(SQLModel):
         return ret
 
 
-class WDCPage(SQLModel):
+class WDCPage(BaseModel):
     id: int = -1
     content: str = ""
     nparagraphs: int = 0
@@ -638,7 +638,7 @@ class WDCPage(SQLModel):
             self.nparagraphs = len(self.paragraphs)
 
 
-class WDCMLDocument(SQLModel):
+class WDCMLDocument(BaseModel):
     content: str = ""
     nentries: int = 0
     targetsList: List = []
@@ -697,7 +697,7 @@ class WDCMLDocument(SQLModel):
             self.nentries = len(self.entries)
 
 
-class WDCDocument(SQLModel):
+class WDCDocument(BaseModel):
     content: str = ""
     npages: int = 0  #
     nparagraphs: int = 0

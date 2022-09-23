@@ -1,10 +1,9 @@
 import datetime
 from typing import Any, List, Optional, Union
+from pydantic import BaseModel
 
-from sqlmodel import SQLModel
 
-
-class MSASchedulerRepoLogRecord(SQLModel):
+class MSASchedulerRepoLogRecord(BaseModel):
     """**MSASchedulerRepoLogRecord** Pydantic Response Class"""
 
     task_name: str
@@ -30,7 +29,7 @@ class MSASchedulerRepoLogRecord(SQLModel):
     formatted_message: Any
 
 
-class MSASchedulerTaskDetail(SQLModel):
+class MSASchedulerTaskDetail(BaseModel):
     """**MSASchedulerTaskDetail** Pydantic Response Class"""
 
     permanent_task: bool
@@ -64,7 +63,7 @@ class MSASchedulerTaskDetail(SQLModel):
     sys_paths: List
 
 
-class MSASchedulerTaskStatus(SQLModel):
+class MSASchedulerTaskStatus(BaseModel):
     """**MSASchedulerTaskStatus** Pydantic Response Class"""
 
     name: Optional[str] = None
@@ -73,7 +72,7 @@ class MSASchedulerTaskStatus(SQLModel):
     """Task detail."""
 
 
-class MSASchedulerStatus(SQLModel):
+class MSASchedulerStatus(BaseModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """
@@ -86,7 +85,7 @@ class MSASchedulerStatus(SQLModel):
     """Optional Message Text"""
 
 
-class MSASchedulerLog(SQLModel):
+class MSASchedulerLog(BaseModel):
     """
     **MSASchedulerStatus** Pydantic Response Class
     """

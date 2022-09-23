@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from typing import List
+from pydantic import BaseModel
 
-from sqlmodel import SQLModel
 
-
-class WFLModule(SQLModel):
+class WFLModule(BaseModel):
     id: int = -1
     short: str = ""
     name: str = ""
@@ -16,7 +15,7 @@ class WFLModule(SQLModel):
         orm_mode = False
 
 
-class WFLNodeType(SQLModel):
+class WFLNodeType(BaseModel):
     id: int = -1
     short: str = ""
     name: str = ""

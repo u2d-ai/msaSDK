@@ -3,15 +3,10 @@
 """Module for the Semantic Document Understanding - Content
 
 """
-
-
-from sqlmodel import SQLModel
-
-"""str: Module Version"""
+from pydantic import BaseModel
 import html
 import os
 from typing import Dict, List, Optional, Tuple
-
 from msaSDK.utils.htmlutils import sanitize
 
 
@@ -40,7 +35,7 @@ def getCRParagraph() -> str:
     return ret
 
 
-class SDUPageImage(SQLModel):
+class SDUPageImage(BaseModel):
     """Page Image Pydantic Model.
 
     Storing the information about the Image representation of a Page.
@@ -59,7 +54,7 @@ class SDUPageImage(SQLModel):
         orm_mode = False
 
 
-class SDUEmail(SQLModel):
+class SDUEmail(BaseModel):
     """Parsed EMail Pydantic Model."""
 
     msg_id: str = ""
@@ -83,7 +78,7 @@ class SDUEmail(SQLModel):
         orm_mode = False
 
 
-class SDULanguage(SQLModel):
+class SDULanguage(BaseModel):
     """Detected Language Pydantic Model."""
 
     code: str = "unknown"  # Short de, en etc.
@@ -99,7 +94,7 @@ class SDULanguage(SQLModel):
         orm_mode = False
 
 
-class SDUStatistic(SQLModel):
+class SDUStatistic(BaseModel):
     """Text Statistics Pydantic Model."""
 
     avg_character_per_word: float = 0
@@ -131,7 +126,7 @@ class SDUStatistic(SQLModel):
         orm_mode = False
 
 
-class SDUSentence(SQLModel):
+class SDUSentence(BaseModel):
     id: int = -1
     text: str = ""
     xpos: List[str] = []
@@ -142,7 +137,7 @@ class SDUSentence(SQLModel):
         orm_mode = False
 
 
-class SDUPDFElement(SQLModel):
+class SDUPDFElement(BaseModel):
     line_id: int = -1
     span_id: int = -1
     flags: int = 0
@@ -153,7 +148,7 @@ class SDUPDFElement(SQLModel):
     color: int = 0
 
 
-class SDUParagraph(SQLModel):
+class SDUParagraph(BaseModel):
     id: int = -1
     sort: int = -1
     nsen: int = 0
@@ -188,7 +183,7 @@ class SDUParagraph(SQLModel):
         return ret
 
 
-class SDUText(SQLModel):
+class SDUText(BaseModel):
     raw: str = ""
     clean: str = ""
     html_content: str = ""
@@ -200,7 +195,7 @@ class SDUText(SQLModel):
         orm_mode = False
 
 
-class SDUPage(SQLModel):
+class SDUPage(BaseModel):
     page: int = -1
     npar: int = 0
     input: str = ""
@@ -361,7 +356,7 @@ class SDUPage(SQLModel):
         self.input = inputText
 
 
-class SDUVersion(SQLModel):
+class SDUVersion(BaseModel):
     version: str = ""
     creation_date: str = ""
 
@@ -369,7 +364,7 @@ class SDUVersion(SQLModel):
         orm_mode = False
 
 
-class SDULearnset(SQLModel):
+class SDULearnset(BaseModel):
     # dict entry is the class, list are the train entrys for this class
     version: str = ""
     text: Dict = {}
@@ -394,7 +389,7 @@ class SDULearnset(SQLModel):
         orm_mode = False
 
 
-class SDUData(SQLModel):
+class SDUData(BaseModel):
     npages: int = 0  #
     stats: SDUStatistic = SDUStatistic()  #
     pages: List[SDUPage] = []
@@ -419,7 +414,7 @@ class SDUData(SQLModel):
         return await sanitize(self.text.html_content)
 
 
-class SDUBBox(SQLModel):
+class SDUBBox(BaseModel):
     x0: float = -1
     y0: float = -1
     x1: float = -1
@@ -429,7 +424,7 @@ class SDUBBox(SQLModel):
         orm_mode = False
 
 
-class SDUElement(SQLModel):
+class SDUElement(BaseModel):
     id: int
     start: int = -1
     end: int = -1
@@ -438,7 +433,7 @@ class SDUElement(SQLModel):
         orm_mode = False
 
 
-class SDUAttachment(SQLModel):
+class SDUAttachment(BaseModel):
     id: str = ""
     name: str = ""
     path: str = ""
@@ -456,7 +451,7 @@ class SDUAttachment(SQLModel):
         orm_mode = False
 
 
-class SDUDimensions(SQLModel):
+class SDUDimensions(BaseModel):
     id: int = -1
     height: float = 0.0
     width: float = 0.0
@@ -468,7 +463,7 @@ class SDUDimensions(SQLModel):
         orm_mode = False
 
 
-class SDUFonts(SQLModel):
+class SDUFonts(BaseModel):
     id: int = -1
     fontsizes: Dict = {}
     fonts: List = []
@@ -479,7 +474,7 @@ class SDUFonts(SQLModel):
         orm_mode = False
 
 
-class SDULayout(SQLModel):
+class SDULayout(BaseModel):
     id: int = -1
     dimensions: SDUDimensions = SDUDimensions()
     fonts: SDUFonts = SDUFonts()
@@ -501,7 +496,7 @@ class SDULayout(SQLModel):
         orm_mode = False
 
 
-class SDUContent(SQLModel):
+class SDUContent(BaseModel):
     attachments: List[SDUAttachment] = []
     layouts: List[SDULayout] = []
 

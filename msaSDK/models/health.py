@@ -3,11 +3,10 @@
 
 """
 from typing import Optional
+from pydantic import BaseModel
 
-from sqlmodel import SQLModel
 
-
-class MSAHealthDefinition(SQLModel):
+class MSAHealthDefinition(BaseModel):
     """Health Service Definition"""
 
     path: str = "/healthcheck"
@@ -18,7 +17,7 @@ class MSAHealthDefinition(SQLModel):
     """ Is the healtcheck enabled True/False"""
 
 
-class MSAHealthMessage(SQLModel):
+class MSAHealthMessage(BaseModel):
     """Health Pydantic Response Service Message"""
 
     healthy: bool = False

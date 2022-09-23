@@ -4,14 +4,11 @@ from functools import lru_cache
 from typing import List, Any
 
 from pydantic import typing, BaseModel
-from sqlmodel import SQLModel
-
 from msaSDK.storagedict import MSAMemoryDict
-from msaSDK.storagedict.base import MSAStorageDict
 from msaSDK.storagedict.encoding import PickleEncoding
 
 
-class MSAFeatureSettings(SQLModel):
+class MSAFeatureSettings(BaseModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """

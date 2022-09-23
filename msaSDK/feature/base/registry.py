@@ -1,5 +1,4 @@
-from sqlmodel import SQLModel
-
+from pydantic import BaseModel
 from msaSDK.feature.base.operator import MSAOperatorBase
 
 
@@ -39,7 +38,7 @@ def extract_key_from_name(func):
     return helpful_register
 
 
-mappings = MSARegistry(SQLModel)
+mappings = MSARegistry(BaseModel)
 operators = MSARegistry(MSAOperatorBase)
 
 

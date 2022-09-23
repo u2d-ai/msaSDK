@@ -12,12 +12,12 @@ from typing import Dict, List, Optional
 
 import GPUtil
 import psutil
-from sqlmodel import SQLModel
+from pydantic import BaseModel
 
 from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
 
 
-class MSAGPUInfo(SQLModel):
+class MSAGPUInfo(BaseModel):
     """Pydantic GPU Info Model."""
 
     id: Optional[int]
@@ -30,7 +30,7 @@ class MSAGPUInfo(SQLModel):
     uuid: Optional[str]
 
 
-class MSADiskIO(SQLModel):
+class MSADiskIO(BaseModel):
     """Pydantic Disk IO Info Model.
 
     Attributes:
@@ -57,7 +57,7 @@ class MSADiskIO(SQLModel):
     busy_time: Optional[int]
 
 
-class MSANetworkIO(SQLModel):
+class MSANetworkIO(BaseModel):
     """Pydantic Network IO Info Model.
 
     Attributes:
@@ -81,7 +81,7 @@ class MSANetworkIO(SQLModel):
     dropout: Optional[int]
 
 
-class MSANetworkConnection(SQLModel):
+class MSANetworkConnection(BaseModel):
     """Pydantic Network Connection Info Model."""
 
     index: Optional[int]
@@ -101,7 +101,7 @@ class MSANetworkConnection(SQLModel):
     """the PID of the process which opened the socket, if retrievable, else ``None``. On some platforms (e.g. Linux) the availability of this field changes depending on process privileges (root is needed)."""
 
 
-class MSANetworkAdapter(SQLModel):
+class MSANetworkAdapter(BaseModel):
     """Pydantic Network Adapter Info Model."""
 
     family: Optional[int]
@@ -116,14 +116,14 @@ class MSANetworkAdapter(SQLModel):
     """stands for “point to point”; it’s the destination address on a point to point interface (typically a VPN). broadcast and ptp are mutually exclusive. May be None."""
 
 
-class MSANetworkAdapters(SQLModel):
+class MSANetworkAdapters(BaseModel):
     """Pydantic Network Adapters List Model."""
 
     name: str = ""
     adapters: List[MSANetworkAdapter] = []
 
 
-class MSANetworkStat(SQLModel):
+class MSANetworkStat(BaseModel):
     """Pydantic Network Stats Info Model."""
 
     isup: Optional[bool]
@@ -136,14 +136,14 @@ class MSANetworkStat(SQLModel):
     """NIC’s maximum transmission unit expressed in bytes."""
 
 
-class MSANetworkStats(SQLModel):
+class MSANetworkStats(BaseModel):
     """Pydantic Network Stats List Info Model."""
 
     name: str = ""
     adapters: List[MSANetworkStat] = []
 
 
-class MSATemperature(SQLModel):
+class MSATemperature(BaseModel):
     """Pydantic Temperature Info Model."""
 
     label: Optional[str]
@@ -152,14 +152,14 @@ class MSATemperature(SQLModel):
     critical: Optional[float]
 
 
-class MSATemperatures(SQLModel):
+class MSATemperatures(BaseModel):
     """Pydantic Temperatures List Model."""
 
     device: str = ""
     temps: List[MSATemperature] = []
 
 
-class MSACPUFrequency(SQLModel):
+class MSACPUFrequency(BaseModel):
     """Pydantic CPU Frequency Info Model."""
 
     current: Optional[float]
@@ -167,7 +167,7 @@ class MSACPUFrequency(SQLModel):
     max: Optional[int]
 
 
-class MSACPUTimes(SQLModel):
+class MSACPUTimes(BaseModel):
     """Pydantic CPU Timings Info Model."""
 
     user: Optional[float]
@@ -192,7 +192,7 @@ class MSACPUTimes(SQLModel):
     """(Linux 3.2.0+): time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel)"""
 
 
-class MSACPUStats(SQLModel):
+class MSACPUStats(BaseModel):
     """Pydantic CPU Stats Info Model."""
 
     ctx_switches: Optional[int]
@@ -205,7 +205,7 @@ class MSACPUStats(SQLModel):
     """number of system calls since boot. Always set to 0 on Linux."""
 
 
-class MSAMemoryUsage(SQLModel):
+class MSAMemoryUsage(BaseModel):
     """Pydantic Memory Usage Info Model."""
 
     total: Optional[float]
@@ -228,7 +228,7 @@ class MSAMemoryUsage(SQLModel):
     """(UNIX): memory that is marked as not used."""
 
 
-class MSASwap(SQLModel):
+class MSASwap(BaseModel):
     """Pydantic Swapfile Info Model."""
 
     total: Optional[float]
@@ -238,7 +238,7 @@ class MSASwap(SQLModel):
     """the percentage usage calculated as (total - available) / total * 100"""
 
 
-class MSASystemInfo(SQLModel):
+class MSASystemInfo(BaseModel):
     """Pydantic System Info Model."""
 
     OS_Name: str = ""
@@ -281,7 +281,7 @@ class MSASystemInfo(SQLModel):
     """Service Status, running or stopped"""
 
 
-class MSASystemGPUInfo(SQLModel):
+class MSASystemGPUInfo(BaseModel):
     """Pydantic System GPU Info Model."""
 
     OS_Name: str = ""

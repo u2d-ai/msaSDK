@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-__version__ = "0.1.1"
 
 import time
 from threading import Thread
 
 import httpx
 
-from msaSDK.models.service import MSAHealthDefinition
+from msaSDK.models.health import MSAHealthDefinition
 
 
 class MSAHealthCheck(Thread):
