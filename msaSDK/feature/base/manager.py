@@ -183,9 +183,7 @@ class MSAManager(threading.local):
         new_namespace.append(namespace)
 
         return type(self)(
-            storage=self.storage,
-            autocreate=self.autocreate,
-            inputs=self.inputs,
+            settings=self.settings,
             switch_class=self.switch_class,
             namespace=new_namespace,
         )
