@@ -35,7 +35,8 @@
 - **Integrated justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
 - **Integrated Dict with Storage Backend**: Use Dict's with backend storage like redis.
 - **Integrated Signals**: Use and handle Signals and Tasks.
-
+- **Integrated Feature Management**: Feature switch management with conditions.
+- 
 ## Main Dependencies
 
 - [FastAPI](https://fastapi.tiangolo.com/)

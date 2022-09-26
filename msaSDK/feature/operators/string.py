@@ -1,6 +1,5 @@
 from msaSDK.feature.base import MSAOperatorBase
 from msaSDK.feature.base.registry import operators
-from msaSDK.feature.mapping.variables import MSAVariableBase
 
 
 class EqualsStripIgnoreCase(MSAOperatorBase):
@@ -11,10 +10,7 @@ class EqualsStripIgnoreCase(MSAOperatorBase):
     mappings = ("value",)
 
     def applies_to(self, mapping):
-        if isinstance(mapping, MSAVariableBase):
-            mapping = str(mapping.value)
-        else:
-            mapping = str(mapping)
+        mapping = str(mapping)
 
         return mapping.lower().strip() == self.value.lower().strip()
 

@@ -1,6 +1,5 @@
 import threading
 
-from msaSDK import signals
 from msaSDK.feature.base import signal
 from msaSDK.feature.base.signal import switch_unregistered, switch_updated
 from msaSDK.feature.base.switch import MSASwitch
