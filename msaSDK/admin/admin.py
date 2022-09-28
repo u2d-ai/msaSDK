@@ -20,15 +20,15 @@ from starlette.templating import Jinja2Templates
 
 import msaSDK.admin
 from msaSDK.auth.auth import Auth
-from msaSDK.db.crud import MSARouterMixin, MSASQLModelCrud, MSASQLModelSelector
-from msaSDK.db.crud.parser import (MSASQLModelFieldParser, SQLModelField,
-                                   SQLModelListField, get_python_type_parse)
-from msaSDK.db.crud.schema import MSACRUDEnum, MSACRUDOut, MSACRUDPaginator
-from msaSDK.db.crud.utils import (parser_item_id, parser_str_set_list,
-                                  schema_create_by_schema)
+from msaCRUD import MSARouterMixin, MSASQLModelCrud, MSASQLModelSelector
+from msaCRUD.parser import (MSASQLModelFieldParser, SQLModelField,
+                            SQLModelListField, get_python_type_parse)
+from msaCRUD.schema import MSACRUDEnum, MSACRUDOut, MSACRUDPaginator
+from msaCRUD.utils import (parser_item_id, parser_str_set_list,
+                           schema_create_by_schema)
 from msaSDK.service import MSAApp
 
-from ..utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .frontend.components import (Action, ActionType, App, ColumnOperation,
                                   Dialog, Form, FormItem, Iframe, InputExcel,
                                   InputTable, MSAUITpl, Page, PageSchema,
@@ -58,12 +58,12 @@ class LinkModelForm:
     link_model: Table
 
     def __init__(
-        self,
-        pk_admin: "BaseModelAdmin",
-        display_admin: "ModelAdmin",
-        link_model: Union[SQLModel, Table],
-        link_col: Column,
-        item_col: Column,
+            self,
+            pk_admin: "BaseModelAdmin",
+            display_admin: "ModelAdmin",
+            link_model: Union[SQLModel, Table],
+            link_col: Column,
+            item_col: Column,
     ):
         self.link_model = link_model
         self.pk_admin = pk_admin
@@ -77,7 +77,7 @@ class LinkModelForm:
 
     @classmethod
     def bind_model_admin(
-        cls, pk_admin: "BaseModelAdmin", insfield: InstrumentedAttribute
+            cls, pk_admin: "BaseModelAdmin", insfield: InstrumentedAttribute
     ) -> Optional["LinkModelForm"]:
         if not isinstance(insfield.prop, RelationshipProperty):
             return None
@@ -89,7 +89,7 @@ class LinkModelForm:
         item_key = None
         for key in table.foreign_keys:
             if (
-                key.column.table != pk_admin.model.__table__
+                    key.column.table != pk_admin.model.__table__
             ):  # Get associated third-party tables
                 admin = pk_admin.app.site.get_model_admin(key.column.table.name)
                 link_key = key
@@ -126,15 +126,15 @@ class LinkModelForm:
     @property
     def route_delete(self):
         async def route(
-            request: Request,
-            item_id: List[str] = Depends(parser_item_id),
-            link_id: str = Query(
-                ...,
-                min_length=1,
-                title="link_id",
-                example="1,2,3",
-                description="link model Primary key or list of link model primary keys",
-            ),
+                request: Request,
+                item_id: List[str] = Depends(parser_item_id),
+                link_id: str = Query(
+                    ...,
+                    min_length=1,
+                    title="link_id",
+                    example="1,2,3",
+                    description="link model Primary key or list of link model primary keys",
+                ),
         ):
             if not await self.pk_admin.has_update_permission(request, item_id, None):
                 return self.pk_admin.error_no_router_permission(request)
@@ -164,15 +164,15 @@ class LinkModelForm:
     @property
     def route_create(self):
         async def route(
-            request: Request,
-            item_id: List[str] = Depends(parser_item_id),
-            link_id: str = Query(
-                ...,
-                min_length=1,
-                title="link_id",
-                example="1,2,3",
-                description="link model Primary key or list of link model primary keys",
-            ),
+                request: Request,
+                item_id: List[str] = Depends(parser_item_id),
+                link_id: str = Query(
+                    ...,
+                    min_length=1,
+                    title="link_id",
+                    example="1,2,3",
+                    description="link model Primary key or list of link model primary keys",
+                ),
         ):
             if not await self.pk_admin.has_update_permission(request, item_id, None):
                 return self.pk_admin.error_no_router_permission(request)
@@ -210,8 +210,8 @@ class LinkModelForm:
                 "method": "post",
                 "data": "${body.api.data}",
                 "url": "${body.api.url}&link_model="
-                + self.pk_admin.model.__tablename__
-                + "&link_item_id=${api.qsOptions.id}",
+                       + self.pk_admin.model.__tablename__
+                       + "&link_item_id=${api.qsOptions.id}",
             },
         )
         adaptor = None
@@ -222,18 +222,18 @@ class LinkModelForm:
                 level=LevelEnum.danger,
                 confirmText=_("Are you sure you want to add the association?"),
                 api=f"post:{self.pk_admin.app.router_path}{self.pk_admin.router.prefix}{self.path}"
-                + '/${REPLACE(query.link_item_id, "!", "")}?link_id=${IF(ids, ids, id)}',
+                    + '/${REPLACE(query.link_item_id, "!", "")}?link_id=${IF(ids, ids, id)}',
             )  # query.link_item_id
             adaptor = (
-                'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}'
-                "payload=JSON.parse(payload._payload);button_create="
-                + button_create.msa_ui_json()
-                + ";"
-                "payload.data.body.bulkActions.push(button_create);"
-                "payload.data.body.itemActions.push(button_create);"
-                "return payload;".replace(
-                    "action_id", "create" + self.path.replace("/", "_")
-                )
+                    'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}'
+                    "payload=JSON.parse(payload._payload);button_create="
+                    + button_create.msa_ui_json()
+                    + ";"
+                      "payload.data.body.bulkActions.push(button_create);"
+                      "payload.data.body.itemActions.push(button_create);"
+                      "return payload;".replace(
+                "action_id", "create" + self.path.replace("/", "_")
+            )
             )
             button_create_dialog = ActionType.Dialog(
                 icon="fa fa-plus pull-left",
@@ -251,8 +251,8 @@ class LinkModelForm:
                             responseData={
                                 "&": "${body}",
                                 "api.url": "${body.api.url}&link_model="
-                                + self.pk_admin.model.__tablename__
-                                + "&link_item_id=!${api.qsOptions.id}",
+                                           + self.pk_admin.model.__tablename__
+                                           + "&link_item_id=!${api.qsOptions.id}",
                             },
                             qsOptions={"id": f"${self.pk_admin.pk_name}"},
                             adaptor=adaptor,
@@ -267,18 +267,18 @@ class LinkModelForm:
                 level=LevelEnum.danger,
                 confirmText=_("Are you sure you want to remove the association?"),
                 api=f"delete:{self.pk_admin.app.router_path}{self.pk_admin.router.prefix}{self.path}"
-                + "/${query.link_item_id}?link_id=${IF(ids, ids, id)}",
+                    + "/${query.link_item_id}?link_id=${IF(ids, ids, id)}",
             )
             adaptor = (
-                'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}'
-                "payload=JSON.parse(payload._payload);button_delete="
-                + button_delete.msa_ui_json()
-                + ";payload.data.body.headerToolbar.push("
-                + button_create_dialog.msa_ui_json()
-                + ");payload.data.body.bulkActions.push(button_delete);payload.data.body.itemActions.push(button_delete);"
-                "return payload;".replace(
-                    "action_id", "delete" + self.path.replace("/", "_")
-                )
+                    'if(!payload.hasOwnProperty("_payload")){payload._payload=JSON.stringify(payload);}'
+                    "payload=JSON.parse(payload._payload);button_delete="
+                    + button_delete.msa_ui_json()
+                    + ";payload.data.body.headerToolbar.push("
+                    + button_create_dialog.msa_ui_json()
+                    + ");payload.data.body.bulkActions.push(button_delete);payload.data.body.itemActions.push(button_delete);"
+                      "return payload;".replace(
+                "action_id", "delete" + self.path.replace("/", "_")
+            )
             )
         return Service(
             schemaApi=MSAUIAPI(
@@ -357,22 +357,22 @@ class BaseModelAdmin(MSASQLModelCrud):
         return self.link_model_forms
 
     async def get_list_display(
-        self, request: Request
+            self, request: Request
     ) -> List[Union[SQLModelListField, TableColumn]]:
         return self.list_display or list(self.schema_list.__fields__.values())
 
     async def get_list_filter(
-        self, request: Request
+            self, request: Request
     ) -> List[Union[SQLModelListField, FormItem]]:
         return self.list_filter or list(self.schema_filter.__fields__.values())
 
     async def get_list_column(
-        self, request: Request, modelfield: ModelField
+            self, request: Request, modelfield: ModelField
     ) -> TableColumn:
         column = MSAUIParser(modelfield).as_table_column()
         if (
-            await self.has_update_permission(request, None, None)
-            and modelfield.name in self.schema_update.__fields__
+                await self.has_update_permission(request, None, None)
+                and modelfield.name in self.schema_update.__fields__
         ):
             item = await self.get_form_item(
                 request, modelfield, action=MSACRUDEnum.update
@@ -432,13 +432,13 @@ class BaseModelAdmin(MSASQLModelCrud):
         for field in await self.get_list_filter(request):
             modelfield = self.parser.get_modelfield(field, deepcopy=True)
             if modelfield and issubclass(
-                modelfield.type_, (datetime.datetime, datetime.date, datetime.time)
+                    modelfield.type_, (datetime.datetime, datetime.date, datetime.time)
             ):
                 data[modelfield.alias] = f"[-]${modelfield.alias}"
         return MSAUIAPI(
             method="POST",
             url=f"{self.router_path}/list?"
-            + "page=${page}&perPage=${perPage}&orderBy=${orderBy}&orderDir=${orderDir}",
+                + "page=${page}&perPage=${perPage}&orderBy=${orderBy}&orderDir=${orderDir}",
             data=data,
         )
 
@@ -487,7 +487,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         return table
 
     async def get_form_item_on_foreign_key(
-        self, request: Request, modelfield: ModelField, is_filter: bool = False
+            self, request: Request, modelfield: ModelField, is_filter: bool = False
     ) -> Union[Service, MSAUISchemaNode, None]:
         column = self.parser.get_column(modelfield.alias)
         if column is None:
@@ -530,7 +530,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         )
 
     async def get_form_item(
-        self, request: Request, modelfield: ModelField, action: MSACRUDEnum
+            self, request: Request, modelfield: ModelField, action: MSACRUDEnum
     ) -> Union[FormItem, MSAUISchemaNode, None]:
         is_filter = action == MSACRUDEnum.list
         set_default = action == MSACRUDEnum.create
@@ -627,7 +627,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         )
 
     async def get_create_action(
-        self, request: Request, bulk: bool = False
+            self, request: Request, bulk: bool = False
     ) -> Optional[Action]:
         if not await self.has_create_permission(request, None):
             return None
@@ -654,7 +654,7 @@ class BaseModelAdmin(MSASQLModelCrud):
         )
 
     async def get_update_action(
-        self, request: Request, bulk: bool = False
+            self, request: Request, bulk: bool = False
     ) -> Optional[Action]:
         if not await self.has_update_permission(request, None, None):
             return None
@@ -684,7 +684,7 @@ class BaseModelAdmin(MSASQLModelCrud):
             return None
 
     async def get_delete_action(
-        self, request: Request, bulk: bool = False
+            self, request: Request, bulk: bool = False
     ) -> Optional[Action]:
         if not await self.has_delete_permission(request, None):
             return None
@@ -699,7 +699,7 @@ class BaseModelAdmin(MSASQLModelCrud):
                 icon="fa fa-times text-danger",
                 tooltip=_("Delete"),
                 confirmText=_("Are you sure you want to delete row ${%s}?")
-                % self.pk_name,
+                            % self.pk_name,
                 api=f"delete:{self.router_path}/item/${self.pk_name}",
             )
         )
@@ -726,10 +726,10 @@ class BaseModelAdmin(MSASQLModelCrud):
         return list(filter(None, bulkActions))
 
     async def _conv_modelfields_to_formitems(
-        self,
-        request: Request,
-        fields: Iterable[Union[SQLModelListField, ModelField, FormItem]],
-        action: MSACRUDEnum = None,
+            self,
+            request: Request,
+            fields: Iterable[Union[SQLModelListField, ModelField, FormItem]],
+            action: MSACRUDEnum = None,
     ) -> List[FormItem]:
         items = []
         for field in fields:
@@ -789,7 +789,7 @@ class PageSchemaAdmin(BaseAdmin):
             elif isinstance(self.page_schema, PageSchema):
                 self.page_schema = self.page_schema.copy(deep=True)
                 self.page_schema.label = (
-                    self.page_schema.label or self.__class__.__name__
+                        self.page_schema.label or self.__class__.__name__
                 )
             else:
                 raise TypeError()
@@ -832,7 +832,7 @@ class IframeAdmin(PageSchemaAdmin):
             assert self.src, "src is None"
             iframe = self.iframe or Iframe(src=self.src)
             if self.site.settings.site_url and iframe.src.startswith(
-                self.site.settings.site_url
+                    self.site.settings.site_url
             ):
                 self.page_schema.url = iframe.src
             else:
@@ -995,7 +995,7 @@ class BaseFormAdmin(PageAdmin):
         return page
 
     async def get_form_item(
-        self, request: Request, modelfield: ModelField
+            self, request: Request, modelfield: ModelField
     ) -> Union[FormItem, MSAUISchemaNode]:
         return MSAUIParser(modelfield).as_form_item(set_default=True)
 
@@ -1052,7 +1052,7 @@ class FormAdmin(BaseFormAdmin):
         return route
 
     async def handle(
-        self, request: Request, data: MSABaseModel, **kwargs
+            self, request: Request, data: MSABaseModel, **kwargs
     ) -> MSACRUDOut[Any]:
         raise NotImplementedError
 
@@ -1104,35 +1104,35 @@ class ModelAdmin(BaseModelAdmin, PageAdmin):
         return page
 
     async def has_list_permission(
-        self,
-        request: Request,
-        paginator: MSACRUDPaginator,
-        filters: MSABaseModel = None,  # type self.schema_filter
-        **kwargs,
+            self,
+            request: Request,
+            paginator: MSACRUDPaginator,
+            filters: MSABaseModel = None,  # type self.schema_filter
+            **kwargs,
     ) -> bool:
         return await self.has_page_permission(request)
 
     async def has_create_permission(
-        self, request: Request, data: MSABaseModel, **kwargs  # type self.schema_create
+            self, request: Request, data: MSABaseModel, **kwargs  # type self.schema_create
     ) -> bool:
         return await self.has_page_permission(request)
 
     async def has_read_permission(
-        self, request: Request, item_id: List[str], **kwargs
+            self, request: Request, item_id: List[str], **kwargs
     ) -> bool:
         return await self.has_page_permission(request)
 
     async def has_update_permission(
-        self,
-        request: Request,
-        item_id: List[str],
-        data: MSABaseModel,  # type self.schema_update
-        **kwargs,
+            self,
+            request: Request,
+            item_id: List[str],
+            data: MSABaseModel,  # type self.schema_update
+            **kwargs,
     ) -> bool:
         return await self.has_page_permission(request)
 
     async def has_delete_permission(
-        self, request: Request, item_id: List[str], **kwargs
+            self, request: Request, item_id: List[str], **kwargs
     ) -> bool:
         return await self.has_page_permission(request)
 
@@ -1185,11 +1185,11 @@ class ModelAction(BaseFormAdmin, BaseModelAction):
         return action
 
     async def handle(
-        self,
-        request: Request,
-        item_id: List[str],
-        data: Optional[MSABaseModel],
-        **kwargs,
+            self,
+            request: Request,
+            item_id: List[str],
+            data: Optional[MSABaseModel],
+            **kwargs,
     ) -> MSACRUDOut[Any]:
         return MSACRUDOut(data=data)
 
@@ -1198,14 +1198,14 @@ class ModelAction(BaseFormAdmin, BaseModelAction):
         default = ... if self.schema else None
 
         async def route(
-            request: Request,
-            data: self.schema = Body(default=default),  # type:ignore
-            item_id: str = Query(
-                None,
-                title="item_id",
-                example="1,2,3",
-                description="Primary key or list of primary keys",
-            ),
+                request: Request,
+                data: self.schema = Body(default=default),  # type:ignore
+                item_id: str = Query(
+                    None,
+                    title="item_id",
+                    example="1,2,3",
+                    description="Primary key or list of primary keys",
+                ),
         ):
             return await self.handle(
                 request, parser_str_set_list(set_str=item_id), data
@@ -1229,7 +1229,7 @@ class AdminGroup(PageSchemaAdmin):
         return md5_hex(unique_str)[:16]
 
     def append_child(
-        self, child: _PageSchemaAdminT, group_schema: PageSchema = None
+            self, child: _PageSchemaAdminT, group_schema: PageSchema = None
     ) -> None:
         if not child.page_schema:
             return
@@ -1239,9 +1239,9 @@ class AdminGroup(PageSchemaAdmin):
         else:
             for item in self._children:
                 if (
-                    isinstance(item, AdminGroup)
-                    and item.page_schema
-                    and item.page_schema.label == group_label
+                        isinstance(item, AdminGroup)
+                        and item.page_schema
+                        and item.page_schema.label == group_label
                 ):
                     item.append_child(child, group_schema=None)
                     return
@@ -1256,7 +1256,7 @@ class AdminGroup(PageSchemaAdmin):
             if not child.page_schema or not await child.has_page_permission(request):
                 continue
             if (isinstance(child, AdminGroup) and not isinstance(child, AdminApp)) or (
-                isinstance(child, AdminApp) and child.tabs_mode is None
+                    isinstance(child, AdminApp) and child.tabs_mode is None
             ):
                 sub_children = await child.get_page_schema_children(request)
                 if sub_children:
@@ -1329,7 +1329,7 @@ class AdminApp(PageAdmin, AdminGroup):
         return f"/{self.__class__.__name__.lower()}"
 
     def get_admin_or_create(
-        self, admin_cls: Type[_BaseAdminT], register: bool = True
+            self, admin_cls: Type[_BaseAdminT], register: bool = True
     ) -> Optional[_BaseAdminT]:
         if admin_cls not in self._registered and (not register or self.__register_lock):
             return None
@@ -1377,9 +1377,9 @@ class AdminApp(PageAdmin, AdminGroup):
         """
         for admin_cls, admin in self._registered.items():
             if (
-                issubclass(admin_cls, ModelAdmin)
-                and admin_cls.bind_model
-                and admin_cls.model.__tablename__ == table_name
+                    issubclass(admin_cls, ModelAdmin)
+                    and admin_cls.bind_model
+                    and admin_cls.model.__tablename__ == table_name
             ):
                 return admin
             elif isinstance(admin, AdminApp) and self.engine.url == admin.engine.url:
@@ -1411,17 +1411,17 @@ class AdminApp(PageAdmin, AdminGroup):
         app.header = MSAUITpl(
             className="w-full",
             tpl='<div class="flex justify-between"><div></div>'
-            f'<div><a href="{msaSDK.__url__}" target="_blank" '
-            'title="Copyright"><i class="fa fa-github fa-2x"></i></a></div></div>',
+                f'<div><a href="{msaSDK.__url__}" target="_blank" '
+                'title="Copyright"><i class="fa fa-github fa-2x"></i></a></div></div>',
         )
 
         app.footer = (
-            '<div class="p-2 text-center bg-light">'
-            + self.site.settings.site_copyright
-            + f' <a href="{msaSDK.__url__}" target="_blank" '
-            'class="link-secondary">msa-sdk-admin</a> '
-            f'<a target="_blank" href="{msaSDK.__url__}" '
-            f'class="link-secondary" rel="noopener">v{msaSDK.__version__}</a></div> '
+                '<div class="p-2 text-center bg-light">'
+                + self.site.settings.site_copyright
+                + f' <a href="{msaSDK.__url__}" target="_blank" '
+                  'class="link-secondary">msa-sdk-admin</a> '
+                  f'<a target="_blank" href="{msaSDK.__url__}" '
+                  f'class="link-secondary" rel="noopener">v{msaSDK.__version__}</a></div> '
         )
 
         children = await self.get_page_schema_children(request)

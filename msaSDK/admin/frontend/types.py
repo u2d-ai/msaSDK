@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Union, Optional
 
 from pydantic import Extra
 
-from msaSDK.utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 
 import json
 

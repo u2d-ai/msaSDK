@@ -4,8 +4,8 @@ from typing import List, Optional
 
 from pydantic import validator, BaseModel
 
-from msaSDK.models.health import MSAHealthDefinition
-from msaSDK.utils.settings import MSAAppSettings
+from msaUtils.models.health import MSAHealthDefinition
+from msaUtils.settings import MSAAppSettings
 
 
 class MSAServiceStatus(BaseModel):

@@ -13,9 +13,9 @@ from starlette.responses import JSONResponse, Response
 from starlette.routing import BaseRoute, _T
 from starlette.staticfiles import StaticFiles
 
-from msaSDK.jpui.jpcore.justpy_app import JustpyApp
-from msaSDK.jpui.jpcore.webpage import WebPage
-from msaSDK.jpui.justpy.justpy import AjaxEndpoint, JustpyEvents
+from msaJustPyUI.jpcore.justpy_app import JustpyApp, TEMPLATES_DIRECTORY
+from msaJustPyUI.jpcore.webpage import WebPage
+from msaJustPyUI.justpy.justpy import AjaxEndpoint, JustpyEvents
 
 
 #
@@ -72,7 +72,7 @@ class MSAFastAPI(FastAPI, JustpyApp):
         self.UI_STATIC_ROUTE = "/static"
         self.UI_STATIC_NAME = "static"
         self.WebPage = WebPage
-        self.jpui_current_dir = "jpui/justpy"
+        self.jpui_current_dir = TEMPLATES_DIRECTORY # "msaJustPyUI/justpy"
         self.jpui_ajax_url: str = "/zzz_justpy_ajax"
         self.jpui_websocket_url: str = "/"
 
@@ -114,12 +114,12 @@ class MSAFastAPI(FastAPI, JustpyApp):
         self.WebPage.loop = asyncio.get_event_loop()
         self.mount(
             self.UI_STATIC_ROUTE,
-            StaticFiles(directory=self.jpui_current_dir + "/templates"),
+            StaticFiles(directory=self.jpui_current_dir ),
             name=self.UI_STATIC_NAME,
         )
         self.mount(
             "/templates",
-            StaticFiles(directory=self.jpui_current_dir + "/templates"),
+            StaticFiles(directory=self.jpui_current_dir ),
             name="templates",
         )
 

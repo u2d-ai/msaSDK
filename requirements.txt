@@ -1,3 +1,13 @@
+# MSA Dependencies
+msaUtils~=0.0.2 # General utils for Microservices based on FastAPI like Profiler, Scheduler, Sysinfo, Healtcheck, Error Handling etc.
+msaJustPyUI~=0.0.3 # FastAPI adapted JustPy version for Integration of justpy UI Web Framework to msaAppService, which allows simple adding of routes to justpy webpages functions.
+msaCRUD~=0.0.1 # SQLModel/SQLAlchemy/FastAPI - DB Object CRUD/API Automation
+msaFeature~=0.0.1 # Feature switch management with conditions
+msaServer~=0.0.1 # Helper & Wrapper around Uvicorn/Gunicorn for FastAPI based apps
+msaSignal~=0.0.1 # Signals/Events for Starlette/FastAPI.
+msaDocModels~=0.0.1 # MSA Document Pydantic Models and Schemas, used to store Parser, NLP, NLU and AI results for processed documents
+msaStorageDict~=0.0.3 # Dict with a Storage Backend like redis or Zookeeper
+
 # General Dependencies
 aiomultiprocess~=0.9.0 # running a full AsyncIO event loop on each child process
 aiofiles~=22.1.0 # handling local disk files in asyncio applications
@@ -42,22 +52,10 @@ python_dateutil~=2.8.2 # Extensions to the standard Python datetime module
 python-dotenv~=0.20.0 # reads key-value pairs from a .env file and can set them as environment variables.
 python-jose[cryptography]~=3.3.0 # SON Web Signature (JWS), JSON Web Encryption (JWE), JSON Web Key (JWK), and JSON Web Algorithms (JWA)
 regex~=2022.3.2 # Alternative regular expression module, to replace re.
-setuptools~=65.2.0 # Easily download, build, install, upgrade, and uninstall Python packages
 slowapi~=0.1.6 # A rate limiting extension for Starlette and Fastapi
 
-# Filesystem
-fs~=2.4.16 # Module that provides a common interface to any filesystem.
-six~=1.16.0 # Python 2 and 3 compatibility utilities
-pysmb~=1.2.8 # SMB/CIFS library
-fs.webdavfs~=0.4.2 # WebDAV support
-fs-dlk~=0.1.3 # Azure Datalake support
-fs-s3fs~=1.1.1 # Amazon S3 filesystem support
-fs-gcsfs~=1.5.1 # Google Cloud Storage (GCS) support
-fs.googledrivefs~=2.3.0 # Google Drive support
-fs.dropboxfs~=0.2.2.post2 # Dropbox support
-fs.onedrivefs~=1.1.1 # OneDrive support
-fs.youtube~=0.3.1 # Youtube support
-fs.smbfs~=1.0.5 # SMB support
+# Filesystem Dependencies
+msaFilesystem~=0.0.2 # Agnostic Abstract Filesystem API which allows to use S3, GCS, Azure Datalake, your local FS, Youtube etc
 
 # Scheduler
 rocketry~=2.3.0 # Rocketry is a modern scheduling framework for Python applications
@@ -89,14 +87,10 @@ uvicorn~=0.18.3 # The lightning-fast ASGI server.
 uvloop~=0.17.0 # Fast implementation of asyncio event loop on top of libuv
 
 # General Dependencies
-autoflake~=1.6.0 # Removes unused imports and unused variables
-flake8~=5.0.4 # modular source code checker: pep8 pyflakes and co
 fonttools~=4.37.3 # Tools to manipulate font files
 gputil~=1.4.0 # Python module for getting the GPU status from NVIDA GPUs using nvidia-smi.
-isort~=5.10.1 # library to sort Python imports.
 Jinja2~=3.1.2 # A very fast and expressive template engine.
 matplotlib~=3.5.3 # Python plotting package
-mypy~=0.971 # Optional static typing for Python
 numpy~=1.23.3 # NumPy is the fundamental package for array computing with Python.
 orjson~=3.8.0 # Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy
 pandas~=1.4.4 # Powerful data structures for data analysis, time series, and statistics
@@ -105,19 +99,3 @@ pillow~=9.2.0 # Python Imaging Library (Fork)
 python-magic~=0.4.27 # File type identification using libmagic
 python-multipart~=0.0.5 # A streaming multipart parser for Python
 
-
-
-# Documentation related Libraries
-black~=22.8.0 # Code formatter.
-mkdocs~=1.3.1 # Project documentation with Markdown.
-mkdocstrings~=0.19.0 # Automatic documentation from sources, for MkDocs.
-mkdocstrings-python~=0.7.1 # A Python handler for mkdocstrings.
-mkdocs-material~=8.4.4 # Material Design theme for MkDocs
-mkdocs-gen-files~=0.4.0 # MkDocs plugin to programmatically generate documentation pages during the build
-mkdocs-literate-nav~=0.4.1 # MkDocs plugin to specify the navigation in Markdown instead of YAML
-mkdocs-section-index~=0.3.4 # MkDocs plugin to allow clickable sections that lead to an index page
-mkdocs-page-pdf~=0.1.0 # Generate a PDF file for each MkDocs page and adds a download button
-mkdocs-git-revision-date-localized-plugin~=1.1.0
-Pygments~=2.13.0 # generic syntax highlighter
-Markdown~=3.3.7 # implementation of Markdown.
-mdx-include~=1.4.2 # Markdown extension to include local or remote files

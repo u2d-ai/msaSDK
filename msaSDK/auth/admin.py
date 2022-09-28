@@ -14,9 +14,9 @@ from msaSDK.admin.frontend.components import (Action, ActionType,
                                               PageSchema)
 from msaSDK.admin.frontend.constants import DisplayModeEnum, LevelEnum
 from msaSDK.admin.utils.translation import i18n as _
-from msaSDK.db.crud.schema import MSACRUDOut
+from msaCRUD.schema import MSACRUDOut
 
-from ..utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .auth import Auth
 from .auth.models import BaseUser, Group, Permission, Role, User
 from .auth.schemas import UserLoginOut

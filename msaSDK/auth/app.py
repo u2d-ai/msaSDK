@@ -5,7 +5,7 @@ from starlette.requests import Request
 from msaSDK.admin import AdminApp, ModelAdmin
 from msaSDK.admin.frontend.components import PageSchema
 from msaSDK.admin.utils.translation import i18n as _
-from msaSDK.db.crud.utils import schema_create_by_schema
+from msaCRUD.utils import schema_create_by_schema
 
 from .admin import (GroupAdmin, PermissionAdmin, RoleAdmin,  # noqa F401
                     UserAdmin, UserInfoFormAdmin, UserLoginFormAdmin,

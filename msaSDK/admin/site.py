@@ -9,11 +9,11 @@ from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 
 import msaSDK
-from msaSDK.db.crud.schema import MSACRUDOut
+from msaCRUD.schema import MSACRUDOut
 from msaSDK.service import MSAApp
-from msaSDK.utils.sysinfo import get_sysinfo
+from msaUtils.sysinfo import get_sysinfo
 
-from ..utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .admin import AdminApp, BaseAdminSite, IframeAdmin, PageAdmin, RouterAdmin
 from .frontend.components import Divider, Page, PageSchema, Property
 from .utils.translation import i18n as _
