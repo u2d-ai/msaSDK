@@ -10,7 +10,7 @@
 import glob
 from os.path import basename, dirname, isfile, join
 
-version = "0.2.0"
+version = "0.2.5"
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"

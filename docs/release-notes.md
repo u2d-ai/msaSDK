@@ -2,7 +2,7 @@
 ## Next release:
 * New msaAdmin integration, with Admin, AuthAdmin and new Scheduler which supports Dashboard
 
-## 0.2.0
+## 0.2.5
 * Switched from local packages to msa* packages
 * Updated dashboard template, switched to amis version 2.3.0 from 1.10.2 and from local js/css to unpkg.com cdn
 * BugFix: Solved language issues for the sdk based message popup's
