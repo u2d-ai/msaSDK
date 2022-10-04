@@ -138,14 +138,22 @@ class Page(MSAUINode):
         locale: str = "zh_CN",
         site_title: str = "Admin",
         site_icon: str = "",
+        cdn: str = "https://unpkg.com",
+        pkg: str = "amis@2.3.0",
+        theme: str = "cxd",
     ):
         template_path = template_path or self.__default_template_path__
+        theme_css = f'<link href="{cdn}/{pkg}/sdk/{theme}.css" rel="stylesheet"/>' if theme != "cxd" else ""
         return msa_ui_templates(template_path).safe_substitute(
             {
                 "MSAUISchemaJson": self.msa_ui_json(),
-                "locale": locale,
+                "locale": locale.replace("_", "-"),  # Fix #50
+                "cdn": cdn,
+                "pkg": pkg,
                 "site_title": site_title,
                 "site_icon": site_icon,
+                "theme": theme,
+                "theme_css": theme_css,
             }
         )
 

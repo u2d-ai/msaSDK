@@ -25,7 +25,7 @@
 - **Consistency**: With sometimes 10s or 100s of Micro Services, the SDK helps to easy version control and provides a stable Dapr Basis.
 - **High performance**: Based on [FastAPI](https://fastapi.tiangolo.com/zh/). Enjoy all the benefits.
 - **Integrated Scheduler**: Define Scheduler Tasks with natural language timings and dependencies.
-- **Integrated Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms.
+- **Integrated Dashboard UI**: Admin and Optional Auth enabled Dashboard with CRUD Forms based on `fastapi-amis-admin`.
 - **Integrated CRUD**: Generates CRUD Router and Admin Dashboard Forms based on SQLModel and SQLAlchemy.
 - **Integrated Abstract Filesystem**: Agnostic Abstract Filesystem API which allows to use S3, GCS, Azure Datalake, your local FS, Youtube etc.
 - **Integrated justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
@@ -39,7 +39,14 @@
 - [SQLModel](https://sqlmodel.tiangolo.com/)
   combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
   their features .
-
+- **msaUtils**: General utils for Microservices based on FastAPI like Profiler, Scheduler, Sysinfo, Healtcheck, Error Handling etc.
+- **msaJustPyUI**: FastAPI adapted JustPy version for Integration of justpy UI Web Framework to msaAppService, which allows simple adding of routes to justpy webpages functions.
+- **msaCRUD**: SQLModel/SQLAlchemy/FastAPI - DB Object CRUD/API Automation
+- **msaFeature**: Feature switch management with conditions
+- **msaServer**: Helper & Wrapper around Uvicorn/Gunicorn for FastAPI based apps
+- **msaSignal**: Signals/Events for Starlette/FastAPI.
+- **msaDocModels**: # MSA Document Pydantic Models and Schemas, used to store Parser, NLP, NLU and AI results for processed documents
+- **msaStorageDict**: Dict with a Storage Backend like redis or Zookeeper
 
 ### Usage example is in the app module \_\_init\_\_.py
 ```python

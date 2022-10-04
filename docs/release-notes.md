@@ -1,10 +1,11 @@
 # Release Notes
-## Possible future features:
-* Add examples for Admins Pages and additional features of the Admin and auth module
-* versioning? FastAPI versioning
-* camel case support FastAPI-CamelCase
-* fastapi_socketio?
-* Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive? Seems we need a combination of some
+## Next release:
+* New msaAdmin integration, with Admin, AuthAdmin and new Scheduler which supports Dashboard
+
+## 0.2.0
+* Switched from local packages to msa* packages
+* Updated dashboard template, switched to amis version 2.3.0 from 1.10.2 and from local js/css to unpkg.com cdn
+* BugFix: Solved language issues for the sdk based message popup's
 
 ## 0.1.6
 * bug fixed with profiler

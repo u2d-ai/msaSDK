@@ -1,12 +1,12 @@
 # MSA Dependencies
-msaUtils~=0.0.2 # General utils for Microservices based on FastAPI like Profiler, Scheduler, Sysinfo, Healtcheck, Error Handling etc.
-msaJustPyUI~=0.0.3 # FastAPI adapted JustPy version for Integration of justpy UI Web Framework to msaAppService, which allows simple adding of routes to justpy webpages functions.
-msaCRUD~=0.0.1 # SQLModel/SQLAlchemy/FastAPI - DB Object CRUD/API Automation
-msaFeature~=0.0.1 # Feature switch management with conditions
-msaServer~=0.0.1 # Helper & Wrapper around Uvicorn/Gunicorn for FastAPI based apps
-msaSignal~=0.0.1 # Signals/Events for Starlette/FastAPI.
-msaDocModels~=0.0.1 # MSA Document Pydantic Models and Schemas, used to store Parser, NLP, NLU and AI results for processed documents
-msaStorageDict~=0.0.3 # Dict with a Storage Backend like redis or Zookeeper
+msaUtils>=0.0.2 # General utils for Microservices based on FastAPI like Profiler, Scheduler, Sysinfo, Healtcheck, Error Handling etc.
+msaJustPyUI>=0.0.3 # FastAPI adapted JustPy version for Integration of justpy UI Web Framework to msaAppService, which allows simple adding of routes to justpy webpages functions.
+msaCRUD>=0.0.1 # SQLModel/SQLAlchemy/FastAPI - DB Object CRUD/API Automation
+msaFeature>=0.0.1 # Feature switch management with conditions
+msaServer>=0.0.1 # Helper & Wrapper around Uvicorn/Gunicorn for FastAPI based apps
+msaSignal>=0.0.1 # Signals/Events for Starlette/FastAPI.
+msaDocModels>=0.0.1 # MSA Document Pydantic Models and Schemas, used to store Parser, NLP, NLU and AI results for processed documents
+msaStorageDict>=0.0.3 # Dict with a Storage Backend like redis or Zookeeper
 
 # General Dependencies
 aiomultiprocess~=0.9.0 # running a full AsyncIO event loop on each child process
@@ -47,9 +47,8 @@ PGPy~=0.5.4 # Pretty Good Privacy for Python
 prometheus_fastapi_instrumentator~=5.9.1 # Instrument your FastAPI with Prometheus metrics
 psutil~=5.9.2 # Cross-platform lib for process and system monitoring in Python.
 python_magic~=0.4.27 # filetype and metadata detection
-pydantic~=1.9.2 # Data validation and settings management using python type hints
+pydantic[email,dotenv]~=1.9.2 # Data validation and settings management using python type hints
 python_dateutil~=2.8.2 # Extensions to the standard Python datetime module
-python-dotenv~=0.20.0 # reads key-value pairs from a .env file and can set them as environment variables.
 python-jose[cryptography]~=3.3.0 # SON Web Signature (JWS), JSON Web Encryption (JWE), JSON Web Key (JWK), and JSON Web Algorithms (JWA)
 regex~=2022.3.2 # Alternative regular expression module, to replace re.
 slowapi~=0.1.6 # A rate limiting extension for Starlette and Fastapi

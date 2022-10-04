@@ -613,6 +613,7 @@ class MSAApp(MSAFastAPI):
 
             self.site = site
             if self.site and self.auto_mount_site:
+                self.site.settings.language="en_US"
                 self.mount_site()
 
         if self.settings.scheduler:
