@@ -10,12 +10,15 @@ from fastapi.utils import generate_unique_id
 from starlette.middleware import Middleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
-from starlette.routing import BaseRoute
+from starlette.routing import BaseRoute, _T
 from starlette.staticfiles import StaticFiles
 
-from msaSDK.jpui.jpcore.justpy_app import JustpyApp
-from msaSDK.jpui.jpcore.webpage import WebPage
-from msaSDK.jpui.justpy.justpy import AjaxEndpoint, JustpyEvents
+from msaJustPyUI.jpcore.justpy_app import JustpyApp, TEMPLATES_DIRECTORY
+from msaJustPyUI.jpcore.webpage import WebPage
+from msaJustPyUI.justpy.justpy import AjaxEndpoint, JustpyEvents
+
+
+#
 
 
 class MSAFastAPI(FastAPI, JustpyApp):
@@ -25,52 +28,51 @@ class MSAFastAPI(FastAPI, JustpyApp):
     """
 
     def __init__(
-        self,
-        *,
-        debug: bool = False,
-        routes: Optional[List[BaseRoute]] = None,
-        title: str = "FastAPI",
-        description: str = "",
-        version: str = "0.1.0",
-        openapi_url: Optional[str] = "/openapi.json",
-        openapi_tags: Optional[List[Dict[str, Any]]] = None,
-        servers: Optional[List[Dict[str, Union[str, Any]]]] = None,
-        dependencies: Optional[Sequence[Depends]] = None,
-        default_response_class: Type[Response] = Default(JSONResponse),
-        docs_url: Optional[str] = "/docs",
-        redoc_url: Optional[str] = "/redoc",
-        swagger_ui_oauth2_redirect_url: Optional[str] = "/docs/oauth2-redirect",
-        swagger_ui_init_oauth: Optional[Dict[str, Any]] = None,
-        middleware: Optional[Sequence[Middleware]] = None,
-        exception_handlers: Optional[
-            Dict[
-                Union[int, Type[Exception]],
-                Callable[[Request, Any], Coroutine[Any, Any, Response]],
-            ]
-        ] = None,
-        on_startup: Optional[Sequence[Callable[[], Any]]] = None,
-        on_shutdown: Optional[Sequence[Callable[[], Any]]] = None,
-        terms_of_service: Optional[str] = None,
-        contact: Optional[Dict[str, Union[str, Any]]] = None,
-        license_info: Optional[Dict[str, Union[str, Any]]] = None,
-        openapi_prefix: str = "",
-        root_path: str = "",
-        root_path_in_servers: bool = True,
-        responses: Optional[Dict[Union[int, str], Dict[str, Any]]] = None,
-        callbacks: Optional[List[BaseRoute]] = None,
-        deprecated: Optional[bool] = None,
-        include_in_schema: bool = True,
-        swagger_ui_parameters: Optional[Dict[str, Any]] = None,
-        generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
-            generate_unique_id
-        ),
-        **extra: Any
+            self,
+            *,
+            debug: bool = False,
+            routes: Optional[List[BaseRoute]] = None,
+            title: str = "FastAPI",
+            description: str = "",
+            version: str = "0.1.0",
+            openapi_url: Optional[str] = "/openapi.json",
+            openapi_tags: Optional[List[Dict[str, Any]]] = None,
+            servers: Optional[List[Dict[str, Union[str, Any]]]] = None,
+            dependencies: Optional[Sequence[Depends]] = None,
+            default_response_class: Type[Response] = Default(JSONResponse),
+            docs_url: Optional[str] = "/docs",
+            redoc_url: Optional[str] = "/redoc",
+            swagger_ui_oauth2_redirect_url: Optional[str] = "/docs/oauth2-redirect",
+            swagger_ui_init_oauth: Optional[Dict[str, Any]] = None,
+            middleware: Optional[Sequence[Middleware]] = None,
+            exception_handlers: Optional[
+                Dict[
+                    Union[int, Type[Exception]],
+                    Callable[[Request, Any], Coroutine[Any, Any, Response]],
+                ]
+            ] = None,
+            on_startup: Optional[Sequence[Callable[[], Any]]] = None,
+            on_shutdown: Optional[Sequence[Callable[[], Any]]] = None,
+            terms_of_service: Optional[str] = None,
+            contact: Optional[Dict[str, Union[str, Any]]] = None,
+            license_info: Optional[Dict[str, Union[str, Any]]] = None,
+            openapi_prefix: str = "",
+            root_path: str = "",
+            root_path_in_servers: bool = True,
+            responses: Optional[Dict[Union[int, str], Dict[str, Any]]] = None,
+            callbacks: Optional[List[BaseRoute]] = None,
+            deprecated: Optional[bool] = None,
+            include_in_schema: bool = True,
+            swagger_ui_parameters: Optional[Dict[str, Any]] = None,
+            generate_unique_id_function: Callable[[routing.APIRoute], str] = Default(
+                generate_unique_id
+            ),
+            **extra: Any
     ) -> None:
-
         self.UI_STATIC_ROUTE = "/static"
         self.UI_STATIC_NAME = "static"
         self.WebPage = WebPage
-        self.jpui_current_dir = "jpui/justpy"
+        self.jpui_current_dir = TEMPLATES_DIRECTORY # "msaJustPyUI/justpy"
         self.jpui_ajax_url: str = "/zzz_justpy_ajax"
         self.jpui_websocket_url: str = "/"
 
@@ -109,18 +111,20 @@ class MSAFastAPI(FastAPI, JustpyApp):
         )
 
     def mount_jp_internal_routes(self):
-
         self.WebPage.loop = asyncio.get_event_loop()
         self.mount(
             self.UI_STATIC_ROUTE,
-            StaticFiles(directory=self.jpui_current_dir + "/templates"),
+            StaticFiles(directory=self.jpui_current_dir ),
             name=self.UI_STATIC_NAME,
         )
         self.mount(
             "/templates",
-            StaticFiles(directory=self.jpui_current_dir + "/templates"),
+            StaticFiles(directory=self.jpui_current_dir ),
             name="templates",
         )
 
         self.add_route("/zzz_justpy_ajax", AjaxEndpoint)
         self.add_websocket_route("/", JustpyEvents)
+
+
+

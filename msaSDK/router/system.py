@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 from starlette.requests import Request
 
-from msaSDK.utils.sysinfo import (MSASystemGPUInfo, MSASystemInfo,
+from msaUtils.sysinfo import (MSASystemGPUInfo, MSASystemInfo,
                                   get_sysgpuinfo, get_sysinfo)
 
 sys_router = APIRouter(prefix="", tags=["system"], include_in_schema=True)

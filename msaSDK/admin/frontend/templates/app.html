@@ -7,12 +7,13 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
     <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
     <link href="${site_icon}" rel="shortcut icon" type="image/x-icon"/>
-    <link href="/msastatic/css/sdk.css" rel="stylesheet" title="default"/>
-    <link href="/msastatic/css/helper.css" rel="stylesheet">
-    <link href="/msastatic/css/iconfont.css" rel="stylesheet">
-    <script src="/msastatic/js/sdk.js"></script>
-    <script src="/msastatic/js/vue.js"></script>
-    <script src="/msastatic/js/history.js"></script>
+    <link href="${cdn}/${pkg}/sdk/sdk.css" rel="stylesheet" title="default"/>
+    <link href="${cdn}/${pkg}/sdk/helper.css" rel="stylesheet"/>
+    <link href="${cdn}/${pkg}/sdk/iconfont.css" rel="stylesheet"/>
+    ${theme_css}
+    <script src="${cdn}/${pkg}/sdk/sdk.js"></script>
+    <script src="${cdn}/vue@2.7.10/dist/vue.js"></script>
+    <script src="${cdn}/history@4.10.1/umd/history.js"></script>
 
     <style>
         html, body,
@@ -23,7 +24,73 @@
             margin: 0;
             padding: 0;
         }
-
+        .amis-scope .cxd-PickerControl.is-inline .cxd-Picker {
+            min-width: 13.55rem;
+        }
+        .amis-scope .cxd-Tabs-links > .cxd-Tabs-link > a:first-child > .cxd-Icon {
+            margin-left: 0.1rem;
+        }
+        .amis-scope .cxd-Layout .cxd-Layout-header {
+            background: var(--body-bg);
+        }
+        .amis-scope .cxd-Layout-brandBar {
+            background: var(--body-bg);
+            box-shadow: var(--Layout-header-boxShadow);
+        }
+        .amis-scope .cxd-Layout-brand img {
+            max-height: calc(var(--Layout-header-height) * .60);
+        }
+        .amis-scope .bg-light {
+            background-color: #f8f9fa;
+            color: #151a26;
+        }
+        :root {
+          --primary: rgb(5, 142, 231);
+          --link-color: rgb(5, 142, 231);
+          --Layout-aside-width: 13.2rem;
+          --Layout--offscreen-width: 75%;
+          --Layout-aside--folded-width: 4.75rem;
+          --Layout-aside--lg-width: 18.75rem;
+          --Layout-aside--md-width: 15.625rem;
+          --Layout-aside--sm-width: 9.375rem;
+          --Layout-aside-bg: rgb(5, 142, 231);
+          --Layout-aside-color: #faf8f7;
+          --Layout-aside-onAcitve-bg: rgba(5, 80, 164, 0.25);
+          --Layout-aside-onHover-bg: rgba(5, 80, 164, 0.15);
+          --Layout-aside-subList-bg: rgb(5, 142, 231);
+          --Layout-aside-onAcitve-onHover-bg: var(--Layout-aside-onAcitve-bg);
+          --Layout-asideDivider-bg: #2e3344;
+          --Layout-asideDivider-margin: var(--gap-sm) 0;
+          --Layout-asideLabel-color: #868787;
+          --Layout-asideLink-arrowColor: var(--Layout-asideLink-color);
+          --Layout-asideLink-color: #faf8f7;
+          --Layout-asideLink-fontSize: var(--fontSizeBase);
+          --Layout-asideLink-fontSize: var(--fontSizeBase);
+          --Layout-asideLink-iconColor: inherit;
+          --Layout-asideLink-onActive-arrowColor: var(
+            --Layout-asideLink-onActive-color
+          );
+          --Layout-asideLink-onActive-color: #fff;
+          --Layout-asideLink-onHover-color: #fff;
+          --Layout-asideLink-onHover-iconColor: inherit;
+          --Layout-asideLink-onHover-iconSize: inherit;
+          --Layout-brand-bg: #fff;
+          --Layout-brand-color: #005b96;
+          --Layout-brandBar-color: #a0a0a0;
+          --Layout-header-bg: var(--white);
+          --Layout-header-boxShadow: 0 0.125rem 0.125rem rgba(0, 0, 0, 0.05),
+            0 1px 0 rgba(0, 0, 0, 0.05);
+          --Layout-header-height: 3.125rem;
+          --Layout-headerBar-borderBottom: none;
+          --Layout-footer-height: 3.125rem;
+          --Layout-nav--folded-height: 3.125rem;
+          --Layout-nav--folded-height: 3.125rem;
+          --Layout-nav-height: 2.5rem;
+          --Layout-nav-height: 2.5rem;
+          --Layout-nav-lgHeight: 3.125rem;
+          --Layout-nav-lgHeight: 3.125rem;
+          --Layout-body-bg: var(--body-bg);
+        }
         /*DropDownButton - Component drop-down menu style modification*/
         .amis-scope .msa-DropDown-menu {
             min-width: 100%;
@@ -165,7 +232,8 @@
 
         history.listen(state => {
             amisInstance.updateProps({
-                location: state.location || state
+                location: state.location || state,
+                locale: "${locale}"
             });
         });
     })();

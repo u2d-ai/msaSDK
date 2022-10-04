@@ -2,10 +2,13 @@
 """
 Copyright (c) 2021 SWelcker
 """
+import os
+from os import path
+
 from loguru import logger
 
 if __name__ == "__main__":
-    from msaSDK import main
-
+    from msaServer import base
+    root_path: str = path.join(os.path.dirname(__file__))
     logger.info("Starting msaSDK Services...")
-    main.run()
+    base.run(app_dir=root_path)

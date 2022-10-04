@@ -1,9 +1,8 @@
 from typing import List, Optional
+from pydantic import BaseModel
 
-from sqlmodel import SQLModel
 
-
-class MSAOpenAPIInfo(SQLModel):
+class MSAOpenAPIInfo(BaseModel):
     """
     **MSAOpenAPIInfo** Pydantic Response Class
     """

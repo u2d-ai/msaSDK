@@ -7,7 +7,7 @@ from fastapi_sessions.backends.implementations import InMemoryBackend
 from fastapi_sessions.frontends.implementations import (CookieParameters,
                                                         SessionCookie)
 from fastapi_sessions.session_verifier import SessionVerifier
-from sqlmodel import SQLModel
+from pydantic import BaseModel
 
 if __name__ == "__main__":
     pass
@@ -37,7 +37,7 @@ cookie = SessionCookie(
 )
 
 
-class SessionData(SQLModel):
+class SessionData(BaseModel):
     email: str
     settings: dict = {}
     input: str = ""

@@ -1,0 +1,22 @@
+# Development/Deployment related Libraries
+autoflake~=1.6.1 # Removes unused imports and unused variables
+black~=22.8.0 # Code formatter.
+flake8~=5.0.4 # modular source code checker: pep8 pyflakes and co
+isort~=5.10.1 # library to sort Python imports.
+mypy~=0.981 # Optional static typing for Python
+setuptools~=65.3.0 # Easily download, build, install, upgrade, and uninstall Python packages
+twine~=4.0.1 # Collection of utilities for publishing packages on PyPI
+
+# Documentation related Libraries
+mkdocs~=1.3.1 # Project documentation with Markdown.
+mkdocstrings~=0.19.0 # Automatic documentation from sources, for MkDocs.
+mkdocstrings-python~=0.7.1 # A Python handler for mkdocstrings.
+mkdocs-material~=8.4.4 # Material Design theme for MkDocs
+mkdocs-gen-files~=0.4.0 # MkDocs plugin to programmatically generate documentation pages during the build
+mkdocs-literate-nav~=0.4.1 # MkDocs plugin to specify the navigation in Markdown instead of YAML
+mkdocs-section-index~=0.3.4 # MkDocs plugin to allow clickable sections that lead to an index page
+mkdocs-page-pdf~=0.1.0 # Generate a PDF file for each MkDocs page and adds a download button
+mkdocs-git-revision-date-localized-plugin~=1.1.0
+Pygments~=2.13.0 # generic syntax highlighter
+Markdown~=3.3.7 # implementation of Markdown.
+mdx-include~=1.4.2 # Markdown extension to include local or remote files

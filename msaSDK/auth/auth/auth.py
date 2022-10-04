@@ -23,11 +23,11 @@ from starlette.websockets import WebSocket
 
 from msaSDK.admin.utils.functools import cached_property
 from msaSDK.admin.utils.translation import i18n as _
-from msaSDK.db.crud.base import MSARouterMixin
-from msaSDK.db.crud.schema import MSACRUDOut
-from msaSDK.db.crud.utils import schema_create_by_schema
+from msaCRUD.base import MSARouterMixin
+from msaCRUD.schema import MSACRUDOut
+from msaCRUD.utils import schema_create_by_schema
 
-from ...utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .backends.base import BaseTokenStore
 from .backends.db import DbTokenStore
 from .models import BaseUser, Role, User, UserRoleLink

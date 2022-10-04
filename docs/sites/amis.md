@@ -15,7 +15,7 @@ Building a parser that can generate a JSON for a UI seemed pretty straight forwa
 Here an example:
 
 === "UI"
-    ![Smis Schema Example](../images/msa_amis_schema_example.png)
+    ![Amis Schema Example](../images/msa_amis_schema_example.png)
 === "JSON"
     ```python
     {

@@ -31,8 +31,8 @@ from msaSDK.service import MSAApp
 # get the MSA app setting, clear the cache, set some settings
 get_msa_app_settings.cache_clear()
 settings = get_msa_app_settings()
-settings.title = "SPK.ai - MSA/SDK MVP"
-settings.version = "SPK.0.0.1"
+settings.title = "u2d.ai - MSA/SDK MVP"
+settings.version = "MSA.0.0.1"
 settings.debug = True
 settings.site_auth = True
 

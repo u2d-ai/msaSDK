@@ -14,9 +14,9 @@ from msaSDK.admin.frontend.components import (Action, ActionType,
                                               PageSchema)
 from msaSDK.admin.frontend.constants import DisplayModeEnum, LevelEnum
 from msaSDK.admin.utils.translation import i18n as _
-from msaSDK.db.crud.schema import MSACRUDOut
+from msaCRUD.schema import MSACRUDOut
 
-from ..utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .auth import Auth
 from .auth.models import BaseUser, Group, Permission, Role, User
 from .auth.schemas import UserLoginOut
@@ -25,7 +25,7 @@ from .auth.schemas import UserLoginOut
 def attach_page_head(page: Page) -> Page:
     page.body = [
         Html(
-            html=f'<div style="display: flex; justify-content: center; align-items: center; margin: 96px 0px 8px;"><img src="/msastatic/img/msa_logo_big.png" alt="logo" style="margin-right: 8px; width: 160px;"></div><div style="display: flex; justify-content: center; align-items: center; margin: 10px 0px 8px;font-size: 32px; font-weight: bold;">Login</div><div style="width: 100%; text-align: center; color: rgba(0, 0, 0, 0.45); margin-bottom: 40px;">{_("msaSDK Admin - Login")}</div>'
+            html=f'<div style="display: flex; justify-content: center; align-items: center; margin: 96px 0px 8px;"><img src="/msastatic/img/msaSDK_logo.png" alt="logo" style="margin-right: 8px; width: 160px;"></div><div style="display: flex; justify-content: center; align-items: center; margin: 10px 0px 8px;font-size: 32px; font-weight: bold;">Login</div><div style="width: 100%; text-align: center; color: rgba(0, 0, 0, 0.45); margin-bottom: 40px;">{_("msaSDK Admin - Login")}</div>'
         ),
         Grid(
             columns=[{"body": [page.body], "lg": 2, "md": 4, "valign": "middle"}],

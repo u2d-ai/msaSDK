@@ -2,14 +2,13 @@
 from functools import lru_cache
 from typing import List, Optional
 
-from pydantic import validator
-from sqlmodel import SQLModel
+from pydantic import validator, BaseModel
 
-from msaSDK.models.health import MSAHealthDefinition
-from msaSDK.utils.settings import MSAAppSettings
+from msaUtils.models.health import MSAHealthDefinition
+from msaUtils.settings import MSAAppSettings
 
 
-class MSAServiceStatus(SQLModel):
+class MSAServiceStatus(BaseModel):
     """
     **MSAServiceStatus** Pydantic Response Class
     """
@@ -102,7 +101,7 @@ class MSAServiceDefinition(MSAAppSettings):
     """Enable Context Middleware."""
     pagination: bool = False
     """Enable FastAPI Pagination."""
-    profiler: bool = True
+    profiler: bool = False
     """Enable Profiler Middleware."""
     profiler_output_type: str = "html"  # text or html
     """Set the Profiler Output Type, should be html or text, html is needed if you want to use the profiler on the Admin Site."""
@@ -131,19 +130,19 @@ class MSAServiceDefinition(MSAAppSettings):
     json_db_memory_only: bool = False
     """JSON DB only in memory, don't store to file/db url"""
     json_db_url: str = "./msa_sdk.json"
-    """Set's DB URL, compatibility with async and SQLModel/SQLAlchemy is required."""
+    """Set's DB URL, compatibility with async and BaseModel/SQLAlchemy is required."""
     sqlite_db: bool = True
     """Enables internal Asynchron SQLite DB."""
     sqlite_db_debug: bool = False
     """Enables internal DB Debug output."""
     sqlite_db_crud: bool = True
-    """Enables CRUD API creation of the provided SQLModels."""
+    """Enables CRUD API creation of the provided BaseModels."""
     sqlite_db_meta_drop: bool = False
     """If True, all existing Data and Schemas in internal DB get's deleted at Startup."""
     sqlite_db_meta_create: bool = True
-    """Enables internal DB Metadata creation from defined SQLModels at Startup."""
+    """Enables internal DB Metadata creation from defined BaseModels at Startup."""
     sqlite_db_url: str = "sqlite+aiosqlite:///msa_sdk.sqlite_db?check_same_thread=True"
-    """Set's DB URL, compatibility with async and SQLModel/SQLAlchemy is required."""
+    """Set's DB URL, compatibility with async and BaseModel/SQLAlchemy is required."""
     ui_justpy: bool = True
     """Enables internal justpy mounting."""
     ui_justpy_demos: bool = True

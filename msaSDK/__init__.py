@@ -10,9 +10,7 @@
 import glob
 from os.path import basename, dirname, isfile, join
 
-import msaSDK.jpui.justpy as justpy
-
-version = "0.1.6"
+version = "0.2.5"
 __author__ = "Stefan Welcker"
 __copyright__ = "Copyright 2022, U2D.ai"
 __license__ = "MIT"

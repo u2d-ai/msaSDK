@@ -39,7 +39,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-  logo: '../images/msa_logo_big.png'
+  logo: 'http://logos.u2d.ai/msaSDK_logo.png'
   favicon: '../images/favicon.png'
   features:
     - navigation.tabs
@@ -138,6 +138,11 @@ markdown_extensions:
       alternate_style: true
 
 # extras
+extra:
+  analytics:
+    provider: google
+    property: G-06Q4RT8KC2
+
 extra_css:
   - css/mkdocstrings.css
 

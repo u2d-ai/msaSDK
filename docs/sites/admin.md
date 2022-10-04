@@ -88,8 +88,8 @@ class TestCategory(SQLModel, table=True):
 # get the MSA app setting, clear the cache, set some settings
 get_msa_app_settings.cache_clear()
 settings = get_msa_app_settings()
-settings.title = "SPK.ai - MSA/SDK MVP"
-settings.version = "SPK.0.0.1"
+settings.title = "u2d.ai - MSA/SDK MVP"
+settings.version = "MSA.0.0.1"
 settings.debug = True
 
 # Create some timers with a MSATimer instance, define the interval and set the handler

@@ -3,7 +3,7 @@ from sqlmodel import Field
 
 from msaSDK.admin.utils.translation import i18n as _
 
-from ...utils.base_model import MSABaseModel
+from msaUtils.base_model import MSABaseModel
 from .models import BaseUser, EmailMixin, PasswordMixin, UsernameMixin
 
 

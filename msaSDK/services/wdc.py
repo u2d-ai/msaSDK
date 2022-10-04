@@ -10,7 +10,7 @@ from msaSDK.models.sdu import SDUPage, SDUSentence
 from msaSDK.models.wdc import (WDCDocument, WDCMLDocument, WDCPage,
                                WDCParagraph, WDCPosition, WDCSentence, WDCSpan,
                                WDCToken, WDCTriple, WDCWord)
-from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
+from msaUtils.errorhandling import getMSABaseExceptionHandler
 
 if __name__ == "__main__":
     pass

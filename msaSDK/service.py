@@ -25,20 +25,20 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import _TemplateResponse
 from starlette_context import plugins
 
-from msaSDK.models.health import MSAHealthMessage
+from msaUtils.models.health import MSAHealthMessage, MSAHealthDefinition
 from msaSDK.models.openapi import MSAOpenAPIInfo
-from msaSDK.models.scheduler import (MSASchedulerLog,
+from msaUtils.models.scheduler import (MSASchedulerLog,
                                      MSASchedulerRepoLogRecord,
                                      MSASchedulerStatus,
                                      MSASchedulerTaskDetail,
                                      MSASchedulerTaskStatus)
-from msaSDK.models.service import (MSAHealthDefinition, MSAServiceDefinition,
+from msaSDK.models.service import (MSAServiceDefinition,
                                    MSAServiceStatus)
 from msaSDK.msaapi import MSAFastAPI
 from msaSDK.security import getMSASecurity
-from msaSDK.utils.errorhandling import getMSABaseExceptionHandler
-from msaSDK.utils.logger import init_logging
-from msaSDK.utils.sysinfo import MSASystemInfo, get_sysinfo
+from msaUtils.errorhandling import getMSABaseExceptionHandler
+from msaUtils.logger import init_logging
+from msaUtils.sysinfo import MSASystemInfo, get_sysinfo
 
 security_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 """Security Context for Password Helper"""
@@ -168,7 +168,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.profiler:
             self.logger.info("Add Middleware Profiler")
-            from msaSDK.utils.profiler import MSAProfilerMiddleware
+            from msaUtils.profiler import MSAProfilerMiddleware
 
             self.add_middleware(
                 MSAProfilerMiddleware,
@@ -246,7 +246,7 @@ class MSAApp(MSAFastAPI):
                     "SQLite DB - Register/CRUD SQL Models: " + str(self.sql_models)
                 )
                 # register all Models and the crud for them
-                from msaSDK.db.crud import MSASQLModelCrud
+                from msaCRUD import MSASQLModelCrud
 
                 for model in self.sql_models:
                     new_crud: MSASQLModelCrud = MSASQLModelCrud(
@@ -270,7 +270,7 @@ class MSAApp(MSAFastAPI):
 
         if self.healthdefinition.enabled:
             self.logger.info("Init Healthcheck")
-            from msaSDK.utils import healthcheck as health
+            from msaUtils import healthcheck as health
 
             self.healthcheck = health.MSAHealthCheck(
                 healthdefinition=self.healthdefinition,
@@ -374,7 +374,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.signal_middleware:
             self.logger.info("Add Middleware Signal")
-            from msaSDK.signals import MSASignalMiddleware
+            from msaSignal.middleware import MSASignalMiddleware
 
             self.add_middleware(MSASignalMiddleware)
         else:
@@ -382,7 +382,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.task_middleware:
             self.logger.info("Add Middleware Task")
-            from msaSDK.signals import MSATaskMiddleware
+            from msaSignal.middleware import MSATaskMiddleware
 
             self.add_middleware(MSATaskMiddleware)
         else:
@@ -517,7 +517,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.scheduler:
             self.logger.info("Add Scheduler")
-            from msaSDK.utils.scheduler import MSAScheduler
+            from msaUtils.scheduler import MSAScheduler
 
             self.scheduler = MSAScheduler(
                 msa_logger=logger_gruru, config={"task_execution": "async"}
@@ -528,7 +528,7 @@ class MSAApp(MSAFastAPI):
 
         if self.settings.abstract_fs:
             self.logger.info("Enable Abstract Filesystem")
-            from msaSDK.filesystem.msafs import MSAFilesystem
+            from msaFilesystem.msafs import MSAFilesystem
 
             self.abstract_fs = MSAFilesystem(fs_url=self.settings.abstract_fs_url)
             self.fs = self.abstract_fs.fs
@@ -542,17 +542,17 @@ class MSAApp(MSAFastAPI):
             if self.settings.ui_justpy_demos:
                 self.logger.info("Enable/Add JP Route - UI justpy Demos")
 
-                from msaSDK.utils.ui_demos.after import after_click_demo
-                from msaSDK.utils.ui_demos.card import cards_demo
-                from msaSDK.utils.ui_demos.click import click_demo
-                from msaSDK.utils.ui_demos.dogs import dogs_demo
-                from msaSDK.utils.ui_demos.drag import drag_demo
-                from msaSDK.utils.ui_demos.happiness import (corr_stag_test,
+                from msaJustPyUI.ui_demos.after import after_click_demo
+                from msaJustPyUI.ui_demos.card import cards_demo
+                from msaJustPyUI.ui_demos.click import click_demo
+                from msaJustPyUI.ui_demos.dogs import dogs_demo
+                from msaJustPyUI.ui_demos.drag import drag_demo
+                from msaJustPyUI.ui_demos.happiness import (corr_stag_test,
                                                              corr_test,
                                                              happiness_demo)
-                from msaSDK.utils.ui_demos.iris import iris_demo
-                from msaSDK.utils.ui_demos.quasar import quasar_demo
-                from msaSDK.utils.ui_demos.uploads import upload_demo
+                from msaJustPyUI.ui_demos.iris import iris_demo
+                from msaJustPyUI.ui_demos.quasar import quasar_demo
+                from msaJustPyUI.ui_demos.uploads import upload_demo
 
                 self.add_jproute("/ui/click", click_demo)
                 self.add_jproute("/ui/cards", cards_demo)
@@ -613,6 +613,7 @@ class MSAApp(MSAFastAPI):
 
             self.site = site
             if self.site and self.auto_mount_site:
+                self.site.settings.language="en_US"
                 self.mount_site()
 
         if self.settings.scheduler:

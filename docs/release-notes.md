@@ -1,12 +1,19 @@
 # Release Notes
-## Possible future features:
-* Add examples for Admins Pages and additional features of the Admin and auth module
-* versioning? FastAPI versioning
-* camel case support FastAPI-CamelCase
-* Feature Flags: Own Implementation Boolean, Multivariates, Temporary, Permanent, PaidUsers, ClosedBeta, PercentageOfUsers, Experimental, DefaultFallbackHandler=func, ConditionalFeature
-* Feature Switch with Conditions based on Pydantic Models, switch can have conditions or just on/of and conditions cheack against an existing pydantic or sqlmodel
-* fastapi_socketio?
-* Events lib? FastApi Events or FastAPI Websocket Pub/Sub fastapi-cloudevents? Webhook receive? Seems we need a combination of some
+## Next release:
+* New msaAdmin integration, with Admin, AuthAdmin and new Scheduler which supports Dashboard
+
+## 0.2.5
+* Switched from local packages to msa* packages
+* Updated dashboard template, switched to amis version 2.3.0 from 1.10.2 and from local js/css to unpkg.com cdn
+* BugFix: Solved language issues for the sdk based message popup's
+
+## 0.1.6
+* bug fixed with profiler
+* bug fixed within sdk.js = was wrong version
+* added script folder
+* renamed docs dist folder
+* added docs_src (todo move all sources there)
+* fixed bug in features and deleted mappings as we don't want to define our models twice
 
 ## 0.1.5
 * Cleaned Static Files

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://msa.u2d.ai/images/msa_logo_big.png?raw=true" alt="MSA SDK image"/>
+  <img src="http://logos.u2d.ai/msaSDK_logo.png?raw=true" alt="MSA SDK image"/>
 </p>
 
 ------
@@ -35,6 +35,7 @@
 - **Integrated justpy WEB UI**: Integrated justpy UI Web Framework to MSAAPI, which allows simple adding of routes to justpy webpages functions.
 - **Integrated Dict with Storage Backend**: Use Dict's with backend storage like redis.
 - **Integrated Signals**: Use and handle Signals and Tasks.
+- **Integrated Feature Management**: Feature switch management with conditions.
 
 ## Main Dependencies
 
@@ -42,7 +43,14 @@
 - [SQLModel](https://sqlmodel.tiangolo.com/)
   combined with  [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/), with all
   their features .
-
+- **msaUtils**: General utils for Microservices based on FastAPI like Profiler, Scheduler, Sysinfo, Healtcheck, Error Handling etc.
+- **msaJustPyUI**: FastAPI adapted JustPy version for Integration of justpy UI Web Framework to msaAppService, which allows simple adding of routes to justpy webpages functions.
+- **msaCRUD**: SQLModel/SQLAlchemy/FastAPI - DB Object CRUD/API Automation
+- **msaFeature**: Feature switch management with conditions
+- **msaServer**: Helper & Wrapper around Uvicorn/Gunicorn for FastAPI based apps
+- **msaSignal**: Signals/Events for Starlette/FastAPI.
+- **msaDocModels**: # MSA Document Pydantic Models and Schemas, used to store Parser, NLP, NLU and AI results for processed documents
+- **msaStorageDict**: Dict with a Storage Backend like redis or Zookeeper
 
 ### Usage example is in the app module \_\_init\_\_.py
 
@@ -155,7 +163,7 @@ if __name__ == '__main__':
 
 ## License Agreement
 
-- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please clearly show the copyright information about msaSDK - Auth Admin in the display interface.
+- `msaSDK`Based on `MIT` open source and free to use, it is free for commercial use, but please show/list the copyright information about msaSDK somewhere.
 
 
 ## How to create the documentation
